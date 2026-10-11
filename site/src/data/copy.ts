@@ -94,3 +94,70 @@ export function statusLine(s: { status: string; version: string; pct: number | n
   if (s.status === "disabled") return "LIVE SOLVER DISABLED FOR THIS SESSION: SHOWING PRECOMPUTED PYTHON RESULTS";
   return "PRECOMPUTED · PYTHON HiGHS";
 }
+
+// ---------------------------------------------------------------- Hour Inspector (interaction 9)
+export interface InspectorCopy { chip: string; title: string; tag: "OBSERVED" | "SIMULATED"; rows: { label: string; value: string; key?: string }[]; check: { text: string; ok: boolean } }
+/** OBSERVED (S03a): positive bands - sinks + the balance residual = demand; the residual is shown, never absorbed. */
+export function inspectorObserved(ba: string, day: Day, h: number): InspectorCopy {
+  const gen = day.observed_gen_mw;
+  const rows: InspectorCopy["rows"] = [];
+  let P = 0, K = 0;
+  for (const k of ["SUN", "WND", "NUC", "WAT", "OTH", "NG", "COL", "OIL"]) {
+    const v = gen[k]?.[h];
+    if (v === undefined) continue;
+    if (v > 0) { P += v; rows.push({ key: k, label: fuelName(k), value: `${int(v)} MW` }); } else if (v < 0) K -= v;
+  }
+  const ti = day.observed_interchange_mw[h]!;
+  if (ti < 0) { P += -ti; rows.push({ key: "IMPORTS", label: "IMPORTS", value: `${int(-ti)} MW` }); }
+  const ex = Math.max(0, ti);
+  if (K > 0.5) rows.push({ label: "CHARGING, STATION USE (SINK)", value: `−${int(K)} MW` });
+  if (ex > 0.5) rows.push({ label: "EXPORTS (SINK)", value: `−${int(ex)} MW` });
+  const D = day.demand_mw[h]!;
+  const R = D - (P - K - ex);
+  rows.push({ label: "BALANCE RESIDUAL (AS REPORTED)", value: `${signedInt(R)} MW` });
+  rows.push({ label: "TEMPERATURE · POP.-WEIGHTED", value: `${fixed(day.temp_c[h]!, 1)} °C` });
+  return {
+    chip: `HOUR ${hh(h)} · ${ba} · ${day.date}`, title: hh(h), tag: "OBSERVED", rows,
+    check: { text: `BANDS ${int(P)} − SINKS ${int(K + ex)} + RESIDUAL ${signedInt(R)} = DEMAND ${int(D)} MW`, ok: Math.abs(P - K - ex + R - D) <= 0.5 },
+  };
+}
+/** SIMULATED (S05, S06, CTRL): positive bands - sinks = served; served + unserved = demand (0.5 MW). */
+export function inspectorSimulated(ba: string, m: BAModel, day: Day, demand: number[], r: DispatchResult, h: number): InspectorCopy {
+  const rows: InspectorCopy["rows"] = [];
+  let P = 0;
+  for (const k of m.display_order) {
+    const v = k === "solar" ? r.renewable_used_mw.solar[h]! : k === "wind" ? r.renewable_used_mw.wind[h]! : k === "imports" ? Math.max(0, day.net_imports_mw[h]!) : k === "other" ? day.fixed_other_mw[h]! : (r.dispatch_mw[k]?.[h] ?? 0);
+    P += v;
+    if (v > 0.5) rows.push({ key: k, label: ledgerRows(m, day, r).find((x) => x.key === k)!.label, value: `${int(v)} MW` });
+  }
+  const ch = r.battery.charge_mw[h]!, ex = Math.max(0, -day.net_imports_mw[h]!), un = r.unserved_mw[h]!, cu = r.curtailment_mw[h]!;
+  if (ch > 0.5) rows.push({ label: "BATTERY CHARGING (SINK)", value: `−${int(ch)} MW` });
+  if (ex > 0.5) rows.push({ label: "EXPORTS (SINK)", value: `−${int(ex)} MW` });
+  const D = demand[h]!, served = P - ch - ex;
+  rows.push({ label: "PRICE (SHADOW, MODEL)", value: `$${fixed(r.price_usd_mwh[h]!, 2)}/MWH` });
+  rows.push({ label: "SET BY", value: r.marginal_class[h]!.toUpperCase() });
+  rows.push({ label: "MODEL SOC", value: `${int(r.battery.soc_mwh[h]!)} → ${int(r.battery.soc_mwh[h + 1]!)} MWH` });
+  rows.push({ label: "CURTAILED", value: `${int(cu)} MW` });
+  rows.push({ label: "UNSERVED", value: `${int(un)} MW` });
+  return {
+    chip: `HOUR ${hh(h)} · ${ba} · ${day.date}`, title: hh(h), tag: "SIMULATED", rows,
+    check: { text: `SERVED ${int(served)} + UNSERVED ${int(un)} = DEMAND ${int(D)} MW`, ok: Math.abs(served + un - D) <= 0.5 },
+  };
+}
+
+// ---------------------------------------------------------------- S06 Stress
+export const STRESS_ORDER = ["renewables_up", "demand_growth", "battery_big", "heat_wave", "outage"] as const;
+export const copyS06 = { kicker: "STRESS · FIVE WAYS TO PUSH THE MACHINE", missing: "SCENARIO NOT PUBLISHED FOR THIS DAY", ghost: "DASHED: BASELINE DEMAND" };
+/** BASELINE → SCENARIO (Δ) rows; every value is a dispatch_results field of the same (ba, day). */
+export function stressRows(b: DispatchResult, x: DispatchResult) {
+  const maxP = (r: DispatchResult) => Math.max(...r.price_usd_mwh);
+  const row = (label: string, a: number, c: number, f: (v: number) => string, df: (v: number) => string) => ({ label, text: `${f(a)} → ${f(c)} (${df(c - a)})` });
+  return [
+    row("MODEL COST", b.objective_usd, x.objective_usd, usd, signedUsd),
+    row("MODEL CO2", b.co2_t, x.co2_t, (v) => `${int(v)} T`, (v) => `${signedInt(v)} T`),
+    row("UNSERVED", b.unserved_mwh, x.unserved_mwh, (v) => `${int(v)} MWH`, (v) => `${signedInt(v)} MWH`),
+    row("CURTAILED", b.curtailed_mwh, x.curtailed_mwh, (v) => `${int(v)} MWH`, (v) => `${signedInt(v)} MWH`),
+    row("MAX PRICE", maxP(b), maxP(x), (v) => `$${fixed(v, 1)}`, (v) => `${v >= 0 ? "+" : "−"}$${fixed(Math.abs(v), 1)}`),
+    row("RENEWABLE SHARE", b.renewable_share_pct, x.renewable_share_pct, (v) => `${fixed(v, 1)}%`, (v) => `${v >= 0 ? "+" : "−"}${fixed(Math.abs(v), 1)} PP`),
+  ];
+}

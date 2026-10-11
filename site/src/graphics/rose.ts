@@ -107,7 +107,7 @@ export interface RoseView {
 /** What was drawn: the hooks for area-truth / radial-only tests. */
 export interface RoseLog {
   R100: number; cx: number; cy: number; rPeakDemand: number;
-  petals: { hour: number; drawn: string[]; bands: { key: string; r0: number; r1: number; mw: number }[] }[];
+  petals: { hour: number; tip: number; drawn: string[]; bands: { key: string; r0: number; r1: number; mw: number }[] }[];
 }
 
 // ---------------------------------------------------------------- drawing
@@ -217,7 +217,7 @@ export function drawRose(ctx: Ctx, petals: PetalIn[], v: RoseView): RoseLog {
     ctx.save();
     ctx.translate(v.cx + Math.cos(mid) * off, v.cy + Math.sin(mid) * off);
     const rD = radius(p.demand, v.R100);
-    const entry: RoseLog["petals"][number] = { hour: h, drawn: [], bands: [] };
+    const entry: RoseLog["petals"][number] = { hour: h, tip: radius(Math.max(p.demand + p.charge + p.exports, p.served), v.R100), drawn: [], bands: [] };
 
     // the visible stack ends at what it served (+ nothing beyond the demand line is coloured)
     const top = Math.min(p.served, p.demand);
@@ -366,4 +366,84 @@ export function drawEdgeGlow(ctx: Ctx, petals: PetalIn[], v: RoseView, color: st
     ctx.fill();
   }
   ctx.restore();
+}
+
+// ---------------------------------------------------------------- PRICE layer (S06, CTRL): the Spectral bins only
+/** VISUAL_DESIGN "PRICE layer": bin edges in USD/MWh and their outer stops (the Spectral orb family). */
+export const PRICE_BINS = [
+  { id: "P0", label: "0 OR BELOW", color: "#FFB26B", test: (p: number) => p <= 0 },
+  { id: "P1", label: "0-25", color: "#C21FD6", test: (p: number) => p <= 25 },
+  { id: "P2", label: "25-50", color: "#FF2F7A", test: (p: number) => p <= 50 },
+  { id: "P3", label: "50-100", color: "#FF6A2B", test: (p: number) => p <= 100 },
+  { id: "P4", label: "100-500", color: "#FFB26B", test: (p: number) => p <= 500 },
+  { id: "P5", label: "500 TO VOLL", color: "#FFD9B5", test: (p: number, voll: number) => p < voll - 1e-6 },
+  { id: "P6", label: "VOLL (UNSERVED)", color: "#FFFFFF", test: () => true },
+] as const;
+export const priceBin = (p: number, voll: number) => PRICE_BINS.findIndex((b) => b.test(p, voll));
+const dim = (hex: string, k: number) => { const n = parseInt(hex.slice(1), 16); return `rgb(${Math.round(((n >> 16) & 255) * k)},${Math.round(((n >> 8) & 255) * k)},${Math.round((n & 255) * k)})`; };
+
+/**
+ * One fill per petal by its SIMULATED shadow price bin (luminance rises with price): a gradient from the bin
+ * colour at 35% brightness to the bin colour, with the rim glow. P0 has no fill, only a dotted tip arc; P6 adds
+ * the unserved hatch. The bands' geometry (and the log) stays the class stack, so area truth is unchanged.
+ */
+export function drawPriceRose(ctx: Ctx, petals: PetalIn[], v: RoseView, bins: (number | null)[]): RoseLog {
+  const log = drawRose(ctx, petals, { ...v, bands: 0, ghost: 0, marks: 0 });
+  petals.forEach((p, i) => {
+    const b = bins[i];
+    if (b === null || b === undefined) return;
+    const bin = PRICE_BINS[b]!;
+    const r1 = radius(Math.min(p.served, p.demand), v.R100);
+    ctx.save();
+    ctx.translate(v.cx, v.cy);
+    if (b === 0) {
+      ctx.strokeStyle = bin.color; ctx.lineWidth = 1; ctx.setLineDash([1, 3]);
+      arcStroke(ctx, r1, p.hour, v);
+      ctx.setLineDash([]);
+    } else {
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(r1, 0.01));
+      g.addColorStop(0, dim(bin.color, 0.35));
+      g.addColorStop(1, bin.color);
+      ctx.fillStyle = g;
+      sectorPath(ctx, 0, r1, p.hour, v);
+      ctx.fill();
+      const rg = Math.max(0, r1 - v.glow);
+      const gl = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(r1, 0.01));
+      gl.addColorStop(clamp(rg / Math.max(r1, 0.01)), "rgba(255,255,255,0)");
+      gl.addColorStop(1, "rgba(255,255,255,0.32)");
+      ctx.fillStyle = gl;
+      sectorPath(ctx, rg, r1, p.hour, v);
+      ctx.fill();
+    }
+    if (p.unserved > 0.5) {
+      const ru = radius(p.served, v.R100), rD = radius(p.demand, v.R100);
+      ctx.fillStyle = hatch(ctx, "#ffffff", "#000000", 1)!;
+      sectorPath(ctx, ru, rD, p.hour, v); ctx.fill();
+      ctx.strokeStyle = UNSERVED_EDGE; ctx.lineWidth = 1;
+      arcStroke(ctx, ru, p.hour, v); arcStroke(ctx, rD, p.hour, v);
+    }
+    ctx.restore();
+  });
+  return log;
+}
+
+/** Dashed (4/3) white arcs at given MW per petal: the S06 baseline ghost (arcs only, never radial). */
+export function drawGhostArcs(ctx: Ctx, mw: number[], v: RoseView, color = "rgba(255,255,255,0.6)", dash: number[] = [4, 3]) {
+  ctx.save();
+  ctx.translate(v.cx, v.cy);
+  ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash(dash);
+  mw.forEach((x, h) => arcStroke(ctx, radius(x, v.R100), h, v));
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+/** The hour under a point (CSS px), or null outside the petal: sky orientation, noon at the top, clockwise. */
+export function hourAt(x: number, y: number, log: RoseLog | null, slack = 6): number | null {
+  if (!log) return null;
+  const dx = x - log.cx, dy = y - log.cy;
+  let a = Math.atan2(dy, dx) + Math.PI / 2;
+  a = ((a % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+  const h = (Math.floor((a / (2 * Math.PI)) * 24) + 12) % 24;
+  const tip = log.petals.find((p) => p.hour === h)?.tip ?? 0;
+  return Math.hypot(dx, dy) <= tip + slack ? h : null;
 }

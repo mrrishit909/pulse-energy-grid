@@ -16,7 +16,7 @@ declare const self: DedicatedWorkerGlobalScope;
 export type ToWorker =
   | { type: "init"; model: DispatchModel }
   | { type: "parity"; vectors: TestVectors }
-  | { type: "solve"; id: number; ba: "CISO" | "ERCO"; dayId: string; params: Params };
+  | { type: "solve"; id: number; ba: "CISO" | "ERCO"; dayId: string; params: Params; timeLimit?: number };
 export type FromWorker =
   | { type: "progress"; loaded: number; total: number | null }
   | { type: "ready"; version: string; loadMs: number }
@@ -58,7 +58,7 @@ async function load() {
 
 function solve(m: Extract<ToWorker, { type: "solve" }>) {
   try {
-    const s = solveDay(highs!, model!.bas[m.ba], m.dayId, m.params);
+    const s = solveDay(highs!, model!.bas[m.ba], m.dayId, m.params, m.timeLimit);
     post({ type: "result", id: m.id, result: s.result, ms: s.ms, check: s.check });
   } catch (e) {
     post({ type: "error", where: "solve", id: m.id, message: (e as Error).message });

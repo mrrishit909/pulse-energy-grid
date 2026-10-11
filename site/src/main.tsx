@@ -10,6 +10,7 @@ import { debug, intro, introTime, quality } from "./scenes/director";
 import { layout } from "./scenes/geometry";
 import { city, fill } from "./state/scenes";
 import { getSolver } from "./state/solver";
+import { stress } from "./scenes/S06Stress";
 
 // The dev gallery is excluded from production builds: the guard is a build-time constant, so the
 // chunk is not emitted. `npm run build:gallery` (VITE_GALLERY=1, separate outDir) is for evidence only.
@@ -33,6 +34,8 @@ Object.assign(window, {
     solver: () => { const s = getSolver(); return { status: s.status, version: s.version, parity: s.parity, error: s.error, attempt: s.attempt }; },
     fill: () => { const f = fill.get(); return { ba: f.ba, dayId: f.dayId, source: f.source, objective: f.result?.objective_usd ?? null, params: f.params, check: f.check, seq: f.resultSeq }; },
     setFill: (p: Partial<{ battery_power_mw: number; battery_hours: number; renewables_scale: number }>) => { const f = fill.get(); if (f.params) fill.set({ params: { ...f.params, ...p }, presetId: null }); },
+    stress: () => stress.get(),
+    setStress: (p: Partial<ReturnType<typeof stress.get>>) => stress.set(p),
     city: () => city.get(),
     setCity: (p: Partial<ReturnType<typeof city.get>>) => city.set(p),
   },

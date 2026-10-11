@@ -19,7 +19,7 @@ export interface SolverState {
   /** a solve is in flight longer than 150ms (no flicker) */
   solving: boolean;
 }
-export interface Solve { ba: BA; dayId: string; params: Params }
+export interface Solve { ba: BA; dayId: string; params: Params; timeLimit?: number }
 type Done = (r: { result: DispatchResult; ms: number; check: string | null } | { error: string }) => void;
 
 let state: SolverState = { status: "idle", loaded: 0, total: null, version: "", loadMs: 0, parity: null, parityError: null, error: null, attempt: 0, solving: false };
@@ -52,7 +52,8 @@ function onMessage(e: MessageEvent<FromWorker>) {
   if (m.type === "progress") set({ loaded: m.loaded, total: m.total });
   else if (m.type === "ready") {
     set({ status: "ready", version: m.version, loadMs: m.loadMs, error: null });
-    if (vectors) worker?.postMessage({ type: "parity", vectors } satisfies ToWorker);
+    // the parity report is cached for the session: a cancel (worker re-created) never re-runs or blanks it
+    if (vectors && !state.parity) worker?.postMessage({ type: "parity", vectors } satisfies ToWorker);
     pump();
   } else if (m.type === "parity") set({ parity: m.report });
   else if (m.type === "result" || (m.type === "error" && m.where === "solve")) {
@@ -97,10 +98,28 @@ export function startSolver(m: DispatchModel, tv?: TestVectors | null) {
   model = m;
   if (tv && !vectors) {
     vectors = tv;
-    if (state.status === "ready") worker?.postMessage({ type: "parity", vectors } satisfies ToWorker);
+    if (state.status === "ready" && !state.parity) worker?.postMessage({ type: "parity", vectors } satisfies ToWorker);
   }
   if (state.status === "idle") create();
 }
+/**
+ * CANCEL: highs.solve is synchronous inside the worker, so cancelling means terminating it and starting a
+ * fresh one (wasm from the HTTP cache). Not a failure: it never counts toward "disabled". The caller keeps its last result.
+ */
+export function cancelSolve() {
+  if (!inflight || !worker) return false;
+  const d = inflight.done;
+  inflight = null; pending = null;
+  clearTimeout(solvingTimer);
+  worker.terminate();
+  worker = null;
+  set({ status: "idle", solving: false });
+  d({ error: "CANCELLED" });
+  create();
+  return true;
+}
+export const solveInFlight = () => !!inflight;
+
 export function retrySolver() {
   if (state.status !== "error") return;
   create();

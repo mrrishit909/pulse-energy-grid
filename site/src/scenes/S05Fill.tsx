@@ -5,9 +5,10 @@ import { ArtifactStatus, RetryButton } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { MODEL, RESULTS } from "../data/artifacts";
-import { co2Line, copyS05, deltaLines, ledgerLine, ledgerRows, parityLine, parityShort, statusLine, totalLine, unservedLine } from "../data/copy";
+import { co2Line, copyS05, deltaLines, inspectorSimulated, ledgerLine, ledgerRows, parityLine, parityShort, statusLine, totalLine, unservedLine } from "../data/copy";
 import { fill } from "../state/scenes";
-import { getSolver, requestSolve, retrySolver, subscribeSolver } from "../state/solver";
+import { getSolver, retrySolver, subscribeSolver } from "../state/solver";
+import { nearestPreset, sameParams, setPreset as setLabPreset, useLiveSolve } from "../state/lab";
 import { useMotion, useProgress } from "../scroll/hooks";
 import { windowed } from "../motion/progress";
 import { percent } from "../data/loader";
@@ -15,10 +16,11 @@ import { fullParams, scenarioDemand } from "../model/lp";
 import { simulatedStack, petals } from "../model/stack";
 import { drawHourLabels, drawRose, FUEL, radius, TOKEN } from "../graphics/rose";
 import { int } from "../model/format";
-import { BAS, type BA, type BAModel, type DispatchResults, type Params, type RangeControl } from "../model/types";
+import { BAS, type BA, type BAModel, type DispatchResults, type RangeControl } from "../model/types";
 import { fitR100, layout } from "./geometry";
 import { useViewport } from "./useViewport";
 import { Still } from "./Still";
+import { HourInspector, RoseHit } from "../components/HourInspector";
 import { viewportClass } from "../graphics/canvas";
 import type { SceneDef } from "../app/scenes";
 
@@ -26,24 +28,7 @@ const LAB = ["battery_power_mw", "battery_hours", "renewables_scale"] as const;
 type LabId = (typeof LAB)[number];
 /** Presets reachable with the three lab sliders alone (used while the live solver is not ready). */
 const SNAP_PRESETS = ["baseline", "battery_big", "renewables_up"];
-
-function nearestPreset(m: BAModel, p: Params) {
-  const ctl = (id: LabId) => m.controls.find((c) => c.id === id) as RangeControl;
-  let best = m.scenarios[0]!, bd = Infinity;
-  for (const s of m.scenarios.filter((x) => SNAP_PRESETS.includes(x.id))) {
-    const d = LAB.reduce((a, id) => { const c = ctl(id); return a + ((s.params[id] - p[id]) / (c.max - c.min)) ** 2; }, 0);
-    if (d < bd) { bd = d; best = s; }
-  }
-  return best;
-}
-const sameParams = (a: Params, b: Params) => (Object.keys(a) as (keyof Params)[]).every((k) => a[k] === b[k]);
-
-function setPreset(m: BAModel, rs: DispatchResults, ba: BA, dayId: string, id: string) {
-  const sc = m.scenarios.find((s) => s.id === id)!;
-  const result = rs.bas[ba].days[dayId]?.[id] ?? null;
-  const f = fill.get();
-  fill.set({ ba, dayId, params: fullParams(m, sc.params), result, source: result ? "precomputed" : "none", presetId: id, check: null, resultSeq: f.resultSeq + 1 });
-}
+const setPreset = (m: BAModel, rs: DispatchResults, ba: BA, dayId: string, id: string) => setLabPreset(fill, m, rs, ba, dayId, id);
 
 const fmtValue = (c: RangeControl, v: number) => (c.unit === "x" ? `×${v.toFixed(2)}` : `${int(v)} ${c.unit === "h" ? "H" : c.unit}`);
 
@@ -56,6 +41,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
   const motion = useMotion();
   const vp = useViewport();
   const isM = viewportClass(vp.w) === "M";
+  const L = layout(vp.w, vp.h);
   const [ph, setPh] = useState({ rows: 0, s2: false, live: false });
   const [draft, setDraft] = useState<Partial<Record<LabId, number>>>({});
   const soc = useRef<SVGPolylineElement>(null);
@@ -74,31 +60,14 @@ export function S05Fill({ def }: { def: SceneDef }) {
   // the lab is inert (not focusable) until it is live (p >= 0.7)
   useEffect(() => { if (lab.current) lab.current.inert = !show.live; });
 
-  // first data: the precomputed baseline of the default day (PRECOMPUTED until the browser solves)
-  useEffect(() => {
-    if (ms.status === "ready" && rs.status === "ready" && !fill.get().result) setPreset(ms.data.bas[f.ba], rs.data, f.ba, f.dayId, "baseline");
-  }, [ms.status, rs.status, f.ba, f.dayId, ms, rs]);
-
-  // live solve whenever params change and the worker is ready (latest-wins inside the client)
-  const pkey = f.params ? JSON.stringify(f.params) : "";
-  useEffect(() => {
-    if (sv.status !== "ready" || !f.params) return;
-    const { ba, dayId, params } = fill.get();
-    requestSolve({ ba, dayId, params: params! }, (r) => {
-      if ("error" in r) { fill.set({ check: r.error }); return; }
-      const cur = fill.get();
-      if (cur.ba !== ba || cur.dayId !== dayId || !sameParams(cur.params!, params!)) return; // stale
-      if (r.check) { fill.set({ check: `SOLVER RESULT FAILED A CHECK: ${r.check}` }); return; }
-      fill.set({ result: r.result, source: "browser", ms: r.ms, check: null, resultSeq: cur.resultSeq + 1 });
-    });
-  }, [sv.status, pkey, f.ba, f.dayId, f.params]);
+  useLiveSolve(fill, f, sv, { model: m, results: rs.status === "ready" ? rs.data : null });
 
   const change = (id: LabId, v: number) => {
     if (!m || !f.params) return;
     const params = { ...f.params, [id]: v };
     if (sv.status === "ready") { fill.set({ params, presetId: null }); return; }
     // solver not ready: snap to the nearest precomputed preset (VISUAL_DESIGN S05 states)
-    if (rs.status === "ready") setPreset(m, rs.data, f.ba, f.dayId, nearestPreset(m, params).id);
+    if (rs.status === "ready") setPreset(m, rs.data, f.ba, f.dayId, nearestPreset(m, params, LAB, SNAP_PRESETS).id);
   };
   const commit = (id: LabId) => { const v = draft[id]; if (v !== undefined) { setDraft((d) => ({ ...d, [id]: undefined })); change(id, v); } };
 
@@ -188,6 +157,13 @@ export function S05Fill({ def }: { def: SceneDef }) {
               {sv.parity ? <p className="state-line parity" data-parity-passed={sv.parity.passed} data-parity-n={sv.parity.n} data-parity-hash={sv.parity.hash}>{isM ? parityShort(sv.parity) : parityLine(sv.parity)}</p>
                 : sv.status === "ready" ? <p className="state-line state-line--muted">PARITY CHECK RUNNING ON THIS BUILD</p> : null}
             </div>
+            {motion && m && day && r && f.params && show.live ? (
+              <>
+                <RoseHit scene="dispatch" box={{ cx: L.G4.cx, cy: L.G4.cy, r: L.G4.fit + 12 }}
+                  label="Model dispatch rose. Enter or a click opens the hour inspector; arrows step the hour." />
+                <HourInspector scene="dispatch" content={(h) => inspectorSimulated(f.ba, m, day, scenarioDemand(m, day, f.params!), r, h)} />
+              </>
+            ) : null}
             {!motion && m && day && r && f.params ? (
               <Still className="fill-still" label="Model dispatch of the day, filled in merit order" deps={[f.resultSeq, f.ba, f.dayId]} draw={(ctx, w, h) => {
                 const LL = layout(w, h, viewportClass(innerWidth));

@@ -5,7 +5,8 @@ import { ArtifactStatus } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { FACTS, MODEL } from "../data/artifacts";
-import { cityReadout, copyS03a, fuelName, rampNote } from "../data/copy";
+import { cityReadout, copyS03a, fuelName, inspectorObserved, rampNote } from "../data/copy";
+import { HourInspector, RoseHit } from "../components/HourInspector";
 import { city } from "../state/scenes";
 import { useMotion, useProgress } from "../scroll/hooks";
 import { jumpTo } from "../scroll/engine";
@@ -51,6 +52,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
   const motion = useMotion();
   const vp = useViewport();
   const isM = viewportClass(vp.w) === "M";
+  const L = layout(vp.w, vp.h);
   useProgress(def.id, (p) => { const h = hourAt(p); if (h !== city.get().hour) city.set({ hour: h }); });
   const m = ms.status === "ready" ? ms.data : null;
   const bm = m?.bas[c.ba];
@@ -113,8 +115,12 @@ export function S03aCity({ def }: { def: SceneDef }) {
             </div>
             <p className="city-note">{copyS03a.note} {copyS03a.scale}</p>
             {motion ? (
-              <div className="city-rose-hit" tabIndex={0} role="img" onKeyDown={onKey}
-                aria-label={`Day rose of ${c.ba} on ${day!.date}, ${r?.hour}: ${r?.served}. Arrow keys step the hour.`} />
+              <>
+                <RoseHit scene="demand" box={{ cx: L.G2.cx, cy: L.G2.cy, r: L.G2.fit + 12 }} onHour={(h) => jumpTo(def.id, hourP(h))}
+                  onKeyFirst={(e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") { onKey(e); return true; } return false; }}
+                  label={`Day rose of ${c.ba} on ${day!.date}, ${r?.hour}: ${r?.served}. Arrow keys step the hour; Enter or a click opens the hour inspector.`} />
+                <HourInspector scene="demand" content={(h) => inspectorObserved(c.ba, day!, h)} />
+              </>
             ) : (
               <div className="city-stills">
                 {STILL_HOURS.map((h) => {

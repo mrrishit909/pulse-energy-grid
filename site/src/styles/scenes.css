@@ -201,3 +201,76 @@ html[data-motion="off"] .fill-lab { opacity: 1; transform: none; }
   .fill-status .state-line { font-size: 10px; }
   .fill-chip .chip { font-size: 11px; padding: 6px; }
 }
+
+/* ---------- shared: rose hit target, bottom sheet / side card, Hour Inspector ---------- */
+.rose-hit { position: absolute; z-index: 1 !important; border-radius: 50%; cursor: crosshair; }
+.rose-hit:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.sheet { position: fixed !important; left: 0; right: 0; bottom: 0; z-index: calc(var(--z-nav) + 2) !important; max-height: 80dvh; overflow: auto; box-sizing: border-box;
+  padding: 16px 16px calc(env(safe-area-inset-bottom, 0px) + 16px); background: var(--surface-primary); border-radius: var(--radius-card) var(--radius-card) 0 0; outline: none;
+  display: flex; flex-direction: column; gap: 12px; animation: sheet-up var(--motion-standard) var(--ease-premium) both; }
+@keyframes sheet-up { from { transform: translateY(24px); opacity: 0; } }
+.sheet--side { left: auto; right: var(--gutter); bottom: calc(var(--nav-clear) + 12px); top: auto; width: 360px; max-height: min(560px, calc(100dvh - 120px)); border-radius: var(--radius-card); animation-name: side-in; }
+@keyframes side-in { from { transform: translateX(24px); opacity: 0; } }
+.sheet__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.sheet__title { font: 400 13px / 1 var(--font-mono); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-muted); }
+.sheet__body { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.inspector__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1; }
+.inspector__rows { margin: 0; width: 100%; display: flex; flex-direction: column; gap: 3px; font: 400 12px / 1.25 var(--font-mono); letter-spacing: var(--tracking-label); }
+.inspector__rows div { display: flex; justify-content: space-between; gap: 12px; }
+.inspector__rows dd { margin: 0; }
+.inspector__check { margin: 0; font: 400 12px / 1.3 var(--font-mono); letter-spacing: var(--tracking-label); color: var(--state-success); }
+.inspector__check.is-bad { color: var(--state-error); }
+html[data-motion="off"] .sheet { animation: none; }
+
+/* ---------- S06 stress lab ---------- */
+.stress-text { left: var(--margin); top: 56px; width: 520px; display: flex; flex-direction: column; gap: 10px; }
+.stress-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.02; animation: stmt-in var(--motion-standard) var(--ease-premium) both; }
+.stress-title:focus { outline: none; }
+.stress-desc { margin: 0; font: 400 15px / 1.25 var(--font-mono); letter-spacing: var(--tracking-body); text-transform: uppercase; }
+.stress-controls { right: var(--gutter); top: 24px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding: 8px; background: rgb(0 0 0 / 0.8); }
+.stress-ledger { left: var(--margin); top: 320px; width: 520px; display: flex; flex-direction: column; gap: 8px; }
+.ledger--stress { font-size: 13px; gap: 6px; }
+.ledger--stress li { grid-template-columns: 170px 1fr; }
+.ledger--stress .tnum { text-align: left; }
+.stress-stepper { left: var(--margin); bottom: calc(var(--nav-clear) + 16px); display: flex; gap: 6px; }
+.stress-stepper .chip-btn { width: 40px; height: 40px; justify-content: center; }
+.stress-legend { left: var(--margin); bottom: calc(var(--nav-clear) + 72px); }
+.stress-chip { right: var(--gutter); bottom: calc(var(--nav-clear) + 16px); }
+.price-legend { display: flex; flex-direction: column; gap: 4px; width: 460px; max-width: calc(100vw - 32px); }
+.price-legend__swatches { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; height: 10px; }
+.price-legend__swatches span { background: var(--c); }
+.price-legend__swatches .is-p0 { background: none; outline: 1px dotted var(--c); outline-offset: -1px; }
+.price-legend__swatches .is-p6 { background: repeating-linear-gradient(45deg, #fff 0 1px, #000 1px 5px); outline: 1px solid var(--state-error); outline-offset: -1px; }
+.price-legend__edges { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font: 400 10px / 1.1 var(--font-mono); letter-spacing: var(--tracking-label); }
+.price-legend__unit { margin: 0; font: 400 11px / 1.2 var(--font-mono); letter-spacing: var(--tracking-label); color: var(--text-muted); }
+.stress-list { position: relative !important; list-style: none; margin: 0; padding: 220px var(--margin) 96px; display: flex; flex-direction: column; gap: 40px; }
+.stress-item { display: flex; flex-direction: column; gap: 10px; }
+.stress-item__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 36px; }
+.stress-still { width: 100%; max-width: 900px; aspect-ratio: 1 / 1; max-height: 70vh; display: block; }
+html[data-motion="off"] .scene-stress .stage-content > .stress-list { position: relative; }
+@media (max-width: 1023px) {
+  .stress-text { left: var(--margin); right: var(--margin); top: 48px; width: auto; }
+  .stress-title { font-size: 36px; }
+  .stress-controls { top: 196px; right: auto; left: var(--margin); flex-direction: row; flex-wrap: wrap; align-items: center; background: none; padding: 0; gap: 8px 16px; }
+  .stress-ledger { top: auto; bottom: calc(var(--nav-clear) + 72px); left: var(--margin); right: var(--margin); width: auto; }
+  .ledger--stress { font-size: 12px; gap: 3px; }
+  .stress-legend { bottom: calc(var(--nav-clear) + 250px); }
+}
+@media (max-width: 767px) {
+  .stress-title { font-size: 28px; }
+  .stress-desc { font-size: 12px; }
+  .stress-text { gap: 6px; }
+  .stress-controls { top: auto; bottom: calc(var(--nav-clear) + 46px); left: 12px; right: 12px; padding: 4px 8px; background: rgb(22 22 22 / 0.94); border-radius: var(--radius-card); flex-wrap: nowrap; justify-content: space-between; gap: 6px; }
+  .stress-controls .seg-ctl { gap: 4px; }
+  .stress-controls .seg-ctl__label { min-width: 0; font-size: 11px; }
+  .stress-controls .chip-btn { padding: 7px 5px; font-size: 11px; }
+  .stress-ledger { top: 532px; bottom: auto; left: 16px; right: 16px; width: auto; gap: 4px; }
+  .ledger--stress li { grid-template-columns: 112px 1fr; font-size: 11px; }
+  .ledger--stress li:nth-child(n + 4), .stress-ledger .fill-footer { display: none; }
+  .stress-stepper { left: 12px; bottom: calc(var(--nav-clear) + 4px); }
+  .stress-stepper .chip-btn { width: 36px; height: 36px; }
+  .stress-chip { top: 160px; bottom: auto; left: 16px; right: auto; }
+  .stress-chip .chip { font-size: 10px; padding: 5px; }
+  .stress-legend { top: 596px; bottom: auto; left: 16px; }
+  .price-legend__edges { font-size: 8px; }
+}

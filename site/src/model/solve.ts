@@ -18,13 +18,14 @@ export const SOLVE_OPTS = { solver: "simplex", presolve: "on", threads: 1, rando
 
 export interface Solved { result: DispatchResult; status: string; ms: number; text: string; check: string | null }
 
-export function solveDay(h: HighsLike, m: BAModel, dayId: string, params: Partial<Params>): Solved {
+/** timeLimit (s): HiGHS time_limit; a non-Optimal status (e.g. "Time limit reached") throws, never returns a result. */
+export function solveDay(h: HighsLike, m: BAModel, dayId: string, params: Partial<Params>, timeLimit?: number): Solved {
   const day = m.days.find((d) => d.id === dayId);
   if (!day) throw new Error(`UNKNOWN DAY ${dayId}`);
   const lp = makeLp(m, day, params);
   const text = toCplexLp(lp);
   const t0 = performance.now();
-  const s = h.solve(text, SOLVE_OPTS);
+  const s = h.solve(text, timeLimit ? { ...SOLVE_OPTS, time_limit: timeLimit } : SOLVE_OPTS);
   const ms = performance.now() - t0;
   if (s.Status !== "Optimal") throw new Error(`SOLVER STATUS ${s.Status.toUpperCase()}`);
   const x = new Float64Array(lp.cost.length);

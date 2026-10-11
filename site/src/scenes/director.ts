@@ -16,13 +16,14 @@ import { motionEnabled } from "../state/motion";
 import { getStore } from "../data/loader";
 import { MODEL } from "../data/artifacts";
 import { city, fill } from "../state/scenes";
-import { drawEdgeGlow, drawHourLabels, drawRose, radius, resetRoseCache, type Ctx, type PetalIn, type RoseLog, type RoseView } from "../graphics/rose";
+import { inspector } from "../state/inspector";
+import { drawEdgeGlow, drawHourLabels, drawPriceRose, drawRose, radius, resetRoseCache, type Ctx, type PetalIn, type RoseLog, type RoseView } from "../graphics/rose";
 import { observedStack, petals, simulatedStack, tweenPetals, firstChanged, type DayStack } from "../model/stack";
 import { scenarioDemand, fullParams } from "../model/lp";
 import { litCount, windows, type Win } from "../model/city";
 import { camera, fillR100, fitR100, layout, type Layout } from "./geometry";
 import { SCENES } from "../app/scenes";
-import type { BAModel, Day } from "../model/types";
+import type { BAModel, Day, DispatchModel } from "../model/types";
 
 export const INTRO_MS = 4600;
 const SCENE_IDS = SCENES.map((s) => s.id);
@@ -115,11 +116,24 @@ function resize() {
 const model = () => { const s = getStore(MODEL).state; return s.status === "ready" ? s.data : null; };
 
 // ------------------------------------------------------------------ per-scene frames
-interface Frame {
-  petals: PetalIn[]; view: RoseView; labels: number; bloom: number; glow: { color: string; a: number } | null;
-  sky: { list: Win[]; lit: number; win: number; base: number; x1: number } | null; sig: string;
+export interface Frame {
+  /** null: no rose this frame (e.g. the S04 week plot after the unroll) */
+  petals: PetalIn[] | null; view: RoseView; labels: number; bloom: number; glow: { color: string; a: number } | null;
+  sky: { list: Win[]; lit: number; win: number; base: number; x1: number; drop?: number } | null; sig: string;
+  /** canvas CSS opacity (S02 backdrop 25%, S07 15%) */
+  opacity?: number;
+  /** a second real state crossfaded over the first (month changes, 200ms; never a per-petal interpolation) */
+  mixB?: { petals: PetalIn[]; view: RoseView; mix: number };
+  /** PRICE layer: one Spectral bin per petal instead of the class stack (S06, CTRL) */
+  price?: (number | null)[];
+  /** scene-specific marks drawn after the rose (CSS px) */
+  extra?: (c: CanvasRenderingContext2D) => void;
 }
-const baseView = (keys: string[], v: Partial<RoseView>): RoseView => ({
+export interface FrameEnv { now: number; p: number; L: Layout; W: number; H: number; model: DispatchModel }
+/** Stage B scenes register their frame builders here (scenes/frames-*.ts). */
+const registry = new Map<string, (env: FrameEnv) => Frame | null>();
+export const registerFrame = (id: string, fn: (env: FrameEnv) => Frame | null) => void registry.set(id, fn);
+export const baseView = (keys: string[], v: Partial<RoseView>): RoseView => ({
   cx: 0, cy: 0, R100: 100, rref: 100, gap: 0.5, ghost: 0, bands: 1, marks: 1, beat: 0, lift: null, liftT: 0, glow: L?.glow ?? 22, keys, ...v,
 });
 
@@ -248,26 +262,41 @@ function dispatchFrame(now: number, m: BAModel, p: number): Frame | null {
   const bel = beatAt < 0 ? 1e9 : now - beatAt;
   const beat = bel < DUR.panel ? (bel < 300 ? easeSmooth(bel / 300) : 1 - easeSmooth((bel - 300) / 300)) : 0;
   const silhouette = !f.result || p < 0.08;
+  const ins = inspector.get();
   const view = baseView(keys, {
+    lift: ins.scene === "dispatch" ? ins.hour : null, liftT: 1,
     cx: L.G4.cx, cy: L.G4.cy, R100: fitR100(L.G4, peak), rref: radius(peak, fitR100(L.G4, peak)), gap: L.gap,
     ghost: 0.08, marks: f.result ? (motion ? windowed(p, 0.55, 0.6) : 1) : 0, beat,
   });
   debug.fillK = fk; debug.pulse = glowA;
   return {
     petals: ps, view, labels: silhouette ? 0 : 0.7, bloom: 0, glow: glowA > 0 ? { color: "#FF4C25", a: glowA } : null, sky: null,
-    sig: `dispatch|${f.ba}|${f.dayId}|${f.resultSeq}|${p.toFixed(4)}|${beat.toFixed(3)}|${glowA.toFixed(3)}|${pulseAt}`,
+    sig: `dispatch|${ins.scene}${ins.hour}|${f.ba}|${f.dayId}|${f.resultSeq}|${p.toFixed(4)}|${beat.toFixed(3)}|${glowA.toFixed(3)}|${pulseAt}`,
   };
 }
 
 // ------------------------------------------------------------------ drawing
 function drawSky(c: CanvasRenderingContext2D, s: NonNullable<Frame["sky"]>) {
   const on = Math.floor(s.lit);
+  c.save();
+  c.translate(0, s.drop ?? 0);
   for (const w of s.list) {
     c.fillStyle = w.rank < on ? "#FFF3A6" : "#1A1A1A";
     c.fillRect(w.x, w.y, s.win, s.win);
   }
   c.fillStyle = "rgba(255,255,255,0.24)";
   c.fillRect(s.list[0]!.x, s.base + 2, s.x1 - s.list[0]!.x, 1);
+  c.restore();
+}
+
+const layers: HTMLCanvasElement[] = [];
+/** Offscreen layer i at the canvas's device size, cleared, with the CSS-px transform set. */
+function layer(i: number) {
+  const c = (layers[i] ??= document.createElement("canvas"));
+  if (c.width !== canvas!.width || c.height !== canvas!.height) { c.width = canvas!.width; c.height = canvas!.height; }
+  const g = c.getContext("2d")!;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  return c;
 }
 
 function renderBloom(f: Frame, key: string) {
@@ -277,7 +306,7 @@ function renderBloom(f: Frame, key: string) {
   small.width = Math.ceil(W / q); small.height = Math.ceil(H / q);
   const sc = small.getContext("2d")!;
   sc.scale(1 / q, 1 / q);
-  drawRose(sc as unknown as Ctx, f.petals, { ...f.view, ghost: 0, marks: 0, beat: 0 });
+  drawRose(sc as unknown as Ctx, f.petals!, { ...f.view, ghost: 0, marks: 0, beat: 0 });
   const blur = document.createElement("canvas");
   blur.width = small.width; blur.height = small.height;
   const bc = blur.getContext("2d")!;
@@ -301,23 +330,43 @@ function draw(now: number) {
     if (id === "pulse") f = pulseFrame(now, m.bas.CISO, getProgress("pulse"));
     else if (id === "demand") f = demandFrame(now, bm);
     else if (id === "dispatch") f = dispatchFrame(now, bm, getProgress("dispatch"));
+    else if (registry.has(id)) f = registry.get(id)!({ now, p: getProgress(id), L, W, H, model: m });
   }
+  const opacity = f?.opacity ?? 1;
+  if (canvas.style.opacity !== String(opacity)) canvas.style.opacity = String(opacity);
   const sig = `${W}x${H}|${f ? f.sig : `none|${id}`}`;
   if (sig === lastSig) return;
   lastSig = sig;
   debug.frames++;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (!f) { debug.log = null; return; }
+  if (!f) { debug.log = null; debug.labels = []; debug.view = null; return; }
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   if (f.sky) drawSky(ctx, f.sky);
-  const log = drawRose(ctx as unknown as Ctx, f.petals, f.view);
-  debug.log = log;
   debug.view = { cx: f.view.cx, cy: f.view.cy, R100: f.view.R100 };
-  // radial-only hook: per petal, the outermost band index with any area (must never exceed the band being filled)
-  debug.bandCounts = log.petals.map((p) => p.bands.reduce((a, b, k) => (b.r1 > b.r0 ? k : a), -1));
-  if (f.glow) drawEdgeGlow(ctx as unknown as Ctx, f.petals, f.view, f.glow.color, f.glow.a);
-  debug.labels = f.labels > 0 ? drawHourLabels(ctx as unknown as Ctx, f.petals, f.view, L.label, f.labels * 0.7) : [];
+  debug.labels = [];
+  if (f.petals) {
+    const draw1 = (c: CanvasRenderingContext2D, ps: PetalIn[], v: RoseView) =>
+      f!.price ? drawPriceRose(c as unknown as Ctx, ps, v, f!.price) : drawRose(c as unknown as Ctx, ps, v);
+    let log: RoseLog;
+    if (f.mixB && f.mixB.mix > 0 && f.mixB.mix < 1) {
+      // crossfade two real states through offscreen layers
+      const a = layer(0), b = layer(1);
+      draw1(a.getContext("2d")!, f.petals, f.view);
+      log = draw1(b.getContext("2d")!, f.mixB.petals, f.mixB.view);
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalAlpha = 1 - f.mixB.mix; ctx.drawImage(a, 0, 0);
+      ctx.globalAlpha = f.mixB.mix; ctx.drawImage(b, 0, 0);
+      ctx.restore();
+    } else log = draw1(ctx, f.mixB && f.mixB.mix >= 1 ? f.mixB.petals : f.petals, f.mixB && f.mixB.mix >= 1 ? f.mixB.view : f.view);
+    debug.log = log;
+    // radial-only hook: per petal, the outermost band index with any area (must never exceed the band being filled)
+    debug.bandCounts = log.petals.map((p) => p.bands.reduce((a, b, k) => (b.r1 > b.r0 ? k : a), -1));
+    if (f.glow) drawEdgeGlow(ctx as unknown as Ctx, f.petals, f.view, f.glow.color, f.glow.a);
+    debug.labels = f.labels > 0 ? drawHourLabels(ctx as unknown as Ctx, f.petals, f.view, L.label, f.labels * 0.7) : [];
+  } else debug.log = null;
+  if (f.extra) { ctx.save(); f.extra(ctx); ctx.restore(); }
+  if (!f.petals) return;
   if (f.bloom > 0.001 && f.view.marks >= 1) {
     const b = renderBloom(f, `${W}x${H}|${f.view.R100.toFixed(2)}|${f.view.cx.toFixed(1)}`);
     ctx.save();
