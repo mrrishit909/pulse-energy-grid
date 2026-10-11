@@ -273,3 +273,54 @@ export function biteLedger(net: number[]) {
 }
 export const yearCaption = (year: string, mon: number, mw: number, partial: boolean) =>
   `${year}: MIDDAY NET LOAD FELL TO ${int(mw)} MW IN ${MONTHS[mon - 1]} (MEAN DAY).${partial ? " PARTIAL YEAR." : ""}`;
+
+// ---------------------------------------------------------------- S01 Big Idea
+export const copyS01 = { statement: "A grid keeps no stock. Every hour, supply has to meet demand exactly." };
+/** The two notification cards (facts.json, DR-9). */
+export function s01Cards(f: Facts) {
+  const c = f.bas.CISO, e = f.bas.ERCO;
+  return [
+    { from: "FROM: EIA-930 / CISO", when: String(c.peak_demand_local), body: `PEAK DEMAND ${int(c.peak_demand_mw)} MW. EVERY MEGAWATT WAS MADE OR IMPORTED IN THAT SAME HOUR.` },
+    { from: "FROM: EIA-930 / ERCO", when: String(e.peak_demand_local), body: `ERCOT PEAKED AT ${int(e.peak_demand_mw)} MW, WITH NET INTERCHANGE AVERAGING ${fixed(e.interchange_abs_mean_pct_of_demand as number, 2)}% OF DEMAND.` },
+  ];
+}
+
+// ---------------------------------------------------------------- S02 Ledger Deck
+import type { Quality, Reconciliation, WeatherRelation, Meta } from "../model/types";
+export const copyS02 = {
+  kicker: "SOURCE · WHERE EVERY NUMBER COMES FROM",
+  c1: { title: "One hour, one petal.", body: "EIA-930 REPORTS, FOR EVERY HOUR AND EVERY BALANCING AUTHORITY, HOW MUCH POWER WAS USED, WHAT THE OPERATOR EXPECTED, AND WHAT EACH FUEL MADE.",
+    fields: ["BA", "HOUR (UTC)", "DEMAND", "DAY-AHEAD FORECAST", "NET GENERATION", "INTERCHANGE", "GENERATION BY FUEL ×8"] },
+  c2: { title: "Two grids, two weathers.", body: "CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS." },
+  c3: { title: "Heat leans on the load." },
+  c4: { title: "Every row is counted.", body: "RAW ROWS = KEPT + EXCLUDED, FOR EVERY SERIES. NOTHING IS SILENTLY DROPPED." },
+};
+export const sharesLine = (f: Facts, ba: "CISO" | "ERCO") => `SOLAR ${fixed(f.bas[ba].solar_share_pct as number, 1)}% · WIND ${fixed(f.bas[ba].wind_share_pct as number, 1)}% · GAS ${fixed(f.bas[ba].gas_share_pct as number, 1)}%`;
+export function heatCopy(w: WeatherRelation, ba: "CISO" | "ERCO") {
+  const b = w.bas[ba];
+  return {
+    readout: `+${fixed(b.pct_demand_per_c_above_base, 2)}% DEMAND PER °C ABOVE ${fixed(b.cool_base_c, 0)} °C (95% CI ${fixed(b.pct_ci[0], 2)} TO ${fixed(b.pct_ci[1], 2)})`,
+    body: `ABOVE ${fixed(b.cool_base_c, 0)} °C, EVERY EXTRA DEGREE ADDS ABOUT ${fixed(b.pct_demand_per_c_above_base, 1)}% TO DEMAND. AN ASSOCIATION FITTED ON ${int(b.n)} HOURS, NOT A FORECAST.`,
+  };
+}
+/** Card 4: the ledger identities recomputed in the client (a failed identity shows ✗), and the data's own quirks. */
+export function ledgerCopy(r: Reconciliation, q: Quality, f: Facts, meta: Meta) {
+  const rows = (["CISO", "ERCO"] as const).map((ba) => {
+    const L = r.ledger.filter((x) => x.ba === ba);
+    const a = L.every((x) => x.grid_slots === x.raw_rows + x.missing_slots), b = L.every((x) => x.raw_rows === x.kept + x.null_value + x.flagged_outlier);
+    const dst = q.dst[ba].days_23h + q.dst[ba].days_25h;
+    return { ba, n: L.length, a, b, text: `${ba} · ${L.length} SERIES · SLOTS = RAW + MISSING ${a ? "✓" : "✗"} · RAW = KEPT + NULL + FLAGGED ${b ? "✓" : "✗"} · DST DAYS ${dst}` };
+  });
+  const sp = q.spike_examples.CISO[0];
+  const quirks = [
+    `CISO: NET GENERATION − DEMAND − INTERCHANGE AVERAGES ${int(r.balance.CISO.mean_abs_resid_mw)} MW IN SIZE (EIA'S OWN BALANCE, KEPT AS REPORTED)`,
+    `ERCO: THE FUELS MISS THE TOTAL BY MORE THAN 2% IN ${int(r.generation_vs_total.ERCO.hours_gt_2pct)} HOURS`,
+    ...(sp ? [`FLAGGED SPIKE: CISO ${sp.series === "D" ? "DEMAND" : sp.series} ${sp.ts_utc.replace("T", " ")}:00 UTC ${int(sp.value)} MW VS ${int(sp.reference)} MW TYPICAL`] : []),
+  ];
+  const g = f.global as Record<string, number>;
+  return {
+    rows, quirks,
+    totals: `${int(g.raw_rows_total!)} ROWS IN · ${int(g.kept_rows_total!)} KEPT · ${int(g.flagged_rows_total!)} FLAGGED`,
+    footer: `PIPELINE v${meta.pipeline_version} · GENERATED ${meta.generated_at}`,
+  };
+}

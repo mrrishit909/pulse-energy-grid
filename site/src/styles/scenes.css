@@ -404,3 +404,65 @@ html[data-motion="off"] .scene-netload .bite-stills { margin-left: 0; }
   .bite-chips { display: none; }
   .bite-stills { grid-template-columns: 1fr; }
 }
+
+/* ---------- S01 big idea (inside the static hero track) ---------- */
+.hero-title { transform-origin: 0 0; will-change: transform; }
+.s01 { inset: 0; pointer-events: none; }
+.s01 > * { position: absolute; }
+.s01-statement { left: var(--margin); top: 176px; width: 560px; margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 64px; line-height: 1.02; letter-spacing: -0.012em; text-wrap: balance; }
+.s01-cards { left: var(--margin); top: 560px; display: flex; flex-direction: column; gap: 12px; opacity: 0; transform: translateY(16px); transition: opacity var(--motion-panel) var(--ease-premium), transform var(--motion-panel) var(--ease-premium); }
+.s01-cards.is-in { opacity: 1; transform: none; }
+.s01-cards .note { width: 420px; padding: 16px 20px; gap: 10px; }
+.s01-cards .note__body { font-size: 15px; }
+.note--blue { background: var(--accent-primary); color: #fff; }
+.note--blue .note__head { color: rgb(255 255 255 / 0.8); }
+.s01-statement .wr-word { opacity: 0.55; }
+/* reduced motion: S01 is normal flow under the static hero frame (statement, then the cards) */
+html[data-motion="off"] .scene-pulse .stage { height: auto; min-height: 100dvh; overflow: visible; }
+html[data-motion="off"] .scene-pulse .stage-content { min-height: 100dvh; }
+html[data-motion="off"] #pulse-portal { position: relative; inset: auto; }
+html[data-motion="off"] #pulse-still, html[data-motion="off"] .hero-scrim { bottom: auto; height: 100dvh; }
+html[data-motion="off"] .s01 { position: relative; display: flex; flex-direction: column; gap: 24px; padding: calc(100dvh + 24px) var(--margin) 64px; }
+html[data-motion="off"] .s01 > * { position: relative; left: auto; top: auto; right: auto; }
+html[data-motion="off"] .pulse-foot { top: calc(100dvh - 140px); bottom: auto; }
+@media (max-width: 1023px) {
+  .s01-statement { top: 140px; width: auto; right: var(--margin); font-size: 48px; }
+  .s01-cards { top: 330px; right: var(--margin); }
+  .s01-cards .note { width: 100%; }
+}
+@media (max-width: 767px) {
+  .s01-statement { top: 156px; font-size: 28px; }
+  .s01-cards { top: 280px; gap: 6px; }
+  .s01-cards .note { padding: 10px 12px; gap: 6px; }
+  .s01-cards .note__head { font-size: 10px; } .s01-cards .note__body { font-size: 11px; }
+  .s01-cards .chip { display: none; }
+}
+
+/* ---------- S02 ledger deck ---------- */
+.source-head { left: var(--margin); top: 32px; }
+.scene-source .deck-stage { inset: 0 0 var(--nav-clear) 0; overflow: hidden; }
+.story-card--blue { background: var(--accent-primary); }
+.card1 { display: flex; flex-direction: column; gap: 8px; width: 100%; height: 100%; }
+.card-petal { width: 100%; height: 60px; flex: none; display: block; }
+.card1__bands { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1px; font: 400 10px / 1.2 var(--font-mono); letter-spacing: var(--tracking-label); }
+.card1__bands li { display: flex; justify-content: space-between; }
+.card1__total { border-top: 1px solid var(--line); padding-top: 2px; }
+.card1__fields { margin: 0; font: 400 9px / 1.25 var(--font-mono); letter-spacing: var(--tracking-label); color: rgb(255 255 255 / 0.75); }
+.two-grids { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; height: 100%; }
+.two-grids figure { margin: 0; display: flex; flex-direction: column; gap: 6px; min-height: 0; }
+.two-grids__rose { flex: 1; width: 100%; min-height: 0; display: block; }
+.two-grids figcaption { font: 400 10px / 1.25 var(--font-mono); letter-spacing: var(--tracking-label); }
+.heat-card { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.heat { width: 100%; height: auto; }
+.heat__t { fill: rgb(255 255 255 / 0.75); font: 400 9px var(--font-mono); }
+.heat-readout { margin: 0; font: 400 11px / 1.25 var(--font-mono); letter-spacing: var(--tracking-label); color: var(--accent-light-blue); }
+.ledger-card { width: 100%; display: flex; flex-direction: column; gap: 8px; font: 400 10px / 1.3 var(--font-mono); letter-spacing: var(--tracking-label); }
+.ledger-card ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.ledger-card p { margin: 0; }
+.ledger-card .is-bad { color: #b3261e; }
+.ledger-card__quirks li { padding-left: 10px; text-indent: -10px; }
+.ledger-card__quirks li::before { content: "· "; }
+.ledger-card__foot { color: rgb(0 0 0 / 0.66); }
+.story-card .story-card__visual { overflow: hidden; }
+html[data-motion="off"] .scene-source .deck-stage { position: relative; inset: auto; overflow: visible; }
+.scene-source .story-card--light { background: #F2F2F2; } /* VISUAL_DESIGN S02 card 4: the one light card */

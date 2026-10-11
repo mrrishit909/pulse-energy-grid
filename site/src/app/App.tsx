@@ -16,6 +16,7 @@ import { S06Stress } from "../scenes/S06Stress";
 import { Ctrl } from "../scenes/Ctrl";
 import { S04Forecast } from "../scenes/S04Forecast";
 import { S03bBite } from "../scenes/S03bBite";
+import { S02Source } from "../scenes/S02Source";
 import { startSolver } from "../state/solver";
 import { idle } from "../lib/math";
 
@@ -30,7 +31,7 @@ function Placeholder({ s }: { s: SceneDef }) {
   );
 }
 
-const SCENE_COMPONENTS: Record<string, (p: { def: SceneDef }) => React.ReactNode> = { demand: S03aCity, dispatch: S05Fill, stress: S06Stress, control: Ctrl, forecast: S04Forecast, netload: S03bBite };
+const SCENE_COMPONENTS: Record<string, (p: { def: SceneDef }) => React.ReactNode> = { demand: S03aCity, dispatch: S05Fill, stress: S06Stress, control: Ctrl, forecast: S04Forecast, netload: S03bBite, source: S02Source };
 
 /** Prefetch the solver's inputs and start the worker (MOTION_SYSTEM 9.3: S04 entry, or S05 directly). */
 function prefetchSolver() {

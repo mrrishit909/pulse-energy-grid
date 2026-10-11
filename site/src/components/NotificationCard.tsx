@@ -5,7 +5,7 @@ interface Props {
   from: string;
   when: string;
   body: string;
-  variant?: "dark" | "light";
+  variant?: "dark" | "light" | "blue";
   tag?: ReactNode;
   /** Changing this number replays the typing. 0 = show final text. */
   playKey: number;

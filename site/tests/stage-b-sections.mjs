@@ -52,4 +52,15 @@ export const s03bSection = {
     await page.evaluate(() => window.__peg.setBite({ ba: "ERCO" })); await wait(page, 1200); await shot("s03b-5-erco-2025");
   },
 };
-export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection };
+export const s01s02 = {
+  async s01(page, shot, { jump, wait }) {
+    await jump(page, "pulse", 0.2); await wait(page, 900); await shot("s01-1-p20-rose-to-g1");
+    await jump(page, "pulse", 0.55); await wait(page, 900); await shot("s01-2-p55-statement");
+    await jump(page, "pulse", 0.9); await wait(page, 2200); await shot("s01-3-p90-cards");
+  },
+  async s02(page, shot, { jump, wait }) {
+    for (const [k, p] of [[1, 0.14], [2, 0.36], [3, 0.58], [4, 0.8]]) { await jump(page, "source", p); await wait(page, 1500); await shot(`s02-${k}-card${k}`); }
+    await jump(page, "source", 0.97); await wait(page, 900); await shot("s02-5-exit-to-s03a");
+  },
+};
+export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02 };
