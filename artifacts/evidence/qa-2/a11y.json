@@ -1,0 +1,396 @@
+{
+ "axe": [
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "S00/S01 top",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->pulse (scene=pulse)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->source (scene=source)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->demand (scene=demand)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->netload (scene=netload)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->forecast (scene=forecast)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->dispatch (scene=dispatch)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->stress (scene=stress)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->evidence (scene=evidence)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->control (scene=control)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "closing 0.97",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "S00/S01 top",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->pulse (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->source (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->demand (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->netload (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->forecast (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->dispatch (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->stress (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->evidence (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 10,
+     "sample": [
+      ".nav-bar__items > li:nth-child(1) > .nav__item[href$=\"#pulse\"] ::   Element has insufficient color contrast of 3.06 (foreground color: #ffffff, background color: #fe5d3a, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      ".nav-bar__items > li:nth-child(2) > .nav__item[href$=\"#source\"] ::   Element has insufficient color contrast of 3.06 (foreground color: #ffffff, background color: #fe5d3a, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      ".nav-bar__items > li:nth-child(3) > .nav__item[href$=\"#demand\"] ::   Element has insufficient color contrast of 3.06 (foreground color: #ffffff, background color: #fe5d3a, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->control (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "closing 0.97",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "S00/S01 top",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "#demand-title ::   Element has insufficient color contrast of 1.59 (foreground color: #303030, background color: #000000, font size: 24.0pt (32px), font weight: normal). Expected contrast ratio of 3:1",
+      "#netload-title ::   Element has insufficient color contrast of 1.59 (foreground color: #303030, background color: #000000, font size: 24.0pt (32px), font weight: normal). Expected contrast ratio of 3:1",
+      "#forecast-title ::   Element has insufficient color contrast of 1.59 (foreground color: #303030, background color: #000000, font size: 24.0pt (32px), font weight: normal). Expected contrast ratio of 3:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->pulse (scene=pulse)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->source (scene=source)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->demand (scene=demand)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->netload (scene=netload)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->forecast (scene=forecast)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->dispatch (scene=dispatch)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->stress (scene=stress)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->evidence (scene=evidence)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->control (scene=control)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "closing 0.97",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "S00/S01 top",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->pulse (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->source (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->demand (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->netload (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->forecast (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->dispatch (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->stress (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->evidence (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->control (scene=)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "closing 0.97",
+   "violations": []
+  }
+ ],
+ "kb": [
+  {
+   "name": "first Tab reaches SKIP INTRO or skip link",
+   "ok": false,
+   "d": "a \"PULSE\" in #root"
+  },
+  {
+   "name": "Enter on SKIP ends the intro",
+   "ok": false
+  },
+  {
+   "name": "Tab walk shows a focus ring on every stop",
+   "ok": true,
+   "d": "a \"PULSE\" in #root [ring] | a \"SOURCE\" in #root [ring] | a \"DEMAND\" in #root [ring] | a \"NET LOAD\" in #root [ring] | a \"FORECAST\" in #root [ring] | a \"DISPATCH\" in #root [ring] | a \"STRESS\" in #root [ring] | a \"EVIDENCE\" in #root [ring] | a \"CONTROL ROOM\" in #root [ring] | button \"REPLAY INTRO\" in #root [ring] | button \"MOTION ON\" in #root [ring] | button \"SKIP INTRO\" in #root [ring] | button[tab] \"Card 1 of 4\" in #source [ring] | button[radio] \"CISO\" in #demand [ring]"
+  },
+  {
+   "name": "S03a GRID arrow selects ERCO",
+   "ok": true,
+   "d": "button[radio] \"ERCO\" in #demand"
+  },
+  {
+   "name": "S03a DAY arrow changes day",
+   "ok": true,
+   "d": "{\"ba\":\"ERCO\",\"dayId\":\"spring\",\"hour\":18}"
+  },
+  {
+   "name": "S03a Enter on rose opens the inspector and moves focus into it",
+   "ok": true,
+   "d": "div[dialog] \"Hour inspector 12:00\" in #?"
+  },
+  {
+   "name": "Esc closes the inspector and returns focus to the rose",
+   "ok": true,
+   "d": "div[button] \"Day rose of ERCO on 2025-04-30, 12:00: 5\" in #demand"
+  },
+  {
+   "name": "S03b LAYER NET LOAD via keyboard",
+   "ok": true
+  },
+  {
+   "name": "S03b YEAR 2023 via keyboard",
+   "ok": true
+  },
+  {
+   "name": "S04 NAIVE toggle via keyboard sets aria-pressed=false",
+   "ok": true,
+   "d": "false"
+  },
+  {
+   "name": "S04 WEEK via keyboard",
+   "ok": true
+  },
+  {
+   "name": "S05 battery slider via keyboard re-solves in browser",
+   "ok": true,
+   "d": "{\"p\":1800,\"seq\":3,\"src\":\"browser\"}"
+  },
+  {
+   "name": "every slider has an accessible name",
+   "ok": true,
+   "d": "BATTERY POWER1,800 MW | BATTERY DURATION4 H | RENEWABLES MULTIPLIER×1.00 | RENEWABLES MULTIPLIER×1.00 | DEMAND GROWTH0% | HEAT WAVE+0.0 °C | BATTERY POWER1,500 MW | BATTERY DURATION4 H"
+  },
+  {
+   "name": "S06 tablist ArrowRight steps the scenario",
+   "ok": true,
+   "d": "{\"ba\":\"CISO\",\"dayId\":\"summer\",\"step\":1,\"layer\":\"stack\"} focus button[tab] \"2 Demand +15%\" in #stress"
+  },
+  {
+   "name": "CTRL GRID via keyboard",
+   "ok": true
+  },
+  {
+   "name": "CTRL preset HEAT WAVE via keyboard",
+   "ok": true,
+   "d": "{\"renewables_scale\":1,\"demand_growth_pct\":0,\"heat_wave_c\":5,\"battery_power_mw\":2600,\"battery_hours\":4,\"outage_class\":\"none\",\"outage_pct\":100}"
+  },
+  {
+   "name": "CTRL OUTAGE select via keyboard",
+   "ok": false,
+   "d": "none"
+  },
+  {
+   "name": "CTRL LAYER PRICE via keyboard",
+   "ok": true
+  },
+  {
+   "name": "CTRL TIME LIMIT too short: handled, last optimal kept, said on screen",
+   "ok": true,
+   "d": "SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 2 MS SOLVER STATUS TIME LIMIT REACHED: SHOWING THE LAST OPTIMAL RESULT MODEL COST $22,131,377 = SOLVER OBJECTIVE ✓ (+$5,382,065 VS BASELINE) PARITY"
+  },
+  {
+   "name": "CTRL RESET restores CISO / first day / baseline params",
+   "ok": true,
+   "d": "{\"ba\":\"CISO\",\"day\":\"winter\",\"p\":{\"renewables_scale\":1,\"demand_growth_pct\":0,\"heat_wave_c\":0,\"battery_power_mw\":1500,\"battery_hours\":4,\"outage_class\":\"none\",\"outage_pct\":100}}"
+  },
+  {
+   "name": "CTRL RESET returns LAYER to STACK",
+   "ok": true,
+   "d": "true"
+  },
+  {
+   "name": "CTRL inspector Enter/Esc returns focus to the rose",
+   "ok": true,
+   "d": "div[button] \"Control room rose. Enter or a click open\" in #control"
+  }
+ ]
+}

@@ -1,421 +1,452 @@
 {
- "_comment": "P04 Pulse Energy Grid, task P04-QA-001. Sections are scene ids from src/app/scenes.ts; window.__peg.jumpTo(id,p) is the nav's instant-jump path. introFrames freeze the S00 clock (ms). Steps marked core run at every viewport; the rest only at fullViewports (the three gate compositions) to keep committed evidence near 40 MB.",
- "fullViewports": [
-  "1440x900",
-  "768x1024",
-  "390x844",
-  "1440x900-reduced",
-  "390x844-reduced"
- ],
- "introFrames": [
-  200,
-  700,
-  1300,
-  2000,
-  2800,
-  3600,
-  4400
- ],
- "scrollSteps": 110,
- "scrollStepMs": 220,
- "interactionSequences": [
-  {
-   "id": "s01",
-   "steps": [
+  "_comment": "P04 Pulse Energy Grid, tasks P04-QA-001 and P04-QA-002. Sections are scene ids from src/app/scenes.ts; window.__peg.jumpTo(id,p) is the nav's instant-jump path. introFrames freeze the S00 clock (ms). Steps marked core run at every viewport; the rest only at fullViewports (the three gate compositions) to keep committed evidence near 40 MB.",
+  "fullViewports": [
+    "1440x900",
+    "768x1024",
+    "390x844",
+    "1440x900-reduced",
+    "390x844-reduced"
+  ],
+  "introFrames": [
+    200,
+    700,
+    1300,
+    2000,
+    2800,
+    3600,
+    4400
+  ],
+  "scrollSteps": 110,
+  "scrollStepMs": 220,
+  "interactionSequences": [
     {
-     "setup": "window.__peg.jumpTo('pulse',0.3);",
-     "name": "p30",
-     "waitMs": 1400
+      "id": "s01",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('pulse',0.3);",
+          "name": "p30",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('pulse',0.78);",
+          "name": "p78-landing",
+          "waitMs": 1400,
+          "core": true
+        }
+      ]
     },
     {
-     "setup": "window.__peg.jumpTo('pulse',0.78);",
-     "name": "p78-landing",
-     "waitMs": 1400,
-     "core": true
+      "id": "s02",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('source',0.14);",
+          "name": "p14-card1",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('source',0.36);",
+          "name": "p36-card2",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('source',0.58);",
+          "name": "p58-card3",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('source',0.8);",
+          "name": "p80-card4",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('source',0.97);",
+          "name": "p97-exit",
+          "waitMs": 1400
+        }
+      ]
+    },
+    {
+      "id": "s03a",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('demand',0.2);",
+          "name": "p20-0500",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('demand',0.74);",
+          "name": "p74-landing",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('demand',0.9);",
+          "name": "p90-2100",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.setCity({ba:'ERCO'});",
+          "name": "erco",
+          "waitMs": 1600,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.setCity({ba:'CISO',dayId:'winter'});window.__peg.jumpTo('demand',0.74);window.__peg.openHour('demand',18);",
+          "name": "inspector-18h",
+          "waitMs": 1600,
+          "core": true
+        },
+        {
+          "setup": "[...document.querySelectorAll('button')].filter((b)=>b.textContent.trim()==='CLOSE').forEach((b)=>b.click());",
+          "name": "inspector-closed",
+          "waitMs": 900,
+          "core": true
+        }
+      ]
+    },
+    {
+      "id": "s03b",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('netload',0.15);",
+          "name": "p15-mar",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('netload',0.3);",
+          "name": "p30-jun",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('netload',0.6);",
+          "name": "p60-net",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('netload',0.8);",
+          "name": "p80-years",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('netload',0.97);",
+          "name": "p97-exit",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.setBite({ba:'ERCO'});",
+          "name": "erco",
+          "waitMs": 1600
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "steps": [
+        {
+          "name": "p00-open",
+          "core": true,
+          "setup": "window.__peg.setBite({ba:'CISO'});window.__peg.jumpTo('forecast',0.0);"
+        },
+        {
+          "name": "p03-open",
+          "core": true,
+          "setup": "window.__peg.jumpTo('forecast',0.03);"
+        },
+        {
+          "name": "p08-unroll",
+          "core": true,
+          "setup": "window.__peg.jumpTo('forecast',0.08);"
+        },
+        {
+          "name": "p12-unroll",
+          "core": true,
+          "setup": "window.__peg.jumpTo('forecast',0.12);"
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.15);",
+          "name": "p15-unroll",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.25);",
+          "name": "p25-unroll",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.35);",
+          "name": "p35-unroll",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.5);",
+          "name": "p50-line",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.6);",
+          "name": "p60-naive",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.72);",
+          "name": "p72-eia",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.82);",
+          "name": "p82-ours",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('forecast',0.9);",
+          "name": "p90-verdict",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.setForecast({ba:'ERCO'});",
+          "name": "erco-verdict",
+          "waitMs": 1800,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.setForecast({ba:'CISO'});window.__peg.jumpTo('forecast',0.97);",
+          "name": "p97-exit",
+          "waitMs": 1400
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('dispatch',0.04);",
+          "name": "p04-silhouette",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('dispatch',0.2);",
+          "name": "p20-fill",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('dispatch',0.4);",
+          "name": "p40-fill",
+          "waitMs": 1400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('dispatch',0.6);",
+          "name": "p60-rimbeat",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('dispatch',0.68);",
+          "name": "p68-soc",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('dispatch',0.8);",
+          "name": "p80-lab",
+          "waitMs": 2500,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.setFill({battery_power_mw:6000,battery_hours:6});",
+          "name": "lab-battery",
+          "waitMs": 4000,
+          "core": true
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('stress',0.1);",
+          "name": "p10-renew",
+          "waitMs": 1800,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('stress',0.28);",
+          "name": "p28-demand",
+          "waitMs": 1800
+        },
+        {
+          "setup": "window.__peg.jumpTo('stress',0.46);",
+          "name": "p46-battery",
+          "waitMs": 1800
+        },
+        {
+          "setup": "window.__peg.jumpTo('stress',0.64);",
+          "name": "p64-heat",
+          "waitMs": 1800,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('stress',0.82);",
+          "name": "p82-outage",
+          "waitMs": 1800
+        },
+        {
+          "setup": "window.__peg.setStress({layer:'price'});window.__peg.jumpTo('stress',0.1);",
+          "name": "price-renew",
+          "waitMs": 1800,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('stress',0.64);",
+          "name": "price-heat",
+          "waitMs": 1800,
+          "core": true
+        },
+        {
+          "name": "price-outage",
+          "core": true,
+          "setup": "window.__peg.jumpTo('stress',0.82);"
+        },
+        {
+          "setup": "window.__peg.setStress({layer:'stack'});",
+          "name": "stack-back",
+          "waitMs": 900
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.05);",
+          "name": "p05-ex1",
+          "waitMs": 1600,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.2);",
+          "name": "p20-ex2",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.35);",
+          "name": "p35-ex3",
+          "waitMs": 1400
+        },
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.5);",
+          "name": "p50-ex4-wires",
+          "waitMs": 2400,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.65);",
+          "name": "p65-ex5",
+          "waitMs": 1600
+        },
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.8);",
+          "name": "p80-ex6",
+          "waitMs": 1600,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('evidence',0.95);",
+          "name": "p95-ex7",
+          "waitMs": 1600
+        }
+      ]
+    },
+    {
+      "id": "ctrl",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('control',0);",
+          "name": "landing",
+          "waitMs": 3000,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.setCtrl({renewables_scale:1.4,demand_growth_pct:6,battery_power_mw:3000});",
+          "name": "custom",
+          "waitMs": 4000,
+          "core": true
+        },
+        {
+          "name": "price-heatwave",
+          "core": true,
+          "setup": "const f=(t)=>[...document.querySelectorAll('#control button')].find((b)=>b.textContent.trim()===t);window.__peg.jumpTo('control',0);[...document.querySelectorAll('#control button')].find((b)=>b.textContent.trim().startsWith('HEAT WAVE'))?.click();f('PRICE')?.click();"
+        },
+        {
+          "name": "stack-back",
+          "core": false,
+          "setup": "const f=(t)=>[...document.querySelectorAll('#control button')].find((b)=>b.textContent.trim()===t);f('STACK')?.click();"
+        },
+        {
+          "setup": "document.querySelector('#control')?.scrollIntoView({block:'end',behavior:'instant'});",
+          "name": "ledger-bottom",
+          "waitMs": 1500
+        },
+        {
+          "setup": "window.__peg.jumpTo('control',0);window.__peg.openHour('control',19);",
+          "name": "inspector-19h",
+          "waitMs": 1600,
+          "core": true
+        },
+        {
+          "setup": "[...document.querySelectorAll('button')].filter((b)=>b.textContent.trim()==='CLOSE').forEach((b)=>b.click());",
+          "name": "inspector-closed",
+          "waitMs": 900,
+          "core": true
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "steps": [
+        {
+          "setup": "window.__peg.jumpTo('closing',0.2);",
+          "name": "p20",
+          "waitMs": 1600
+        },
+        {
+          "setup": "window.__peg.jumpTo('closing',0.5);",
+          "name": "p50-paragraph",
+          "waitMs": 1600,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('closing',0.72);",
+          "name": "p72-echo",
+          "waitMs": 900
+        },
+        {
+          "setup": "window.__peg.jumpTo('closing',0.76);",
+          "name": "p76-echo",
+          "waitMs": 1800,
+          "core": true
+        },
+        {
+          "setup": "window.__peg.jumpTo('closing',0.97);",
+          "name": "p97-links",
+          "waitMs": 2400,
+          "core": true
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "s02",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('source',0.14);",
-     "name": "p14-card1",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('source',0.36);",
-     "name": "p36-card2",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('source',0.58);",
-     "name": "p58-card3",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('source',0.8);",
-     "name": "p80-card4",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('source',0.97);",
-     "name": "p97-exit",
-     "waitMs": 1400
-    }
-   ]
-  },
-  {
-   "id": "s03a",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('demand',0.2);",
-     "name": "p20-0500",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('demand',0.74);",
-     "name": "p74-landing",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('demand',0.9);",
-     "name": "p90-2100",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.setCity({ba:'ERCO'});",
-     "name": "erco",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.setCity({ba:'CISO',dayId:'winter'});window.__peg.jumpTo('demand',0.74);window.__peg.openHour('demand',18);",
-     "name": "inspector-18h",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "[...document.querySelectorAll('button')].filter((b)=>b.textContent.trim()==='CLOSE').forEach((b)=>b.click());",
-     "name": "inspector-closed",
-     "waitMs": 900,
-     "core": true
-    }
-   ]
-  },
-  {
-   "id": "s03b",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('netload',0.15);",
-     "name": "p15-mar",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('netload',0.3);",
-     "name": "p30-jun",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('netload',0.6);",
-     "name": "p60-net",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('netload',0.8);",
-     "name": "p80-years",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('netload',0.97);",
-     "name": "p97-exit",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.setBite({ba:'ERCO'});",
-     "name": "erco",
-     "waitMs": 1600
-    }
-   ]
-  },
-  {
-   "id": "s04",
-   "steps": [
-    {
-     "setup": "window.__peg.setBite({ba:'CISO'});window.__peg.jumpTo('forecast',0.03);",
-     "name": "p03-preunroll",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.15);",
-     "name": "p15-unroll",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.25);",
-     "name": "p25-unroll",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.35);",
-     "name": "p35-unroll",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.5);",
-     "name": "p50-line",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.6);",
-     "name": "p60-naive",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.72);",
-     "name": "p72-eia",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.82);",
-     "name": "p82-ours",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('forecast',0.9);",
-     "name": "p90-verdict",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.setForecast({ba:'ERCO'});",
-     "name": "erco-verdict",
-     "waitMs": 1800,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.setForecast({ba:'CISO'});window.__peg.jumpTo('forecast',0.97);",
-     "name": "p97-exit",
-     "waitMs": 1400
-    }
-   ]
-  },
-  {
-   "id": "s05",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('dispatch',0.04);",
-     "name": "p04-silhouette",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('dispatch',0.2);",
-     "name": "p20-fill",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('dispatch',0.4);",
-     "name": "p40-fill",
-     "waitMs": 1400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('dispatch',0.6);",
-     "name": "p60-rimbeat",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('dispatch',0.68);",
-     "name": "p68-soc",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('dispatch',0.8);",
-     "name": "p80-lab",
-     "waitMs": 2500,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.setFill({battery_power_mw:6000,battery_hours:6});",
-     "name": "lab-battery",
-     "waitMs": 4000,
-     "core": true
-    }
-   ]
-  },
-  {
-   "id": "s06",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('stress',0.1);",
-     "name": "p10-renew",
-     "waitMs": 1800,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('stress',0.28);",
-     "name": "p28-demand",
-     "waitMs": 1800
-    },
-    {
-     "setup": "window.__peg.jumpTo('stress',0.46);",
-     "name": "p46-battery",
-     "waitMs": 1800
-    },
-    {
-     "setup": "window.__peg.jumpTo('stress',0.64);",
-     "name": "p64-heat",
-     "waitMs": 1800,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('stress',0.82);",
-     "name": "p82-outage",
-     "waitMs": 1800
-    },
-    {
-     "setup": "window.__peg.setStress({layer:'price'});window.__peg.jumpTo('stress',0.1);",
-     "name": "price-renew",
-     "waitMs": 1800,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('stress',0.64);",
-     "name": "price-heat",
-     "waitMs": 1800,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.setStress({layer:'stack'});",
-     "name": "stack-back",
-     "waitMs": 900
-    }
-   ]
-  },
-  {
-   "id": "s07",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.05);",
-     "name": "p05-ex1",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.2);",
-     "name": "p20-ex2",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.35);",
-     "name": "p35-ex3",
-     "waitMs": 1400
-    },
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.5);",
-     "name": "p50-ex4-wires",
-     "waitMs": 2400,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.65);",
-     "name": "p65-ex5",
-     "waitMs": 1600
-    },
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.8);",
-     "name": "p80-ex6",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('evidence',0.95);",
-     "name": "p95-ex7",
-     "waitMs": 1600
-    }
-   ]
-  },
-  {
-   "id": "ctrl",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('control',0);",
-     "name": "landing",
-     "waitMs": 3000,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.setCtrl({renewables_scale:1.4,demand_growth_pct:6,battery_power_mw:3000});",
-     "name": "custom",
-     "waitMs": 4000,
-     "core": true
-    },
-    {
-     "setup": "document.querySelector('#control')?.scrollIntoView({block:'end',behavior:'instant'});",
-     "name": "ledger-bottom",
-     "waitMs": 1500
-    },
-    {
-     "setup": "window.__peg.jumpTo('control',0);window.__peg.openHour('control',19);",
-     "name": "inspector-19h",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "[...document.querySelectorAll('button')].filter((b)=>b.textContent.trim()==='CLOSE').forEach((b)=>b.click());",
-     "name": "inspector-closed",
-     "waitMs": 900,
-     "core": true
-    }
-   ]
-  },
-  {
-   "id": "s08",
-   "steps": [
-    {
-     "setup": "window.__peg.jumpTo('closing',0.2);",
-     "name": "p20",
-     "waitMs": 1600
-    },
-    {
-     "setup": "window.__peg.jumpTo('closing',0.5);",
-     "name": "p50-paragraph",
-     "waitMs": 1600,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('closing',0.72);",
-     "name": "p72-echo",
-     "waitMs": 900
-    },
-    {
-     "setup": "window.__peg.jumpTo('closing',0.76);",
-     "name": "p76-echo",
-     "waitMs": 1800,
-     "core": true
-    },
-    {
-     "setup": "window.__peg.jumpTo('closing',0.97);",
-     "name": "p97-links",
-     "waitMs": 2400,
-     "core": true
-    }
-   ]
+  ],
+  "heavyInteraction": {
+    "label": "S05 fill + S04 unroll scroll-scrub (rapid, repeated across pulse..stress)",
+    "trigger": "const a=document.getElementById('forecast'), b=document.getElementById('stress'); const start=window.scrollY+a.getBoundingClientRect().top, end=window.scrollY+b.getBoundingClientRect().top; let dir=1; window.scrollTo(0,start); window.__heavyId=setInterval(()=>{window.scrollBy(0,dir*48); const y=window.scrollY; if(y>=end) dir=-1; if(y<=start) dir=1;},16);",
+    "stateCheck": "window.__peg.debug().scene + ':' + window.__peg.debug().frames",
+    "durationMs": 6000
   }
- ],
- "heavyInteraction": {
-  "label": "S05 fill + S04 unroll scroll-scrub (rapid, repeated across pulse..stress)",
-  "trigger": "const a=document.getElementById('forecast'), b=document.getElementById('stress'); const start=window.scrollY+a.getBoundingClientRect().top, end=window.scrollY+b.getBoundingClientRect().top; let dir=1; window.scrollTo(0,start); window.__heavyId=setInterval(()=>{window.scrollBy(0,dir*48); const y=window.scrollY; if(y>=end) dir=-1; if(y<=start) dir=1;},16);",
-  "stateCheck": "window.__peg.debug().scene + ':' + window.__peg.debug().frames",
-  "durationMs": 6000
- }
 }

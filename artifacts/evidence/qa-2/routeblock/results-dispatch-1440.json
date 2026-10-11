@@ -1,0 +1,144 @@
+[
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 38.796875
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1186.9000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 38.796875
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1189.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 942.3359375,
+   "y": 38.796875
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [
+   "PARITY NOT CHECKED: THE TEST VECTORS DID NOT LOAD"
+  ],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1168.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "WASM",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 1364.1953125,
+   "y": 803.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "SIMULATED · MODEL · PRECOMPUTEDIN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1165.5999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "WORKER",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 1364.1953125,
+   "y": 803.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "SIMULATED · MODEL · PRECOMPUTEDIN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1287.699999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ }
+]

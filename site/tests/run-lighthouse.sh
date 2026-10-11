@@ -1,5 +1,5 @@
 #!/bin/bash
-# P04-QA-001: real Lighthouse runs against the served production build (adapted from shared/testing/run-lighthouse.sh).
+# P04-QA-001 / P04-QA-002: real Lighthouse runs against the served production build (adapted from shared/testing/run-lighthouse.sh).
 # Usage: tests/run-lighthouse.sh [url] [out-dir] [runs]. Mobile and desktop presets, N runs each, uptime recorded per run.
 # Never fabricate these numbers; a run at load average > 8 is load-confounded (ENGINEERING_DECISIONS #58).
 set -uo pipefail

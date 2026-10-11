@@ -1,0 +1,1695 @@
+{
+ "viewport": "1440x900",
+ "errors": [],
+ "shots": [
+  {
+   "name": "00-s00-t0200",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 8,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-t0700",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 9,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-t1300",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 10,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-t2000",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 11,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-t2800",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 12,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-t3600",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 13,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-t4400",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 14,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "00-s00-end",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 40,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "s01-00-p30",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 41,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "s01-01-p78-landing",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "pulse",
+   "frames": 42,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "s02-00-p14-card1",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "source",
+   "frames": 43,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930"
+   ]
+  },
+  {
+   "name": "s02-01-p36-card2",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "source",
+   "frames": 44,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · MEAN DAY OF EIA-930"
+   ]
+  },
+  {
+   "name": "s02-02-p58-card3",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "source",
+   "frames": 45,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · MEAN DAY OF EIA-930",
+    "DERIVED · FITTED, NOT A FORECAST"
+   ]
+  },
+  {
+   "name": "s02-03-p80-card4",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "source",
+   "frames": 46,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · MEAN DAY OF EIA-930",
+    "DERIVED · FITTED, NOT A FORECAST",
+    "OBSERVED · COUNTED ROWS"
+   ]
+  },
+  {
+   "name": "s02-04-p97-exit",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "source",
+   "frames": 47,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · MEAN DAY OF EIA-930",
+    "DERIVED · FITTED, NOT A FORECAST",
+    "OBSERVED · COUNTED ROWS"
+   ]
+  },
+  {
+   "name": "s03a-00-p20-0500",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "demand",
+   "frames": 72,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · 1 WINDOW = 100 MW",
+    "OBSERVED · TEMPERATURE · NOAA ISD · DERI"
+   ]
+  },
+  {
+   "name": "s03a-01-p74-landing",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "demand",
+   "frames": 73,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · 1 WINDOW = 100 MW",
+    "OBSERVED · TEMPERATURE · NOAA ISD · DERI"
+   ]
+  },
+  {
+   "name": "s03a-02-p90-2100",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "demand",
+   "frames": 99,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · 1 WINDOW = 100 MW",
+    "OBSERVED · TEMPERATURE · NOAA ISD · DERI"
+   ]
+  },
+  {
+   "name": "s03a-03-erco",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "demand",
+   "frames": 125,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · 1 WINDOW = 100 MW",
+    "OBSERVED · TEMPERATURE · NOAA ISD · DERI"
+   ]
+  },
+  {
+   "name": "s03a-04-inspector-18h",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "demand",
+   "frames": 151,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · 1 WINDOW = 100 MW",
+    "OBSERVED · TEMPERATURE · NOAA ISD · DERI",
+    "OBSERVED · EIA-930"
+   ]
+  },
+  {
+   "name": "s03a-05-inspector-closed",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "demand",
+   "frames": 151,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · 1 WINDOW = 100 MW",
+    "OBSERVED · TEMPERATURE · NOAA ISD · DERI"
+   ]
+  },
+  {
+   "name": "s03b-00-p15-mar",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "netload",
+   "frames": 152,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · MONTH-HOUR MEANS OF EIA-930"
+   ]
+  },
+  {
+   "name": "s03b-01-p30-jun",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "netload",
+   "frames": 153,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · MONTH-HOUR MEANS OF EIA-930"
+   ]
+  },
+  {
+   "name": "s03b-02-p60-net",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "netload",
+   "frames": 219,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · MONTH-HOUR MEANS OF EIA-930"
+   ]
+  },
+  {
+   "name": "s03b-03-p80-years",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "netload",
+   "frames": 220,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · MONTH-HOUR MEANS OF EIA-930"
+   ]
+  },
+  {
+   "name": "s03b-04-p97-exit",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "netload",
+   "frames": 221,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · MONTH-HOUR MEANS OF EIA-930"
+   ]
+  },
+  {
+   "name": "s03b-05-erco",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "netload",
+   "frames": 222,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · MONTH-HOUR MEANS OF EIA-930"
+   ]
+  },
+  {
+   "name": "s04-00-p00-open",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 223,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-01-p03-open",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 224,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-02-p08-unroll",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 225,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-03-p12-unroll",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 226,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-04-p15-unroll",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 227,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-05-p25-unroll",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 228,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-06-p35-unroll",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 229,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-07-p50-line",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 230,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-08-p60-naive",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 326,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-09-p72-eia",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 422,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-10-p82-ours",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 423,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-11-p90-verdict",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 519,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-12-erco-verdict",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 590,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-13-p97-exit",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "forecast",
+   "frames": 662,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ACTUAL, EIA-930",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s05-00-p04-silhouette",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 663,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · EIA-930 DEMAND"
+   ]
+  },
+  {
+   "name": "s05-01-p20-fill",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 664,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-02-p40-fill",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 665,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-03-p60-rimbeat",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 666,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-04-p68-soc",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 735,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-05-p80-lab",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 736,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-06-lab-battery",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "dispatch",
+   "frames": 830,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s06-00-p10-renew",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 831,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-01-p28-demand",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 832,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-02-p46-battery",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 833,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-03-p64-heat",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 834,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-04-p82-outage",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 835,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-05-price-renew",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 836,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-06-price-heat",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 837,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-07-price-outage",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 838,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s06-08-stack-back",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "stress",
+   "frames": 839,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · MODEL · PRECOMPUTED · PYTHON"
+   ]
+  },
+  {
+   "name": "s07-00-p05-ex1",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 840,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · PAIRED BOOTSTRAP, 95% CI"
+   ]
+  },
+  {
+   "name": "s07-01-p20-ex2",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 841,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "DERIVED · COUNTED TEST HOURS"
+   ]
+  },
+  {
+   "name": "s07-02-p35-ex3",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 841,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE "
+   ]
+  },
+  {
+   "name": "s07-03-p50-ex4-wires",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 841,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SYNTHETIC · ILLUSTRATIVE"
+   ]
+  },
+  {
+   "name": "s07-04-p65-ex5",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 841,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · ASSUMPTIONS"
+   ]
+  },
+  {
+   "name": "s07-05-p80-ex6",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 841,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · PARITY ON THIS BUILD"
+   ]
+  },
+  {
+   "name": "s07-06-p95-ex7",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "evidence",
+   "frames": 841,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "OBSERVED · ROW LEDGER"
+   ]
+  },
+  {
+   "name": "ctrl-00-landing",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-01-custom",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-02-price-heatwave",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-03-stack-back",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-04-ledger-bottom",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-05-inspector-19h",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · MODEL"
+   ]
+  },
+  {
+   "name": "ctrl-06-inspector-closed",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "control",
+   "frames": 842,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "s08-00-p20",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "closing",
+   "frames": 843,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-01-p50-paragraph",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "closing",
+   "frames": 844,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-02-p72-echo",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "closing",
+   "frames": 956,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-03-p76-echo",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "closing",
+   "frames": 1175,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-04-p97-links",
+   "scrollW": 1425,
+   "clientW": 1425,
+   "innerW": 1440,
+   "jsClassFromClientW": "D",
+   "jsClassFromInnerW": "D",
+   "cssClass": "D",
+   "scene": "closing",
+   "frames": 1390,
+   "cls": {
+    "js": "D",
+    "css": "D",
+    "layout": "D",
+    "clientWidth": 1425,
+    "innerWidth": 1440
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  }
+ ],
+ "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+ "introStats": {
+  "minR": 619.9999999999998,
+  "monotonic": true,
+  "playing": false,
+  "firstSilhouette": 433.29999999999995,
+  "G0": 620
+ }
+}

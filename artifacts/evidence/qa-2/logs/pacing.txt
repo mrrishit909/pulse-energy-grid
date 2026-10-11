@@ -1,0 +1,39 @@
+[
+ {
+  "label": "1440x900 unthrottled",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+  "stateBefore": "pulse:47",
+  "stateAfter": "dispatch:481",
+  "stateChanged": true,
+  "sampleCount": 695,
+  "p50_ms": 8.3,
+  "p95_ms": 10.2,
+  "pct_over_16_7ms": 0.036,
+  "pct_over_33ms": 0.007
+ },
+ {
+  "label": "1440x900 4x CPU throttle",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+  "stateBefore": "pulse:46",
+  "stateAfter": "forecast:332",
+  "stateChanged": true,
+  "sampleCount": 491,
+  "p50_ms": 8.3,
+  "p95_ms": 13.1,
+  "pct_over_16_7ms": 0.047,
+  "pct_over_33ms": 0.045
+ },
+ {
+  "label": "390x844 4x CPU throttle",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+  "stateBefore": "pulse:48",
+  "stateAfter": "dispatch:399",
+  "stateChanged": true,
+  "sampleCount": 552,
+  "p50_ms": 8.4,
+  "p95_ms": 35,
+  "pct_over_16_7ms": 0.076,
+  "pct_over_33ms": 0.062
+ }
+]
+CHAIN DONE

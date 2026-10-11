@@ -1,0 +1,7 @@
+10:39  up 2 days, 13:09, 4 users, load averages: 10.27 12.88 16.85
+
+Running 1 test using 1 worker
+
+[1/1] [desktop] › e2e/qa.spec.ts:222:5 › L4 1440: dispatch shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY
+  1 passed (8.0s)
+10:39  up 2 days, 13:09, 4 users, load averages: 9.69 12.71 16.76

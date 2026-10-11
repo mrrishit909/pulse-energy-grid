@@ -1,0 +1,394 @@
+{
+ "stress-PRICE": [
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": true,
+   "unit": "MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER",
+   "stackKey": false,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  }
+ ],
+ "stress-STACK": [
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · MODEL · PRECOMPUTED · PYTHON HiGHS"
+  }
+ ],
+ "control-PRICE": [
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": true,
+   "unit": null,
+   "stackKey": false,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  }
+ ],
+ "control-STACK": [
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  },
+  {
+   "price": false,
+   "unit": null,
+   "stackKey": true,
+   "chip": "SIMULATED · YOUR SCENARIO · SOLVED IN BROWSER"
+  }
+ ]
+}

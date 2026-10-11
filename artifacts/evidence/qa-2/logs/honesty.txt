@@ -1,0 +1,39 @@
+PASS S00 corner = intro day date + peak 2024-04-20 23,774
+PASS S01 CISO peak MW + local time (17:00 after D-008 fix) 51104 2022-09-06 17:00
+PASS S01 ERCO peak MW + local time 85544 2024-08-20 17:00
+PASS S01 no stale 18:00 peak 
+PASS S01 ERCO interchange % 
+PASS S02 CISO slope = facts demand_temp_slope +6.23% DEMAND PER °C ABOVE 17 °C (95% CI 6.02 TO 6.51)
+PASS S02 CISO solar/wind/gas shares SOLAR 21.8% · WIND 10.2% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · G
+PASS S02 rows in / kept 
+PASS S02 no stale 5.49 slope 
+PASS S03a evening ramp = facts 2691
+PASS S03a MW served is a real hour of the day; windows = round(MW/100) 26682 MW, 267 windows, day 2025-01-02
+PASS S03b partial 2025 marked 
+FAIL S03b midday min first/latest year 3021 / 513
+PASS S04 CISO MAPE ours vs EIA 3.35 vs 7.82
+PASS S04 CISO diff + CI -4.4629 -4.886,-4.0066
+PASS S04 ERCO diff + CI (EIA beats ours, said so) 1.8898 1.5451,2.2762
+PASS S04 ERCO MAPE ours vs EIA 
+PASS S04 CISO drift = facts.eia_ciso_dayahead_bias_pct -6.35
+PASS S04 CISO interval coverage 
+PASS parity computed this session over every vector {"n":108,"objective":108,"priceComparable":82,"price":82,"keys":108,"hash":108,"passed":108,"ms":1265.9000000059605}
+PASS S05 parity text = session report (n, prices, keys) PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 
+PASS S05 baseline objective == Python within 1e-6 CISO summer 11214939.499951512 vs 11214939.5
+PASS S05 displayed model cost == objective MODEL COST $11,214,939
+PASS S06 heat-wave ledger cost/CO2/unserved = dispatch_results 38,311,237 186,801 20,435
+FAIL S06 max price heat = max(price_usd_mwh) 1000
+PASS CTRL non-preset, solved in browser {"renewables_scale":1.15,"demand_growth_pct":9,"heat_wave_c":0,"battery_power_mw":2600,"battery_hours":4,"outage_class":"none","outage_pct":100}
+PASS CTRL displayed cost == objective MODEL COST $7,953,464 = SOLVER OBJECTIVE ✓ (+$1,179,791 VS BASELINE) MODEL CO2 80,252 T (+12,697 T VS BASELINE) UNSERVED
+PASS CTRL data-objective == solver objective; sum(breakdown) within 1e-6 7953463.649207755 7953463.649207757 7953463.649207755
+PASS CTRL status SOLVED IN BROWSER + parity SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 3 MS MODEL COST $7,953,464 = SOLVER OBJECTIVE ✓ (+$1,179,791 VS BASELINE) PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 · LP TEXT SHA-256 108/108
+PASS S07 Wires ILLUSTRATIVE, no MW in the SVG 
+PASS S07 parity answer = session report  OBJECTIVE 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINE
+PASS no 'live' claims []
+PASS no U+2014/U+2015 in rendered text 
+PASS phone 390: both verdicts state diff + 95% CI {"CISO":[{"box":[16,163,358,17],"inView":true,"text":"OBSERVED · ACTUAL PREDICTED · FORECASTS"},{"box":[16,509,358,259],"inView":true,"text":"Our model beat the operator's own forecast. CISO: MAPE OURS 3.35% VS EIA 7.82% OVER 8,567 TEST HOURS. DIFFERENCE −4.46 PP (95% CI −4.89 TO −4.01). OURS LOWER ON 339 OF 356 TEST DAYS · DERIVED The operator's own forecast is still better. ERCO: MAPE OURS 4.12%
+PASS phone 375: both verdicts state diff + 95% CI {"CISO":[{"box":[16,206,343,17],"inView":true,"text":"OBSERVED · ACTUAL PREDICTED · FORECASTS"},{"box":[16,463,343,273],"inView":true,"text":"Our model beat the operator's own forecast. CISO: MAPE OURS 3.35% VS EIA 7.82% OVER 8,567 TEST HOURS. DIFFERENCE −4.46 PP (95% CI −4.89 TO −4.01). OURS LOWER ON 339 OF 356 TEST DAYS · DERIVED The operator's own forecast is still better. ERCO: MAPE OURS 4.12%
+PASS phone 360: both verdicts state diff + 95% CI {"CISO":[{"box":[16,206,328,17],"inView":true,"text":"OBSERVED · ACTUAL PREDICTED · FORECASTS"},{"box":[16,451,328,273],"inView":true,"text":"Our model beat the operator's own forecast. CISO: MAPE OURS 3.35% VS EIA 7.82% OVER 8,567 TEST HOURS. DIFFERENCE −4.46 PP (95% CI −4.89 TO −4.01). OURS LOWER ON 339 OF 356 TEST DAYS · DERIVED The operator's own forecast is still better. ERCO: MAPE OURS 4.12%
+PASS worker blocked: S05 PRECOMPUTED, no SOLVED IN BROWSER, no parity 
+PASS worker blocked: CTRL PRECOMPUTED, no parity 
+passed 36 / 38
