@@ -55,6 +55,7 @@ def build_all() -> None:
     led = json.loads((MANIFESTS / "cleaning_ledger.json").read_text())
     exm = json.loads((MANIFESTS / "eia_extract.json").read_text())
     nm = json.loads((MANIFESTS / "noaa_extract.json").read_text())
+    timing = json.loads((MANIFESTS / "timing_corrections.json").read_text())
     topo = topology.parse()
     sha_topo = topo.pop("_sha256")
     tags = {}
@@ -69,9 +70,10 @@ def build_all() -> None:
         for r in led[ba]["ledger"]:
             r = dict(r)
             r["flagged_range"], r["flagged_spike"] = r.pop("_range"), r.pop("_spike")
+            r.setdefault("timing_excluded", 0)
             ledger.append(r)
     emit("reconciliation", {"schema_version": "v1", "tags": T("reconciliation", ledger="OBSERVED/DERIVED", generation_vs_total="DERIVED", balance="DERIVED", weather="OBSERVED/DERIVED"),
-                            "invariants": ["grid_slots = raw_rows + missing_slots", "raw_rows = kept + null_value + flagged_outlier (flagged_outlier = flagged_range + flagged_spike)", "imputed_short_gap hours are a subset of non-kept slots filled by linear interpolation and are never used as forecast targets"],
+                            "invariants": ["grid_slots = raw_rows + missing_slots", "raw_rows = kept + null_value + flagged_outlier + timing_excluded (flagged_outlier = flagged_range + flagged_spike; timing_excluded = rows within one local day of a timing-convention change or colliding after the per-series timing correction)", "imputed_short_gap hours are a subset of non-kept slots filled by linear interpolation and are never used as forecast targets"],
                             "ledger": ledger, "generation_vs_total": {ba: led[ba]["generation_vs_total"] for ba in BAS}, "balance": {ba: led[ba]["balance"] for ba in BAS},
                             "weather": [w for ba in BAS for w in led[ba]["weather"]]})
     core = {"D", "DF", "NG"}
@@ -79,9 +81,11 @@ def build_all() -> None:
              ("spike", "demand, forecast, total generation", "differs >35% from the median of the same hour-of-week over +/-3 weeks AND >20% from both neighbouring hours in the same direction", {ba: sum(r["_spike"] for r in led[ba]["ledger"] if r["kind"] in core) for ba in BAS}),
              ("gen_range", "net generation by fuel", "absolute value above 1.5 x the larger of |P0.1| and |P99.9| of the series", {ba: sum(r["_range"] for r in led[ba]["ledger"] if r["kind"] == "GEN") for ba in BAS}),
              ("short_gap_imputation", "demand, forecast, total generation", "runs of at most 3 missing/null/flagged hours are linearly interpolated, flagged imputed, excluded from targets", {ba: sum(r["imputed_short_gap"] for r in led[ba]["ledger"]) for ba in BAS}),
+             ("timing_transition_excluded", "generation, demand, interchange, forecast", "rows within one local day of a CISO timing-convention change (and colliding hours) are excluded, not guessed (see quality.timing)", {ba: sum(r["timing_excluded"] for r in led[ba]["ledger"]) for ba in BAS}),
              ("negative_generation_kept", "net generation by fuel", "negative fuel values are physical (storage charging in OTH, station service) and are retained, not flagged", {ba: int(hourly(ba).select([(pl.col(f"gen_{f.lower()}") < 0).sum() for f in FUELS[ba]]).sum_horizontal()[0]) for ba in BAS})]
     emit("quality", {"schema_version": "v1", "tags": T("quality", gaps="OBSERVED/DERIVED", dst="DERIVED", outlier_rules="DERIVED", spike_examples="OBSERVED"),
                      "gaps": {ba: {"series": led[ba]["quality"]["gaps"]} for ba in BAS}, "dst": {ba: led[ba]["quality"]["dst"] for ba in BAS},
+                     "timing": {ba: {"derived": "DERIVED", **timing[ba]} for ba in BAS},
                      "outlier_rules": [{"id": i, "applies_to": a, "rule": r, "flagged": c} for i, a, r, c in rules], "spike_examples": {ba: led[ba]["quality"]["spikes"] for ba in BAS}})
 
     # ---- per-BA analytics
@@ -167,6 +171,8 @@ def build_all() -> None:
     # ---- meta (last, with sizes)
     sizes = {}
     for f in sorted(PUBLIC.glob("*.json")):
+        if f.stem == "meta":  # no self-reference: keeps reruns byte-identical
+            continue
         b = f.read_bytes()
         sizes[f.stem] = {"bytes": len(b), "gzip_bytes": len(gzip.compress(b, 9, mtime=0))}
     emit("meta", {"schema_version": "v1", "tags": T("meta", sources="OBSERVED"), "pipeline_version": VERSION, "generated_at": _generated_at(), "window_utc": [START, END], "hours_in_window": int(hourly(BAS[0]).height),

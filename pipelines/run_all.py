@@ -37,6 +37,8 @@ def main() -> None:
         step("extract_eia", eia.main)
     if a.fetch or not (INTERIM / "weather_hourly.parquet").exists():
         step("extract_noaa", noaa.main)
+    from pipelines.cleaning import timing
+    step("timing", timing.main)
     step("clean", clean.main)
     step("contracts", contracts.build)
     step("publish", publish.build_all)

@@ -188,6 +188,9 @@
      },
      "raw_rows": {
       "type": "integer"
+     },
+     "timing_excluded": {
+      "type": "integer"
      }
     },
     "required": [
@@ -202,7 +205,8 @@
      "kept",
      "imputed_short_gap",
      "flagged_range",
-     "flagged_spike"
+     "flagged_spike",
+     "timing_excluded"
     ],
     "type": "object"
    },

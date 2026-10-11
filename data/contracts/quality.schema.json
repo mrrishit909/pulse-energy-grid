@@ -363,6 +363,222 @@
    },
    "minProperties": 1,
    "type": "object"
+  },
+  "timing": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "boundaries": {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      "collision_rows_dropped": {
+       "type": "integer"
+      },
+      "daily_solar_offset_days": {
+       "type": "integer"
+      },
+      "derived": {
+       "type": "string"
+      },
+      "excluded_rows": {
+       "type": "integer"
+      },
+      "rows_by_group": {
+       "type": "object"
+      },
+      "segments": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "c_DF_h": {
+          "type": "integer"
+         },
+         "c_D_h": {
+          "type": "integer"
+         },
+         "c_TI_h": {
+          "type": "integer"
+         },
+         "c_gen_h": {
+          "type": "integer"
+         },
+         "days": {
+          "type": "integer"
+         },
+         "df_mape_pct_after": {
+          "type": "number"
+         },
+         "df_mape_pct_before": {
+          "type": "number"
+         },
+         "from": {
+          "type": "string"
+         },
+         "identity_resid_mw_after": {
+          "type": "number"
+         },
+         "identity_resid_mw_before": {
+          "type": "number"
+         },
+         "solar_offset_median_h": {
+          "type": "number"
+         },
+         "solar_offset_median_h_after": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "to": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "from",
+         "to",
+         "c_gen_h",
+         "c_D_h",
+         "c_TI_h",
+         "c_DF_h",
+         "solar_offset_median_h",
+         "solar_offset_median_h_after",
+         "days",
+         "identity_resid_mw_before",
+         "identity_resid_mw_after",
+         "df_mape_pct_before",
+         "df_mape_pct_after"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      }
+     },
+     "required": [
+      "derived",
+      "boundaries",
+      "collision_rows_dropped",
+      "excluded_rows",
+      "daily_solar_offset_days",
+      "rows_by_group",
+      "segments"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "boundaries": {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      "collision_rows_dropped": {
+       "type": "integer"
+      },
+      "daily_solar_offset_days": {
+       "type": "integer"
+      },
+      "derived": {
+       "type": "string"
+      },
+      "excluded_rows": {
+       "type": "integer"
+      },
+      "rows_by_group": {
+       "type": "object"
+      },
+      "segments": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "c_DF_h": {
+          "type": "integer"
+         },
+         "c_D_h": {
+          "type": "integer"
+         },
+         "c_TI_h": {
+          "type": "integer"
+         },
+         "c_gen_h": {
+          "type": "integer"
+         },
+         "days": {
+          "type": "integer"
+         },
+         "df_mape_pct_after": {
+          "type": "number"
+         },
+         "df_mape_pct_before": {
+          "type": "number"
+         },
+         "from": {
+          "type": "string"
+         },
+         "identity_resid_mw_after": {
+          "type": "number"
+         },
+         "identity_resid_mw_before": {
+          "type": "number"
+         },
+         "solar_offset_median_h": {
+          "type": "number"
+         },
+         "solar_offset_median_h_after": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "to": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "from",
+         "to",
+         "c_gen_h",
+         "c_D_h",
+         "c_TI_h",
+         "c_DF_h",
+         "solar_offset_median_h",
+         "solar_offset_median_h_after",
+         "days",
+         "identity_resid_mw_before",
+         "identity_resid_mw_after",
+         "df_mape_pct_before",
+         "df_mape_pct_after"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      }
+     },
+     "required": [
+      "derived",
+      "boundaries",
+      "collision_rows_dropped",
+      "excluded_rows",
+      "daily_solar_offset_days",
+      "rows_by_group",
+      "segments"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
   }
  },
  "required": [
@@ -370,6 +586,7 @@
   "tags",
   "gaps",
   "dst",
+  "timing",
   "outlier_rules",
   "spike_examples"
  ],

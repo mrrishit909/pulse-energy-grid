@@ -38,6 +38,8 @@ def fuel_mix(df: pl.DataFrame, ba: str) -> dict:
     share = {f: round(100 * v / s, 2) for f, v in shares.items()}
     by_year = []
     for y in sorted(df["local_year"].unique().to_list()):
+        if y < 2021:  # the first UTC hours fall on local 2020-12-31 (D-031)
+            continue
         sub = df.filter(pl.col("local_year") == y).select([pos(c).sum().alias(f) for f, c in g.items()])
         ss = sum(sub[f][0] for f in fuels)
         by_year.append({"year": int(y), "share_pct": {f: round(100 * sub[f][0] / ss, 2) for f in fuels}})

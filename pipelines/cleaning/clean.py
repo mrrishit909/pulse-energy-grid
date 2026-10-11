@@ -105,15 +105,20 @@ def clean_ba(ba: str, eia: pl.DataFrame, wx: pl.DataFrame, ts: np.ndarray) -> tu
     raw_vals = {}
     for kind, fuel in sers:
         d = eia.filter((pl.col("ba") == ba) & (pl.col("kind") == kind) & (pl.col("fuel") == fuel))
-        assert d["ts_utc"].n_unique() == d.height, "duplicate timestamps in source"
+        assert d["ts_utc"].n_unique() == d.height, "duplicate timestamps after alignment"
+        keep = np.array([t in idx for t in d["ts_utc"].to_numpy().astype("datetime64[h]")], bool)
+        d = d.filter(pl.Series(keep))
         x = np.full(n, np.nan)
         present = np.zeros(n, bool)
-        pos = np.array([idx[t] for t in d["ts_utc"].to_numpy().astype("datetime64[h]")])
+        texcl = np.zeros(n, bool)
+        pos = np.array([idx[t] for t in d["ts_utc"].to_numpy().astype("datetime64[h]")], int)
         v = d["value"].fill_null(np.nan).to_numpy().astype(float)
         x[pos], present[pos] = v, True
-        raw_vals[(kind, fuel)] = (x, present)
-    for (kind, fuel), (x, present) in raw_vals.items():
-        null = present & np.isnan(x)
+        texcl[pos] = d["timing_excluded"].to_numpy()
+        raw_vals[(kind, fuel)] = (x, present, texcl)
+    for (kind, fuel), (x, present, texcl) in raw_vals.items():
+        null = present & np.isnan(x) & ~texcl
+        x = np.where(texcl, np.nan, x)
         rng = np.zeros(n, bool)
         spk = np.zeros(n, bool)
         if kind in CORE:
@@ -132,12 +137,13 @@ def clean_ba(ba: str, eia: pl.DataFrame, wx: pl.DataFrame, ts: np.ndarray) -> tu
         if kind in CORE:
             y, imp = fill_short(y)
         ledger.append({"ba": ba, "kind": kind, "fuel": fuel, "grid_slots": n, "raw_rows": int(present.sum()), "missing_slots": int((~present).sum()),
-                       "null_value": int(null.sum()), "flagged_outlier": int(flagged.sum()), "kept": int((present & ~null & ~flagged).sum()), "imputed_short_gap": int(imp.sum()),
+                       "null_value": int(null.sum()), "flagged_outlier": int(flagged.sum()), "timing_excluded": int(texcl.sum()),
+                       "kept": int((present & ~null & ~flagged & ~texcl).sum()), "imputed_short_gap": int(imp.sum()),
                        "_range": int(rng.sum()), "_spike": int(spk.sum())})
         name = CORE.get(kind) or ("interchange" if kind == "TI" else f"gen_{fuel.lower()}")
         cols[name] = y
         if kind in CORE:
-            cols[name + "_status"] = np.where(imp, "imputed", np.where(flagged, "flagged", np.where(~present, "missing", np.where(null, "null", "ok"))))
+            cols[name + "_status"] = np.where(imp, "imputed", np.where(flagged, "flagged", np.where(texcl, "timing", np.where(~present, "missing", np.where(null, "null", "ok")))))
         gap = np.isnan(x)
         r = runs(gap, tsl)
         qual_gaps.append({"series": f"{kind}{'.' + fuel if fuel else ''}", "n_gaps": len(r), "missing_hours": int(gap.sum()), "longest_gap_h": max([h for _, h in r], default=0),
@@ -188,7 +194,7 @@ def STATIONS_BA(ba):
 
 
 def main(force: bool = False) -> None:
-    eia = pl.read_parquet(INTERIM / "eia_long.parquet")
+    eia = pl.read_parquet(INTERIM / "eia_aligned.parquet")
     wx = pl.read_parquet(INTERIM / "weather_hourly.parquet")
     ts = hours_grid()
     frames, out = [], {}

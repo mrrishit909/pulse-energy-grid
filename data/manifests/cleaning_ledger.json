@@ -2,18 +2,18 @@
   "CISO": {
     "balance": {
       "definition": "net generation - demand - total interchange (EIA identity: net generation = demand + interchange), hours where all three are clean",
-      "mean_abs_resid_mw": 994.2546284806671,
-      "mean_resid_mw": -415.4305851987889,
-      "n_hours": 40294,
-      "p99_abs_resid_mw": 3352.0699999999997
+      "mean_abs_resid_mw": 636.5841179694116,
+      "mean_resid_mw": -415.2784337169332,
+      "n_hours": 40146,
+      "p99_abs_resid_mw": 1709.550000000003
     },
     "generation_vs_total": {
       "definition": "100 * (sum of fuel net generation - total net generation) / total net generation, hours where all fuels and a clean total exist",
       "hours_gt_2pct": 1,
-      "mean_abs_resid_pct": 0.0033201277148069675,
-      "mean_signed_resid_pct": 0.0004637889491066189,
-      "n_hours": 40710,
-      "p99_abs_resid_pct": 0.013471651872798633
+      "mean_abs_resid_pct": 0.003320593416086773,
+      "mean_signed_resid_pct": 0.0004601813444040581,
+      "n_hours": 40570,
+      "p99_abs_resid_pct": 0.013483667443647656
     },
     "ledger": [
       {
@@ -23,12 +23,13 @@
         "flagged_outlier": 1,
         "fuel": "",
         "grid_slots": 40776,
-        "imputed_short_gap": 12,
-        "kept": 40764,
+        "imputed_short_gap": 11,
+        "kept": 40694,
         "kind": "D",
         "missing_slots": 1,
-        "null_value": 10,
-        "raw_rows": 40775
+        "null_value": 9,
+        "raw_rows": 40775,
+        "timing_excluded": 71
       },
       {
         "_range": 0,
@@ -42,7 +43,8 @@
         "kind": "DF",
         "missing_slots": 72,
         "null_value": 0,
-        "raw_rows": 40704
+        "raw_rows": 40704,
+        "timing_excluded": 0
       },
       {
         "_range": 13,
@@ -51,12 +53,13 @@
         "flagged_outlier": 14,
         "fuel": "",
         "grid_slots": 40776,
-        "imputed_short_gap": 11,
-        "kept": 40728,
+        "imputed_short_gap": 9,
+        "kept": 40588,
         "kind": "NG",
         "missing_slots": 24,
-        "null_value": 10,
-        "raw_rows": 40752
+        "null_value": 8,
+        "raw_rows": 40752,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -70,7 +73,8 @@
         "kind": "TI",
         "missing_slots": 456,
         "null_value": 0,
-        "raw_rows": 40320
+        "raw_rows": 40320,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -80,11 +84,12 @@
         "fuel": "NG",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40719,
+        "kept": 40579,
         "kind": "GEN",
         "missing_slots": 47,
-        "null_value": 10,
-        "raw_rows": 40729
+        "null_value": 8,
+        "raw_rows": 40729,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -94,11 +99,12 @@
         "fuel": "COL",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40734,
+        "kept": 40594,
         "kind": "GEN",
         "missing_slots": 32,
-        "null_value": 10,
-        "raw_rows": 40744
+        "null_value": 8,
+        "raw_rows": 40744,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -108,11 +114,12 @@
         "fuel": "NUC",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40740,
+        "kept": 40600,
         "kind": "GEN",
         "missing_slots": 26,
-        "null_value": 10,
-        "raw_rows": 40750
+        "null_value": 8,
+        "raw_rows": 40750,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -122,11 +129,12 @@
         "fuel": "OIL",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40739,
+        "kept": 40599,
         "kind": "GEN",
         "missing_slots": 27,
-        "null_value": 10,
-        "raw_rows": 40749
+        "null_value": 8,
+        "raw_rows": 40749,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -136,11 +144,12 @@
         "fuel": "OTH",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40742,
+        "kept": 40602,
         "kind": "GEN",
         "missing_slots": 24,
-        "null_value": 10,
-        "raw_rows": 40752
+        "null_value": 8,
+        "raw_rows": 40752,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -150,11 +159,12 @@
         "fuel": "SUN",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40742,
+        "kept": 40602,
         "kind": "GEN",
         "missing_slots": 24,
-        "null_value": 10,
-        "raw_rows": 40752
+        "null_value": 8,
+        "raw_rows": 40752,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -164,11 +174,12 @@
         "fuel": "WAT",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40719,
+        "kept": 40579,
         "kind": "GEN",
         "missing_slots": 47,
-        "null_value": 10,
-        "raw_rows": 40729
+        "null_value": 8,
+        "raw_rows": 40729,
+        "timing_excluded": 142
       },
       {
         "_range": 0,
@@ -178,11 +189,12 @@
         "fuel": "WND",
         "grid_slots": 40776,
         "imputed_short_gap": 0,
-        "kept": 40742,
+        "kept": 40602,
         "kind": "GEN",
         "missing_slots": 24,
-        "null_value": 10,
-        "raw_rows": 40752
+        "null_value": 8,
+        "raw_rows": 40752,
+        "timing_excluded": 142
       }
     ],
     "quality": {
@@ -245,11 +257,15 @@
       },
       "gaps": [
         {
-          "longest_gap_h": 1,
-          "missing_hours": 11,
+          "longest_gap_h": 71,
+          "missing_hours": 81,
           "n_gaps": 11,
           "series": "D",
           "top_runs": [
+            {
+              "hours": 71,
+              "start_utc": "2022-06-13T07"
+            },
             {
               "hours": 1,
               "start_utc": "2021-08-29T05"
@@ -265,10 +281,6 @@
             {
               "hours": 1,
               "start_utc": "2021-08-31T08"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-31T13"
             }
           ]
         },
@@ -289,30 +301,30 @@
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 34,
+          "longest_gap_h": 71,
+          "missing_hours": 174,
           "n_gaps": 11,
           "series": "NG",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
+              "start_utc": "2021-08-29T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-31T08"
+              "start_utc": "2021-08-29T17"
             }
           ]
         },
@@ -345,226 +357,226 @@
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 57,
+          "longest_gap_h": 71,
+          "missing_hours": 197,
           "n_gaps": 12,
           "series": "GEN.NG",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 23,
-              "start_utc": "2023-11-09T20"
+              "start_utc": "2023-11-09T19"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
+              "start_utc": "2021-08-29T06"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 42,
+          "longest_gap_h": 71,
+          "missing_hours": 182,
           "n_gaps": 13,
           "series": "GEN.COL",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 7,
-              "start_utc": "2024-11-08T01"
+              "start_utc": "2024-11-08T00"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
+              "start_utc": "2021-08-29T06"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 36,
+          "longest_gap_h": 71,
+          "missing_hours": 176,
           "n_gaps": 12,
           "series": "GEN.NUC",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 2,
-              "start_utc": "2024-11-08T02"
+              "start_utc": "2024-11-08T01"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
+              "start_utc": "2021-08-29T06"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 37,
+          "longest_gap_h": 71,
+          "missing_hours": 177,
           "n_gaps": 13,
           "series": "GEN.OIL",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 2,
-              "start_utc": "2024-11-08T06"
+              "start_utc": "2024-11-08T05"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
+              "start_utc": "2021-08-29T06"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 34,
+          "longest_gap_h": 71,
+          "missing_hours": 174,
           "n_gaps": 11,
           "series": "GEN.OTH",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
+              "start_utc": "2021-08-29T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-31T08"
+              "start_utc": "2021-08-29T17"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 34,
+          "longest_gap_h": 71,
+          "missing_hours": 174,
           "n_gaps": 11,
           "series": "GEN.SUN",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
+              "start_utc": "2021-08-29T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-31T08"
+              "start_utc": "2021-08-29T17"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 57,
+          "longest_gap_h": 71,
+          "missing_hours": 197,
           "n_gaps": 12,
           "series": "GEN.WAT",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 23,
-              "start_utc": "2023-11-09T20"
+              "start_utc": "2023-11-09T19"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
+              "start_utc": "2021-08-29T06"
             }
           ]
         },
         {
-          "longest_gap_h": 24,
-          "missing_hours": 34,
+          "longest_gap_h": 71,
+          "missing_hours": 174,
           "n_gaps": 11,
           "series": "GEN.WND",
           "top_runs": [
             {
+              "hours": 71,
+              "start_utc": "2022-06-13T08"
+            },
+            {
+              "hours": 71,
+              "start_utc": "2023-10-31T07"
+            },
+            {
               "hours": 24,
-              "start_utc": "2024-11-02T07"
+              "start_utc": "2024-11-02T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T05"
+              "start_utc": "2021-08-29T06"
             },
             {
               "hours": 1,
-              "start_utc": "2021-08-29T16"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-30T15"
-            },
-            {
-              "hours": 1,
-              "start_utc": "2021-08-31T08"
+              "start_utc": "2021-08-29T17"
             }
           ]
         }
@@ -575,7 +587,7 @@
           "reference": 31292.5,
           "rule": "spike",
           "series": "D",
-          "ts_utc": "2025-07-31T20",
+          "ts_utc": "2025-07-31T19",
           "value": 11819.0
         },
         {
@@ -583,7 +595,7 @@
           "reference": 24044.0,
           "rule": "spike",
           "series": "NG",
-          "ts_utc": "2025-04-01T18",
+          "ts_utc": "2025-04-01T17",
           "value": 14501.0
         }
       ]
@@ -660,7 +672,8 @@
         "kind": "D",
         "missing_slots": 1,
         "null_value": 0,
-        "raw_rows": 40775
+        "raw_rows": 40775,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -674,7 +687,8 @@
         "kind": "DF",
         "missing_slots": 0,
         "null_value": 0,
-        "raw_rows": 40776
+        "raw_rows": 40776,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -688,7 +702,8 @@
         "kind": "NG",
         "missing_slots": 0,
         "null_value": 0,
-        "raw_rows": 40776
+        "raw_rows": 40776,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -702,7 +717,8 @@
         "kind": "TI",
         "missing_slots": 9,
         "null_value": 0,
-        "raw_rows": 40767
+        "raw_rows": 40767,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -716,7 +732,8 @@
         "kind": "GEN",
         "missing_slots": 0,
         "null_value": 0,
-        "raw_rows": 40776
+        "raw_rows": 40776,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -730,7 +747,8 @@
         "kind": "GEN",
         "missing_slots": 0,
         "null_value": 0,
-        "raw_rows": 40776
+        "raw_rows": 40776,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -744,7 +762,8 @@
         "kind": "GEN",
         "missing_slots": 1,
         "null_value": 0,
-        "raw_rows": 40775
+        "raw_rows": 40775,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -758,7 +777,8 @@
         "kind": "GEN",
         "missing_slots": 3,
         "null_value": 0,
-        "raw_rows": 40773
+        "raw_rows": 40773,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -772,7 +792,8 @@
         "kind": "GEN",
         "missing_slots": 4,
         "null_value": 0,
-        "raw_rows": 40772
+        "raw_rows": 40772,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -786,7 +807,8 @@
         "kind": "GEN",
         "missing_slots": 6,
         "null_value": 0,
-        "raw_rows": 40770
+        "raw_rows": 40770,
+        "timing_excluded": 0
       },
       {
         "_range": 0,
@@ -800,7 +822,8 @@
         "kind": "GEN",
         "missing_slots": 0,
         "null_value": 0,
-        "raw_rows": 40776
+        "raw_rows": 40776,
+        "timing_excluded": 0
       }
     ],
     "quality": {

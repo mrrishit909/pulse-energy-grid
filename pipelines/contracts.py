@@ -66,13 +66,16 @@ SCHEMAS = {
     "reconciliation": top("reconciliation", {
         "invariants": arr(S, lo=2),
         "ledger": arr(obj({"ba": S, "kind": S, "fuel": S, "grid_slots": I, "raw_rows": I, "missing_slots": I, "null_value": I, "flagged_outlier": I,
-                           "kept": I, "imputed_short_gap": I, "flagged_range": I, "flagged_spike": I}), lo=20),
+                           "kept": I, "imputed_short_gap": I, "flagged_range": I, "flagged_spike": I, "timing_excluded": I}), lo=20),
         "generation_vs_total": per_ba(obj({"n_hours": I, "mean_signed_resid_pct": N, "mean_abs_resid_pct": N, "p99_abs_resid_pct": N, "hours_gt_2pct": I, "definition": S})),
         "balance": per_ba(obj({"n_hours": I, "mean_resid_mw": N, "mean_abs_resid_mw": N, "p99_abs_resid_mw": N, "definition": S})),
         "weather": arr(obj({"ba": S, "station_id": S, "name": S, "weight": N, "hours_expected": I, "hours_observed": I, "hours_interpolated": I, "hours_missing": I}), lo=8)}),
     "quality": top("quality", {
         "gaps": per_ba(obj({"series": arr(obj({"series": S, "n_gaps": I, "missing_hours": I, "longest_gap_h": I, "top_runs": arr(obj({"start_utc": S, "hours": I}))}), lo=1)})),
         "dst": per_ba(obj({"tz": S, "local_days": I, "days_23h": I, "days_25h": I, "transitions": arr(obj({"date": S, "type": S, "hours": I}))})),
+        "timing": per_ba(obj({"derived": S, "boundaries": arr(S), "collision_rows_dropped": I, "excluded_rows": I, "daily_solar_offset_days": I, "rows_by_group": {"type": "object"},
+                              "segments": arr(obj({"from": S, "to": S, "c_gen_h": I, "c_D_h": I, "c_TI_h": I, "c_DF_h": I, "solar_offset_median_h": N, "solar_offset_median_h_after": NN, "days": I,
+                                                   "identity_resid_mw_before": N, "identity_resid_mw_after": N, "df_mape_pct_before": N, "df_mape_pct_after": N}), lo=1)})),
         "outlier_rules": arr(obj({"id": S, "applies_to": S, "rule": S, "flagged": obj({b: I for b in BAS})}), lo=3),
         "spike_examples": per_ba(arr(obj({"series": S, "ts_utc": S, "value": N, "reference": N, "ratio": N, "rule": S})))}),
     "demand_profile": top("demand_profile", {"bas": per_ba(obj({

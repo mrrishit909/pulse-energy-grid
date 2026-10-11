@@ -1,0 +1,93 @@
+{
+  "CISO": {
+    "boundaries": [
+      "2022-06-14",
+      "2023-11-01"
+    ],
+    "collision_rows_dropped": 38,
+    "daily_solar_offset_days": 1679,
+    "excluded_rows": 1368,
+    "rows_by_group": {
+      "D": 28076,
+      "DF": 0,
+      "TI": 0,
+      "gen": 257683
+    },
+    "segments": [
+      {
+        "c_DF_h": 0,
+        "c_D_h": 0,
+        "c_TI_h": 0,
+        "c_gen_h": 1,
+        "days": 519,
+        "df_mape_pct_after": 2.1465555224574135,
+        "df_mape_pct_before": 2.146566146909083,
+        "from": "start",
+        "identity_resid_mw_after": 673.8934775742262,
+        "identity_resid_mw_before": 931.7796101949026,
+        "solar_offset_median_h": -0.6877201377818611,
+        "solar_offset_median_h_after": 0.31227986221813886,
+        "to": "2022-06-13"
+      },
+      {
+        "c_DF_h": 0,
+        "c_D_h": -1,
+        "c_TI_h": 0,
+        "c_gen_h": 0,
+        "days": 502,
+        "df_mape_pct_after": 3.3260795673450723,
+        "df_mape_pct_before": 5.139987355767275,
+        "from": "2022-06-14",
+        "identity_resid_mw_after": 614.9948836441657,
+        "identity_resid_mw_before": 1170.2068652529088,
+        "solar_offset_median_h": -0.1166946676689875,
+        "solar_offset_median_h_after": -0.1166946676689875,
+        "to": "2023-10-31"
+      },
+      {
+        "c_DF_h": 0,
+        "c_D_h": -1,
+        "c_TI_h": 0,
+        "c_gen_h": -1,
+        "days": 658,
+        "df_mape_pct_after": 5.873591936392977,
+        "df_mape_pct_before": 7.325560578339413,
+        "from": "2023-11-01",
+        "identity_resid_mw_after": 636.2238113645149,
+        "identity_resid_mw_before": 922.0572054370933,
+        "solar_offset_median_h": 0.881142082125832,
+        "solar_offset_median_h_after": -0.11644798203669815,
+        "to": "end"
+      }
+    ]
+  },
+  "ERCO": {
+    "boundaries": [],
+    "collision_rows_dropped": 0,
+    "daily_solar_offset_days": 1687,
+    "excluded_rows": 0,
+    "rows_by_group": {
+      "D": 0,
+      "DF": 0,
+      "TI": 0,
+      "gen": 0
+    },
+    "segments": [
+      {
+        "c_DF_h": 0,
+        "c_D_h": 0,
+        "c_TI_h": 0,
+        "c_gen_h": 0,
+        "days": 1687,
+        "df_mape_pct_after": 2.5875778016971833,
+        "df_mape_pct_before": 2.5875778016971833,
+        "from": "start",
+        "identity_resid_mw_after": 0.4563180614146964,
+        "identity_resid_mw_before": 0.4563180614146964,
+        "solar_offset_median_h": 0.14819091987293298,
+        "solar_offset_median_h_after": 0.14819091987293298,
+        "to": "end"
+      }
+    ]
+  }
+}
