@@ -1,0 +1,66 @@
+1440 no-preference S00/S01 top: clean
+1440 no-preference nav->pulse (scene=pulse): clean
+1440 no-preference nav->source (scene=source): clean
+1440 no-preference nav->demand (scene=demand): clean
+1440 no-preference nav->netload (scene=netload): clean
+1440 no-preference nav->forecast (scene=forecast): clean
+1440 no-preference nav->dispatch (scene=dispatch): clean
+1440 no-preference nav->stress (scene=stress): clean
+1440 no-preference nav->evidence (scene=evidence): clean
+1440 no-preference nav->control (scene=control): clean
+1440 no-preference closing 0.97: clean
+1440 reduce S00/S01 top: clean
+1440 reduce nav->pulse (scene=): clean
+1440 reduce nav->source (scene=): clean
+1440 reduce nav->demand (scene=): clean
+1440 reduce nav->netload (scene=): clean
+1440 reduce nav->forecast (scene=): clean
+1440 reduce nav->dispatch (scene=): clean
+1440 reduce nav->stress (scene=): clean
+1440 reduce nav->evidence (scene=): clean
+1440 reduce nav->control (scene=): clean
+1440 reduce closing 0.97: clean
+390 no-preference S00/S01 top: clean
+390 no-preference nav->pulse (scene=pulse): clean
+390 no-preference nav->source (scene=source): clean
+390 no-preference nav->demand (scene=demand): clean
+390 no-preference nav->netload (scene=netload): clean
+390 no-preference nav->forecast (scene=forecast): clean
+390 no-preference nav->dispatch (scene=dispatch): clean
+390 no-preference nav->stress (scene=stress): clean
+390 no-preference nav->evidence (scene=evidence): clean
+390 no-preference nav->control (scene=control): clean
+390 no-preference closing 0.97: clean
+390 reduce S00/S01 top: clean
+390 reduce nav->pulse (scene=): clean
+390 reduce nav->source (scene=): clean
+390 reduce nav->demand (scene=): clean
+390 reduce nav->netload (scene=): clean
+390 reduce nav->forecast (scene=): clean
+390 reduce nav->dispatch (scene=): clean
+390 reduce nav->stress (scene=): clean
+390 reduce nav->evidence (scene=): clean
+390 reduce nav->control (scene=): clean
+390 reduce closing 0.97: clean
+FAIL first Tab reaches SKIP INTRO or skip link a "PULSE" in #root
+FAIL Enter on SKIP ends the intro 
+PASS Tab walk shows a focus ring on every stop a "PULSE" in #root [ring] | a "SOURCE" in #root [ring] | a "DEMAND" in #root [ring] | a "NET LOAD" in #root [ring] | a "FORECAST" in #root [ring] | a "DISPATCH" in #root [ring] | a "STRESS" in #root [ring] | a "EVIDENCE" in #root [ring] | a "CONTROL ROOM" in #root [ring] | button "REPLAY INTRO" in #root [ring] | button "MOTION ON" in #root [ring] | button "SKIP INTRO" in #root [ring] | button[tab] "Card 1 of 4" in #source [ring] | button[radio] "CISO" in #demand [ring]
+PASS S03a GRID arrow selects ERCO button[radio] "ERCO" in #demand
+PASS S03a DAY arrow changes day {"ba":"ERCO","dayId":"spring","hour":18}
+PASS S03a Enter on rose opens the inspector and moves focus into it div[dialog] "Hour inspector 12:00" in #?
+PASS Esc closes the inspector and returns focus to the rose div[button] "Day rose of ERCO on 2025-04-30, 12:00: 5" in #demand
+PASS S03b LAYER NET LOAD via keyboard 
+PASS S03b YEAR 2023 via keyboard 
+PASS S04 NAIVE toggle via keyboard sets aria-pressed=false false
+PASS S04 WEEK via keyboard 
+PASS S05 battery slider via keyboard re-solves in browser {"p":1800,"seq":3,"src":"browser"}
+PASS every slider has an accessible name BATTERY POWER1,800 MW | BATTERY DURATION4 H | RENEWABLES MULTIPLIER×1.00 | RENEWABLES MULTIPLIER×1.00 | DEMAND GROWTH0% | HEAT WAVE+0.0 °C | BATTERY POWER1,500 MW | BATTERY DURATION4 H
+PASS S06 tablist ArrowRight steps the scenario {"ba":"CISO","dayId":"summer","step":1,"layer":"stack"} focus button[tab] "2 Demand +15%" in #stress
+PASS CTRL GRID via keyboard 
+PASS CTRL preset HEAT WAVE via keyboard {"renewables_scale":1,"demand_growth_pct":0,"heat_wave_c":5,"battery_power_mw":2600,"battery_hours":4,"outage_class":"none","outage_pct":100}
+FAIL CTRL OUTAGE select via keyboard none
+PASS CTRL LAYER PRICE via keyboard 
+PASS CTRL TIME LIMIT too short: handled, last optimal kept, said on screen SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 4 MS SOLVER STATUS TIME LIMIT REACHED: SHOWING THE LAST OPTIMAL RESULT MODEL COST $22,131,377 = SOLVER OBJECTIVE ✓ (+$5,382,065 VS BASELINE) PARITY
+PASS CTRL RESET restores CISO / first day / baseline params {"ba":"CISO","day":"winter","p":{"renewables_scale":1,"demand_growth_pct":0,"heat_wave_c":0,"battery_power_mw":1500,"battery_hours":4,"outage_class":"none","outage_pct":100}}
+PASS CTRL RESET returns LAYER to STACK true
+PASS CTRL inspector Enter/Esc returns focus to the rose div[button] "Control room rose. Enter or a click open" in #control

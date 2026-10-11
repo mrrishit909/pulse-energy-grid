@@ -1,0 +1,42 @@
+PASS S00 corner = intro day date + peak 2024-04-20 23,774
+PASS S01 CISO peak MW + local time (17:00 after D-008 fix) 51104 2022-09-06 16:00
+PASS S01 ERCO peak MW + local time 85544 2024-08-20 17:00
+PASS S01 no stale 18:00 peak 
+PASS S01 ERCO interchange % 
+PASS S02 CISO slope = facts demand_temp_slope +6.24% DEMAND PER °C ABOVE 17 °C (95% CI 6.01 TO 6.49)
+PASS S02 CISO solar/wind/gas shares SOLAR 21.8% · WIND 10.3% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · G
+PASS S02 rows in / kept 
+PASS S02 no stale 5.49 slope 
+PASS S03a evening ramp = facts 2375
+PASS S03a MW served is a real hour of the day; windows = round(MW/100) 26466 MW, 265 windows, day 2025-01-02
+PASS S03b partial 2025 marked 
+PASS S03b month-mean midday net-load min = fuel_mix by-year means MAY MIDDAY NET LOAD MIN 5,457 MW AT 14:00 (2025) expected 5457 at 14
+PASS S04 CISO MAPE ours vs EIA 3.3 vs 6.5
+PASS S04 CISO diff + CI -3.1874 -3.5845,-2.7848
+PASS S04 ERCO diff + CI (EIA beats ours, said so) 1.8898 1.5451,2.2762
+PASS S04 ERCO MAPE ours vs EIA 
+PASS S04 CISO drift = facts.eia_ciso_dayahead_bias_pct -6.36
+PASS S04 CISO interval coverage 
+PASS parity computed this session over every vector {"n":108,"objective":108,"priceComparable":82,"price":82,"keys":108,"hash":108,"passed":108,"ms":1286.4000000059605}
+PASS S05 parity text = session report (n, prices, keys) PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 
+PASS S05 baseline objective == Python within 1e-6 CISO summer 11331535.249922127 vs 11331535.25
+PASS S05 displayed model cost == objective MODEL COST $11,331,535
+PASS S06 heat-wave ledger cost/CO2/unserved = dispatch_results 38,204,885 187,537 20,256
+PASS S06 max price heat = max(price_usd_mwh) 1000
+PASS CTRL non-preset, solved in browser {"renewables_scale":1.15,"demand_growth_pct":9,"heat_wave_c":0,"battery_power_mw":2600,"battery_hours":4,"outage_class":"none","outage_pct":100}
+PASS CTRL displayed cost == objective MODEL COST $7,999,909 = SOLVER OBJECTIVE ✓ (+$1,183,594 VS BASELINE) MODEL CO2 80,756 T (+12,742 T VS BASELINE) UNSERVED
+PASS CTRL data-objective == solver objective; sum(breakdown) within 1e-6 7999908.915 7999908.915000001 7999908.915
+PASS CTRL status SOLVED IN BROWSER + parity SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 3 MS MODEL COST $7,999,909 = SOLVER OBJECTIVE ✓ (+$1,183,594 VS BASELINE) PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 · LP TEXT SHA-256 108/108
+PASS S07 Wires ILLUSTRATIVE, no MW in the SVG 
+PASS S07 parity answer = session report  OBJECTIVE 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINE
+PASS no 'live' claims []
+PASS no U+2014/U+2015 in rendered text 
+PASS phone 390: each verdict card states its diff + 95% CI [["CISO",[16,509,176,170],"13px","11px"],["ERCO",[198,509,176,170],"13px","11px"]]
+PASS phone 390: cards equally prominent (same width, title and mono size, height within 15%) [["CISO",[16,509,176,170],"13px","11px"],["ERCO",[198,509,176,170],"13px","11px"]]
+PASS phone 375: each verdict card states its diff + 95% CI [["CISO",[16,463,169,184],"13px","11px"],["ERCO",[191,463,169,184],"13px","11px"]]
+PASS phone 375: cards equally prominent (same width, title and mono size, height within 15%) [["CISO",[16,463,169,184],"13px","11px"],["ERCO",[191,463,169,184],"13px","11px"]]
+PASS phone 360: each verdict card states its diff + 95% CI [["CISO",[16,436,161,184],"13px","11px"],["ERCO",[183,436,161,184],"13px","11px"]]
+PASS phone 360: cards equally prominent (same width, title and mono size, height within 15%) [["CISO",[16,436,161,184],"13px","11px"],["ERCO",[183,436,161,184],"13px","11px"]]
+PASS worker blocked: S05 PRECOMPUTED, no SOLVED IN BROWSER, no parity 
+PASS worker blocked: CTRL PRECOMPUTED, no parity 
+passed 41 / 41

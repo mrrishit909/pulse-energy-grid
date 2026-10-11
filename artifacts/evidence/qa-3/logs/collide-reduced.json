@@ -1,0 +1,1740 @@
+[
+ {
+  "vp": "1440x900-reduced",
+  "scene": "pulse",
+  "p": 0.02,
+  "boxes": 35,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "pulse",
+  "p": 0.3,
+  "boxes": 39,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "pulse",
+  "p": 0.78,
+  "boxes": 73,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "source",
+  "p": 0.14,
+  "boxes": 75,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 18
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "source",
+  "p": 0.36,
+  "boxes": 54,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 6
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "source",
+  "p": 0.58,
+  "boxes": 58,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 22
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "source",
+  "p": 0.8,
+  "boxes": 51,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 16
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "demand",
+  "p": 0.2,
+  "boxes": 27,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "demand",
+  "p": 0.74,
+  "boxes": 27,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "demand",
+  "p": 0.9,
+  "boxes": 27,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "netload",
+  "p": 0.15,
+  "boxes": 70,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "netload",
+  "p": 0.3,
+  "boxes": 50,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "netload",
+  "p": 0.6,
+  "boxes": 30,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "netload",
+  "p": 0.8,
+  "boxes": 30,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "forecast",
+  "p": 0,
+  "boxes": 73,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "forecast",
+  "p": 0.12,
+  "boxes": 69,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "forecast",
+  "p": 0.5,
+  "boxes": 28,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "forecast",
+  "p": 0.9,
+  "boxes": 42,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 12
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "dispatch",
+  "p": 0.04,
+  "boxes": 93,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "dispatch",
+  "p": 0.4,
+  "boxes": 93,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "dispatch",
+  "p": 0.8,
+  "boxes": 93,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "stress",
+  "p": 0.1,
+  "boxes": 60,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 22
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "stress",
+  "p": 0.64,
+  "boxes": 55,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "stress",
+  "p": 0.82,
+  "boxes": 49,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "evidence",
+  "p": 0.05,
+  "boxes": 112,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 34
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "evidence",
+  "p": 0.35,
+  "boxes": 122,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "evidence",
+  "p": 0.5,
+  "boxes": 97,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "evidence",
+  "p": 0.8,
+  "boxes": 105,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 38
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "evidence",
+  "p": 0.95,
+  "boxes": 103,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 34
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "control",
+  "p": 0,
+  "boxes": 108,
+  "marks": 4,
+  "defects": [
+   {
+    "cls": "fixed-over-pinned",
+    "a": "STRESS",
+    "b": "SOLARWINDIMPORTSOTHERHYDRONU",
+    "area": 196,
+    "at": [
+     714,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "STRESS",
+    "b": "SIMULATED · YOUR SCENARIO · ",
+    "area": 196,
+    "at": [
+     714,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "EVIDENCE",
+    "b": "SOLARWINDIMPORTSOTHERHYDRONU",
+    "area": 346,
+    "at": [
+     761,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "EVIDENCE",
+    "b": "SIMULATED · YOUR SCENARIO · ",
+    "area": 346,
+    "at": [
+     761,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "CONTROL ROOM",
+    "b": "SOLARWINDIMPORTSOTHERHYDRONU",
+    "area": 338,
+    "at": [
+     843,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "CONTROL ROOM",
+    "b": "SIMULATED · YOUR SCENARIO · ",
+    "area": 338,
+    "at": [
+     843,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "SOLARWINDIMPORTSOTHERHYDRONU",
+    "b": "STRESS",
+    "area": 196,
+    "at": [
+     714,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "SOLARWINDIMPORTSOTHERHYDRONU",
+    "b": "EVIDENCE",
+    "area": 346,
+    "at": [
+     761,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "SOLARWINDIMPORTSOTHERHYDRONU",
+    "b": "CONTROL ROOM",
+    "area": 338,
+    "at": [
+     843,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "SIMULATED · YOUR SCENARIO · ",
+    "b": "STRESS",
+    "area": 196,
+    "at": [
+     714,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "SIMULATED · YOUR SCENARIO · ",
+    "b": "EVIDENCE",
+    "area": 346,
+    "at": [
+     761,
+     856
+    ]
+   },
+   {
+    "cls": "fixed-over-pinned",
+    "a": "SIMULATED · YOUR SCENARIO · ",
+    "b": "CONTROL ROOM",
+    "area": 338,
+    "at": [
+     843,
+     856
+    ]
+   }
+  ],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "closing",
+  "p": 0.5,
+  "boxes": 78,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "closing",
+  "p": 0.76,
+  "boxes": 78,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900-reduced",
+  "scene": "closing",
+  "p": 0.97,
+  "boxes": 78,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "1440x900",
+  "scene": "FIXTURE",
+  "caught": false,
+  "hits": []
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "pulse",
+  "p": 0.02,
+  "boxes": 17,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "pulse",
+  "p": 0.3,
+  "boxes": 23,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "pulse",
+  "p": 0.78,
+  "boxes": 60,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 6
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "source",
+  "p": 0.14,
+  "boxes": 64,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "source",
+  "p": 0.36,
+  "boxes": 40,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "source",
+  "p": 0.58,
+  "boxes": 40,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "source",
+  "p": 0.8,
+  "boxes": 38,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "demand",
+  "p": 0.2,
+  "boxes": 9,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "demand",
+  "p": 0.74,
+  "boxes": 9,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "demand",
+  "p": 0.9,
+  "boxes": 9,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "netload",
+  "p": 0.15,
+  "boxes": 55,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "netload",
+  "p": 0.3,
+  "boxes": 47,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "netload",
+  "p": 0.6,
+  "boxes": 30,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "netload",
+  "p": 0.8,
+  "boxes": 12,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "forecast",
+  "p": 0,
+  "boxes": 55,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "forecast",
+  "p": 0.12,
+  "boxes": 55,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "forecast",
+  "p": 0.5,
+  "boxes": 39,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 10
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "forecast",
+  "p": 0.9,
+  "boxes": 32,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "dispatch",
+  "p": 0.04,
+  "boxes": 64,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "dispatch",
+  "p": 0.4,
+  "boxes": 64,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "dispatch",
+  "p": 0.8,
+  "boxes": 64,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "stress",
+  "p": 0.1,
+  "boxes": 76,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "stress",
+  "p": 0.64,
+  "boxes": 56,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "stress",
+  "p": 0.82,
+  "boxes": 51,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "evidence",
+  "p": 0.05,
+  "boxes": 100,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "evidence",
+  "p": 0.35,
+  "boxes": 113,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "evidence",
+  "p": 0.5,
+  "boxes": 91,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "evidence",
+  "p": 0.8,
+  "boxes": 97,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 6
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "evidence",
+  "p": 0.95,
+  "boxes": 95,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "control",
+  "p": 0,
+  "boxes": 55,
+  "marks": 4,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "closing",
+  "p": 0.5,
+  "boxes": 62,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "closing",
+  "p": 0.76,
+  "boxes": 62,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "768x1024-reduced",
+  "scene": "closing",
+  "p": 0.97,
+  "boxes": 62,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "pulse",
+  "p": 0.02,
+  "boxes": 17,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "pulse",
+  "p": 0.3,
+  "boxes": 23,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 6
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "pulse",
+  "p": 0.78,
+  "boxes": 65,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 11
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "source",
+  "p": 0.14,
+  "boxes": 60,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 10
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "source",
+  "p": 0.36,
+  "boxes": 36,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "source",
+  "p": 0.58,
+  "boxes": 40,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "source",
+  "p": 0.8,
+  "boxes": 35,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "demand",
+  "p": 0.2,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "demand",
+  "p": 0.74,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "demand",
+  "p": 0.9,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "netload",
+  "p": 0.15,
+  "boxes": 27,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "netload",
+  "p": 0.3,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "netload",
+  "p": 0.6,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "netload",
+  "p": 0.8,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "forecast",
+  "p": 0,
+  "boxes": 83,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "forecast",
+  "p": 0.12,
+  "boxes": 44,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "forecast",
+  "p": 0.5,
+  "boxes": 4,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "forecast",
+  "p": 0.9,
+  "boxes": 4,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "dispatch",
+  "p": 0.04,
+  "boxes": 41,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "dispatch",
+  "p": 0.4,
+  "boxes": 45,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 10
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "dispatch",
+  "p": 0.8,
+  "boxes": 38,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 3
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "stress",
+  "p": 0.1,
+  "boxes": 17,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "stress",
+  "p": 0.64,
+  "boxes": 15,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "stress",
+  "p": 0.82,
+  "boxes": 19,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "evidence",
+  "p": 0.05,
+  "boxes": 88,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "evidence",
+  "p": 0.35,
+  "boxes": 101,
+  "marks": 0,
+  "defects": [
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.05",
+    "area": 11,
+    "at": [
+     329,
+     404
+    ]
+   },
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.85",
+    "area": 11,
+    "at": [
+     329,
+     483
+    ]
+   }
+  ],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "evidence",
+  "p": 0.5,
+  "boxes": 84,
+  "marks": 0,
+  "defects": [
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.05",
+    "area": 11,
+    "at": [
+     329,
+     175
+    ]
+   },
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.85",
+    "area": 11,
+    "at": [
+     329,
+     254
+    ]
+   }
+  ],
+  "flowUnderFixed": 6
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "evidence",
+  "p": 0.8,
+  "boxes": 92,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 12
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "evidence",
+  "p": 0.95,
+  "boxes": 88,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "control",
+  "p": 0,
+  "boxes": 34,
+  "marks": 4,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "closing",
+  "p": 0.5,
+  "boxes": 67,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "closing",
+  "p": 0.76,
+  "boxes": 67,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "390x844-reduced",
+  "scene": "closing",
+  "p": 0.97,
+  "boxes": 67,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "pulse",
+  "p": 0.02,
+  "boxes": 18,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "pulse",
+  "p": 0.3,
+  "boxes": 23,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 6
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "pulse",
+  "p": 0.78,
+  "boxes": 65,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 11
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "source",
+  "p": 0.14,
+  "boxes": 58,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 10
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "source",
+  "p": 0.36,
+  "boxes": 36,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "source",
+  "p": 0.58,
+  "boxes": 40,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "source",
+  "p": 0.8,
+  "boxes": 35,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "demand",
+  "p": 0.2,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "demand",
+  "p": 0.74,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "demand",
+  "p": 0.9,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "netload",
+  "p": 0.15,
+  "boxes": 27,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "netload",
+  "p": 0.3,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "netload",
+  "p": 0.6,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "netload",
+  "p": 0.8,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "forecast",
+  "p": 0,
+  "boxes": 87,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "forecast",
+  "p": 0.12,
+  "boxes": 49,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "forecast",
+  "p": 0.5,
+  "boxes": 4,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "forecast",
+  "p": 0.9,
+  "boxes": 4,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "dispatch",
+  "p": 0.04,
+  "boxes": 41,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "dispatch",
+  "p": 0.4,
+  "boxes": 45,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 10
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "dispatch",
+  "p": 0.8,
+  "boxes": 38,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 3
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "stress",
+  "p": 0.1,
+  "boxes": 18,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "stress",
+  "p": 0.64,
+  "boxes": 15,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "stress",
+  "p": 0.82,
+  "boxes": 20,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "evidence",
+  "p": 0.05,
+  "boxes": 84,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 14
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "evidence",
+  "p": 0.35,
+  "boxes": 93,
+  "marks": 0,
+  "defects": [
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.05",
+    "area": 16,
+    "at": [
+     314,
+     401
+    ]
+   },
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.85",
+    "area": 16,
+    "at": [
+     314,
+     495
+    ]
+   }
+  ],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "evidence",
+  "p": 0.5,
+  "boxes": 79,
+  "marks": 0,
+  "defects": [
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.05",
+    "area": 16,
+    "at": [
+     314,
+     158
+    ]
+   },
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.85",
+    "area": 16,
+    "at": [
+     314,
+     252
+    ]
+   }
+  ],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "evidence",
+  "p": 0.8,
+  "boxes": 91,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 20
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "evidence",
+  "p": 0.95,
+  "boxes": 85,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "control",
+  "p": 0,
+  "boxes": 35,
+  "marks": 4,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "closing",
+  "p": 0.5,
+  "boxes": 68,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "closing",
+  "p": 0.76,
+  "boxes": 68,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "375x812-reduced",
+  "scene": "closing",
+  "p": 0.97,
+  "boxes": 68,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "pulse",
+  "p": 0.02,
+  "boxes": 18,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "pulse",
+  "p": 0.3,
+  "boxes": 23,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "pulse",
+  "p": 0.78,
+  "boxes": 65,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 13
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "source",
+  "p": 0.14,
+  "boxes": 56,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "source",
+  "p": 0.36,
+  "boxes": 36,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 2
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "source",
+  "p": 0.58,
+  "boxes": 40,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 8
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "source",
+  "p": 0.8,
+  "boxes": 35,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "demand",
+  "p": 0.2,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "demand",
+  "p": 0.74,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "demand",
+  "p": 0.9,
+  "boxes": 10,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "netload",
+  "p": 0.15,
+  "boxes": 39,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "netload",
+  "p": 0.3,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "netload",
+  "p": 0.6,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "netload",
+  "p": 0.8,
+  "boxes": 8,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "forecast",
+  "p": 0,
+  "boxes": 88,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "forecast",
+  "p": 0.12,
+  "boxes": 51,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "forecast",
+  "p": 0.5,
+  "boxes": 4,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "forecast",
+  "p": 0.9,
+  "boxes": 4,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "dispatch",
+  "p": 0.04,
+  "boxes": 41,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "dispatch",
+  "p": 0.4,
+  "boxes": 45,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 10
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "dispatch",
+  "p": 0.8,
+  "boxes": 38,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 3
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "stress",
+  "p": 0.1,
+  "boxes": 19,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "stress",
+  "p": 0.64,
+  "boxes": 15,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "stress",
+  "p": 0.82,
+  "boxes": 21,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "evidence",
+  "p": 0.05,
+  "boxes": 83,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 20
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "evidence",
+  "p": 0.35,
+  "boxes": 91,
+  "marks": 0,
+  "defects": [
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.05",
+    "area": 20,
+    "at": [
+     299,
+     427
+    ]
+   },
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.85",
+    "area": 20,
+    "at": [
+     299,
+     521
+    ]
+   }
+  ],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "evidence",
+  "p": 0.5,
+  "boxes": 78,
+  "marks": 0,
+  "defects": [
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.05",
+    "area": 20,
+    "at": [
+     299,
+     175
+    ]
+   },
+   {
+    "cls": "flow",
+    "a": "PERFECT WEATHER",
+    "b": "3.85",
+    "area": 20,
+    "at": [
+     299,
+     269
+    ]
+   }
+  ],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "evidence",
+  "p": 0.8,
+  "boxes": 90,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 24
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "evidence",
+  "p": 0.95,
+  "boxes": 85,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 4
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "control",
+  "p": 0,
+  "boxes": 35,
+  "marks": 4,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "closing",
+  "p": 0.5,
+  "boxes": 69,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "closing",
+  "p": 0.76,
+  "boxes": 69,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ },
+ {
+  "vp": "360x800-reduced",
+  "scene": "closing",
+  "p": 0.97,
+  "boxes": 69,
+  "marks": 0,
+  "defects": [],
+  "flowUnderFixed": 0
+ }
+]

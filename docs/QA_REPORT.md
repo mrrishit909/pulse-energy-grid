@@ -450,3 +450,155 @@ Solar timing (D-008) is fixed for ERCO only.
    - Extend L5 to 1024 and 1280 in CTRL with PRICE on.
 3. **Minors:** D-012, D-013, D-020, D-022, D-029, D-030, D-031, D-032.
 4. **Lesson candidate for `QA_LESSONS.md`** (QA cannot edit it): "a data-convention test pooled over all years can pass while individual years are off by ±1 h in opposite directions. Run timing tests per year (and per BA) and check forecast-vs-actual best lag = 0 per year."
+
+---
+
+# Pass 3 (task P04-QA-003)
+
+This is an independent re-test after the data fix `c1f6277` (per-series, per-period CISO timing correction) and the
+frontend fix batch `be35020` (FIXF-001).
+
+- **Reviewer:** qa-reviewer (Claude Opus 5.5). I built none of the site and changed no product code.
+- **When:** 2026-10-11, 12:46 to about 13:40 EDT.
+- **Code audited:** `main` HEAD `be35020`. A fresh `npm run build` produced `index-CiMgvhxF.js`, and the `site/tests/serve.mjs` server (port 4331, restart loop) served that same bundle.
+- **Machine:** Mac15,6 (Apple M3 Pro), Chromium 156.0.8078.4. Load averages ran 4 to 16, and `uptime` is recorded with every measurement.
+- **Evidence:** `artifacts/evidence/qa-3/`, with probes in `qa-3/probes/` and logs in `qa-3/logs/`.
+
+**Verdict: FAILED.** 3 new major regressions are open, all side effects of pass-2 fixes. There is no blocker.
+
+All 8 pass-2 majors are closed, and the data correction is good:
+- Every CISO and ERCO year-month solar centroid is within −0.28 to +0.45 h.
+- The EIA day-ahead best lag is 0 in every year for both BAs.
+- The EIA comparison and its copy are re-derived and bound to the new data.
+
+The new regressions:
+- **D-034:** on phones the S08 echo rose is reduced to a featureless yellow band. The cause is the full-length source credit (D-029 fix) and its scrim.
+- **D-037:** at 1024 and 1280 the S06 PRICE colour key is hidden under the SIMULATED chip, and at 768 it overlaps the rose. This came from the D-028 legend resize.
+- **D-038:** under reduced motion on phones, S07 bar labels overprint the "perfect weather" upper-bound values.
+
+The new DOM-generated collision probe (L19, which includes fixed elements and runs at 1280) found D-037 and D-038. Neither appears in the builder's own L2/L11/L19 e2e tests, which all pass.
+
+## P3.1 Release gate
+
+| Row | Result | Measured evidence |
+|---|---|---|
+| Visual design | **FAIL** | D-001, D-002 and D-023 are closed: PRICE keeps the full STACK rose (the 240 px greyscale forms match STACK, `screens/price-greyscale-240.png`), the S04 unroll keeps band gradients with the core intact (`screens/s04-grid-1440.jpg`, `grid-s04-tm.jpg`), and S04 opens without the ring. It fails on **D-034** (the S08 phone echo is no longer a recognisable rose; criteria 17/19) and **D-037** (the PRICE colour key is covered). Minors: D-033 (a blank scroll run between S04 and S05) and D-035 (legend words broken mid-word). |
+| Motion UI (6 layers) | PASS (with defects) | All six layers are present in every sheet. D-012 is closed: pinned panels fade and no longer slice the rose (`screens/handoff-1440.jpg`). L18 is clean. **Frame pacing** (headed, `ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro)`, load 8.58 at the start; S04 unroll + S05 fill scrub, state changed in all runs): 1440 p50 8.3 / p95 10.4 ms, 3.3% of frames over 16.7 ms; 1440 at 4x CPU p95 13.4 ms; 390 at 4x CPU p95 33.3 ms, 5.1% over 33 ms. Defect: D-033. |
+| UX | **FAIL** | Keyboard 19 of 22: every functional step passes, and the 3 fails are the explained D-016/macOS-select items. The inspector opens in view and closes on every jump (15/15, L17). Fails: D-037 (price key unreadable at 1024/1280) and D-038. |
+| Functionality and states | PASS | Route-block: 86 of 86 pass at 1440 and 390, including `dispatch_test_vectors`, wasm and the worker. Each case has a scoped alert, RETRY passes `elementFromPoint`, and a real `mouse.click` / `touchscreen.tap` gives exactly one re-fetch and clears the alert (`routeblock/results.json`). D-013 is closed: the banner sits above the nav, clear of headings. |
+| AI / analytical | PASS | **D-008** is closed (§P3.3). **D-025** is closed: CISO MAPE is 3.30% vs EIA 6.50%, difference −3.19 pp (95% CI −3.58 to −2.78); the bias-corrected EIA is 6.74%, and the copy now says "removing that bias does not help EIA on the test split (6.74% vs 6.50%)". The drift line is bound to `biasLine()`. 41 of 41 numbers match the regenerated artifacts (`honesty.json`). The CTRL non-preset cost $7,999,909 equals the solver objective, Σ breakdown is within 1e-6, and parity is 108/108 this session. Worker blocked → PRECOMPUTED. The honesty facts hold: CISO 2025 bias −6.36% (the regenerated value), ERCO EIA beats GBM (+1.89 pp, CI +1.55 to +2.28), and the phone verdict cards are equally prominent per card (390: both 176x170 px, title 13 px, mono 11 px; 375 and 360 equal too). |
+| Performance | PASS (local; re-measure LCP on Pages per ED #58) | Lighthouse 13, 3 runs per preset at load 9.8 to 12.9 (`lighthouse/summary.jsonl`). **Mobile:** perf 0.99 ×3, LCP 1,803 / 1,813 / 1,813 ms, CLS 0, TBT 0, a11y 1.00, BP 1.00. **Desktop:** perf 1.00 ×3, LCP 490 / 485 / 486 ms, CLS 0.00004. Pacing as above. |
+| Responsiveness | **FAIL** | D/T/M remain deliberate compositions at all 7 viewports plus 1280. L1 holds with classic scrollbars (1024 → D/D/D and 768 → T/T/T in 47 + 47 shots, and in all 366 walk rows). D-028 is closed: no `scrollWidth` above the configured width in any harness shot or walk row, and CTRL PRICE stays at 1024 / 1280 / 1440 / 1920. Fails: D-034 (phones), D-037 (1024/1280/768) and D-038 (phones, reduced). |
+| Professional quality | PASS | `uv run pytest -q`: 81 passed, including the slow per-year timing tests. `npm run typecheck`: clean. `npm run lint`: clean. `npm test`: 74 passed (10 files). `npx playwright test --workers 1`: 121 passed, 44 skipped (project-gated), 1 flaky, 0 failed (19.4 min, load 6 to 15). The flaky test ("L4 390: evidence", a facts.json alert count) passed on retry and in a serial `--retries 0` rerun at load 10, and my own route-block covers that case, so I class it as load. axe is clean 44 of 44 (normal and reduced, 1440 and 390, after real nav clicks). D-020 docs are deferred by the orchestrator. |
+| GitHub / Deployment / Portfolio | BLOCKED | Not in QA scope. |
+
+## P3.2 Defect register
+
+| ID | Sev | Status | Evidence and ruling |
+|---|---|---|---|
+| D-001 | major | CLOSED | Renewables +50% in PRICE keeps all 24 STACK petals, with surplus shown as a violet outer band and rim. Heat wave, outage and CTRL PRICE match. In the greyscale strip at 240 px, PRICE and STACK share one form (`screenshots/1440x900/s06-05-price-renew.jpg`, `contact-sheets/1920x1080.jpg` f76-77). |
+| D-002 | major | CLOSED | At p0.08-0.35, at 1440, 768 and 390, the leaving petals keep their own band gradients, the white core stays in place, and no edge reaches the centre point (`screens/s04-grid-1440.jpg`, `grid-s04-tm.jpg`). Watch: at p0.20 the vacated quarter, bounded at the core edge, reads briefly as a cut-out, but it is clearly an unroll in progress. |
+| D-008 | major | CLOSED | `qa-3/probes/solar_timing.py` → `logs/solar_timing.txt`. Per-year, per-month solar centroid is CISO −0.28 to +0.38 h and ERCO −0.09 to +0.45 h. EIA DF best lag is 0 in every year for both BAs. The corrections are per series and per period, documented in `data/manifests/timing_corrections.json` with before/after DF MAPE and identity residuals. On screen, CISO 2025-01-02 16:00-17:00 (the hour containing the 16:55 sunset) shows SOLAR 1,477 MW, and 17:00 shows 70 MW (`logs/visual.json`, `screens/s03a-winter-insp-*`). Every reference day is now symmetric about noon: the sunrise and sunset hours read 0-7% and 1-11%. |
+| D-011 | major | CLOSED | The S08 corner labels are backed in every phone frame (`screens/s08-compare.jpg`), and the contrast probe raised no S08 failures. |
+| D-012 | minor | CLOSED | Panels fade during pinned hand-offs, and no frame slices the rose (`screens/handoff-1440.jpg`). |
+| D-013 | minor | CLOSED | The banner sits above the nav, clear of the h2 (`routeblock/1440-forecast-forecast_eval.jpg`). |
+| D-020 | minor | DEFERRED | Not re-tested (the orchestrator deferred it). |
+| D-022 | minor | DEFERRED | Not re-tested (the orchestrator deferred it). |
+| D-023 | major | CLOSED | S04 opens without the outline (`screenshots/1440x900/s04-00-p00-open.jpg`). In S03b the dotted outline now spans only the daylight hours and tracks hourly demand (`s03b-03-p80-years.jpg`). That faint daylight half-arc is a watch item, not a failure. |
+| D-025 | major | CLOSED | See AI row. |
+| D-026 | major | CLOSED | Under reduced motion, the nav bar and REPLAY INTRO have opaque black backings over the S07 cards (`screens/cc-grid.png`). axe is clean under reduced motion. |
+| D-027 | major | CLOSED | The reduced-motion headline sits on an opaque backing at 1440 and 390 (`screens/cc-s01-reduced-*.png`). |
+| D-028 | major | CLOSED | No overflow in any shot or walk row. `probes/ctrlwide.mjs`: price-on `scrollWidth` equals the viewport width at 1024/1280/1440/1920. |
+| D-029 | minor | CLOSED | The credit is shown in full on D, T and M. But on phones it causes D-034. |
+| D-030 | minor | CLOSED | The hatched SIMULATED chips and the 768 wordmark no longer fall under 4.5:1 in the pixel probe (`logs/contrast.json`). |
+| D-031 | minor | CLOSED | `annual_share_by_year` starts at 2021 for both BAs. |
+| D-032 | minor | CLOSED | S05 opens with its first two merit-order bands lit over the dim silhouette (`screenshots/1440x900/s05-00-p04-silhouette.jpg`). |
+| **D-033** | minor | NEW | **A blank scroll run between S04 and S05.** In 4 to 5 consecutive scroll steps of 0.15 viewport (about 0.6 viewport of scrolling) the frame is 1-2% non-black: only the nav remains, against 9-14% on either side (`screens/trans/1440-forecast-dispatch-03..06.jpg`). It appears at every viewport in the sheets (1440 f58-60, 1920 f58-60, 1280 f57-58, 1024 f57-59, 768 f57-59, 390/375/360 f60-61). This is a side effect of the D-012 fade: the S04 panels fade out before S05 enters. |
+| **D-034** | **major** | NEW | **The S08 phone echo is no longer a rose.** At 390/375/360, p0.76, the full 12-line credit block (the D-029 fix) and its scrim start near y≈100. The echo shows only a yellow wash: lit colour is 22.4% / 17.2% / 15.9% of the frame against 46.2% in pass 2, and blue band pixels are **0.0%** against 9.2% in pass 2. No petal or band structure is visible (`screens/s08-compare.jpg`; contact sheets 390/375/360 f107-110). This breaks criterion 17 ("the same giant G0 rose") and the spirit of 19 on phones. 768 and 1440 are fine (20.8% blue at 768). Fix direction: on phones, put the credit behind a disclosure, or below the fold after the echo, so the rose keeps the frame. |
+| **D-035** | minor | NEW | **Price legend labels break mid-word** at every width: "0 OR BELOW (SURPLUS" with a lone ")" (4 lines), and "VOLL (UNSERVE" / "D)" (3 lines) (`probes/legend.mjs` output, `screens/legend-s06-*.png`, `screenshots/1440x900/s06-05-price-renew.jpg`). |
+| **D-036** | minor | NEW | **Landing-position overlaps.** At the CTRL landing, the SIMULATED · YOUR SCENARIO chip sits 8% (1024) and 3% (1440) under the fixed nav, clearing after 120 px of scroll (`probes/ctrlchip.mjs`). At S04 p0 at 360, the canvas "12" label touches the bottom of the PREDICTED chip (`screens/collide-360x800-forecast-0.jpg`). |
+| **D-037** | **major** | NEW | **The S06 PRICE colour key is covered.** At 1024x768 and 1280x720 the S06 "SIMULATED · MODEL · PRECOMPUTED · PYTHON HIGHS" chip sits directly on the price legend: the swatches and the 0-25 … 500 labels are hidden, and only "BELOW (SURPLUS )", "VOLL" and "(UNSERVE D)" show (`screens/collide-1024x768-price-stress-0.64.jpg`, `collide-1280x720-price-stress-*.jpg`, `price-legend-1280-crop.jpg`). At 768x1024 the legend overlaps the bottom of the rose, and "VOLL" strikes the canvas "00" label (`collide-768x1024-price-stress-0.64.jpg`). This affects steps 1, 4 and 5 (`logs/collide-price.json`). It violates L2/L3 and L13 (the key must stay readable and clear of marks). It is a regression from the D-028 legend resize. |
+| **D-038** | **major** | NEW | **Reduced motion on phones: S07 bars overprint their values.** At 360, 375 and 390 under reduced motion (S07 p0.35 and 0.5), the wrapped "PERFECT WEATHER" label overprints the 3.05% (CISO) and 3.85% (ERCO) upper-bound values. The "PREDICTED · UPPER BOUND · NOT AVAILABLE AT FORECAST TIME" chip wraps out of reading order ("· UPPER BOUND · NOT / ◆ PREDICTED AVAILABLE AT FORECAST / TIME"), and "61.2%" runs into "RAW" (`screens/collide-390x844-reduced-evidence-0.35.jpg`, `pw-390-reduce.png`, `logs/collide-reduced.json`). These are honesty-relevant numbers (the not-deployable upper bound), struck by a label: L7/L11. |
+
+Not filed:
+- The 1280 CTRL rail scrolls under the fixed nav and corner buttons at landing. That is normal flow, the nav has a dark backing, and the glyphs do not tangle (`screens/collide-1280x720-control-0.jpg`).
+- The S04 1024 "legend row vs OBSERVED chip" box touch is a probe artifact: a clipped full-width row box with no visible overlap.
+- L16 sub-threshold boxes come from text partly under the opaque nav or pill in flowing reduced pages, from frames where fg equals bg, and from SVG Wires labels whose `fill` survives the backdrop pass.
+- The CTRL OUTAGE select ArrowDown is the macOS popup, as in passes 1-2.
+
+## P3.3 Data timing (L20) and honesty
+
+`qa-3/probes/solar_timing.py` (same probe as pass 2) → `logs/solar_timing.txt`:
+
+- **Solar centroid minus solar noon, per year and month:** CISO 2021 +0.26 to +0.36, 2022 −0.25 to +0.38, 2023 −0.25 to −0.08, 2024 −0.28 to −0.04, 2025 −0.21 to −0.09. ERCO −0.09 to +0.45. Every value is within ±0.5 h, and the L20 bound is ±0.75 h.
+- **EIA day-ahead MAPE vs demand with DF delayed by k hours:** the best k is 0 in every year 2021-2025 for CISO and ERCO. On the CISO test split, k=0 gives 6.50% and k=+1 gives 7.98%.
+- **Reference days:** CISO 2025-01-02 hours 06-07 0%, 07-08 17%, 15-16 64%, 16-17 11%, 17-18 1%, symmetric about noon. The other four CISO days and the four ERCO days are symmetric in the same way.
+
+`honesty.json`: 41 of 41 pass. The data-driven checks cover:
+- S00 corner `CISO · 2024-04-20 · PEAK 23,774 MW`.
+- Peaks 51,104 MW 2022-09-06 **16:00** and 85,544 MW 2024-08-20 17:00.
+- Slope +6.24%/°C (CI 6.01 to 6.49) and shares.
+- 937,020 rows in and 936,905 kept.
+- Ramp 2,375 MW/h; 26,466 MW → 265 windows.
+- S03b May 2025 net-load min 5,457 MW at 14:00, equal to the fuel_mix by-year means.
+- S04 CISO 3.30 vs 6.50, −3.19 pp CI −3.58 to −2.78; ERCO 4.12 vs 2.23, +1.89 pp CI +1.55 to +2.28; drift −6.36%; coverage.
+- Parity 108/108 with prices 82/82; S05 baseline objective 11,331,535.2499 vs Python 11,331,535.25.
+- S06 heat wave $11,331,535 → $38,204,885, 116,492 → 187,537 T, 20,256 MWh unserved, max price $1,000.0.
+- CTRL non-preset.
+- Wires ILLUSTRATIVE.
+- No "live" and no U+2014/U+2015.
+- Worker-blocked PRECOMPUTED.
+- Per-card phone verdict parity at 390, 375 and 360.
+
+## P3.4 QA_LESSONS L1-L20
+
+| # | Result | Evidence |
+|---|---|---|
+| L1 | PASS | Classic scrollbars: 1024 → D/D/D and 768 → T/T/T in 47 + 47 shots. js = css = layout in all 366 walk rows. |
+| L2 | **FAIL** | D-037 at 1024 and 1280 (PRICE). STACK is clean at 1024 and 1280 in the walk. |
+| L3 | **FAIL** | The S06 price colour key is hidden at 1024 and 1280 (D-037). The honesty tags are visible at 360/375/390/768. |
+| L4 | PASS | 86/86 route-block cases. |
+| L5 | PASS | 0 overflow in 366 walk rows and every harness shot. CTRL PRICE stays at the viewport width at 1024/1280/1440/1920. |
+| L6 | PASS | Mobile LCP 1,803-1,813 ms x3 at load 10-13. |
+| L7 | **FAIL** | No text under 11 px (366 rows), but labels strike values under reduced motion on phones (D-038). |
+| L8 | PASS | The pill and corner buttons are clear at 768/390/375/360 in every frame. |
+| L9 | PASS | `elementFromPoint` returns RETRY in all 86 cases, and the destination control in 135 inspector-jump checks. |
+| L10 | PASS | The drift sentence is now conditional on the evaluation. No "live". |
+| L11 | **FAIL** | D-038 (reduced, phones) and D-034 (phone S08 composition). Normal-motion phones are otherwise clean except the D-036 touch. |
+| L12 | PASS | Real-pointer RETRY 86/86 and inspector taps 15/15. |
+| L13 | **FAIL** | My own walker found 0 canvas-mark hits with STACK on. With PRICE on at 768, "VOLL" strikes the canvas "00" (D-037). |
+| L14 | PASS | The fixed-width check is used, and the fixture is detected (`innerWidth` grows to 604 while `visualViewport` stays 390). |
+| L15 | PASS | Every reduced scene has a non-empty figure: the minimum non-black share is 3.3% to 67% at 1440/768/390. |
+| L16 | PASS | 3,894 text elements at 120 points; no real failures (artifacts listed above). |
+| L17 | PASS | 15/15 at 1440/1024/768/390/360. |
+| L18 | PASS | STACK↔PRICE in S06 and CTRL: the legend and rose agree in all 64 frames. |
+| L19 | PASS (method) / findings filed | `probes/collide.mjs` builds boxes from the DOM: every visible text run, every interactive element and chip, the fixed nav, pill and corner buttons, and `__peg.marks()`, with no selector lists. Runs: 8 viewports (incl. 1280x720) normal (265 rows), PRICE on (232 rows), and reduced at 1440/768/390/375/360 (166 rows). A fixture with the unlisted class `qa-unlisted-zz` is caught in the normal and PRICE runs. In the reduced run at 1440 no text sat under the fallback point, so that run's self-test is not counted. It found D-037 and D-038, which the builder's L19 e2e misses. |
+| L20 | PASS | Per year, per month and per BA, as in §P3.3. |
+
+## P3.5 Method and frames read
+
+- **Harness:** `site/tests/evidence-harness.mjs` with `--out qa-3` and the pass-2 config.
+  - Normal runs: 1440, 768, 390, 1920, 1280, 1024, 375, 360. The 1280 run was repeated after the preview server restarted mid-run (4 connection-refused errors in the first run; 0 in the rerun).
+  - Reduced runs: 1440, 768, 390.
+  - Classic runs: 1024, 768.
+  - All runs finished with 0 page errors.
+- **Contact sheets read:** all 13 (1920, 1440, 1280, 1024, 768, 390, 375, 360, 1440-reduced, 768-reduced, 390-reduced, 1024-classic, 768-classic).
+- **Full-resolution frames read:** more than 50:
+  - 1440: S04 (6), S04 p35, S05 open, S06 PRICE renew, S03b, and the S03a 17:00 inspector.
+  - Grids: S04 at 768/390 (8), the hand-offs (55 thumbnails), the S04→S05 frames, the L18 swaps, and the contrast crops (8).
+  - S08 phone vs pass 2 (6).
+  - The PRICE legend at 1024/1280/768 and the CTRL frames at 1024/1280.
+  - The S07 reduced phone frame and the route-block S04 frame.
+- **Committed evidence:** about 29 MB.
+  - Full sets are kept for 1440, 768, 390 and 1440/390 reduced.
+  - The other viewports keep their JSON, contact sheet and cited frames.
+  - Lighthouse keeps run 1 per preset plus the summary.
+  - Recordings are gitignored.
+
+## P3.6 What must change before pass 4
+
+1. **D-034:** on phones, keep the S08 echo rose readable (credit behind a disclosure or after the echo). Test the band-pixel share at p0.76 against pass 2.
+2. **D-037:** keep the S06 price legend clear of the SIMULATED chip at 1024-1279 and clear of the rose at 768. Add the PRICE layer to the builder's L2/L13 collision walk.
+3. **D-038:** stop the S07 bar labels from wrapping onto values under reduced motion at 360-390, and fix the chip wrap order.
+4. **Minors:** D-033, D-035 and D-036; D-020 and D-022 remain deferred.
+5. **Lesson candidate (QA cannot edit `QA_LESSONS.md`):** "a fix that changes a component's size (a legend, a credit) must re-run the collision and composition checks in every layer and state that shows it (PRICE on, reduced motion, phones). Two of three pass-3 regressions came from fixes verified only in the default layer."

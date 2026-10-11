@@ -1,0 +1,460 @@
+{
+ "checks": [
+  {
+   "name": "S00 corner = intro day date + peak",
+   "ok": true,
+   "detail": "2024-04-20 23,774"
+  },
+  {
+   "name": "S01 CISO peak MW + local time (17:00 after D-008 fix)",
+   "ok": true,
+   "detail": "51104 2022-09-06 16:00"
+  },
+  {
+   "name": "S01 ERCO peak MW + local time",
+   "ok": true,
+   "detail": "85544 2024-08-20 17:00"
+  },
+  {
+   "name": "S01 no stale 18:00 peak",
+   "ok": true
+  },
+  {
+   "name": "S01 ERCO interchange %",
+   "ok": true
+  },
+  {
+   "name": "S02 CISO slope = facts demand_temp_slope",
+   "ok": true,
+   "detail": "+6.24% DEMAND PER °C ABOVE 17 °C (95% CI 6.01 TO 6.49)"
+  },
+  {
+   "name": "S02 CISO solar/wind/gas shares",
+   "ok": true,
+   "detail": "SOLAR 21.8% · WIND 10.3% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · G"
+  },
+  {
+   "name": "S02 rows in / kept",
+   "ok": true
+  },
+  {
+   "name": "S02 no stale 5.49 slope",
+   "ok": true
+  },
+  {
+   "name": "S03a evening ramp = facts",
+   "ok": true,
+   "detail": "2375"
+  },
+  {
+   "name": "S03a MW served is a real hour of the day; windows = round(MW/100)",
+   "ok": true,
+   "detail": "26466 MW, 265 windows, day 2025-01-02"
+  },
+  {
+   "name": "S03b partial 2025 marked",
+   "ok": true
+  },
+  {
+   "name": "S03b month-mean midday net-load min = fuel_mix by-year means",
+   "ok": true,
+   "detail": "MAY MIDDAY NET LOAD MIN 5,457 MW AT 14:00 (2025) expected 5457 at 14"
+  },
+  {
+   "name": "S04 CISO MAPE ours vs EIA",
+   "ok": true,
+   "detail": "3.3 vs 6.5"
+  },
+  {
+   "name": "S04 CISO diff + CI",
+   "ok": true,
+   "detail": "-3.1874 -3.5845,-2.7848"
+  },
+  {
+   "name": "S04 ERCO diff + CI (EIA beats ours, said so)",
+   "ok": true,
+   "detail": "1.8898 1.5451,2.2762"
+  },
+  {
+   "name": "S04 ERCO MAPE ours vs EIA",
+   "ok": true
+  },
+  {
+   "name": "S04 CISO drift = facts.eia_ciso_dayahead_bias_pct",
+   "ok": true,
+   "detail": "-6.36"
+  },
+  {
+   "name": "S04 CISO interval coverage",
+   "ok": true
+  },
+  {
+   "name": "parity computed this session over every vector",
+   "ok": true,
+   "detail": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1286.4000000059605}"
+  },
+  {
+   "name": "S05 parity text = session report (n, prices, keys)",
+   "ok": true,
+   "detail": "PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 "
+  },
+  {
+   "name": "S05 baseline objective == Python within 1e-6",
+   "ok": true,
+   "detail": "CISO summer 11331535.249922127 vs 11331535.25"
+  },
+  {
+   "name": "S05 displayed model cost == objective",
+   "ok": true,
+   "detail": "MODEL COST $11,331,535"
+  },
+  {
+   "name": "S06 heat-wave ledger cost/CO2/unserved = dispatch_results",
+   "ok": true,
+   "detail": "38,204,885 187,537 20,256"
+  },
+  {
+   "name": "S06 max price heat = max(price_usd_mwh)",
+   "ok": true,
+   "detail": "1000"
+  },
+  {
+   "name": "CTRL non-preset, solved in browser",
+   "ok": true,
+   "detail": "{\"renewables_scale\":1.15,\"demand_growth_pct\":9,\"heat_wave_c\":0,\"battery_power_mw\":2600,\"battery_hours\":4,\"outage_class\":\"none\",\"outage_pct\":100}"
+  },
+  {
+   "name": "CTRL displayed cost == objective",
+   "ok": true,
+   "detail": "MODEL COST $7,999,909 = SOLVER OBJECTIVE ✓ (+$1,183,594 VS BASELINE) MODEL CO2 80,756 T (+12,742 T VS BASELINE) UNSERVED"
+  },
+  {
+   "name": "CTRL data-objective == solver objective; sum(breakdown) within 1e-6",
+   "ok": true,
+   "detail": "7999908.915 7999908.915000001 7999908.915"
+  },
+  {
+   "name": "CTRL status SOLVED IN BROWSER + parity",
+   "ok": true,
+   "detail": "SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 3 MS MODEL COST $7,999,909 = SOLVER OBJECTIVE ✓ (+$1,183,594 VS BASELINE) PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 · LP TEXT SHA-256 108/108"
+  },
+  {
+   "name": "S07 Wires ILLUSTRATIVE, no MW in the SVG",
+   "ok": true
+  },
+  {
+   "name": "S07 parity answer = session report",
+   "ok": true,
+   "detail": " OBJECTIVE 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINE"
+  },
+  {
+   "name": "no 'live' claims",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "name": "no U+2014/U+2015 in rendered text",
+   "ok": true
+  },
+  {
+   "name": "phone 390: each verdict card states its diff + 95% CI",
+   "ok": true,
+   "detail": "[[\"CISO\",[16,509,176,170],\"13px\",\"11px\"],[\"ERCO\",[198,509,176,170],\"13px\",\"11px\"]]"
+  },
+  {
+   "name": "phone 390: cards equally prominent (same width, title and mono size, height within 15%)",
+   "ok": true,
+   "detail": "[[\"CISO\",[16,509,176,170],\"13px\",\"11px\"],[\"ERCO\",[198,509,176,170],\"13px\",\"11px\"]]"
+  },
+  {
+   "name": "phone 375: each verdict card states its diff + 95% CI",
+   "ok": true,
+   "detail": "[[\"CISO\",[16,463,169,184],\"13px\",\"11px\"],[\"ERCO\",[191,463,169,184],\"13px\",\"11px\"]]"
+  },
+  {
+   "name": "phone 375: cards equally prominent (same width, title and mono size, height within 15%)",
+   "ok": true,
+   "detail": "[[\"CISO\",[16,463,169,184],\"13px\",\"11px\"],[\"ERCO\",[191,463,169,184],\"13px\",\"11px\"]]"
+  },
+  {
+   "name": "phone 360: each verdict card states its diff + 95% CI",
+   "ok": true,
+   "detail": "[[\"CISO\",[16,436,161,184],\"13px\",\"11px\"],[\"ERCO\",[183,436,161,184],\"13px\",\"11px\"]]"
+  },
+  {
+   "name": "phone 360: cards equally prominent (same width, title and mono size, height within 15%)",
+   "ok": true,
+   "detail": "[[\"CISO\",[16,436,161,184],\"13px\",\"11px\"],[\"ERCO\",[183,436,161,184],\"13px\",\"11px\"]]"
+  },
+  {
+   "name": "worker blocked: S05 PRECOMPUTED, no SOLVED IN BROWSER, no parity",
+   "ok": true
+  },
+  {
+   "name": "worker blocked: CTRL PRECOMPUTED, no parity",
+   "ok": true
+  }
+ ],
+ "texts": {
+  "pulse": "PULSE ENERGY GRID CISO · 2024-04-20 · PEAK 23,774 MW The invisible machine that powers everything. Animated introduction: one day of California's grid drawn as 24 petals, one per hour, noon at the top. Each petal's area is the electricity used in that hour. It fills from the centre with solar, wind, nuclear, hydro, imports and other sources, and gas burns at the rim. A grid keeps no stock. Every hour, supply has to meet demand exactly. FROM: EIA-930 / CISO 2022-09-06 16:00 PEAK DEMAND 51,104 MW. EVERY MEGAWATT HAD TO BE MADE OR IMPORTED IN THAT SAME HOUR. OBSERVED · EIA-930 FROM: EIA-930 / ERCO 2024-08-20 17:00 ERCOT PEAKED AT 85,544 MW, WITH NET INTERCHANGE AVERAGING 0.46% OF DEMAND. OBSERVED · EIA-930 OBSERVED · EIA-930 · 1 PETAL = 1 HOUR AREA = MW · NOON AT TOP · CLEANEST AT THE CENTRE",
+  "source": " SOURCE · WHERE EVERY NUMBER COMES FROM Where every number comes from. SOURCE 01 · EIA-930 One hour, one petal. SOLAR 5,014 MW WIND 3,870 MW NUCLEAR 1,141 MW HYDRO 4,299 MW IMPORTS 401 MW OTHER 2,863 MW GAS 3,886 MW OIL 34 MW DEMAND 18:00 21,687 MW EIA-930 REPORTS, FOR EVERY HOUR AND EVERY BALANCING AUTHORITY, HOW MUCH POWER WAS USED, WHAT THE OPERATOR EXPECTED, AND WHAT EACH FUEL MADE. FIELDS: BA · HOUR (UTC) · DEMAND · DAY-AHEAD FORECAST · NET GENERATION · INTERCHANGE · GENERATION BY FUEL ×8 OBSERVED · EIA-930 SOURCE 02 · TWO GRIDS Two grids, two weathers. CISO · SOLAR 21.8% · WIND 10.3% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · GAS 43.0% CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS. DERIVED · MEAN DAY OF EIA-930 SOURCE 03 · NOAA ISD Heat leans on the load. 9 °C 27 °C CISO +6.24% DEMAND PER °C ABOVE 17 °C (95% CI 6.01 TO 6.49) ABOVE 17 °C, EVERY EXTRA DEGREE ADDS ABOUT 6.2% TO DEMAND. AN ASSOCIATION FITTED ON 27,830 HOURS, NOT A FORECAST. DERIVED · FITTED, NOT A FORECAST SOURCE 04 · THE LEDGER Rows in, rows kept. CISO · 12 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 ERCO · 11 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 937,020 ROWS IN · 935,575 KEPT · 15 FLAGGED · 1,349 EXCLUDED AT A TIMING CHANGE CISO: NET GENERATION − DEMAND − INTERCHANGE AVERAGES 637 MW IN SIZE (EIA'S OWN BALANCE, KEPT AS REPORTED) ERCO: THE FUELS MISS THE TOTAL BY MORE THAN 2% IN 1,992 HOURS FLAGGED SPIKE: CISO DEMAND 2025-07-31 19:00 UTC 11,819 MW VS 31,293 MW TYPICAL PIPELINE v0.1.0 · GENERATED 2026-10-10T05:04:09Z RAW ROWS = KEPT + EXCLUDED, CHECKED FOR EVERY SERIES BELOW. OBSERVED · COUNTED ROWS SOURCE · WHERE EVERY NUMBER COMES FROM Where every number comes from. SOURCE 01 · EIA-930 One hour, one petal. SOLAR 5,014 MW WIND 3,870 MW NUCLEAR 1,141 MW HYDRO 4,299 MW IMPORTS 401 MW OTHER 2,863 MW GAS 3,886 MW OIL 34 MW DEMAND 18:00 21,687 MW EIA-930 REPORTS, FOR EVERY HOUR AND EVERY BALANCING AUTHORITY, HOW MUCH POWER WAS USED, WHAT THE OPERATOR EXPECTED, AND WHAT EACH FUEL MADE. FIELDS: BA · HOUR (UTC) · DEMAND · DAY-AHEAD FORECAST · NET GENERATION · INTERCHANGE · GENERATION BY FUEL ×8 OBSERVED · EIA-930 SOURCE 02 · TWO GRIDS Two grids, two weathers. CISO · SOLAR 21.8% · WIND 10.3% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · GAS 43.0% CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS. DERIVED · MEAN DAY OF EIA-930 SOURCE 03 · NOAA ISD Heat leans on the load. 9 °C 27 °C CISO +6.24% DEMAND PER °C ABOVE 17 °C (95% CI 6.01 TO 6.49) ABOVE 17 °C, EVERY EXTRA DEGREE ADDS ABOUT 6.2% TO DEMAND. AN ASSOCIATION FITTED ON 27,830 HOURS, NOT A FORECAST. DERIVED · FITTED, NOT A FORECAST SOURCE 04 · THE LEDGER Rows in, rows kept. CISO · 12 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 ERCO · 11 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 937,020 ROWS IN · 935,575 KEPT · 15 FLAGGED · 1,349 EXCLUDED AT A TIMING CHANGE CISO: NET GENERATION − DEMAND − INTERCHANGE AVERAGES 637 MW IN SIZE (EIA'S OWN BALANCE, KEPT AS REPORTED) ERCO: THE FUELS MISS THE TOTAL BY MORE THAN 2% IN 1,992 HOURS FLAGGED SPIKE: CISO DEMAND 2025-07-31 19:00 UTC 11,819 MW VS 31,293 MW TYPICAL PIPELINE v0.1.0 · GENERATED 2026-10-10T05:04:09Z RAW ROWS = KEPT + EXCLUDED, CHECKED FOR EVERY SERIES BELOW. OBSERVED · COUNTED ROWS SOURCE · WHERE EVERY NUMBER COMES FROM Where every number comes from. SOURCE 01 · EIA-930 One hour, one petal. SOLAR 5,014 MW WIND 3,870 MW NUCLEAR 1,141 MW HYDRO 4,299 MW IMPORTS 401 MW OTHER 2,863 MW GAS 3,886 MW OIL 34 MW DEMAND 18:00 21,687 MW EIA-930 REPORTS, FOR EVERY HOUR AND EVERY BALANCING AUTHORITY, HOW MUCH POWER WAS USED, WHAT THE OPERATOR EXPECTED, AND WHAT EACH FUEL MADE. FIELDS: BA · HOUR (UTC) · DEMAND · DAY-AHEAD FORECAST · NET GENERATION · INTERCHANGE · GENERATION BY FUEL ×8 OBSERVED · EIA-930 SOURCE 02 · TWO GRIDS Two grids, two weathers. CISO · SOLAR 21.8% · WIND 10.3% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · GAS 43.0% CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS. DERIVED · MEAN DAY OF EIA-930 SOURCE 03 · NOAA ISD Heat leans on the load. 9 °C 27 °C CISO +6.24% DEMAND PER °C ABOVE 17 °C (95% CI 6.01 TO 6.49) ABOVE 17 °C, EVERY EXTRA DEGREE ADDS ABOUT 6.2% TO DEMAND. AN ASSOCIATION FITTED ON 27,830 HOURS, NOT A FORECAST. DERIVED · FITTED, NOT A FORECAST SOURCE 04 · THE LEDGER Rows in, rows kept. CISO · 12 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 ERCO · 11 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 937,020 ROWS IN · 935,575 KEPT · 15 FLAGGED · 1,349 EXCLUDED AT A TIMING CHANGE CISO: NET GENERATION − DEMAND − INTERCHANGE AVERAGES 637 MW IN SIZE (EIA'S OWN BALANCE, KEPT AS REPORTED) ERCO: THE FUELS MISS THE TOTAL BY MORE THAN 2% IN 1,992 HOURS FLAGGED SPIKE: CISO DEMAND 2025-07-31 19:00 UTC 11,819 MW VS 31,293 MW TYPICAL PIPELINE v0.1.0 · GENERATED 2026-10-10T05:04:09Z RAW ROWS = KEPT + EXCLUDED, CHECKED FOR EVERY SERIES BELOW. OBSERVED · COUNTED ROWS SOURCE · WHERE EVERY NUMBER COMES FROM Where every number comes from. SOURCE 01 · EIA-930 One hour, one petal. SOLAR 5,014 MW WIND 3,870 MW NUCLEAR 1,141 MW HYDRO 4,299 MW IMPORTS 401 MW OTHER 2,863 MW GAS 3,886 MW OIL 34 MW DEMAND 18:00 21,687 MW EIA-930 REPORTS, FOR EVERY HOUR AND EVERY BALANCING AUTHORITY, HOW MUCH POWER WAS USED, WHAT THE OPERATOR EXPECTED, AND WHAT EACH FUEL MADE. FIELDS: BA · HOUR (UTC) · DEMAND · DAY-AHEAD FORECAST · NET GENERATION · INTERCHANGE · GENERATION BY FUEL ×8 OBSERVED · EIA-930 SOURCE 02 · TWO GRIDS Two grids, two weathers. CISO · SOLAR 21.8% · WIND 10.3% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · GAS 43.0% CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS. DERIVED · MEAN DAY OF EIA-930 SOURCE 03 · NOAA ISD Heat leans on the load. 9 °C 27 °C CISO +6.24% DEMAND PER °C ABOVE 17 °C (95% CI 6.01 TO 6.49) ABOVE 17 °C, EVERY EXTRA DEGREE ADDS ABOUT 6.2% TO DEMAND. AN ASSOCIATION FITTED ON 27,830 HOURS, NOT A FORECAST. DERIVED · FITTED, NOT A FORECAST SOURCE 04 · THE LEDGER Rows in, rows kept. CISO · 12 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 ERCO · 11 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED + TIMING ✓ · DST DAYS 9 937,020 ROWS IN · 935,575 KEPT · 15 FLAGGED · 1,349 EXCLUDED AT A TIMING CHANGE CISO: NET GENERATION − DEMAND − INTERCHANGE AVERAGES 637 MW IN SIZE (EIA'S OWN BALANCE, KEPT AS REPORTED) ERCO: THE FUELS MISS THE TOTAL BY MORE THAN 2% IN 1,992 HOURS FLAGGED SPIKE: CISO DEMAND 2025-07-31 19:00 UTC 11,819 MW VS 31,293 MW TYPICAL PIPELINE v0.1.0 · GENERATED 2026-10-10T05:04:09Z RAW ROWS = KEPT + EXCLUDED, CHECKED FOR EVERY SERIES BELOW. OBSERVED · COUNTED ROWS",
+  "demand": "Every window is a hundred megawatts. DEMAND · CISO · ONE REAL DAY, HOUR BY HOUR · 2025-01-02 GRID CISO ERCO DAY WINTER SPRING SUMMER FALL SOLAR PEAK 18:00 26,466 MW SERVED 265 OF 960 WINDOWS LIT 12.0 °C · POP.-WEIGHTED −216 MW SINCE 17:00 TYPICAL EVENING RAMP IN CISO: 2,375 MW PER HOUR. WIND 706 NUCLEAR 2,268 HYDRO 2,964 IMPORTS 8,000 OTHER 4,424 GAS 8,035 OIL 46 CHARGING, STATION USE 54 BALANCE RESIDUAL (AS REPORTED) 77 OBSERVED · EIA-930 DERIVED · 1 WINDOW = 100 MW OBSERVED · TEMPERATURE · NOAA ISD · DERIVED WEIGHTS BUILDINGS ARE GROUPS OF 80 WINDOWS (8,000 MW), NOT PLACES. THE ROSE IS SCALED TO THIS DAY'S PEAK; THE WINDOWS KEEP ONE SCALE FOR EVERY DAY.",
+  "netload": "The sun takes a bite out of noon. NET LOAD · CISO · MEAN DAY OF THE MONTH · 2025 LAYER DEMAND NET LOAD GRID CISO ERCO YEAR ALL 2021 2022 2023 2024 2025* MAY MIDDAY NET LOAD MIN 5,457 MW AT 14:00 EVENING NET LOAD MAX 24,564 MW AT 20:00 RAMP 19,107 MW IN 6 H 2025: MIDDAY NET LOAD FELL TO 5,457 MW IN MAY (MEAN DAY). PARTIAL YEAR. DERIVED · MONTH-HOUR MEANS OF EIA-930 SOLAR WIND NUCLEAR HYDRO IMPORTS OTHER GAS COAL OIL IMPORTS AND BALANCE = MEAN DEMAND − MEAN GENERATION (DERIVED). IN YEAR STEPS THE OTHER SOURCES KEEP THEIR ALL-YEARS MIX, SCALED TO THAT YEAR'S NET LOAD.",
+  "forecast": "Tomorrow, unrolled. FORECAST · CISO · HOTTEST WEEK (2024-09-02) GRID CISO ERCO WEEK HOTTEST WEEK COLDEST WEEK LARGEST EIA MISS INTERVAL RAW CONFORMAL MODELS NAIVE EIA OURS ACTUAL ━ · EIA DAY-AHEAD ╌ · SEASONAL NAIVE ┈ · OURS P50 ━ / P10-P90 ▨ THIS WEEK MAPE SEASONAL NAIVE 13.48% THIS WEEK MAPE EIA DAY-AHEAD (PUBLISHED BY THE BA) 4.08% THIS WEEK MAPE OURS P50 5.52% THIS WEEK: 69 OF 168 HOURS INSIDE THE BAND (41.1% · NOMINAL 80%) WHOLE TEST PERIOD (8,567 H): 82.9% INSIDE THE CALIBRATED BAND OBSERVED · ACTUAL, EIA-930 PREDICTED · FORECASTS Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). BEST MODEL OURS P50: −3.19 PP VS EIA (95% CI −3.58 TO −2.78) EIA'S CISO DAY-AHEAD SERIES DRIFTED TO −6.36% BIAS IN 2025 (PARTIAL YEAR), BUT REMOVING THAT BIAS DOES NOT HELP EIA ON THE TEST SPLIT (6.74% VS 6.50%); AGAINST THE BIAS-CORRECTED SERIES OURS IS 3.43 PP LOWER (95% CI −3.84 TO −3.03). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. BEST MODEL HERE IS EIA, BIAS-CORRECTED (PREDICTED); THE VERDICT USES OUR GBM VS EIA (COMPARISON_VS_EIA) OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED → DATA TABLE FOR THIS WEEK",
+  "dispatch": "A battery moves noon into the evening. GRID CISO ERCO DAY WINTER SPRING SUMMER FALL INTRO BATTERY POWER 1,500 MW BATTERY DURATION 4 H RENEWABLES MULTIPLIER ×1.00 SOLAR 182,490 MWH MODEL $0 WIND 57,226 MWH MODEL $0 IMPORTS (OBSERVED) 87,596 MWH NOT COSTED OTHER MUST-RUN 0 MWH NOT COSTED HYDRO (ENERGY-LIMITED) 74,530 MWH MODEL $0 NUCLEAR 55,416 MWH MODEL $498,744 BATTERY 4,818 MWH MODEL $9,636 GAS COMBINED CYCLE 305,792 MWH MODEL $10,549,835 GAS PEAKER 5,231 MWH MODEL $273,320 MODEL COST $11,331,535 = SOLVER OBJECTIVE ✓ MODEL CO2 116,492 T MODEL BATTERY STATE OF CHARGE · 00 TO 24H · 600 TO 6,000 MWH MODEL OF 4 GENERATOR CLASSES. COSTS ARE ASSUMPTIONS, NOT MARKET PRICES. SIMULATED · MODEL · SOLVED IN BROWSER SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 8 MS PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 · LP TEXT SHA-256 108/108",
+  "stress": "STRESS · FIVE WAYS TO PUSH THE MACHINE Heat wave +5 C TEMPERATURE +5 C ALL DAY; DEMAND SHOCK FROM THE FITTED PER-HOUR COOLING COEFFICIENTS (WEATHER_RELATION.JSON). GRID CISO ERCO DAY WINTER SPRING SUMMER FALL INTRO LAYER STACK PRICE MODEL COST $11,331,535 → $38,204,885 (+$26,873,350) MODEL CO2 116,492 T → 187,537 T (+71,046 T) UNSERVED 0 MWH → 20,256 MWH (+20,256 MWH) CURTAILED 0 MWH → 0 MWH (±0 MWH) MAX PRICE $52.3 → $1,000.0 (+$947.8) RENEWABLE SHARE 31.2% → 24.9% (−6.3 PP) DASHED: BASELINE DEMAND · EVERY NUMBER IS A PRECOMPUTED MODEL RESULT 1 RENEWABLES +50% 2 DEMAND +15% 3 BATTERY X4 4 HEAT WAVE +5 C 5 OUTAGE: 35% OF GAS CCGT SOLAR WIND IMPORTS OTHER HYDRO NUCLEAR BATTERY GAS GAS PEAKER SIMULATED · MODEL · PRECOMPUTED · PYTHON HIGHS",
+  "evidence": "EVIDENCE · SEVEN QUESTIONS, SEVEN ANSWERS How we know. ISN'T YOUR FORECAST JUST EIA'S? DO YOUR INTERVALS MEAN ANYTHING? DID YOU PEEK AT THE WEATHER? WHERE ARE THE WIRES? NOT IN OUR MODEL. EACH GRID IS TREATED AS ONE COPPER PLATE. THIS IS WHAT A NETWORK LOOKS LIKE: A 14-BUS TEST SYSTEM, NOT CALIFORNIA OR TEXAS. ARE THESE REAL COSTS? NO. THEY ARE STATED ASSUMPTIONS. CHANGE THEM AND THE ANSWER CHANGES. DOES YOUR BROWSER REALLY SOLVE IT? YES. SAME LP, SAME SOLVER. 108 OF 108 TEST VECTORS MATCH THE PYTHON RESULT ON THIS BUILD. OBJECTIVE 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 · LP TEXT SHA-256 108/108 · TOLERANCE 1E-6 REFERENCE LP (CISO SUMMER, BASELINE): SOLVER OBJECTIVE $11,331,535 = PUBLISHED MODEL COST $11,331,535 ✓ SIMULATED · PARITY ON THIS BUILD"
+ },
+ "weather": "{\"b_cool_mw_per_c_by_hour\":[1528.1681,1476.8798,1463.4356,1469.7392,1453.378,1409.1891,1497.2694,1651.7899,1650.618,1401.0041,1242.7676,1202.1731,1245.9773,1344.1958,1505.5582,1686.547,1817.5791,1927.9765,2028.4224,2109.2982,2162.4042,2037.5739,1844.4016,1678.9371],\"b_heat_mw_per_c_by_hour\":[-341.79",
+ "city": {
+  "ba": "CISO",
+  "dayId": "winter",
+  "hour": 18
+ },
+ "cmp": {
+  "cc": {
+   "beats_eia": true,
+   "best_model": "gbm",
+   "ci_method": "circular moving-block bootstrap over test days, block 7 days, 2000 resamples",
+   "mape_diff_ci95": [
+    -3.5845,
+    -2.7848
+   ],
+   "mape_diff_pp": -3.1874,
+   "statement": "gbm test MAPE is 3.19 percentage points lower than eia_day_ahead (95% CI -3.58 to -2.78): better than eia_day_ahead."
+  },
+  "ce": {
+   "beats_eia": false,
+   "best_model": "eia_debiased",
+   "ci_method": "circular moving-block bootstrap over test days, block 7 days, 2000 resamples",
+   "mape_diff_ci95": [
+    1.5451,
+    2.2762
+   ],
+   "mape_diff_pp": 1.8898,
+   "statement": "gbm test MAPE is 1.89 percentage points higher than eia_day_ahead (95% CI 1.55 to 2.28): worse than eia_day_ahead."
+  }
+ },
+ "solver": {
+  "status": "ready",
+  "version": "1.15.1",
+  "parity": {
+   "n": 108,
+   "objective": 108,
+   "priceComparable": 82,
+   "price": 82,
+   "keys": 108,
+   "hash": 108,
+   "passed": 108,
+   "ms": 1286.4000000059605
+  },
+  "error": null,
+  "attempt": 1
+ },
+ "stress": {
+  "ba": "CISO",
+  "dayId": "summer",
+  "step": 3,
+  "layer": "stack"
+ },
+ "ctrl": {
+  "ba": "CISO",
+  "dayId": "winter",
+  "source": "browser",
+  "objective": 7999908.915,
+  "breakdownSum": 7999908.915000001,
+  "params": {
+   "renewables_scale": 1.15,
+   "demand_growth_pct": 9,
+   "heat_wave_c": 0,
+   "battery_power_mw": 2600,
+   "battery_hours": 4,
+   "outage_class": "none",
+   "outage_pct": 100
+  },
+  "check": null,
+  "seq": 3,
+  "timeLimit": 10
+ },
+ "ctrlDom": {
+  "obj": 7999908.915,
+  "sum": 7999908.915000001,
+  "text": "MODEL COST $7,999,909 = SOLVER OBJECTIVE ✓ (+$1,183,594 VS BASELINE) MODEL CO2 80,756 T (+12,742 T VS BASELINE) UNSERVED 0 MWH (±0 MWH VS BASELINE) CURTAILED 0 MWH (±0 MWH VS BASELINE) RENEWABLE SHARE 21.5% (+1.1 PP VS BASELINE) MAX PRICE $34.5/MWH (+$0.0 VS BASELINE)",
+  "status": "SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 3 MS MODEL COST $7,999,909 = SOLVER OBJECTIVE ✓ (+$1,183,594 VS BASELINE) PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 82/82 WHERE UNIQUE · CO2, UNSERVED, COST LINES 108/108 · LP TEXT SHA-256 108/108"
+ },
+ "live": [],
+ "verdict390": {
+  "CISO": [
+   {
+    "ba": "CISO",
+    "box": [
+     16,
+     509,
+     176,
+     170
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED"
+   },
+   {
+    "ba": "ERCO",
+    "box": [
+     198,
+     509,
+     176,
+     170
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED"
+   }
+  ],
+  "ERCO": [
+   {
+    "ba": "CISO",
+    "box": [
+     16,
+     509,
+     176,
+     170
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED"
+   },
+   {
+    "ba": "ERCO",
+    "box": [
+     198,
+     509,
+     176,
+     170
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED"
+   }
+  ]
+ },
+ "verdict375": {
+  "CISO": [
+   {
+    "ba": "CISO",
+    "box": [
+     16,
+     463,
+     169,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED"
+   },
+   {
+    "ba": "ERCO",
+    "box": [
+     191,
+     463,
+     169,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED"
+   }
+  ],
+  "ERCO": [
+   {
+    "ba": "CISO",
+    "box": [
+     16,
+     463,
+     169,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED"
+   },
+   {
+    "ba": "ERCO",
+    "box": [
+     191,
+     463,
+     169,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED"
+   }
+  ]
+ },
+ "verdict360": {
+  "CISO": [
+   {
+    "ba": "CISO",
+    "box": [
+     16,
+     436,
+     161,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED"
+   },
+   {
+    "ba": "ERCO",
+    "box": [
+     183,
+     436,
+     161,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED"
+   }
+  ],
+  "ERCO": [
+   {
+    "ba": "CISO",
+    "box": [
+     16,
+     448,
+     161,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "Our model beat the operator's own forecast. CISO: MAPE OURS 3.30% VS EIA 6.50% OVER 8,567 TEST HOURS. DIFFERENCE −3.19 PP (95% CI −3.58 TO −2.78). OURS LOWER ON 324 OF 356 TEST DAYS · DERIVED"
+   },
+   {
+    "ba": "ERCO",
+    "box": [
+     183,
+     448,
+     161,
+     184
+    ],
+    "inView": true,
+    "titleFs": "13px",
+    "monoFs": "11px",
+    "text": "The operator's own forecast is still better. ERCO: MAPE OURS 4.12% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.89 PP (95% CI +1.55 TO +2.28). WE SAY SO. OURS LOWER ON 65 OF 359 TEST DAYS · DERIVED"
+   }
+  ]
+ }
+}

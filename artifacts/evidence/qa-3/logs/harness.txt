@@ -1,0 +1,57 @@
+12:47  up 2 days, 15:17, 4 users, load averages: 6.11 9.33 13.81 :: --viewports 1440x900 attempt 1
+capturing 1440x900
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1440x900.jpg
+1440x900 shots 76 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+12:49  up 2 days, 15:20, 4 users, load averages: 9.10 9.93 13.40 :: --viewports 768x1024 attempt 1
+capturing 768x1024
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/768x1024.jpg
+768x1024 shots 76 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+12:52  up 2 days, 15:22, 4 users, load averages: 12.66 10.30 12.94 :: --viewports 390x844 attempt 1
+capturing 390x844
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/390x844.jpg
+390x844 shots 76 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+12:54  up 2 days, 15:24, 4 users, load averages: 7.06 8.94 12.00 :: --viewports 1920x1080 attempt 1
+capturing 1920x1080
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1920x1080.jpg
+1920x1080 shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+12:56  up 2 days, 15:26, 4 users, load averages: 5.56 7.74 11.18 :: --viewports 1280x720 attempt 1
+capturing 1280x720
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1280x720.jpg
+1280x720 shots 47 errors 4 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+12:57  up 2 days, 15:28, 4 users, load averages: 4.61 6.91 10.48 :: --viewports 1024x768 attempt 1
+capturing 1024x768
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1024x768.jpg
+1024x768 shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+12:59  up 2 days, 15:29, 4 users, load averages: 10.34 7.79 10.40 :: --viewports 375x812 attempt 1
+capturing 375x812
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/375x812.jpg
+375x812 shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:01  up 2 days, 15:31, 4 users, load averages: 11.75 9.16 10.64 :: --viewports 360x800 attempt 1
+capturing 360x800
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/360x800.jpg
+360x800 shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:02  up 2 days, 15:33, 4 users, load averages: 15.61 11.46 11.39 :: --reduced --viewports 1440x900 attempt 1
+capturing 1440x900-reduced
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1440x900-reduced.jpg
+1440x900-reduced shots 69 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:05  up 2 days, 15:35, 4 users, load averages: 10.74 11.26 11.33 :: --reduced --viewports 768x1024 attempt 1
+capturing 768x1024-reduced
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/768x1024-reduced.jpg
+768x1024-reduced shots 40 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:06  up 2 days, 15:37, 4 users, load averages: 8.78 10.31 10.95 :: --reduced --viewports 390x844 attempt 1
+capturing 390x844-reduced
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/390x844-reduced.jpg
+390x844-reduced shots 69 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:09  up 2 days, 15:39, 4 users, load averages: 13.36 10.94 11.05 :: --classic --viewports 1024x768 attempt 1
+capturing 1024x768-classic
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1024x768-classic.jpg
+1024x768-classic shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:10  up 2 days, 15:41, 4 users, load averages: 9.47 10.34 10.81 :: --classic --viewports 768x1024 attempt 1
+capturing 768x1024-classic
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/768x1024-classic.jpg
+768x1024-classic shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+13:12  up 2 days, 15:42, 4 users, load averages: 11.76 11.10 11.07 HARNESS DONE
+13:20  up 2 days, 15:50, 4 users, load averages: 8.64 10.25 10.73 1280 rerun
+capturing 1280x720
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa-3/contact-sheets/1280x720.jpg
+1280x720 shots 47 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)

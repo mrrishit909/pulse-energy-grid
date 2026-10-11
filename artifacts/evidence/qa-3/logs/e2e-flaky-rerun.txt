@@ -1,0 +1,5 @@
+13:15  up 2 days, 15:46, 4 users, load averages: 10.26 10.80 10.94
+
+[1/1] [desktop] › e2e/qa.spec.ts:222:5 › L4 390: evidence shows its own alert + RETRY for each of its 9 artifacts, one live region per file, one re-fetch per RETRY
+  1 passed (12.1s)
+13:15  up 2 days, 15:46, 4 users, load averages: 11.13 10.98 10.99

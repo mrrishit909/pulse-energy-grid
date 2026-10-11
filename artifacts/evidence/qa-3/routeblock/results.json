@@ -1,0 +1,2418 @@
+[
+ {
+  "vp": "1440x900",
+  "scene": "pulse",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "pulse",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 875.7734375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "fuel_mix.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 888.2578125,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FUEL_MIX.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "demand_profile.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DEMAND_PROFILE.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 875.7734375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "weather_relation.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD WEATHER_RELATION.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "reconciliation.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD RECONCILIATION.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "quality.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 884.09375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD QUALITY.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "source",
+  "file": "meta.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 871.6171875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD META.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "demand",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "demand",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 875.7734375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "netload",
+  "file": "fuel_mix.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 888.2578125,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FUEL_MIX.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "netload",
+  "file": "demand_profile.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DEMAND_PROFILE.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "netload",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 875.7734375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "forecast",
+  "file": "forecast_samples.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FORECAST_SAMPLES.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1405.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "forecast",
+  "file": "forecast_eval.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 909.0546875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1300.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "forecast",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 875.7734375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1347.9000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "forecast",
+  "file": "fuel_mix.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 888.2578125,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FUEL_MIX.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1289.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "forecast",
+  "file": "demand_profile.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DEMAND_PROFILE.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1232.1000000238419}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1266.2000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1246.7999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 942.3359375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [
+   "PARITY NOT CHECKED: THE TEST VECTORS DID NOT LOAD"
+  ],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1148.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "WASM",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 1364.1953125,
+   "y": 803.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "SIMULATED · MODEL · PRECOMPUTEDIN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1175.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "dispatch",
+  "file": "WORKER",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 1364.1953125,
+   "y": 803.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "SIMULATED · MODEL · PRECOMPUTEDIN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1185.2999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "stress",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1166.0999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "stress",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1178.2999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "forecast_eval.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 909.0546875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1234.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 875.7734375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1178.2999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1180.2999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1254.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 942.3359375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1115.2000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "grid_topology.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 909.0546875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD GRID_TOPOLOGY.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1186.699999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "reconciliation.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD RECONCILIATION.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1215.2999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "quality.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 884.09375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD QUALITY.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1172.0999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "evidence",
+  "file": "meta.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 871.6171875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD META.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1249.800000011921}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "control",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1216.800000011921}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "control",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 921.5390625,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1200}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "control",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 942.3359375,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [
+   "PARITY NOT CHECKED: THE TEST VECTORS DID NOT LOAD"
+  ],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1170.300000011921}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "control",
+  "file": "WASM",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 129.8046875,
+   "y": 168.171875
+  },
+  "hit": "RETRY",
+  "text": [
+   "IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRYMODEL COST $6,816,315 = SOLVER OBJECTIVE"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1192.699999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "control",
+  "file": "WORKER",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 129.8046875,
+   "y": 168.171875
+  },
+  "hit": "RETRY",
+  "text": [
+   "IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRYMODEL COST $6,816,315 = SOLVER OBJECTIVE"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1198.0999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "closing",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 913.21875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1217.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "1440x900",
+  "scene": "closing",
+  "file": "meta.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 871.6171875,
+   "y": 801.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD META.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1198}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "pulse",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "pulse",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "fuel_mix.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FUEL_MIX.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "demand_profile.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DEMAND_PROFILE.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "weather_relation.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD WEATHER_RELATION.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "reconciliation.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD RECONCILIATION.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "quality.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD QUALITY.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "source",
+  "file": "meta.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD META.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "demand",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "demand",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "netload",
+  "file": "fuel_mix.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FUEL_MIX.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "netload",
+  "file": "demand_profile.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DEMAND_PROFILE.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "netload",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "idle",
+   "parity": null,
+   "solved": false,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "forecast",
+  "file": "forecast_samples.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FORECAST_SAMPLES.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1183}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "forecast",
+  "file": "forecast_eval.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1390.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "forecast",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1258.699999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "forecast",
+  "file": "fuel_mix.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FUEL_MIX.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1291.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "forecast",
+  "file": "demand_profile.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DEMAND_PROFILE.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1302.800000011921}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "dispatch",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1241.7000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "dispatch",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1263.0999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "dispatch",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [
+   "PARITY NOT CHECKED: THE TEST VECTORS DID NOT LOAD"
+  ],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1139.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "dispatch",
+  "file": "WASM",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 49.8046875,
+   "y": 185.640625
+  },
+  "hit": "RETRY",
+  "text": [
+   "SIMULATED · MODEL · PRECOMPUTEDIN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1255.2000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "dispatch",
+  "file": "WORKER",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 49.8046875,
+   "y": 185.640625
+  },
+  "hit": "RETRY",
+  "text": [
+   "SIMULATED · MODEL · PRECOMPUTEDIN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1256.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "stress",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1343.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "stress",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1227.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "forecast_eval.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1237.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "facts.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD FACTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1231}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1176.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1255.7000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1282.2000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "grid_topology.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD GRID_TOPOLOGY.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1234.699999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "reconciliation.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD RECONCILIATION.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1315.9000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "quality.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD QUALITY.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1217.4000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "evidence",
+  "file": "meta.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD META.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1172.5}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "control",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1273.5999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "control",
+  "file": "dispatch_results.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_RESULTS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1213.199999988079}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "control",
+  "file": "dispatch_test_vectors.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_TEST_VECTORS.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [
+   "PARITY NOT CHECKED: THE TEST VECTORS DID NOT LOAD"
+  ],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1164.5999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "control",
+  "file": "WASM",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 49.8046875,
+   "y": 154.96875
+  },
+  "hit": "RETRY",
+  "text": [
+   "IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1235.0999999940395}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "control",
+  "file": "WORKER",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 49.8046875,
+   "y": 154.96875
+  },
+  "hit": "RETRY",
+  "text": [
+   "IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTSRETRY"
+  ],
+  "parityMissing": [],
+  "solver": "error",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1214.2000000178814}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "closing",
+  "file": "dispatch_model.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD DISPATCH_MODEL.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "idle",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1303.2999999821186}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ },
+ {
+  "vp": "390x844",
+  "scene": "closing",
+  "file": "meta.json",
+  "n": 1,
+  "visible": 1,
+  "inScene": 1,
+  "retryVisible": 1,
+  "pt": {
+   "x": 61.8046875,
+   "y": 737.203125
+  },
+  "hit": "RETRY",
+  "text": [
+   "COULD NOT LOAD META.JSON (HTTP 503)RETRY"
+  ],
+  "parityMissing": [],
+  "solver": "ready",
+  "refetches": 1,
+  "after": {
+   "remaining": 0,
+   "solver": "ready",
+   "parity": "{\"n\":108,\"objective\":108,\"priceComparable\":82,\"price\":82,\"keys\":108,\"hash\":108,\"passed\":108,\"ms\":1218.9000000059605}",
+   "solved": true,
+   "parityMissing": 0
+  },
+  "ok": true
+ }
+]

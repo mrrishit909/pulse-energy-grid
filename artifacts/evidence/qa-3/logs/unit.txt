@@ -1,0 +1,9 @@
+> tsc --noEmit
+
+> eslint .
+
+ Test Files  10 passed (10)
+      Tests  74 passed (74)
+   Start at  12:47:12
+   Duration  1.23s (tests 53%, transform 36%, import 10%, worker 2%)
+
