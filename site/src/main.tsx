@@ -8,7 +8,10 @@ import { App } from "./app/App";
 import { getProgress, jumpTo, startEngine } from "./scroll/engine";
 import { debug, intro, introTime, quality } from "./scenes/director";
 import { layout } from "./scenes/geometry";
-import { city, fill } from "./state/scenes";
+import { city, ctrl, fill } from "./state/scenes";
+import { cancelSolve } from "./state/solver";
+import { openHour } from "./state/inspector";
+import { liveLog } from "./scenes/LiveRose";
 import { getSolver } from "./state/solver";
 import { stress } from "./scenes/S06Stress";
 
@@ -34,6 +37,12 @@ Object.assign(window, {
     solver: () => { const s = getSolver(); return { status: s.status, version: s.version, parity: s.parity, error: s.error, attempt: s.attempt }; },
     fill: () => { const f = fill.get(); return { ba: f.ba, dayId: f.dayId, source: f.source, objective: f.result?.objective_usd ?? null, params: f.params, check: f.check, seq: f.resultSeq }; },
     setFill: (p: Partial<{ battery_power_mw: number; battery_hours: number; renewables_scale: number }>) => { const f = fill.get(); if (f.params) fill.set({ params: { ...f.params, ...p }, presetId: null }); },
+    ctrl: () => { const c = ctrl.get(); return { ba: c.ba, dayId: c.dayId, source: c.source, objective: c.result?.objective_usd ?? null, breakdownSum: c.result ? Object.values(c.result.cost_breakdown_usd).reduce((a, b) => a + b, 0) : null, params: c.params, check: c.check, seq: c.resultSeq, timeLimit: c.timeLimit }; },
+    setCtrl: (p: Record<string, number | string>) => { const c = ctrl.get(); if (c.params) ctrl.set({ params: { ...c.params, ...p }, presetId: null }); },
+    setCtrlTimeLimit: (t: number) => ctrl.set({ timeLimit: t }),
+    cancel: () => cancelSolve(),
+    openHour: (scene: string, h: number) => openHour(scene, h),
+    liveRose: () => (liveLog.log ? { R100: liveLog.R100, frames: liveLog.frames, petals: liveLog.log.petals.length } : null),
     stress: () => stress.get(),
     setStress: (p: Partial<ReturnType<typeof stress.get>>) => stress.set(p),
     city: () => city.get(),

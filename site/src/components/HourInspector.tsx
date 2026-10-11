@@ -30,7 +30,8 @@ export function RoseHit({ scene, label, box, getLog = () => debug.log, onHour, o
     const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
     if (d && ins.scene === scene) { e.preventDefault(); open((cur + d + 24) % 24); }
   };
-  const style: CSSProperties = { left: box.cx - box.r, top: box.cy - box.r, width: 2 * box.r, height: 2 * box.r };
+  // r = 0: cover the positioned parent (CTRL's own stage)
+  const style: CSSProperties = box.r ? { left: box.cx - box.r, top: box.cy - box.r, width: 2 * box.r, height: 2 * box.r } : { inset: 0, borderRadius: 0 };
   return <div className="rose-hit" data-rose-hit={scene} role="button" tabIndex={0} aria-label={label} style={style} onClick={click} onKeyDown={key} />;
 }
 

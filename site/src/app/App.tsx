@@ -13,6 +13,7 @@ import { PulseLayer } from "../scenes/S00Pulse";
 import { S03aCity } from "../scenes/S03aCity";
 import { S05Fill } from "../scenes/S05Fill";
 import { S06Stress } from "../scenes/S06Stress";
+import { Ctrl } from "../scenes/Ctrl";
 import { startSolver } from "../state/solver";
 import { idle } from "../lib/math";
 
@@ -27,7 +28,7 @@ function Placeholder({ s }: { s: SceneDef }) {
   );
 }
 
-const SCENE_COMPONENTS: Record<string, (p: { def: SceneDef }) => React.ReactNode> = { demand: S03aCity, dispatch: S05Fill, stress: S06Stress };
+const SCENE_COMPONENTS: Record<string, (p: { def: SceneDef }) => React.ReactNode> = { demand: S03aCity, dispatch: S05Fill, stress: S06Stress, control: Ctrl };
 
 /** Prefetch the solver's inputs and start the worker (MOTION_SYSTEM 9.3: S04 entry, or S05 directly). */
 function prefetchSolver() {

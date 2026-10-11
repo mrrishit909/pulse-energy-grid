@@ -274,3 +274,45 @@ html[data-motion="off"] .scene-stress .stage-content > .stress-list { position: 
   .stress-legend { top: 596px; bottom: auto; left: 16px; }
   .price-legend__edges { font-size: 8px; }
 }
+
+/* ---------- CTRL: the control room (normal flow; the rose has its own sticky stage) ---------- */
+.scene-control .stage { position: relative; height: auto; min-height: 100dvh; overflow: visible; }
+.scene-control .stage-content > .ctrl { position: relative; }
+.ctrl { display: grid; grid-template-columns: minmax(0, 1fr) 380px; grid-template-rows: auto 1fr; grid-template-areas: "head side" "stage side"; column-gap: 40px; padding: 48px var(--margin) calc(var(--nav-clear) + 24px); }
+.ctrl-head { grid-area: head; display: flex; flex-direction: column; gap: 10px; }
+.ctrl-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.05; }
+.ctrl-title:focus { outline: none; }
+.ctrl-status { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.ctrl-status .state-line { font-size: 12px; }
+.ctrl-stage { grid-area: stage; position: sticky; top: 0; height: max(480px, calc(100dvh - 220px)); align-self: start; }
+.live-rose { display: block; width: 100%; height: 100%; }
+.ctrl-chip { position: absolute; right: 0; bottom: 24px; }
+.ctrl-side { grid-area: side; display: flex; flex-direction: column; gap: 24px; }
+.ctrl-rail { display: flex; flex-direction: column; gap: 14px; padding: 16px; background: var(--surface-glass); -webkit-backdrop-filter: blur(var(--blur-nav)); backdrop-filter: blur(var(--blur-nav)); }
+.ctrl-rail .seg-ctl { flex-direction: column; align-items: flex-start; }
+.ctrl-rail .chip-btn { font-size: 12px; padding: 8px; }
+.ctrl-reset { align-self: flex-start; }
+.ctrl-ledger { display: flex; flex-direction: column; gap: 10px; }
+.ctrl-lines { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font: 400 13px / 1.3 var(--font-mono); letter-spacing: var(--tracking-label); }
+.ctrl-lines li:first-child { font-size: 15px; }
+.ctrl-sheet .seg-ctl { flex-direction: column; align-items: flex-start; }
+.ctrl-sheet .slider input { height: 44px; }
+@media (max-width: 1023px) {
+  .ctrl { grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "head" "stage" "side"; padding: 40px var(--margin) calc(var(--nav-clear) + 24px); }
+  .ctrl-title { font-size: 36px; }
+  .ctrl-stage { position: relative; height: 640px; }
+  .ctrl-side { padding-top: 24px; }
+  .ctrl-rail { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
+  .ctrl-rail .seg-ctl:nth-child(3) { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .ctrl { padding: 36px 16px calc(var(--nav-clear) + 16px); }
+  .ctrl-title { font-size: 28px; }
+  .ctrl-stage { height: 390px; }
+  .ctrl-chip { bottom: 0; }
+  .ctrl-chip .chip { font-size: 10px; padding: 5px; }
+  .ctrl-side { padding-top: 12px; gap: 12px; }
+  .ctrl-lines { font-size: 12px; }
+  .ctrl-lines li:first-child { font-size: 13px; }
+  .ctrl-open { align-self: flex-start; min-height: 44px; }
+}

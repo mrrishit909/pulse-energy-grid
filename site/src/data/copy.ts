@@ -161,3 +161,25 @@ export function stressRows(b: DispatchResult, x: DispatchResult) {
     row("RENEWABLE SHARE", b.renewable_share_pct, x.renewable_share_pct, (v) => `${fixed(v, 1)}%`, (v) => `${v >= 0 ? "+" : "−"}${fixed(Math.abs(v), 1)} PP`),
   ];
 }
+
+// ---------------------------------------------------------------- CTRL
+export const copyCtrl = {
+  kicker: "THE CONTROL ROOM",
+  line: "Run tomorrow yourself.",
+  note: "A SINGLE-NODE, 24-HOUR LINEAR PROGRAM. NO NETWORK LIMITS, NO START-UP DECISIONS, NO RESERVES. SEE LIMITATIONS.",
+  timeLimit: "TIME LIMIT",
+};
+/** CTRL ledger: each line with its Δ vs the precomputed baseline of the same GRID and DAY. */
+export function ctrlLedger(r: DispatchResult, b: DispatchResult | null) {
+  const d = (x: number, y: number | undefined, f: (v: number) => string) => (y === undefined ? "" : ` (${f(x - y)} VS BASELINE)`);
+  const maxP = (x: DispatchResult) => Math.max(...x.price_usd_mwh);
+  return [
+    { id: "cost", text: `MODEL COST ${usd(r.objective_usd)} = SOLVER OBJECTIVE ✓${d(r.objective_usd, b?.objective_usd, signedUsd)}` },
+    { id: "co2", text: `MODEL CO2 ${int(r.co2_t)} T${d(r.co2_t, b?.co2_t, (v) => `${signedInt(v)} T`)}` },
+    { id: "unserved", text: `UNSERVED ${int(r.unserved_mwh)} MWH${d(r.unserved_mwh, b?.unserved_mwh, (v) => `${signedInt(v)} MWH`)}` },
+    { id: "curtailed", text: `CURTAILED ${int(r.curtailed_mwh)} MWH${d(r.curtailed_mwh, b?.curtailed_mwh, (v) => `${signedInt(v)} MWH`)}` },
+    { id: "renewable", text: `RENEWABLE SHARE ${fixed(r.renewable_share_pct, 1)}%${d(r.renewable_share_pct, b?.renewable_share_pct, (v) => `${v >= 0 ? "+" : "−"}${fixed(Math.abs(v), 1)} PP`)}` },
+    { id: "price", text: `MAX PRICE $${fixed(maxP(r), 1)}/MWH${d(maxP(r), b ? maxP(b) : undefined, (v) => `${v >= 0 ? "+" : "−"}$${fixed(Math.abs(v), 1)}`)}` },
+  ];
+}
+export const fmtControl = (unit: string, v: number) => (unit === "x" ? `×${v.toFixed(2)}` : unit === "%" ? `${v > 0 ? "+" : ""}${int(v)}%` : unit === "C" ? `+${fixed(v, 1)} °C` : unit === "h" ? `${int(v)} H` : unit === "MW" ? `${int(v)} MW` : `${int(v)}%`);
