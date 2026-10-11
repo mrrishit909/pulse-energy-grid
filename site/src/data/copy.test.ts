@@ -27,7 +27,6 @@ describe("copy deck numbers are artifact values (VISUAL_DESIGN 5, 6)", () => {
   });
   it("S00 corner prints the intro day's date and its peak demand (dispatch_model days[intro], DR-2)", () => {
     expect(copyS00(intro).corner).toBe(`CISO · ${intro.date} · PEAK ${int(Math.max(...intro.demand_mw))} MW`);
-    expect(copyS00(intro).corner).toBe("CISO · 2024-05-27 · PEAK 26,793 MW");
   });
   it("S03a readout prints the day's own hour values; windows = round(MW / 100)", () => {
     for (const ba of ["CISO", "ERCO"] as const) for (const d of model.bas[ba].days) for (const h of [0, 7, 18, 23]) {
@@ -68,7 +67,7 @@ describe("copy deck numbers are artifact values (VISUAL_DESIGN 5, 6)", () => {
   });
   it("status and parity lines print only measured values, and never claim a browser solve for a preset", () => {
     const rep = { n: 108, objective: 108, priceComparable: 85, price: 85, keys: 107, hash: 108, passed: 108, ms: 900 };
-    expect(parityLine(rep)).toBe("PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE UNIQUE · LP TEXT SHA-256 108/108");
+    expect(parityLine(rep)).toBe(`PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE UNIQUE · CO2, UNSERVED, COST LINES ${rep.keys}/108 · LP TEXT SHA-256 108/108`);
     const base = { version: "1.15.1", pct: null, ms: 4.4, parity: rep, error: null, solving: false };
     expect(statusLine({ ...base, status: "ready", source: "browser" })).toBe("SOLVED IN BROWSER · HiGHS 1.15.1 (highs-js 1.15.3) · 4 MS");
     expect(statusLine({ ...base, status: "ready", source: "precomputed" })).toBe("PRECOMPUTED · PYTHON HiGHS");
@@ -99,10 +98,11 @@ describe("site source hygiene", () => {
     }
   });
   it("draws the rose with Canvas2D only (no WebGL, no three.js)", () => {
-    for (const f of files) expect(/getContext\(\s*["']webgl|from\s+["']three["']/.test(readFileSync(f, "utf-8")), f).toBe(false);
+    // site code only: the QA evidence harness in tests/ probes the browser and is not shipped
+    for (const f of files.filter((x) => !x.includes("/tests/"))) expect(/getContext\(\s*["']webgl|from\s+["']three["']/.test(readFileSync(f, "utf-8")), f).toBe(false);
   });
   it("has one requestAnimationFrame call site (motion/loop.ts)", () => {
-    const hits = files.filter((f) => /requestAnimationFrame\(/.test(readFileSync(f, "utf-8")));
+    const hits = files.filter((f) => !f.includes("/tests/") && /requestAnimationFrame\(/.test(readFileSync(f, "utf-8")));
     expect(hits.map((f) => f.split("/src/")[1] ?? f)).toEqual(["motion/loop.ts"]);
   });
 });

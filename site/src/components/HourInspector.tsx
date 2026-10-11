@@ -1,10 +1,11 @@
-import { useCallback, useSyncExternalStore, type KeyboardEvent, type MouseEvent, type CSSProperties } from "react";
+import { useCallback, useEffect, useSyncExternalStore, type KeyboardEvent, type MouseEvent, type CSSProperties } from "react";
 import { Sheet } from "./Sheet";
 import { HonestyChip } from "./HonestyChip";
 import { closeHour, inspector, openHour } from "../state/inspector";
 import { hourAt, type RoseLog } from "../graphics/rose";
 import { debug } from "../scenes/director";
 import { currentClass } from "../graphics/canvas";
+import { getActive, subscribeActive } from "../scroll/engine";
 import type { InspectorCopy } from "../data/copy";
 
 /**
@@ -38,6 +39,8 @@ export function RoseHit({ scene, label, box, getLog = () => debug.log, onHour, o
 /** The inspector card: D on the right (story-card anatomy), T/M a bottom sheet. */
 export function HourInspector({ scene, content }: { scene: string; content: (h: number) => InspectorCopy | null }) {
   const ins = useSyncExternalStore(inspector.subscribe, inspector.get);
+  // QA D-005: the inspector belongs to its scene; it closes as soon as another scene owns the viewport
+  useEffect(() => subscribeActive(() => { const a = getActive(); if (inspector.get().scene === scene && a !== null && a !== scene) closeHour(); }), [scene]);
   const back = useCallback(() => document.querySelector<HTMLElement>(`[data-rose-hit="${scene}"]`), [scene]);
   const c = ins.scene === scene && ins.hour !== null ? content(ins.hour) : null;
   const side = typeof innerWidth === "number" && currentClass() === "D";

@@ -172,8 +172,10 @@ export function S06Stress({ def }: { def: SceneDef }) {
                           {s && data?.base ? (
                             <Still className="stress-still" label={`${meta(sid)?.label}: model dispatch over the dashed baseline demand`} deps={[st.ba, st.dayId, sid, st.layer]} draw={(c, w, h) => {
                               const LL = layout(w, h, currentClass());
-                              const R100 = dayR100(model.bas[st.ba], st.dayId, LL.G4);
-                              const v = baseView(model.bas[st.ba].display_order, { cx: w * 0.5, cy: h * 0.5, R100: R100 * 0.85, rref: radius(Math.max(...s.D), R100), gap: LL.gap });
+                              // QA D-024: each static scenario rose fills its own square (peak petal + hour labels inside it)
+                              const peak = Math.max(...s.D, ...data.base!.D);
+                              const R100 = (0.4 * Math.min(w, h)) / Math.sqrt(peak / 1e5);
+                              const v = baseView(model.bas[st.ba].display_order, { cx: w * 0.5, cy: h * 0.5, R100, rref: radius(Math.max(...s.D), R100), gap: LL.gap });
                               if (st.layer === "price") drawPriceRose(c, s.petals, v, s.bins, s.r.price_usd_mwh); else drawRose(c, s.petals, v);
                               drawGhostArcs(c, data.base!.D, v);
                             }} />

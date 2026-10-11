@@ -8,8 +8,8 @@ import { Radio } from "../components/Radio";
 import { Sheet } from "../components/Sheet";
 import { HourInspector, RoseHit } from "../components/HourInspector";
 import { useArtifact } from "../data/useArtifact";
-import { MODEL, RESULTS } from "../data/artifacts";
-import { copyCtrl, ctrlLedger, flatNote, fmtControl, inspectorSimulated, parityLine, parityShort, statusLine } from "../data/copy";
+import { MODEL, RESULTS, VECTORS } from "../data/artifacts";
+import { parityMissing, copyCtrl, ctrlLedger, flatNote, fmtControl, inspectorSimulated, parityLine, parityShort, statusLine } from "../data/copy";
 import { ctrl } from "../state/scenes";
 import { cancelSolve, getSolver, retrySolver, subscribeSolver } from "../state/solver";
 import { nearestPreset, sameParams, setPreset, useLiveSolve } from "../state/lab";
@@ -84,6 +84,7 @@ function Controls({ m, p, onParams, onPreset, presetId, layer, setLayer, tl, set
 export function Ctrl({ def }: { def: SceneDef }) {
   const [ms, retryM] = useArtifact(MODEL);
   const [rs, retryR] = useArtifact(RESULTS, false);
+  const [vs] = useArtifact(VECTORS, false);
   const st = useSyncExternalStore(ctrl.subscribe, ctrl.get);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const vp = useViewport();
@@ -128,7 +129,7 @@ export function Ctrl({ def }: { def: SceneDef }) {
 
   return (
     <Track id={def.id} height="auto" landing={0} className={`scene scene-${def.id}`} label="The Control Room">
-      <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
+      <SceneErrors id={def.id} specs={[MODEL, RESULTS, VECTORS] as ArtifactSpec<unknown>[]} />
       <div className="ctrl">
         <header className="ctrl-head">
           <p className="scene-kicker">{copyCtrl.kicker}</p>
@@ -138,7 +139,9 @@ export function Ctrl({ def }: { def: SceneDef }) {
             {sv.solving ? <button type="button" className="btn-square" onClick={() => cancelSolve()}>CANCEL SOLVE</button> : null}
             {st.check ? <p className="state-line state-line--error" data-check>{st.check}</p> : null}
             {sv.status === "error" ? <RetryButton onClick={retrySolver} /> : null}
-            {sv.parity ? <p className="state-line parity">{isM ? parityShort(sv.parity) : parityLine(sv.parity)}</p> : null}
+            {/* QA D-017: on desktop the cost = objective line is in view on landing (the full ledger is under the controls) */}
+            {!isM && ledger[0] ? <p className="state-line tnum ctrl-cost-head" data-cost-head>{ledger[0].text}</p> : null}
+            {sv.parity ? <p className="state-line parity">{isM ? parityShort(sv.parity) : parityLine(sv.parity)}</p> : vs.status === "error" ? <p className="state-line state-line--error" data-parity-missing>{parityMissing}</p> : null}
           </div>
         </header>
         <ArtifactStatus file="dispatch_model.json" state={ms} retry={retryM} empty="NO DISPATCH MODEL PUBLISHED">

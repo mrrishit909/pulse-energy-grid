@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 /**
  * Bottom sheet (T/M): the M ledger, the CTRL controls and the T/M Hour Inspector. Opens upward (350ms premium),
@@ -15,14 +16,16 @@ export function Sheet({ open, onClose, title, children, side = false, className 
     addEventListener("keydown", key, true);
     return () => removeEventListener("keydown", key, true);
   }, [open, onClose, returnFocus]);
-  if (!open) return null;
-  return (
+  if (!open || typeof document === "undefined") return null;
+  // portalled to <body>: a pinned stage is transformed, which would make `position: fixed` resolve against it (QA D-006)
+  return createPortal(
     <div ref={ref} tabIndex={-1} role="dialog" aria-label={title} className={`sheet ${side ? "sheet--side" : ""} ${className}`}>
       <div className="sheet__head">
         <span className="sheet__title">{title}</span>
         <button type="button" className="btn-square sheet__close" onClick={() => { onClose(); returnFocus?.()?.focus({ preventScroll: true }); }}>CLOSE</button>
       </div>
       <div className="sheet__body">{children}</div>
-    </div>
+    </div>,
+    document.body,
   );
 }

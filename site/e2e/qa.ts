@@ -54,6 +54,8 @@ export function collisions(page: Page, id: string, debug = false) {
     }
     for (const c of root2controls()) { if (!seen.has(c) && eff(c) > 0.05) { const r = c.getBoundingClientRect(); if (r.width > 1 && r.bottom > 0 && r.top < vh) boxes.push({ el: c, r, name: c.getAttribute("aria-label") ?? c.tagName, backed: true }); } }
     function root2controls() { return [...scope.querySelectorAll("input[type=range], select")]; }
+    // QA L13: what the canvases drew (hour labels, skyline, week axis and labels) against every DOM text box
+    const marks: { name: string; x: number; y: number; w: number; h: number }[] = (window as any).__peg.marks();
     if (dbg) return boxes.map((b) => `${b.name} ${Math.round(b.r.left)}..${Math.round(b.r.right)} ${Math.round(b.r.top)}-${Math.round(b.r.bottom)}`);
     // a scene in normal flow (CTRL, every scene under reduced motion) scrolls under the fixed nav like any page
     const flow = sid === "control" || getComputedStyle(scope).position !== "sticky";
@@ -70,8 +72,19 @@ export function collisions(page: Page, id: string, debug = false) {
         if (inter(a.r, b.r) > 4) out.push(`"${a.name}" x "${b.name}"`);
       }
     }
+    for (const b of boxes) for (const m of marks) {
+      const r = new DOMRect(m.x, m.y, m.w, m.h);
+      if (r.bottom < 0 || r.top > vh) continue;
+      if (inter(b.r, r) > 4) out.push(`"${b.name}" x canvas ${m.name}`);
+    }
     // text over the rose (scenes where the rose and text share the frame): only text without an opaque backing counts
     const log = (window as any).__peg.rose(), view = (window as any).__peg.view();
+    const live = sid === "control" ? (window as any).__peg.liveDisc() : null;
+    if (live) for (const b of boxes) {
+      if (b.backed || b.el.closest(".ctrl-side, .nav-bar, .nav-pill, .corner-btn")) continue;
+      const nx = Math.max(b.r.left, Math.min(live.cx, b.r.right)), ny = Math.max(b.r.top, Math.min(live.cy, b.r.bottom));
+      if (Math.hypot(nx - live.cx, ny - live.cy) < live.tip * 0.96) out.push(`"${b.name}" over the CTRL rose`);
+    }
     if (log && view && ["demand", "netload", "dispatch", "stress"].includes(sid)) {
       const tip = Math.max(...log.petals.map((p: any) => p.tip)) * 0.96;
       for (const b of boxes) {

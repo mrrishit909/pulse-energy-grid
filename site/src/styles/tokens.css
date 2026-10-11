@@ -23,8 +23,10 @@
   --accent-purple: #690de2;
   /* contrast on #000: orange 6.3, light-blue 9.4, blue 2.5, purple 2.8 -> blue/purple are FILL ONLY (white text on them passes) */
   --near-black: #080808;
-  --accent-primary: var(--accent-light-blue);   /* per project */
-  --accent-secondary: var(--accent-orange);     /* per project */
+  /* P04's own pair (ED #43; VISUAL_DESIGN section 0): grid blue is the control system (fill only, white text),
+     orange is energy in motion. P01-P03 ship light blue / orange, so no pair repeats. */
+  --accent-primary: #192ce4;
+  --accent-secondary: #ff4c25;
 
   /* semantic (data honesty tags + states) */
   --tag-observed: #ffffff;

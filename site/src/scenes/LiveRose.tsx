@@ -12,7 +12,7 @@ import type { LabStore } from "../state/lab";
 import type { BAModel, DispatchResult } from "../model/types";
 
 /** The CTRL rose's last drawn geometry (hit-testing, e2e hooks). */
-export const liveLog: { log: RoseLog | null; R100: number; frames: number } = { log: null, R100: 0, frames: 0 };
+export const liveLog: { log: RoseLog | null; R100: number; frames: number; labels: { h: number; x: number; y: number; w: number; hgt: number }[]; el: HTMLCanvasElement | null } = { log: null, R100: 0, frames: 0, labels: [], el: null };
 
 /**
  * The Control Room rose: its own canvas inside the normal-flow section (CTRL is not pinned), drawn from the
@@ -61,15 +61,16 @@ export function LiveRose({ lab, model, baseline, layer, scene }: { lab: LabStore
       const L = layout(w, h);
       const peak = Math.max(...D, ...day.demand_mw);
       // the rose fills the canvas box (CTRL keeps its own sticky stage): area-true within the day shown
-      const R100 = (Math.min(w, h) * 0.42) / Math.sqrt(peak / 1e5);
+      // up and left of centre, so the colour key and the tag in the stage corner never sit on a petal (QA D-010)
+      const R100 = (Math.min(w, h) * 0.36) / Math.sqrt(peak / 1e5);
       const g = c.getContext("2d")!;
       g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const v = { cx: w / 2, cy: h / 2, R100, rref: radius(peak, R100), gap: L.gap, ghost: 0.06, bands: 1, marks: 1, beat: 0, lift: ins.scene === scene ? ins.hour : null, liftT: 1, glow: L.glow, keys: model.display_order };
+      const v = { cx: w * 0.42, cy: h * 0.45, R100, rref: radius(peak, R100), gap: L.gap, ghost: 0.06, bands: 1, marks: 1, beat: 0, lift: ins.scene === scene ? ins.hour : null, liftT: 1, glow: L.glow, keys: model.display_order };
       const log = layer === "price" ? drawPriceRose(g as unknown as Ctx, ps, v, s.result.price_usd_mwh.map((p) => priceBin(p, model.voll_usd_mwh)), s.result.price_usd_mwh) : drawRose(g as unknown as Ctx, ps, v);
       // the dashed ghost: the day's OBSERVED demand (the baseline's demand), so growth and heat read against it
       if (baseline) drawGhostArcs(g as unknown as Ctx, day.demand_mw, v);
       if (glow > 0) drawEdgeGlow(g as unknown as Ctx, ps, v, "#FF4C25", glow);
-      drawHourLabels(g as unknown as Ctx, ps, v, L.label, 0.7);
+      liveLog.labels = drawHourLabels(g as unknown as Ctx, ps, v, L.label, 0.7); liveLog.el = c;
       liveLog.log = log; liveLog.R100 = R100; liveLog.frames++;
     }, 60);
     return () => { off(); ro.disconnect(); };

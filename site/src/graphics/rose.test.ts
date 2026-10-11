@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { FUEL, areaLerp, binsSpanned, drawPriceRose, drawRose, gapHalf, priceBin, radius, type Ctx, type RoseView } from "./rose";
+import { FUEL, areaLerp, drawPriceRose, drawRose, gapHalf, priceBin, radius, type Ctx, type RoseView } from "./rose";
 import { observedStack, petals, simulatedStack } from "../model/stack";
 import type { DispatchModel, DispatchResults } from "../model/types";
 
@@ -132,23 +132,28 @@ describe("stack rules", () => {
   });
 });
 
-describe("PRICE layer (criterion 21: never a flat pie)", () => {
-  it("draws every band of every priced petal as its own gradient: no fill spans more than one petal, light varies with the petal's price", () => {
-    const m = model.bas.ERCO, day = m.days.find((d) => d.id === "summer")!;
-    const r = results.bas.ERCO.days.summer!.demand_growth!;
-    const D = day.demand_mw.map((x) => x * 1.15);
-    const s = simulatedStack(m.display_order, day, D, r);
-    const bins = r.price_usd_mwh.map((p) => priceBin(p, m.voll_usd_mwh));
-    expect(binsSpanned(r.price_usd_mwh, m.voll_usd_mwh)).toBeLessThanOrEqual(3);
-    const { ctx, gradients, fills } = mockCtx();
-    drawPriceRose(ctx, petals(s, () => 1), view(s.keys, 300, 300), bins, r.price_usd_mwh);
-    const gfills = fills.filter((f) => gradients.has(f.style as object));
-    // one closed sector per gradient fill (the only multi-petal fill is the white demand silhouette, a plain colour)
-    for (const f of gfills) expect(f.path.filter((x) => x === "close").length).toBe(1);
-    const priced = bins.filter((b) => b !== null && b !== 0).length;
-    expect(gfills.length).toBeGreaterThan(priced); // several bands per petal, plus the rim glow
-    // within one bin, two petals at different prices get different outer light
-    const outer = new Set([...gradients].map((g) => (g as unknown as { stops: string[] }).stops.at(-1)));
-    expect(outer.size).toBeGreaterThan(2);
-  });
+describe("PRICE layer (criterion 21, QA D-001: the stack rose with a price tint, never a pie)", () => {
+  const case_ = (ba: "CISO" | "ERCO", scen: string, scale: (d: number[]) => number[]) => {
+    const m = model.bas[ba], day = m.days.find((d) => d.id === "summer")!;
+    const r = (results.bas[ba].days.summer as Record<string, NonNullable<typeof results.bas.CISO.days.summer>["baseline"]>)[scen]!;
+    const s = simulatedStack(m.display_order, day, scale(day.demand_mw), r);
+    return { s, r, bins: r.price_usd_mwh.map((p) => priceBin(p, m.voll_usd_mwh)) };
+  };
+  for (const [name, c] of [["ERCO demand +15%", case_("ERCO", "demand_growth", (d) => d.map((x) => x * 1.15))], ["CISO renewables +50%", case_("CISO", "renewables_up", (d) => d)]] as const) {
+    it(`${name}: same bands as STACK; price fills stay in one petal and never reach within 6% of the centre; surplus hours unfilled`, () => {
+      const ps = petals(c.s, () => 1), v = view(c.s.keys, 300, 300);
+      const stack = drawRose(mockCtx().ctx, ps, { ...v, ghost: 0, marks: 0 });
+      const { ctx, gradients, fills } = mockCtx();
+      const log = drawPriceRose(ctx, ps, v, c.bins, c.r.price_usd_mwh);
+      for (const f of fills) if (gradients.has(f.style as object)) expect(f.path.filter((x) => x === "close").length).toBe(1);
+      for (const f of log.priceFills!) expect(f.r0).toBeGreaterThanOrEqual(0.06 * log.rPeakDemand - 1e-9);
+      log.petals.forEach((p, h) => {
+        expect(p.bands).toEqual(stack.petals[h]!.bands); // the geometry is the class stack
+        if (c.bins[h] === 0) expect(p.drawn).toEqual([]); // surplus: silhouette only
+        else expect(p.drawn).toEqual(stack.petals[h]!.drawn);
+      });
+      expect(log.priceFills!.map((f) => f.hour)).toEqual(c.bins.map((b, h) => (b !== null && b !== 0 && stack.petals[h]!.drawn.length > 0 ? h : -1)).filter((h) => h >= 0));
+      if (name.startsWith("CISO")) expect(c.bins.filter((b) => b === 0).length).toBeGreaterThan(0); // the case exercises surplus hours
+    });
+  }
 });

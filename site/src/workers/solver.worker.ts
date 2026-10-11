@@ -51,7 +51,14 @@ async function load() {
   const bin = new Uint8Array(loaded);
   let o = 0;
   for (const c of chunks) { bin.set(c, o); o += c.byteLength; }
-  const mod = (await highsLoader({ wasmBinary: bin.buffer } as never)) as unknown as HighsLike & { version?: { string: string } };
+  // instantiate from the bytes already streamed: this Emscripten build ignores `wasmBinary` and would fetch the file
+  // a second time (QA D-014); `instantiateWasm` is the hook it honours
+  const mod = (await highsLoader({
+    instantiateWasm: (imports: WebAssembly.Imports, receive: (i: WebAssembly.Instance, m: WebAssembly.Module) => void) => {
+      void WebAssembly.instantiate(bin, imports).then((r) => receive(r.instance, r.module));
+      return {};
+    },
+  } as never)) as unknown as HighsLike & { version?: { string: string } };
   highs = mod;
   post({ type: "ready", version: mod.version?.string ?? "1.15.3", loadMs: performance.now() - t0 });
 }

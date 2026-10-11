@@ -22,7 +22,7 @@ import { biteStack, bitePeak } from "../model/bite";
 import { drawGhostArcs, drawHourLabels, drawRose, radius, type Ctx, type PetalIn } from "../graphics/rose";
 import { BAS, type BA, type DemandProfile, type FuelMix } from "../model/types";
 import { baseView, registerFrame } from "./director";
-import { fitR100, layout } from "./geometry";
+import { fitR100, layout, type Layout } from "./geometry";
 import { useViewport } from "./useViewport";
 import { Still } from "./Still";
 import { currentClass } from "../graphics/canvas";
@@ -43,6 +43,21 @@ export function biteAt(p: number, prevYearStep: number, biteMonth: number) {
   return { month: p >= 0.6 ? biteMonth : month, net, year: p >= 0.62 ? YEARS[ys]! : null, yearStep: ys };
 }
 export const biteP = (month: number) => 0.05 + ((month - 0.5) / 12) * 0.5;
+
+/** The S03b rose as the scene ends (p = 1, settled). S04 starts from exactly this rose and unrolls it (QA D-002). */
+export function biteEnd(L: Layout) {
+  const fm = getStore(FUEL_MIX).state, dp = getStore(DEMAND).state, facts = getStore(FACTS).state;
+  if (fm.status !== "ready" || dp.status !== "ready") return null;
+  const st = bite.get();
+  const biteMonth = facts.status === "ready" ? (facts.data.bas[st.ba].deepest_bite_month as number) : 4;
+  const s = motionEnabled() ? biteAt(1, bstate.yearStep, biteMonth) : { month: biteMonth, net: true, year: YEARS.at(-1)!, yearStep: 4 };
+  const net = (st.layer ?? (s.net ? "net" : "demand")) === "net";
+  const year = st.year ?? s.year;
+  const stack = biteStack(fm.data, dp.data, st.ba, year ? biteMonth : s.month, year, net ? 1 : 0);
+  const R100 = fitR100(L.G3, bitePeak(dp.data, st.ba));
+  const view = baseView(stack.keys, { cx: L.G3.cx, cy: L.G3.cy, R100, rref: radius(Math.max(...stack.demand), R100), gap: L.gap });
+  return { petals: petals(stack, () => 1), view, demand: stack.demand, net };
+}
 
 // ------------------------------------------------------------------ the canvas frame
 const netTw = new Tween(0, DUR.panel, easeSmooth);

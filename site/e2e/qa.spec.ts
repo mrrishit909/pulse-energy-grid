@@ -4,6 +4,7 @@
  * Runs once (desktop project); each test opens its own contexts at the viewports its lesson names.
  */
 import { chromium, expect, test, type Browser, type Page } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { WALK, collisions, goScene, openSite } from "./qa";
@@ -108,13 +109,21 @@ test("L5: no sideways scroll in any scene, normal and reduced motion, at 360/375
       await openSite(page);
       for (const id of SCENES) {
         await goScene(page, id, 0.5);
-        const r = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, bw: document.body.scrollWidth, iw: innerWidth }));
-        if (Math.max(r.sw, r.bw) > r.iw) bad.push(`${reduced ? "reduced" : "motion"} ${w} ${id}: ${Math.max(r.sw, r.bw)} > ${r.iw}`);
+        // L14: against the configured viewport width; under isMobile innerWidth grows with the overflow
+        const r = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, bw: document.body.scrollWidth }));
+        if (Math.max(r.sw, r.bw) > w) bad.push(`${reduced ? "reduced" : "motion"} ${w} ${id}: ${Math.max(r.sw, r.bw)} > ${w}`);
       }
       await ctx.close();
     }
   }
   expect(bad).toEqual([]);
+  // L14 fixture: a deliberately overflowing element must make this measurement fail under isMobile
+  const { ctx, page } = await at(browser, VP(390, 844), { reduced: true });
+  await openSite(page);
+  await page.evaluate(() => { const d = document.createElement("div"); d.style.cssText = "width:525px;height:4px;position:relative"; document.body.append(d); });
+  const sw = await page.evaluate(() => document.documentElement.scrollWidth);
+  expect(sw, "the overflow check sees a 525px fixture").toBeGreaterThan(390);
+  await ctx.close();
 });
 
 test("L7: every visible text node is at least 11 CSS px (SVG text measured on screen) at 1440, 768 and 390", async ({ browser }) => {
@@ -201,11 +210,11 @@ const CONSUMES: [string, number, string[]][] = [
   ["source", 0.36, ["dispatch_model.json", "fuel_mix.json", "demand_profile.json", "facts.json", "weather_relation.json", "reconciliation.json", "quality.json", "meta.json"]],
   ["demand", 0.74, ["dispatch_model.json", "facts.json"]],
   ["netload", 0.6, ["fuel_mix.json", "demand_profile.json", "facts.json"]],
-  ["forecast", 0.9, ["forecast_samples.json", "forecast_eval.json", "facts.json"]],
-  ["dispatch", 0.8, ["dispatch_model.json", "dispatch_results.json"]],
+  ["forecast", 0.9, ["forecast_samples.json", "forecast_eval.json", "facts.json", "fuel_mix.json", "demand_profile.json"]],
+  ["dispatch", 0.8, ["dispatch_model.json", "dispatch_results.json", "dispatch_test_vectors.json"]],
   ["stress", 0.1, ["dispatch_model.json", "dispatch_results.json"]],
-  ["evidence", 0.5, ["forecast_eval.json", "facts.json", "dispatch_model.json", "dispatch_results.json", "grid_topology.json", "reconciliation.json", "quality.json", "meta.json"]],
-  ["control", 0, ["dispatch_model.json", "dispatch_results.json"]],
+  ["evidence", 0.5, ["forecast_eval.json", "facts.json", "dispatch_model.json", "dispatch_results.json", "grid_topology.json", "reconciliation.json", "quality.json", "meta.json", "dispatch_test_vectors.json"]],
+  ["control", 0, ["dispatch_model.json", "dispatch_results.json", "dispatch_test_vectors.json"]],
   ["closing", 0.9, ["dispatch_model.json", "meta.json"]],
 ];
 for (const vp of [VP(1440, 900), VP(390, 844)]) {
@@ -234,7 +243,18 @@ for (const vp of [VP(1440, 900), VP(390, 844)]) {
       for (const f of files) {
         blocked.delete(f);
         const before = hits.get(f) ?? 0;
-        await banner.locator(`[role=alert][data-file="${f}"]`).getByRole("button", { name: "RETRY" }).click();
+        // L12: the RETRY must be the topmost element at its centre and a real pointer click there must work
+        const btn = banner.locator(`[role=alert][data-file="${f}"]`).getByRole("button", { name: "RETRY" });
+        // the banner re-centres as other files settle, so the box is re-read just before each real click
+        for (let k = 0; k < 3 && (hits.get(f) ?? 0) === before; k++) {
+          await page.waitForTimeout(250);
+          const bb = await btn.boundingBox();
+          if (!bb) break;
+          const x = bb.x + bb.width / 2, y = bb.y + bb.height / 2;
+          expect(await page.evaluate(([px, py]) => document.elementFromPoint(px!, py!)?.textContent?.trim(), [x, y]), `${f}: RETRY on top`).toBe("RETRY");
+          await page.mouse.click(x, y);
+          await page.waitForTimeout(400);
+        }
         await expect(banner.locator(`[data-file="${f}"]`), f).toHaveCount(0, { timeout: 20_000 });
         expect((hits.get(f) ?? 0) - before, `${f}: exactly one re-fetch`).toBe(1);
       }
@@ -242,3 +262,115 @@ for (const vp of [VP(1440, 900), VP(390, 844)]) {
     });
   }
 }
+
+// ------------------------------------------------------------------ P04-FIXE-001: the QA report's defects, each with its own test
+test("D-005: the Hour Inspector closes when its scene leaves the viewport", async ({ browser }) => {
+  for (const [id, p] of [["demand", 0.74], ["control", 0]] as const) {
+    const { ctx, page } = await at(browser, VP(1440, 900));
+    await openSite(page);
+    await goScene(page, id, p);
+    const hit = page.locator(`[data-rose-hit="${id}"]`);
+    await hit.focus(); await page.keyboard.press("Enter");
+    await expect(page.locator(".sheet.inspector")).toBeVisible();
+    await goScene(page, "closing", 0.9);
+    await expect(page.locator(".sheet.inspector")).toHaveCount(0);
+    await ctx.close();
+  }
+});
+
+test("D-006: a tap on the rose opens the inspector sheet inside the phone viewport (S03a, S05, CTRL)", async ({ browser }) => {
+  for (const vp of [VP(390, 844), VP(360, 800)]) {
+    const { ctx, page } = await at(browser, vp);
+    await openSite(page);
+    for (const [id, p] of [["demand", 0.74], ["dispatch", 0.8], ["control", 0]] as const) {
+      await goScene(page, id, p);
+      const v = await page.evaluate((sid) => { const l = sid === "control" ? (window as any).__peg.liveDisc() : (window as any).__peg.view(); return l ? { x: l.cx, y: l.cy - (l.R100 ? l.R100 * 0.3 : l.tip * 0.5) } : null; }, id);
+      expect(v, id).not.toBeNull();
+      await page.touchscreen.tap(v!.x, v!.y);
+      const sheet = page.locator(".sheet.inspector");
+      await expect(sheet, `${vp.width} ${id}`).toBeVisible();
+      const b = (await sheet.boundingBox())!;
+      expect(b.y + b.height, `${vp.width} ${id} sheet bottom`).toBeGreaterThan(0);
+      expect(b.y, `${vp.width} ${id} sheet top inside the viewport`).toBeLessThan(vp.height);
+      await page.locator(".sheet.inspector .sheet__close").click();
+    }
+    await ctx.close();
+  }
+});
+
+test("D-007: missing test vectors read PARITY NOT CHECKED (never RUNNING) in S05, CTRL and S07", async ({ browser }) => {
+  const { ctx, page } = await at(browser, VP(1440, 900));
+  await page.route("**/data/dispatch_test_vectors.json", (r) => r.fulfill({ status: 503, body: "" }));
+  await openSite(page);
+  for (const [id, p] of [["dispatch", 0.8], ["control", 0], ["evidence", 0.5]] as const) {
+    await goScene(page, id, p);
+    await expect(page.locator(`[data-scene-errors="${id}"] [role=alert][data-file="dispatch_test_vectors.json"]`)).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator(`#${id}`)).not.toContainText("PARITY CHECK RUNNING");
+  }
+  await goScene(page, "dispatch", 0.8);
+  await expect(page.locator("#dispatch [data-parity-missing]")).toContainText("PARITY NOT CHECKED");
+  await ctx.close();
+});
+
+test("D-009: on phones both verdict cards state the MAPE difference and its 95% CI", async ({ browser }) => {
+  for (const vp of [VP(360, 800), VP(375, 812), VP(390, 844)]) {
+    const { ctx, page } = await at(browser, vp);
+    await openSite(page);
+    await goScene(page, "forecast", 0.9);
+    for (const ba of ["CISO", "ERCO"]) await expect(page.locator(`.fc-card[data-ba="${ba}"] .fc-card__mono`), `${vp.width} ${ba}`).toContainText(/PP \(95% CI/);
+    await ctx.close();
+  }
+});
+
+test("D-011: S08 corner labels keep >= 4.5:1 over the drawn rose on phones and desktop", async ({ browser }) => {
+  for (const vp of [VP(390, 844), VP(360, 800), VP(1440, 900)]) {
+    const { ctx, page } = await at(browser, vp);
+    await openSite(page);
+    await goScene(page, "closing", 0.76);
+    await page.waitForTimeout(600);
+    // composite the label's backing over the rose pixels behind it, then the contrast of its white text
+    const worst = await page.evaluate(() => {
+      const cv = document.querySelector<HTMLCanvasElement>("canvas.rose-layer")!;
+      const g = cv.getContext("2d")!;
+      const k = cv.width / cv.getBoundingClientRect().width;
+      const lum = (c: number[]) => { const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(c[0]!) + 0.7152 * f(c[1]!) + 0.0722 * f(c[2]!); };
+      let min = 99;
+      for (const el of document.querySelectorAll<HTMLElement>(".close-corners .wordmark, .close-corners .intro-corner")) {
+        const r = el.getBoundingClientRect();
+        const bg = getComputedStyle(el).backgroundColor.match(/[\d.]+/g)!.map(Number);
+        const a = bg[3] ?? 1, op = Number(getComputedStyle(cv).opacity);
+        for (let x = r.left + 2; x < r.right - 2; x += 4) for (let y = r.top + 2; y < r.bottom - 2; y += 4) {
+          const px = Array.from(g.getImageData(Math.round(x * k), Math.round(y * k), 1, 1).data).map((v) => v * op);
+          const comp = [0, 1, 2].map((i) => bg[i]! * a + px[i]! * (1 - a));
+          min = Math.min(min, 1.05 / (lum(comp) + 0.05));
+        }
+      }
+      return min;
+    });
+    expect(worst, `${vp.width}`).toBeGreaterThanOrEqual(4.5);
+    await ctx.close();
+  }
+});
+
+test("D-014: one highs.wasm GET per solver start", async ({ browser }) => {
+  const { ctx, page } = await at(browser, VP(1440, 900));
+  let n = 0;
+  ctx.on("request", (r) => { if (/\.wasm(\?|$)/.test(r.url())) n++; });
+  await openSite(page);
+  await goScene(page, "dispatch", 0.8);
+  await page.waitForFunction(() => (window as any).__peg.solver().parity, null, { timeout: 60_000 });
+  expect(n).toBe(1);
+  await ctx.close();
+});
+
+test("D-004: axe finds no serious contrast issue in S07 under reduced motion (1440 and 390)", async ({ browser }) => {
+  for (const vp of [VP(1440, 900), VP(390, 844)]) {
+    const { ctx, page } = await at(browser, vp, { reduced: true });
+    await openSite(page);
+    await goScene(page, "evidence", 0.5);
+    const res = await new AxeBuilder({ page }).include("#evidence").analyze();
+    const bad = res.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
+    expect(bad.map((v) => `${vp.width} ${v.id}: ${v.nodes.slice(0, 3).map((x) => x.target.join(" ")).join(", ")}`)).toEqual([]);
+    await ctx.close();
+  }
+});

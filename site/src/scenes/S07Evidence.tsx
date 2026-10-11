@@ -5,8 +5,8 @@ import { HonestyChip, type Honesty } from "../components/HonestyChip";
 import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { useArtifact } from "../data/useArtifact";
 import { useNear } from "../scroll/useNear";
-import { EVAL, FACTS, MODEL, RECON, RESULTS, TOPOLOGY, QUALITY, META } from "../data/artifacts";
-import { answerCosts, answerIntervals, answerLp, answerRows, answerSolve, answerWeather, answerWires, fmtAssumption, ledgerCopy, MODEL_LABEL, OBJECTIONS, verdict, wiresCaption } from "../data/copy";
+import { EVAL, FACTS, MODEL, RECON, RESULTS, TOPOLOGY, QUALITY, META, VECTORS } from "../data/artifacts";
+import { parityMissing, answerCosts, answerIntervals, answerLp, answerRows, answerSolve, answerWeather, answerWires, fmtAssumption, ledgerCopy, MODEL_LABEL, OBJECTIONS, verdict, wiresCaption } from "../data/copy";
 import { getSolver, subscribeSolver } from "../state/solver";
 import { useMotion, useProgress } from "../scroll/hooks";
 import { getStore } from "../data/loader";
@@ -107,7 +107,7 @@ function CiBar({ lo, hi, pp }: { lo: number; hi: number; pp: number }) {
 /** S07 "How we know": seven exchanges, an objection then an orange answer with a mini-visual. */
 export function S07Evidence({ def }: { def: SceneDef }) {
   const near = useNear(def.id);
-  const [fe, rFe] = useArtifact(EVAL, near); const [ff] = useArtifact(FACTS); const [ms] = useArtifact(MODEL); const [rs] = useArtifact(RESULTS, false);
+  const [fe, rFe] = useArtifact(EVAL, near); const [ff] = useArtifact(FACTS); const [ms] = useArtifact(MODEL); const [rs] = useArtifact(RESULTS, false); const [vs] = useArtifact(VECTORS, false);
   const [tp, rTp] = useArtifact(TOPOLOGY, near); const [rc] = useArtifact(RECON, false); const [q] = useArtifact(QUALITY, false); const [mt] = useArtifact(META, false);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const motion = useMotion();
@@ -127,12 +127,12 @@ export function S07Evidence({ def }: { def: SceneDef }) {
     { tag: "PREDICTED", detail: "UPPER BOUND · NOT AVAILABLE AT FORECAST TIME", body: E ? (["CISO", "ERCO"] as const).map((ba) => <div key={ba}><p>{answerWeather(E, ba)}</p><Bars max={6} rows={[{ label: "OURS", v: E.bas[ba].models.gbm!.mape_pct }, { label: "PERFECT WEATHER", v: E.bas[ba].models.gbm_perfect_weather!.mape_pct, tone: "bound" }]} /></div>) : evalLine },
     { tag: tp.status === "ready" ? (tp.data.tag as Honesty) : "SYNTHETIC", detail: "ILLUSTRATIVE", body: <><p>{answerWires}</p>{tp.status === "ready" ? <Wires topo={tp.data} on={shown >= 3} /> : <ArtifactStatus file="grid_topology.json" state={tp} retry={rTp} empty="UNAVAILABLE">{() => null}</ArtifactStatus>}<p className="ev-small">{wiresCaption}</p></> },
     { tag: "SIMULATED", detail: "ASSUMPTIONS", body: <><p>{answerCosts}</p>{ms.status === "ready" ? <ul className="ev-assume">{ms.data.assumptions.slice(0, 8).map((a) => <li key={a.id}><b>{a.id.toUpperCase().replace(/_/g, " ")}</b> {fmtAssumption(a.value)} {a.unit.toUpperCase()}</li>)}</ul> : null}</> },
-    { tag: "SIMULATED", detail: "PARITY ON THIS BUILD", body: <><p>{answerSolve(sv.parity)}</p>{sv.parity ? <p className="ev-small tnum" data-parity-ev>OBJECTIVE {sv.parity.objective}/{sv.parity.n} · PRICES {sv.parity.price}/{sv.parity.priceComparable} WHERE UNIQUE · LP TEXT SHA-256 {sv.parity.hash}/{sv.parity.n} · TOLERANCE 1E-6</p> : null}{ms.status === "ready" && rs.status === "ready" ? <p className="ev-small tnum">{answerLp(ms.data.reference_lp.objective_usd, rs.data.bas.CISO.days.summer!.baseline!.objective_usd)}</p> : null}</> },
+    { tag: "SIMULATED", detail: "PARITY ON THIS BUILD", body: <><p>{!sv.parity && vs.status === "error" ? parityMissing : answerSolve(sv.parity)}</p>{sv.parity ? <p className="ev-small tnum" data-parity-ev>OBJECTIVE {sv.parity.objective}/{sv.parity.n} · PRICES {sv.parity.price}/{sv.parity.priceComparable} WHERE UNIQUE · CO2, UNSERVED, COST LINES {sv.parity.keys}/{sv.parity.n} · LP TEXT SHA-256 {sv.parity.hash}/{sv.parity.n} · TOLERANCE 1E-6</p> : null}{ms.status === "ready" && rs.status === "ready" ? <p className="ev-small tnum">{answerLp(ms.data.reference_lp.objective_usd, rs.data.bas.CISO.days.summer!.baseline!.objective_usd)}</p> : null}</> },
     { tag: "OBSERVED", detail: "ROW LEDGER", body: <>{ff.status === "ready" ? <p>{answerRows(ff.data)}</p> : null}{rc.status === "ready" && q.status === "ready" && ff.status === "ready" && mt.status === "ready" ? <ul className="ev-assume">{ledgerCopy(rc.data, q.data, ff.data, mt.data).rows.map((r) => <li key={r.ba}>{r.text}</li>)}</ul> : null}</> },
   ];
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Evidence: how we know">
-      <SceneErrors id={def.id} specs={[EVAL, FACTS, MODEL, RESULTS, TOPOLOGY, RECON, QUALITY, META] as ArtifactSpec<unknown>[]} />
+      <SceneErrors id={def.id} specs={[EVAL, FACTS, MODEL, RESULTS, TOPOLOGY, RECON, QUALITY, META, VECTORS] as ArtifactSpec<unknown>[]} />
       <div className="ev-head">
         <p className="scene-kicker">EVIDENCE · SEVEN QUESTIONS, SEVEN ANSWERS</p>
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">How we know.</h2>

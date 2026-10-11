@@ -7,8 +7,8 @@ import { StackKey } from "../components/StackKey";
 import { ArtifactStatus, RetryButton, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
-import { MODEL, RESULTS } from "../data/artifacts";
-import { co2Line, copyS05, deltaLines, inspectorSimulated, ledgerLine, ledgerRows, parityLine, parityShort, statusLine, totalLine, unservedLine } from "../data/copy";
+import { MODEL, RESULTS, VECTORS } from "../data/artifacts";
+import { parityMissing, co2Line, copyS05, deltaLines, inspectorSimulated, ledgerLine, ledgerRows, parityLine, parityShort, statusLine, totalLine, unservedLine } from "../data/copy";
 import { fill } from "../state/scenes";
 import { getSolver, retrySolver, subscribeSolver } from "../state/solver";
 import { nearestPreset, sameParams, setPreset as setLabPreset, useLiveSolve } from "../state/lab";
@@ -40,6 +40,7 @@ const fmtValue = (c: RangeControl, v: number) => (c.unit === "x" ? `×${v.toFixe
 export function S05Fill({ def }: { def: SceneDef }) {
   const [ms, retryM] = useArtifact(MODEL);
   const [rs, retryR] = useArtifact(RESULTS, false);
+  const [vs] = useArtifact(VECTORS, false);
   const f = useSyncExternalStore(fill.subscribe, fill.get);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const motion = useMotion();
@@ -90,7 +91,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
 
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Dispatch: fill the day">
-      <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
+      <SceneErrors id={def.id} specs={[MODEL, RESULTS, VECTORS] as ArtifactSpec<unknown>[]} />
       <RoseSlot scene={def.id} />
       <div className="fill-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement" key={show.s2 ? "s2" : "s1"}>{show.s2 ? copyS05.s2 : copyS05.s1}</h2>
@@ -116,7 +117,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
                   </label>
                 );
               })}
-              <div className="fill-lab__row">
+              <div className="fill-lab__row fill-lab__reset">
                 {!isBaseline ? <button type="button" className="text-btn" onClick={() => rs.status === "ready" && setPreset(data.bas[f.ba], rs.data, f.ba, f.dayId, "baseline")}>RESET</button> : null}
               </div>
             </div>
@@ -175,7 +176,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
               {f.check ? <p className="state-line state-line--error">{f.check}</p> : null}
               {sv.status === "error" ? <RetryButton onClick={retrySolver} /> : null}
               {sv.parity ? <p className="state-line parity" data-parity-passed={sv.parity.passed} data-parity-n={sv.parity.n} data-parity-hash={sv.parity.hash}>{isM ? parityShort(sv.parity) : parityLine(sv.parity)}</p>
-                : sv.status === "ready" ? <p className="state-line state-line--muted">PARITY CHECK RUNNING ON THIS BUILD</p> : null}
+                : vs.status === "error" ? <p className="state-line state-line--error" data-parity-missing>{parityMissing}</p> : sv.status === "ready" && vs.status === "ready" ? <p className="state-line state-line--muted">PARITY CHECK RUNNING ON THIS BUILD</p> : null}
             </div>
             {motion && m && day && r && f.params && show.live ? (
               <>

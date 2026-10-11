@@ -104,12 +104,16 @@ export interface RoseView {
   glow: number;
   /** keys parallel to PetalIn.bands */
   keys: string[];
+  /** hours drawn without bands (the PRICE layer's surplus hours: a dim silhouette instead); still logged */
+  silhouette?: ReadonlySet<number>;
 }
 
 /** What was drawn: the hooks for area-truth / radial-only tests. */
 export interface RoseLog {
   R100: number; cx: number; cy: number; rPeakDemand: number;
   petals: { hour: number; tip: number; drawn: string[]; bands: { key: string; r0: number; r1: number; mw: number }[] }[];
+  /** PRICE layer only: every price-coloured fill (tint, rim, surplus silhouette), one petal each */
+  priceFills?: { hour: number; r0: number; r1: number }[];
 }
 
 // ---------------------------------------------------------------- drawing
@@ -230,10 +234,10 @@ export function drawRose(ctx: Ctx, petals: PetalIn[], v: RoseView): RoseLog {
         const key = v.keys[k]!;
         const r0 = radius(i, v.R100), r1 = radius(o, v.R100);
         entry.bands.push({ key, r0, r1, mw: o - i });
-        if (o - i <= 0) return;
-        entry.drawn.push(key);
+        if (o - i <= 0 || v.silhouette?.has(h)) return;
         const vi = Math.min(i, top), vo = Math.min(o, top);
         if (vo - vi <= 0) return;
+        entry.drawn.push(key);
         const f = FUEL[TOKEN[key] ?? "other"]!;
         const q0 = radius(vi, v.R100), q1 = radius(vo, v.R100);
         ctx.fillStyle = bandGradient(ctx, q0, q1, f);
@@ -384,7 +388,6 @@ export const PRICE_BINS = [
 export const priceBin = (p: number, voll: number) => PRICE_BINS.findIndex((b) => b.test(p, voll));
 /** Distinct bins a day's prices span (the "nearly flat" note when it is 1 or 2). */
 export const binsSpanned = (prices: number[], voll: number) => new Set(prices.map((p) => priceBin(p, voll))).size;
-const dim = (hex: string, k: number) => { const n = parseInt(hex.slice(1), 16); return `rgb(${Math.round(((n >> 16) & 255) * k)},${Math.round(((n >> 8) & 255) * k)},${Math.round((n & 255) * k)})`; };
 /** Where a price sits inside its bin (0..1), so petals of one bin still differ in light; open-ended bins use 0.5. */
 export function binPosition(price: number, bin: number) {
   const b = PRICE_BINS[bin]!;
@@ -392,59 +395,69 @@ export function binPosition(price: number, bin: number) {
 }
 
 /**
- * PRICE layer (S06, CTRL; the Spectral bins only). It keeps the rose's band light model, so a day whose prices fall in
- * one bin can never read as a flat pie: every visible band of every petal is its own radial gradient in the petal's
- * bin colour (dark at the band's inner edge, bright at its outer edge), the outer brightness also rising with the
- * petal's own price inside the bin's edges; the tapered hairline gaps and the rim glow stay. P0 (surplus) keeps the
- * demand silhouette and a dotted tip; P6 adds the unserved hatch. The geometry (and the log) is the class stack.
+ * PRICE layer (S06, CTRL). The rose keeps exactly the STACK geometry and light (same bands, same tapered gaps, same
+ * gradients): price is only a tint of each petal's outermost band and its rim glow in the petal's Spectral bin colour,
+ * stronger as the price sits higher inside the bin. Surplus (P0) hours keep only their tip (a dim arc and a dotted bin mark), no fill;
+ * unserved hours keep the red-edged hatch on their own band. No price fill spans two petals or reaches the centre
+ * (6% of the peak radius), so a one-bin day still reads as the stack rose, never a pie (QA D-001).
  */
 export function drawPriceRose(ctx: Ctx, petals: PetalIn[], v: RoseView, bins: (number | null)[], prices?: number[]): RoseLog {
-  const log = drawRose(ctx, petals, { ...v, bands: 0, marks: 0, ghost: Math.max(v.ghost, 0.06) });
+  const surplus = new Set(petals.filter((_, i) => bins[i] === 0).map((p) => p.hour));
+  const log = drawRose(ctx, petals, { ...v, ghost: 0, marks: 0, glow: 0, silhouette: surplus });
+  const r6 = 0.06 * log.rPeakDemand;
+  const fills: NonNullable<RoseLog["priceFills"]> = [];
   petals.forEach((p, i) => {
     const b = bins[i];
     if (b === null || b === undefined) return;
     const bin = PRICE_BINS[b]!;
-    const top = Math.min(p.served, p.demand);
+    const top = Math.min(p.served, p.demand), rD = radius(p.demand, v.R100);
+    const [a0, a1] = petalAngles(p.hour), mid = (a0 + a1) / 2;
+    const off = v.lift === p.hour ? 0.025 * v.R100 * v.liftT : 0;
     ctx.save();
-    ctx.translate(v.cx, v.cy);
+    ctx.translate(v.cx + Math.cos(mid) * off, v.cy + Math.sin(mid) * off);
+    ctx.globalAlpha = v.bands;
     if (b === 0) {
-      ctx.strokeStyle = bin.color; ctx.lineWidth = 1; ctx.setLineDash([1, 3]);
-      arcStroke(ctx, radius(top, v.R100), p.hour, v);
+      // surplus: no fill at all (a fill here reads as a flat wedge with spokes); only the petal's tip as a dim arc
+      // and the bin's dotted mark, so the hour keeps its silhouette edge
+      ctx.strokeStyle = "rgba(255,255,255,0.28)"; ctx.lineWidth = 1;
+      arcStroke(ctx, rD, p.hour, v);
+      ctx.strokeStyle = bin.color; ctx.setLineDash([1, 3]);
+      arcStroke(ctx, Math.max(r6, rD - 3), p.hour, v);
       ctx.setLineDash([]);
     } else {
-      const k = 0.62 + 0.38 * binPosition(prices?.[i] ?? 0, b);
-      let outer: [number, number] | null = null;
+      let q0 = 0, q1 = 0;
       for (const [i0, o0] of p.bands) {
         const vi = Math.min(i0, top), vo = Math.min(o0, top);
-        if (vo - vi <= 0) continue;
-        const q0 = radius(vi, v.R100), q1 = radius(vo, v.R100);
-        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(q1, 0.01));
-        g.addColorStop(clamp(q0 / Math.max(q1, 0.01)), dim(bin.color, 0.22));
-        g.addColorStop(1, dim(bin.color, k));
-        ctx.fillStyle = g;
-        sectorPath(ctx, q0, q1, p.hour, v);
-        ctx.fill();
-        outer = [q0, q1];
+        if (vo - vi > 0) { q0 = radius(vi, v.R100); q1 = radius(vo, v.R100); }
       }
-      if (outer) {
-        const [q0, q1] = outer, rg = Math.max(q0, q1 - v.glow);
-        const gl = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(q1, 0.01));
-        gl.addColorStop(clamp(rg / Math.max(q1, 0.01)), "rgba(255,255,255,0)");
-        gl.addColorStop(1, "rgba(255,255,255,0.32)");
-        ctx.fillStyle = gl;
-        sectorPath(ctx, rg, q1, p.hour, v);
-        ctx.fill();
+      q0 = Math.max(q0, r6);
+      if (q1 > q0) {
+        const k = 0.45 + 0.4 * binPosition(prices?.[i] ?? 0, b);
+        const t = ctx.createRadialGradient(0, 0, 0, 0, 0, q1);
+        t.addColorStop(clamp(q0 / q1), hexA(bin.color, k * 0.45));
+        t.addColorStop(1, hexA(bin.color, k));
+        ctx.fillStyle = t;
+        sectorPath(ctx, q0, q1, p.hour, v); ctx.fill();
+        const rg = Math.max(q0, q1 - v.glow);
+        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, q1);
+        g.addColorStop(clamp(rg / q1), hexA(bin.color, 0));
+        g.addColorStop(1, hexA(bin.color, 0.8));
+        ctx.fillStyle = g;
+        sectorPath(ctx, rg, q1, p.hour, v); ctx.fill();
+        fills.push({ hour: p.hour, r0: q0, r1: q1 });
       }
     }
     if (p.unserved > 0.5) {
-      const ru = radius(p.served, v.R100), rD = radius(p.demand, v.R100);
+      const ru = radius(p.served, v.R100);
       ctx.fillStyle = hatch(ctx, "#ffffff", "#000000", 1)!;
       sectorPath(ctx, ru, rD, p.hour, v); ctx.fill();
       ctx.strokeStyle = UNSERVED_EDGE; ctx.lineWidth = 1;
       arcStroke(ctx, ru, p.hour, v); arcStroke(ctx, rD, p.hour, v);
     }
+    ctx.globalAlpha = 1;
     ctx.restore();
   });
+  log.priceFills = fills;
   return log;
 }
 

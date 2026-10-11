@@ -1,3 +1,4 @@
+import { canvasMarks } from "./graphics/week";
 import { StrictMode, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "lenis/dist/lenis.css";
@@ -63,6 +64,19 @@ Object.assign(window, {
     setBite: (p: Partial<ReturnType<typeof bite.get>>) => bite.set(p),
     setForecast: (p: Partial<ReturnType<typeof forecast.get>>) => forecast.set(p),
     view: () => (debug.view ? { ...debug.view } : null),
+    /** QA L13: canvas-drawn labels and marks in viewport px (none while the canvas is a dim backdrop) */
+    marks: () => {
+      const cv = document.querySelector<HTMLCanvasElement>("canvas.rose-layer");
+      const dim = !cv || getComputedStyle(cv).display === "none" || Number(getComputedStyle(cv).opacity) < 0.5;
+      const out = dim ? [] : canvasMarks.map((m) => ({ ...m }));
+      const el = liveLog.el;
+      if (el && el.isConnected) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < innerHeight) for (const b of liveLog.labels) out.push({ name: `ctrl hour ${b.h}`, x: r.left + b.x, y: r.top + b.y, w: b.w, h: b.hgt });
+      }
+      return out;
+    },
+    liveDisc: () => { const el = liveLog.el; if (!el || !liveLog.log) return null; const r = el.getBoundingClientRect(); return { cx: r.left + liveLog.log.cx, cy: r.top + liveLog.log.cy, tip: Math.max(...liveLog.log.petals.map((p) => p.tip)) }; },
     /** L1: the JS composition class and the CSS media class must agree */
     cls: () => ({ js: currentClass(), css: getComputedStyle(document.documentElement).getPropertyValue("--vp-class").trim(), layout: layout(document.documentElement.clientWidth, innerHeight).cls, clientWidth: document.documentElement.clientWidth, innerWidth }),
     ready: (files: string[]) => files.every((f) => [DEMAND, FUEL_MIX, SAMPLES, EVAL, RESULTS].some((a) => a.file === f && getStore(a as never).state.status === "ready")),

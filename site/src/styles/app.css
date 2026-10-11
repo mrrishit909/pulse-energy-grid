@@ -42,9 +42,6 @@
 }
 
 :root {
-  /* placeholder accents = token defaults; project 02 identity comes from docs/VISUAL_DESIGN.md */
-  --accent-primary: var(--accent-light-blue);
-  --accent-secondary: var(--accent-orange);
   --font-display: "Newsreader Variable", "Newsreader Fallback", Georgia, serif;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono Fallback", ui-monospace, monospace;
   --margin: 96px;

@@ -1,7 +1,5 @@
 /* ---------- project 04 identity (VISUAL_DESIGN section 0): blue is the control system (fill only), orange is energy in motion ---------- */
 :root {
-  --accent-primary: #192ce4;
-  --accent-secondary: #ff4c25;
   --grid-line: #5b6bff;
   /* nav clearance: D bar 12px + 40px + 12px; T/M safe area + pill 32px + 16px + 24px (ED shared ruling) */
   --nav-clear: 64px;
@@ -136,7 +134,7 @@ html[data-motion="off"] .scene-demand .city-note { margin-bottom: 96px; }
   .city-text { left: var(--margin); right: var(--margin); top: 36px; width: auto; }
   .city-chips { top: 160px; left: var(--margin); right: var(--margin); width: auto; }
   .city-controls { top: 220px; left: var(--margin); right: var(--margin); width: auto; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
-  .city-readout { top: 640px; left: var(--margin); right: var(--margin); width: auto; grid-template-columns: 1fr 1fr; }
+  .city-readout { top: 616px; left: var(--margin); right: var(--margin); width: auto; grid-template-columns: 1fr 1fr; }
   .stack-legend { gap: 1px; font-size: 11px; }
   .city-still .still { aspect-ratio: 768 / 1024; }
 }
@@ -380,8 +378,9 @@ html[data-motion="off"] .scene-stress .stage-content > .stress-list { position: 
   .fc-readout { top: 180px; gap: 4px; } .fc-hover { font-size: 11px; } .fc-chips .chip { padding: 3px 5px; }
   .fc-days.is-off { visibility: hidden; }
   .fc-verdict { grid-template-columns: 1fr 1fr; gap: 6px; left: 8px; right: 8px; }
-  .fc-card { padding: 6px; } .fc-card__serif { font-size: 13px; } .fc-card__mono { display: none; } .fc-card__basis, .fc-card__bias { font-size: 11px; }
+  .fc-card { padding: 6px; } .fc-card__serif { font-size: 13px; } .fc-card__basis, .fc-card__bias { font-size: 11px; }
   .fc-card__basis:not(:last-child) { display: none; }
+  .fc-verdict__note { grid-column: 1 / -1; padding: 6px; background: rgb(22 22 22 / 0.94); border-radius: var(--radius-card); }
   .fc-table { display: none; }
   .fc-still-strip { grid-template-columns: 1fr; }
   .fc-still { aspect-ratio: 390 / 844; }
@@ -439,7 +438,7 @@ html[data-motion="off"] .s01 > * { position: relative; left: auto; top: auto; ri
 html[data-motion="off"] .pulse-foot { top: calc(100dvh - 140px); bottom: auto; }
 @media (max-width: 1023px) {
   .s01-statement { top: 140px; width: auto; right: var(--margin); font-size: 48px; }
-  .s01-cards { top: 330px; right: var(--margin); }
+  .s01-cards { top: 306px; right: var(--margin); }
   .s01-cards .note { width: 100%; }
 }
 @media (max-width: 767px) {
@@ -565,6 +564,14 @@ html[data-motion="off"] .scene-closing .stage { height: 100dvh; min-height: 0; o
 .note--blue .wr-word { opacity: 1 !important; } /* typing on #192CE4 reveals by blur only: ghost opacity would fall under AA on blue */
 .story-card--blue .chip, .note--blue .chip { --tag: #ffffff; } /* tag colours fail AA on #192CE4: the chip keeps its tag-shape mark, text goes white */
 html[data-motion="off"] .ev-x.is-old, html[data-motion="off"] .ev-x.is-old .ev-ans { display: flex !important; }
+/* QA D-004: under reduced motion every exchange is shown in flow, so none is receded: full ink and the light card */
+html[data-motion="off"] .ev-x.is-old .ev-obj { background: #292929; color: #fff; }
+html[data-motion="off"] .ev-x.is-old .ev-ans { background: var(--accent-secondary); color: #000; }
+/* QA D-003: answers never grow past their card (chips and bar rows wrap) */
+.ev-ans { max-width: 100%; min-width: 0; box-sizing: border-box; }
+.ev-ans > * { max-width: 100%; min-width: 0; box-sizing: border-box; }
+.ev-ans .chip { max-width: 100%; white-space: normal; line-height: 1.25; }
+.ev-bars li { grid-template-columns: minmax(0, 110px) minmax(0, 1fr) auto; }
 @media (min-width: 768px) { .stress-list { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 24px; } }
 @media (max-width: 767px) {
   .city-note__scale { display: none; }
@@ -598,7 +605,7 @@ html[data-motion="off"] .ev-x.is-old, html[data-motion="off"] .ev-x.is-old .ev-a
   .city-chips { top: 156px; width: 530px; }
   .city-chips .chip { font-size: 11px; padding: 4px 6px; }
   .city-controls { top: 222px; width: 530px; }
-  .city-readout { top: 330px; width: 400px; grid-template-columns: 150px 1fr; column-gap: 12px; }
+  .city-readout { top: 330px; width: 470px; grid-template-columns: 196px 1fr; column-gap: 12px; }
   .stack-legend { font-size: 11px; gap: 1px; }
   .city-note { font-size: 11px; max-width: 880px; }
   /* S03b */
@@ -706,3 +713,14 @@ html[data-motion="off"] .ev-x.is-old, html[data-motion="off"] .ev-x.is-old .ev-a
   html[data-motion="off"] .scene-dispatch .fill-still { order: 1; }
   html[data-motion="off"] .scene-dispatch .fill-lab { order: 2; position: relative; inset: auto; margin: 0 12px 96px; }
 }
+/* QA D-010: S05's RESET sits in the lab's top-right corner on D/T instead of growing the lab into the ledger */
+@media (min-width: 768px) { .fill-lab__reset { position: absolute; top: -6px; right: 0; } }
+/* QA D-011: the S08 corner labels sit over the giant solar rose; they get a backing at every size (>= 4.5:1) */
+.close-corners .wordmark, .close-corners .intro-corner { background: rgb(0 0 0 / 0.82); padding: 3px 6px; margin: 0; }
+/* QA D-013: a stage-level inline error is the scene banner's duplicate (the banner is the alert + RETRY in view);
+   stage-level loading lines sit under the heading, never at (0, 0) over it */
+.scene .stage-content > .state-error { display: none; }
+.scene .stage-content > .state-line { left: var(--margin); top: 150px; padding: 4px 6px; background: rgb(0 0 0 / 0.85); }
+@media (max-width: 767px) { .scene .stage-content > .state-line { top: 120px; } }
+/* QA D-021: a card's honesty tag wraps inside the card instead of being clipped by it */
+.story-card__tag { max-width: 100%; } .story-card__tag .chip { max-width: 100%; white-space: normal; line-height: 1.25; }

@@ -1,3 +1,4 @@
+import { canvasMarks } from "../graphics/week";
 /**
  * Rose director: ONE fixed Canvas2D carries the Day Rose through the scenes
  * (S00/S01 G0 -> G1, S03a G2 + window city, S05 G4). Each frame it locates the
@@ -300,6 +301,10 @@ function drawSky(c: CanvasRenderingContext2D, s: NonNullable<Frame["sky"]>) {
   }
   c.fillStyle = "rgba(255,255,255,0.24)";
   c.fillRect(s.list[0]!.x, s.base + 2, s.x1 - s.list[0]!.x, 1);
+  // one box per window column (from its top window to the base line), so text above a low building is not flagged
+  const cols = new Map<number, number>();
+  for (const w of s.list) cols.set(w.x, Math.min(cols.get(w.x) ?? Infinity, w.y));
+  for (const [x, y] of cols) canvasMarks.push({ name: "skyline", x, y: y + (s.drop ?? 0), w: s.win, h: s.base + 3 - y });
   c.restore();
 }
 
@@ -332,9 +337,9 @@ function renderBloom(f: Frame, key: string) {
 
 /**
  * QA L11: on a phone each scene's rose sits in its own measured slot, so neighbouring scenes no longer share one
- * geometry. Over the first 8% of a scene (2% for S04, whose rose unrolls at once) the camera eases from the previous scene's slot to its own, keeping the seam.
+ * geometry. Over the first 8% of a scene; S04 needs none, it opens on the S03b rose itself the camera eases from the previous scene's slot to its own, keeping the seam.
  */
-const HANDOFF: Record<string, [string, "G2" | "G3" | "G4", number]> = { demand: ["source", "G2", 0.08], forecast: ["netload", "G3", 0.02], stress: ["dispatch", "G4", 0.08], evidence: ["stress", "G4", 0.08] };
+const HANDOFF: Record<string, [string, "G2" | "G3" | "G4", number]> = { demand: ["source", "G2", 0.08], stress: ["dispatch", "G4", 0.08], evidence: ["stress", "G4", 0.08] };
 function handoff(id: string, f: Frame): Frame {
   const h = HANDOFF[id];
   const p = getProgress(id);
@@ -349,7 +354,7 @@ function handoff(id: string, f: Frame): Frame {
 
 function draw(now: number) {
   if (!canvas || !ctx || !L) return;
-  if (!motionEnabled()) { if (lastSig !== "off") { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); lastSig = "off"; } return; }
+  if (!motionEnabled()) { canvasMarks.length = 0; if (lastSig !== "off") { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); lastSig = "off"; } return; }
   const m = model();
   const loc = locate(SCENE_IDS);
   const id = loc?.id ?? "pulse";
@@ -371,6 +376,7 @@ function draw(now: number) {
   if (sig === lastSig) return;
   lastSig = sig;
   debug.frames++;
+  canvasMarks.length = 0;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if (!f) { debug.log = null; debug.labels = []; debug.view = null; return; }
@@ -397,6 +403,7 @@ function draw(now: number) {
     debug.bandCounts = log.petals.map((p) => p.bands.reduce((a, b, k) => (b.r1 > b.r0 ? k : a), -1));
     if (f.glow) drawEdgeGlow(ctx as unknown as Ctx, f.petals, f.view, f.glow.color, f.glow.a, f.glow.reach);
     debug.labels = f.labels > 0 ? drawHourLabels(ctx as unknown as Ctx, f.petals, f.view, L.label, f.labels * 0.7) : [];
+    for (const b of debug.labels) canvasMarks.push({ name: `hour ${b.h}`, x: b.x, y: b.y, w: b.w, h: b.hgt });
   } else debug.log = null;
   if (f.extra) { ctx.save(); f.extra(ctx); ctx.restore(); }
   if (!f.petals) return;

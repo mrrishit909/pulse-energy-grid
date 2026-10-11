@@ -83,12 +83,7 @@ export function App() {
   return (
     <>
       <canvas ref={rose} className="rose-layer" aria-hidden="true" />
-      {portal ? createPortal(<PulseLayer introPlaying={intro.playing} />, portal) : null}
-      {SCENES.slice(1).map((s) => {
-        const C = SCENE_COMPONENTS[s.id];
-        if (s.id === "closing") return <S08Closing key={s.id} def={s} onReplay={intro.replay} />;
-        return C ? <C key={s.id} def={s} /> : <Placeholder key={s.id} s={s} />;
-      })}
+      {/* QA D-016: the nav (and SKIP INTRO) come first in the tab order; it is fixed, so DOM order is not visual order */}
       <Nav
         items={NAV_ITEMS}
         active={navActive(active)}
@@ -97,6 +92,12 @@ export function App() {
         onSkip={intro.skip}
         onReplay={intro.replay}
       />
+      {portal ? createPortal(<PulseLayer introPlaying={intro.playing} />, portal) : null}
+      {SCENES.slice(1).map((s) => {
+        const C = SCENE_COMPONENTS[s.id];
+        if (s.id === "closing") return <S08Closing key={s.id} def={s} onReplay={intro.replay} />;
+        return C ? <C key={s.id} def={s} /> : <Placeholder key={s.id} s={s} />;
+      })}
     </>
   );
 }

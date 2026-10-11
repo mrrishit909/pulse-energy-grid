@@ -40,6 +40,11 @@ test("seams: S02 hands the rose to S03a, and S03a hands it to S03b, without a ju
   await page.waitForFunction(() => (window as any).__peg.ready(["fuel_mix.json", "demand_profile.json"]), null, { timeout: 20_000 });
   const c = await at("demand", 1), d = await at("netload", 0);
   expect(Math.abs(c.cx - d.cx)).toBeLessThan(1); expect(Math.abs(c.cy - d.cy)).toBeLessThan(1); expect(Math.abs(c.R100 - d.R100)).toBeLessThan(1);
+  // QA D-002: S04 opens on the S03b rose as it ended, not a separate silhouette
+  await page.waitForFunction(() => (window as any).__peg.ready(["forecast_samples.json"]), null, { timeout: 20_000 });
+  const e = await at("netload", 1), f = await at("forecast", 0);
+  expect(Math.abs(e.cx - f.cx)).toBeLessThan(1); expect(Math.abs(e.cy - f.cy)).toBeLessThan(1); expect(Math.abs(e.R100 - f.R100)).toBeLessThan(1);
+  expect((await page.evaluate(() => (window as any).__peg.rose())).petals.map((x: any) => x.drawn.length).some((n: number) => n > 1)).toBe(true);
 });
 
 test("seams: S05 -> S06 (G4 = G5, no camera move) and S06 -> S07 agree within 1px", async ({ page }) => {
@@ -153,7 +158,7 @@ test("states: a 404 on forecast_eval shows COULD NOT LOAD with RETRY in S04 and 
   await page.route("**/data/fuel_mix.json", (r) => r.fulfill({ status: 404, body: "" }));
   await open(page);
   await P(page).jump("forecast", 0.9);
-  const err = page.locator(".scene-forecast .state-error").filter({ hasText: "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 404)" });
+  const err = page.locator('[data-scene-errors="forecast"] [role=alert]').filter({ hasText: "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 404)" });
   await expect(err).toBeVisible({ timeout: 20_000 });
   await P(page).jump("evidence", 0.05);
   await expect(page.locator('[data-exchange="1"] .state-error')).toContainText("COULD NOT LOAD FORECAST_EVAL.JSON");
@@ -162,7 +167,7 @@ test("states: a 404 on forecast_eval shows COULD NOT LOAD with RETRY in S04 and 
   await expect(page.locator(".scene-source .state-error").first()).toContainText("COULD NOT LOAD FUEL_MIX.JSON (HTTP 404)");
   block = false;
   await P(page).jump("forecast", 0.9);
-  await page.locator(".scene-forecast .state-error button").first().click();
+  await page.locator('[data-scene-errors="forecast"] [role=alert][data-file="forecast_eval.json"] button').first().click();
   await expect(page.locator('.fc-card[data-ba="CISO"]')).toBeVisible({ timeout: 20_000 });
 });
 

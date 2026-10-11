@@ -83,7 +83,7 @@ export function deltaLines(r: DispatchResult, base: DispatchResult) {
   ];
 }
 export function parityLine(p: ParityReport) {
-  return `PARITY ${p.passed}/${p.n} VECTORS · OBJECTIVE WITHIN 1E-6 ${p.objective}/${p.n} · PRICES ${p.price}/${p.priceComparable} WHERE UNIQUE · LP TEXT SHA-256 ${p.hash}/${p.n}`;
+  return `PARITY ${p.passed}/${p.n} VECTORS · OBJECTIVE WITHIN 1E-6 ${p.objective}/${p.n} · PRICES ${p.price}/${p.priceComparable} WHERE UNIQUE · CO2, UNSERVED, COST LINES ${p.keys}/${p.n} · LP TEXT SHA-256 ${p.hash}/${p.n}`;
 }
 export const parityShort = (p: ParityReport) => `PARITY ${p.passed}/${p.n} VECTORS ON THIS BUILD · LP TEXT SHA ${p.hash}/${p.n}`;
 export function statusLine(s: { status: string; version: string; pct: number | null; source: string; ms: number; parity: ParityReport | null; error: string | null; solving: boolean }) {
@@ -340,6 +340,8 @@ export const answerWeather = (fe: ForecastEval, ba: "CISO" | "ERCO") =>
 export const answerWires = "NOT IN OUR MODEL. EACH GRID IS TREATED AS ONE COPPER PLATE. THIS IS WHAT A NETWORK LOOKS LIKE: A 14-BUS TEST SYSTEM, NOT CALIFORNIA OR TEXAS.";
 export const wiresCaption = "IEEE 14-BUS TEST SYSTEM · pglib-opf v23.07 · CC BY 4.0 · ILLUSTRATIVE: NOT THE CAISO OR ERCOT NETWORK. OUR DISPATCH IGNORES NETWORK LIMITS.";
 export const answerCosts = "NO. THEY ARE STATED ASSUMPTIONS. CHANGE THEM AND THE ANSWER CHANGES.";
+/** QA D-007: the parity check cannot run without its test vectors; say so, never "running". */
+export const parityMissing = "PARITY NOT CHECKED: THE TEST VECTORS DID NOT LOAD";
 export const answerSolve = (p: ParityReport | null) => (p ? `YES. SAME LP, SAME SOLVER. ${p.passed} OF ${p.n} TEST VECTORS MATCH THE PYTHON RESULT ON THIS BUILD.` : "SAME LP, SAME SOLVER. THE PARITY CHECK RUNS WHEN THE SOLVER LOADS (FROM THE FORECAST CHAPTER ON).");
 export const answerLp = (refObj: number, cost: number) => `REFERENCE LP (CISO SUMMER, BASELINE): SOLVER OBJECTIVE ${usd(refObj)} = PUBLISHED MODEL COST ${usd(cost)} ${Math.abs(refObj - cost) <= 1e-6 * Math.abs(cost) ? "✓" : "✗"}`;
 export const answerRows = (f: Facts) => { const g = f.global as Record<string, number>; return `${int(g.raw_rows_total!)} ROWS IN, ${int(g.kept_rows_total!)} KEPT, ${int(g.flagged_rows_total!)} FLAGGED. RAW = KEPT + EXCLUDED IS CHECKED PER SERIES IN THE LEDGER.`; };

@@ -1,3 +1,6 @@
+import { biteEnd } from "./S03bBite";
+import { drawGhostArcs, drawRose, radius, type Ctx } from "../graphics/rose";
+import { sceneLayout } from "./geometry";
 import { RoseSlot, useSceneLayout } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
 import { useMemo, useState, useSyncExternalStore, type KeyboardEvent, type PointerEvent } from "react";
@@ -7,7 +10,7 @@ import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { useNear } from "../scroll/useNear";
-import { EVAL, FACTS, SAMPLES } from "../data/artifacts";
+import { EVAL, FACTS, SAMPLES, FUEL_MIX, DEMAND } from "../data/artifacts";
 import { biasLine, calendarCaption, copyS04, coverageLine, MODEL_LABEL, verdict, weekStats } from "../data/copy";
 import { store } from "../state/store";
 import { useMotion, useProgress } from "../scroll/hooks";
@@ -17,7 +20,7 @@ import { Tween } from "../motion/tween";
 import { DUR, easeSymmetric } from "../motion/ease";
 import { clamp } from "../lib/math";
 import { fixed, int } from "../model/format";
-import { drawAxis, drawBand, drawBars, drawSeries, drawUnroll, px, STYLE, type Plot } from "../graphics/week";
+import { drawAxis, drawBand, drawBars, drawSeries, drawUnroll, leaveT, px, STYLE, type Plot } from "../graphics/week";
 import { BAS, type BA, type ForecastSamples, type Week } from "../model/types";
 import { baseView, registerFrame } from "./director";
 import { fitR100, layout } from "./geometry";
@@ -61,7 +64,7 @@ function plotData(fs: ForecastSamples, st: ReturnType<typeof forecast.get>, M: b
 // ------------------------------------------------------------------ the canvas frame
 const ytw = new Tween(1, DUR.panel, easeSymmetric);
 let ykey = "";
-registerFrame("forecast", ({ now, p, L }) => {
+registerFrame("forecast", ({ now, p, L, W, H }) => {
   const fsS = getStore(SAMPLES).state;
   if (fsS.status !== "ready") return null;
   const st = forecast.get();
@@ -81,23 +84,38 @@ registerFrame("forecast", ({ now, p, L }) => {
   const t = motion ? easeSymmetric(windowed(p, 0.08, 0.4)) : 1;
   const rise = motion ? windowed(p, 0.4, 0.46) : 1;
   const line = motion ? windowed(p, 0.46, 0.52) : 1;
+  // QA D-002: S04 opens on the S03b rose exactly as that scene ended (no grey silhouette), and unrolls it into the week
+  // on phones S03b and S04 have their own slots: the rose eases from S03b's over the first 3% (seam kept at p = 0)
+  const b0 = biteEnd(sceneLayout("netload", W, H)), b1 = biteEnd(L);
+  const ee = motion && b0 && b1 ? easeSymmetric(clamp(p / 0.03)) : 1;
+  const bt = b0 && b1 ? { ...b1, view: { ...b1.view, cx: b0.view.cx + (b1.view.cx - b0.view.cx) * ee, cy: b0.view.cy + (b1.view.cy - b0.view.cy) * ee, R100: b0.view.R100 + (b1.view.R100 - b0.view.R100) * ee, rref: b0.view.rref + (b1.view.rref - b0.view.rref) * ee } } : b0;
+  const startR = bt ? bt.petals.map((q) => radius(Math.min(q.served, q.demand), bt.view.R100)) : undefined;
   const peak = Math.max(...(slice(d.w.actual_mw, d.first, 24).filter((v) => v !== null) as number[]));
   const R100 = fitR100(L.G3, peak);
-  const firstDay = d.actual.slice(0, 24);
-  const petalsDay = firstDay.map((v, h) => ({ hour: h, bands: [[0, v ?? 0]] as [number, number][], demand: v ?? 0, served: v ?? 0, charge: 0, exports: 0, residual: 0, unserved: 0, curtailed: 0 }));
-  // no petal gaps here: on a near-round day they would run most of the radius and read as spokes; the tips and the rim glow separate the petals
-  const view = baseView(["actual"], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: 0, ghost: 0, marks: 0 });
+  const view = bt?.view ?? baseView(["actual"], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: 0, ghost: 0, marks: 0 });
+  const biteGhost = (c: CanvasRenderingContext2D, a: number) => { if (bt?.net) drawGhostArcs(c as unknown as Ctx, bt.demand, bt.view, `rgba(255,243,166,${(0.8 * a).toFixed(2)})`, [1, 3]); };
   const label = L.label;
   const dayLabels = M ? [days(d.w)[st.mDay]!] : days(d.w);
   const shown = seriesAt(step, d.b.best_model).filter((id) => !st.hidden.includes(id));
   const anim = shown.some((id) => now - (fstate.revealAt[id] ?? -1e9) < 800);
   const fade = motion ? 1 - windowed(p, 0.94, 1) : 1;
   return {
-    // before the unroll: tomorrow's first day as a dim silhouette whose rim is lit (it leads the unroll); dim relative to S03b
-    petals: p < 0.08 && motion ? petalsDay : null, view, labels: p < 0.08 ? 0.7 : 0, bloom: 0, glow: null, sky: null, opacity: fade,
+    // before the unroll: the S03b rose itself, so the scene change is seamless (1px seam test)
+    petals: p < 0.08 && motion && bt ? bt.petals : null, view, labels: p < 0.08 && bt ? 0.7 : 0, bloom: 0, glow: null, sky: null, opacity: fade,
     extra: (c) => {
-      if (p < 0.08 && motion) return;
-      if (t < 1) { drawUnroll(c, d.actual, view, plot, t); drawAxis(c, plot, dayLabels, label, t); return; }
+      if (p < 0.08 && motion) { biteGhost(c, 1); return; }
+      if (t < 1) {
+        // the stack rose hands over to its own petals within the first quarter of the unroll; the petals separate as they leave
+        // each petal stays in the stack rose until its turn, then leaves as its own piece (no crossfade, no hub)
+        if (bt) {
+          const left = new Set(bt.petals.filter((q) => leaveT(t, q.hour) > 0).map((q) => q.hour));
+          if (left.size < 24) drawRose(c as unknown as Ctx, bt.petals, { ...bt.view, marks: 0, ghost: 0, silhouette: left });
+          biteGhost(c, clamp(1 - t / 0.35));
+        }
+        drawUnroll(c, d.actual, view, plot, t, 0, startR);
+        drawAxis(c, plot, dayLabels, label, t);
+        return;
+      }
       drawAxis(c, plot, dayLabels, label, 1);
       // bars (day 1 already unrolled; the other days rise), then the actual line draws while the bars fade
       const barsA = 1 - line;
@@ -114,7 +132,7 @@ registerFrame("forecast", ({ now, p, L }) => {
         c.fillStyle = "rgba(255,255,255,0.5)"; c.fillRect(Math.round(X), plot.y0, 1, plot.y1 - plot.y0);
       }
     },
-    sig: `forecast|${key}|${p.toFixed(4)}|${ytw.value.toFixed(1)}|${step}|${shown.join()}|${anim ? now.toFixed(0) : 0}|${st.hover}`,
+    sig: `forecast|${key}|${bt ? `${bt.view.cx.toFixed(1)},${bt.view.R100.toFixed(1)},${bt.net}` : "-"}|${p.toFixed(4)}|${ytw.value.toFixed(1)}|${step}|${shown.join()}|${anim ? now.toFixed(0) : 0}|${st.hover}`,
   };
 });
 
@@ -124,6 +142,8 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   const [fsS, retryS] = useArtifact(SAMPLES, near);
   const [feS, retryE] = useArtifact(EVAL, near);
   const [factsS] = useArtifact(FACTS);
+  // S04 opens on the S03b rose (QA D-002): its inputs load with this scene too, for direct jumps
+  useArtifact(FUEL_MIX, near); useArtifact(DEMAND, near);
   const st = useSyncExternalStore(forecast.subscribe, forecast.get);
   const motion = useMotion();
   const vp = useViewport();
@@ -154,7 +174,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   const fmt = (v: number | null | undefined) => (v === null || v === undefined ? "n/a" : `${int(v)} MW`);
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Forecast: tomorrow, unrolled">
-      <SceneErrors id={def.id} specs={[SAMPLES, EVAL, FACTS] as ArtifactSpec<unknown>[]} />
+      <SceneErrors id={def.id} specs={[SAMPLES, EVAL, FACTS, FUEL_MIX, DEMAND] as ArtifactSpec<unknown>[]} />
       <RoseSlot scene={def.id} slot="week" />
       <div className="fc-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">{copyS04.statement}</h2>
@@ -225,7 +245,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
                         <h3 className="fc-card__serif">{v.serif}</h3>
                         <p className="fc-card__mono tnum">{v.mono}</p>
                         <p className="fc-card__basis">{v.basis}</p>
-                        {v.ba === "CISO" && factsS.status === "ready" ? <p className="fc-card__bias" data-bias>{biasLine(factsS.data, e)}</p> : null}
+                        {v.ba === "CISO" && !M && factsS.status === "ready" ? <p className="fc-card__bias" data-bias>{biasLine(factsS.data, e)}</p> : null}
                         {!M ? (
                           <div className="fc-cal" aria-label={cal.text}>
                             {dt.date.map((dd, i) => { const g = dt.mape_gbm[i] ?? null, ee = dt.mape_eia[i] ?? null; const ours = g !== null && ee !== null && g < ee; return <i key={dd} className={ours ? "is-ours" : ""} title={`${dd}: OURS ${g === null ? "n/a" : fixed(g, 2)}% · EIA ${ee === null ? "n/a" : fixed(ee, 2)}%`} />; })}
@@ -235,6 +255,8 @@ export function S04Forecast({ def }: { def: SceneDef }) {
                       </article>
                     );
                   })}
+                  {/* QA D-009: on phones the CISO drift note sits under both cards, so CISO and ERCO keep equal space */}
+                  {M && factsS.status === "ready" ? <p className="fc-card__bias fc-verdict__note" data-bias>{biasLine(factsS.data, e)}</p> : null}
                 </div>
               )}
             </ArtifactStatus>
@@ -252,11 +274,16 @@ export function S04Forecast({ def }: { def: SceneDef }) {
             {!motion && d ? (
               <div className="fc-still-strip">
                 {[0, 0.5, 1].map((tt) => (
-                  <Still key={tt} className="fc-still" label={tt === 0 ? "The first day as a rose" : tt === 1 ? "The week as bars" : "Half unrolled"} deps={[st.ba, st.week, tt]} draw={(c, w, h) => {
+                  <Still key={tt} className="fc-still" label={tt === 0 ? "The net-load rose from the last scene" : tt === 1 ? "The week as bars" : "Half unrolled"} deps={[st.ba, st.week, tt]} draw={(c, w, h) => {
                     const LL = layout(w, h, currentClass());
-                    const peak = Math.max(...(d.actual.slice(0, 24).filter((v) => v !== null) as number[]));
+                    const g = c as unknown as CanvasRenderingContext2D;
+                    const b0 = biteEnd(LL);
                     const plot: Plot = { ...LL.week, hours: d.n, ymax: d.ymax };
-                    drawUnroll(c as unknown as CanvasRenderingContext2D, d.actual, { cx: LL.G3.cx, cy: LL.G3.cy, R100: fitR100(LL.G3, peak) }, plot, tt);
+                    if (b0 && tt === 0) { drawRose(c, b0.petals, { ...b0.view, ghost: 0, marks: 0 }); return; }
+                    const peak = Math.max(...(d.actual.slice(0, 24).filter((v) => v !== null) as number[]));
+                    const rose = b0 ? b0.view : { cx: LL.G3.cx, cy: LL.G3.cy, R100: fitR100(LL.G3, peak) };
+                    drawUnroll(g, d.actual, rose, plot, tt, 0, b0 ? b0.petals.map((q) => radius(Math.min(q.served, q.demand), b0.view.R100)) : undefined);
+                    drawAxis(g, plot, M ? [days(d.w)[st.mDay]!] : days(d.w), LL.label, tt);
                   }} />
                 ))}
                 <Still className="fc-still fc-still--final" label="The test week: actual, EIA, naive, ours with the band" deps={[st.ba, st.week, st.interval, st.mDay, st.hidden.join()]} draw={(c, w, h) => {
