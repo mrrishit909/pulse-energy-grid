@@ -8,6 +8,12 @@
     "CISO": {
      "additionalProperties": true,
      "properties": {
+      "best_model": {
+       "type": "string"
+      },
+      "cqr_offset_mw": {
+       "type": "number"
+      },
       "daily_test": {
        "additionalProperties": true,
        "properties": {
@@ -76,6 +82,15 @@
           },
           "type": "array"
          },
+         "best_mw": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "type": "array"
+         },
          "eia_mw": {
           "items": {
            "type": [
@@ -94,7 +109,25 @@
           },
           "type": "array"
          },
+         "gbm_p10_cqr_mw": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "type": "array"
+         },
          "gbm_p10_mw": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "type": "array"
+         },
+         "gbm_p90_cqr_mw": {
           "items": {
            "type": [
             "number",
@@ -151,7 +184,10 @@
          "naive_mw",
          "gbm_mw",
          "gbm_p10_mw",
-         "gbm_p90_mw"
+         "gbm_p90_mw",
+         "gbm_p10_cqr_mw",
+         "gbm_p90_cqr_mw",
+         "best_mw"
         ],
         "type": "object"
        },
@@ -160,6 +196,8 @@
       }
      },
      "required": [
+      "best_model",
+      "cqr_offset_mw",
       "weeks",
       "daily_test"
      ],
@@ -168,6 +206,12 @@
     "ERCO": {
      "additionalProperties": true,
      "properties": {
+      "best_model": {
+       "type": "string"
+      },
+      "cqr_offset_mw": {
+       "type": "number"
+      },
       "daily_test": {
        "additionalProperties": true,
        "properties": {
@@ -236,6 +280,15 @@
           },
           "type": "array"
          },
+         "best_mw": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "type": "array"
+         },
          "eia_mw": {
           "items": {
            "type": [
@@ -254,7 +307,25 @@
           },
           "type": "array"
          },
+         "gbm_p10_cqr_mw": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "type": "array"
+         },
          "gbm_p10_mw": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "type": "array"
+         },
+         "gbm_p90_cqr_mw": {
           "items": {
            "type": [
             "number",
@@ -311,7 +382,10 @@
          "naive_mw",
          "gbm_mw",
          "gbm_p10_mw",
-         "gbm_p90_mw"
+         "gbm_p90_mw",
+         "gbm_p10_cqr_mw",
+         "gbm_p90_cqr_mw",
+         "best_mw"
         ],
         "type": "object"
        },
@@ -320,6 +394,8 @@
       }
      },
      "required": [
+      "best_model",
+      "cqr_offset_mw",
       "weeks",
       "daily_test"
      ],

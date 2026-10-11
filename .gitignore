@@ -8,3 +8,4 @@ artifacts/evidence/recordings/
 *.part
 .DS_Store
 data/processed/
+data/manifests/runtime.json

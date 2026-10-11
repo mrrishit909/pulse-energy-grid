@@ -98,7 +98,7 @@ def evaluate(ba: str, r: dict) -> dict:
     return ev
 
 
-def samples(ba: str, r: dict) -> dict:
+def samples(ba: str, r: dict, ev: dict) -> dict:
     df, m, c = r["df"], r["masks"], r["common"]
     tz = BA_TZ[ba]
     loc = df["ts_utc"].dt.replace_time_zone("UTC").dt.convert_time_zone(tz).dt.strftime("%Y-%m-%dT%H:00")
@@ -119,11 +119,14 @@ def samples(ba: str, r: dict) -> dict:
     reasons = {"Hottest week": "highest mean population-weighted temperature among complete test weeks", "Coldest week": "lowest mean temperature among complete test weeks",
                "Largest EIA miss": "highest mean absolute percentage error of the EIA day-ahead forecast among complete test weeks"}
     f = lambda a: [None if np.isnan(x) else float(round(x, 1)) for x in a]  # noqa: E731
+    best = ev["comparison_vs_eia"]["best_model"]
+    off = ev["intervals"]["gbm"]["cqr_offset_mw"]
     weeks = []
     for label, (w, idx) in picks.items():
         weeks.append({"label": label, "reason": reasons[label], "start_utc": df["ts_utc"][int(idx[0])].isoformat(), "hours": int(len(idx)), "ts_local": loc.gather(idx).to_list(),
                       "actual_mw": f(np.where(df["demand_status"].to_numpy()[idx] == "ok", y[idx], np.nan)), "eia_mw": f(r["preds"]["eia_day_ahead"][0.5][idx]), "naive_mw": f(r["preds"]["seasonal_naive"][0.5][idx]),
-                      "gbm_mw": f(r["preds"]["gbm"][0.5][idx]), "gbm_p10_mw": f(r["preds"]["gbm"][0.1][idx]), "gbm_p90_mw": f(r["preds"]["gbm"][0.9][idx])})
+                      "gbm_mw": f(r["preds"]["gbm"][0.5][idx]), "gbm_p10_mw": f(r["preds"]["gbm"][0.1][idx]), "gbm_p90_mw": f(r["preds"]["gbm"][0.9][idx]),
+                      "gbm_p10_cqr_mw": f(r["preds"]["gbm"][0.1][idx] - off), "gbm_p90_cqr_mw": f(r["preds"]["gbm"][0.9][idx] + off), "best_mw": f(r["preds"][best][0.5][idx])})
     days = [d for d in np.unique(date[t]) if (t & (date == d)).sum() >= 20]
     daily = {"date": [str(d) for d in days], "mape_gbm": [], "mape_eia": [], "mape_naive": [], "actual_peak_mw": []}
     for d in days:
@@ -132,4 +135,4 @@ def samples(ba: str, r: dict) -> dict:
         daily["mape_eia"].append(float(_ape(y[k], r["preds"]["eia_day_ahead"][0.5][k]).mean()))
         daily["mape_naive"].append(float(_ape(y[k], r["preds"]["seasonal_naive"][0.5][k]).mean()))
         daily["actual_peak_mw"].append(float(y[k].max()))
-    return {"weeks": weeks, "daily_test": daily}
+    return {"best_model": best, "cqr_offset_mw": off, "weeks": weeks, "daily_test": daily}

@@ -2,6 +2,9 @@
  "$schema": "https://json-schema.org/draft/2020-12/schema",
  "additionalProperties": true,
  "properties": {
+  "lp_text": {
+   "type": "string"
+  },
   "note": {
    "type": "string"
   },
@@ -26,6 +29,9 @@
   "tolerance_abs": {
    "type": "number"
   },
+  "tolerance_price_usd_mwh": {
+   "type": "number"
+  },
   "tolerance_rel": {
    "type": "number"
   },
@@ -43,22 +49,101 @@
       "additionalProperties": true,
       "properties": {
        "class_energy_mwh": {
+        "additionalProperties": false,
+        "properties": {
+         "battery_discharge": {
+          "type": "number"
+         },
+         "ccgt": {
+          "type": "number"
+         },
+         "coal": {
+          "type": "number"
+         },
+         "hydro": {
+          "type": "number"
+         },
+         "nuclear": {
+          "type": "number"
+         },
+         "peaker": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "nuclear",
+         "ccgt",
+         "peaker",
+         "hydro",
+         "battery_discharge"
+        ],
         "type": "object"
        },
        "co2_t": {
         "type": "number"
        },
        "cost_breakdown_usd": {
+        "additionalProperties": false,
+        "properties": {
+         "battery_wear": {
+          "type": "number"
+         },
+         "ccgt": {
+          "type": "number"
+         },
+         "coal": {
+          "type": "number"
+         },
+         "hydro": {
+          "type": "number"
+         },
+         "nuclear": {
+          "type": "number"
+         },
+         "peaker": {
+          "type": "number"
+         },
+         "unserved_voll": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "nuclear",
+         "ccgt",
+         "peaker",
+         "hydro",
+         "battery_wear",
+         "unserved_voll"
+        ],
         "type": "object"
        },
        "curtailed_mwh": {
         "type": "number"
+       },
+       "marginal_class": {
+        "items": {
+         "type": "string"
+        },
+        "maxItems": 24,
+        "minItems": 24,
+        "type": "array"
        },
        "max_price_usd_mwh": {
         "type": "number"
        },
        "objective_usd": {
         "type": "number"
+       },
+       "price_comparable": {
+        "type": "boolean"
+       },
+       "price_usd_mwh": {
+        "items": {
+         "type": "number"
+        },
+        "maxItems": 24,
+        "minItems": 24,
+        "type": "array"
        },
        "soc_mwh": {
         "items": {
@@ -79,12 +164,60 @@
        "unserved_mwh",
        "curtailed_mwh",
        "soc_mwh",
+       "price_usd_mwh",
+       "price_comparable",
        "max_price_usd_mwh",
-       "co2_t"
+       "co2_t",
+       "marginal_class"
       ],
       "type": "object"
      },
+     "kind": {
+      "enum": [
+       "preset",
+       "random",
+       "stress_unserved",
+       "stress_curtailment"
+      ]
+     },
+     "lp_text_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+     },
      "params": {
+      "additionalProperties": false,
+      "properties": {
+       "battery_hours": {
+        "type": "number"
+       },
+       "battery_power_mw": {
+        "type": "number"
+       },
+       "demand_growth_pct": {
+        "type": "number"
+       },
+       "heat_wave_c": {
+        "type": "number"
+       },
+       "outage_class": {
+        "type": "string"
+       },
+       "outage_pct": {
+        "type": "number"
+       },
+       "renewables_scale": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "renewables_scale",
+       "demand_growth_pct",
+       "heat_wave_c",
+       "battery_power_mw",
+       "battery_hours",
+       "outage_class",
+       "outage_pct"
+      ],
       "type": "object"
      },
      "scenario": {
@@ -95,7 +228,9 @@
      "ba",
      "day",
      "scenario",
+     "kind",
      "params",
+     "lp_text_sha256",
      "expected"
     ],
     "type": "object"
@@ -109,7 +244,9 @@
   "tags",
   "tolerance_rel",
   "tolerance_abs",
+  "tolerance_price_usd_mwh",
   "note",
+  "lp_text",
   "parity_keys",
   "vectors"
  ],

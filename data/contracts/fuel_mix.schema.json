@@ -66,6 +66,58 @@
       },
       "month_hour_mean_mw": {
        "type": "object"
+      },
+      "month_hour_mean_mw_by_year": {
+       "additionalProperties": {
+        "additionalProperties": true,
+        "properties": {
+         "SUN": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "maxItems": 288,
+          "minItems": 288,
+          "type": "array"
+         },
+         "WND": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "maxItems": 288,
+          "minItems": 288,
+          "type": "array"
+         },
+         "demand": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "maxItems": 288,
+          "minItems": 288,
+          "type": "array"
+         },
+         "months_present": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "demand",
+         "SUN",
+         "WND",
+         "months_present"
+        ],
+        "type": "object"
+       },
+       "minProperties": 4,
+       "type": "object"
       }
      },
      "required": [
@@ -73,6 +125,7 @@
       "annual_share_pct",
       "annual_share_by_year",
       "month_hour_mean_mw",
+      "month_hour_mean_mw_by_year",
       "capacity_proxy_mw",
       "capacity_proxy_rule",
       "evening_ramp"
@@ -140,6 +193,58 @@
       },
       "month_hour_mean_mw": {
        "type": "object"
+      },
+      "month_hour_mean_mw_by_year": {
+       "additionalProperties": {
+        "additionalProperties": true,
+        "properties": {
+         "SUN": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "maxItems": 288,
+          "minItems": 288,
+          "type": "array"
+         },
+         "WND": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "maxItems": 288,
+          "minItems": 288,
+          "type": "array"
+         },
+         "demand": {
+          "items": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "maxItems": 288,
+          "minItems": 288,
+          "type": "array"
+         },
+         "months_present": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "demand",
+         "SUN",
+         "WND",
+         "months_present"
+        ],
+        "type": "object"
+       },
+       "minProperties": 4,
+       "type": "object"
       }
      },
      "required": [
@@ -147,6 +252,7 @@
       "annual_share_pct",
       "annual_share_by_year",
       "month_hour_mean_mw",
+      "month_hour_mean_mw_by_year",
       "capacity_proxy_mw",
       "capacity_proxy_rule",
       "evening_ramp"

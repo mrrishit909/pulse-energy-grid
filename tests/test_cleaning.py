@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 import numpy as np
 import polars as pl
 import pytest
@@ -32,7 +34,7 @@ def test_full_hourly_grid_and_no_duplicates(hourly_all):
         d = hourly_all.filter(pl.col("ba") == ba).sort("ts_utc")
         assert d.height == 40776
         assert d["ts_utc"].n_unique() == d.height
-        assert (d["ts_utc"].diff().drop_nulls() == pl.duration(hours=1)).all()
+        assert (d["ts_utc"].diff().drop_nulls() == timedelta(hours=1)).all()
 
 
 @slow

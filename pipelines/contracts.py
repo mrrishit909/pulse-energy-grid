@@ -40,6 +40,13 @@ def top(name: str, props: dict, req: list | None = None) -> dict:
 MODEL_IDS = ["seasonal_naive", "eia_day_ahead", "eia_debiased", "gbm", "gbm_stacked", "gbm_perfect_weather"]
 VEC = lambda n: arr(N, n)  # noqa: E731
 SCEN = ["baseline", "renewables_up", "demand_growth", "battery_big", "heat_wave", "outage"]
+GROUPS = ["solar", "wind", "nuclear", "hydro", "gas_cc", "gas_ct", "coal", "oil", "imports", "other"]
+PARAMS = obj({"renewables_scale": N, "demand_growth_pct": N, "heat_wave_c": N, "battery_power_mw": N, "battery_hours": N, "outage_class": S, "outage_pct": N}, extra=False)
+_CL = ["nuclear", "coal", "ccgt", "peaker", "hydro"]
+_MW = {k: VEC(24) for k in _CL + ["battery_discharge"]}
+DISP = obj(_MW, req=["nuclear", "ccgt", "peaker", "hydro", "battery_discharge"], extra=False)
+DISP_E = obj({k: N for k in _MW}, req=["nuclear", "ccgt", "peaker", "hydro", "battery_discharge"], extra=False)
+COST = obj({**{k: N for k in _CL}, "battery_wear": N, "unserved_voll": N}, req=["nuclear", "ccgt", "peaker", "hydro", "battery_wear", "unserved_voll"], extra=False)
 
 SCHEMAS = {
     "meta": top("meta", {
@@ -51,8 +58,9 @@ SCHEMAS = {
         "hours_expected", "demand_hours_kept", "demand_coverage_pct", "peak_demand_mw", "peak_demand_local", "mean_demand_mw", "min_demand_mw",
         "solar_share_pct", "wind_share_pct", "gas_share_pct", "clean_share_pct", "evening_ramp_mw_per_h", "demand_temp_slope_pct_per_c",
         "test_hours", "test_mape", "test_mae_mw", "interval_coverage_cqr_pct", "interval_nominal_pct", "beats_eia", "best_model", "skill_vs_eia_pct",
-        "dispatch_baseline_cost_usd", "dispatch_reference_days"]})), "global": obj({k: {} for k in [
-        "raw_rows_total", "kept_rows_total", "flagged_rows_total", "bas", "window_days", "topology_buses"]})}),
+        "dispatch_baseline_cost_usd", "dispatch_reference_days", "interchange_abs_mean_pct_of_demand", "interchange_net_mean_pct_of_demand", "deepest_bite_month",
+        "deepest_bite_month_mean_midday_net_load_mw", "bite_year", "midday_net_load_min_mw_first_year", "midday_net_load_min_mw_latest_year", "net_load_first_year", "net_load_latest_year"]})), "global": obj({k: {} for k in [
+        "raw_rows_total", "kept_rows_total", "flagged_rows_total", "bas", "window_days", "topology_buses", "definitions"]})}),
     "reconciliation": top("reconciliation", {
         "invariants": arr(S, lo=2),
         "ledger": arr(obj({"ba": S, "kind": S, "fuel": S, "grid_slots": I, "raw_rows": I, "missing_slots": I, "null_value": I, "flagged_outlier": I,
@@ -71,7 +79,9 @@ SCHEMAS = {
         "tz": S, "index_note": S}))}),
     "fuel_mix": top("fuel_mix", {"bas": per_ba(obj({
         "fuels": arr(S, lo=7), "annual_share_pct": {"type": "object"}, "annual_share_by_year": arr(obj({"year": I, "share_pct": {"type": "object"}}), lo=4),
-        "month_hour_mean_mw": {"type": "object"}, "capacity_proxy_mw": {"type": "object"}, "capacity_proxy_rule": S,
+        "month_hour_mean_mw": {"type": "object"},
+        "month_hour_mean_mw_by_year": {"type": "object", "minProperties": 4, "additionalProperties": obj({"demand": arr(NN, 288), "SUN": arr(NN, 288), "WND": arr(NN, 288), "months_present": I})},
+        "capacity_proxy_mw": {"type": "object"}, "capacity_proxy_rule": S,
         "evening_ramp": obj({"definition": S, "mean_mw_per_h": N, "p95_mw_per_h": N})}))}),
     "weather_relation": top("weather_relation", {"bas": per_ba(obj({
         "model": S, "cool_base_c": N, "heat_base_c": N, "r2": N, "n": I,
@@ -90,32 +100,41 @@ SCHEMAS = {
         "comparisons": arr(obj({"model": S, "baseline": S, "mape_diff_pp": N, "ci95": arr(N, 2), "significant": B, "statement": S}), lo=4),
         "importance": arr(obj({"feature": S, "mape_increase_pp": N}), lo=1)}))}),
     "forecast_samples": top("forecast_samples", {"bas": per_ba(obj({
+        "best_model": S, "cqr_offset_mw": N,
         "weeks": arr(obj({"label": S, "reason": S, "start_utc": S, "hours": I, "ts_local": arr(S), "actual_mw": arr(NN), "eia_mw": arr(NN), "naive_mw": arr(NN),
-                          "gbm_mw": arr(NN), "gbm_p10_mw": arr(NN), "gbm_p90_mw": arr(NN)}), lo=3),
+                          "gbm_mw": arr(NN), "gbm_p10_mw": arr(NN), "gbm_p90_mw": arr(NN), "gbm_p10_cqr_mw": arr(NN), "gbm_p90_cqr_mw": arr(NN), "best_mw": arr(NN)}), lo=3),
         "daily_test": obj({"date": arr(S), "mape_gbm": arr(NN), "mape_eia": arr(NN), "mape_naive": arr(NN), "actual_peak_mw": arr(NN)})}))}),
     "dispatch_model": top("dispatch_model", {
-        "formulation": obj({"summary": S, "variables": arr(S, lo=5), "constraints": arr(S, lo=5), "objective": S, "variable_order": arr(S, lo=5), "row_order": arr(S, lo=5), "solver": S}),
-        "scenarios": arr(obj({"id": S, "label": S, "params": {"type": "object"}, "description": S}), 6),
+        "formulation": obj({"summary": S, "variables": arr(S, lo=5), "constraints": arr(S, lo=5), "objective": S, "variable_order": arr(S, lo=5), "row_order": arr(S, lo=4), "solver": S,
+                            "price_definition": S, "controls_note": S, "heat_shock": S}),
+        "solver_versions": obj({"python_highspy": S, "python_highs": S, "browser": S}),
+        "scenarios": arr(obj({"id": S, "label": S, "description": S}), 6),
         "assumptions": arr(obj({"id": S, "value": {}, "unit": S, "basis": S}), lo=5),
         "bas": per_ba(obj({
-            "classes": arr(obj({"id": S, "label": S, "kind": {"enum": ["dispatchable", "renewable"]}, "capacity_mw": N, "marginal_cost_usd_mwh": N, "ramp_frac_per_h": N,
+            "classes": arr(obj({"id": S, "label": S, "kind": {"enum": ["dispatchable", "renewable"]}, "group": {"enum": GROUPS}, "capacity_mw": N, "marginal_cost_usd_mwh": N, "ramp_frac_per_h": N,
                                 "pmin_frac": N, "heat_rate_mmbtu_mwh": N, "co2_kg_mmbtu": N, "capacity_basis": S}), lo=5),
-            "battery": obj({"power_mw": N, "energy_mwh": N, "round_trip_eff": N, "soc0_frac": N, "soc_min_frac": N, "wear_cost_usd_mwh": N}),
+            "display_order": arr(S, lo=8), "fixed_series": arr(obj({"id": S, "label": S, "group": S, "source": S}), 2),
+            "sinks": arr(obj({"id": S, "label": S, "array": S}), 3), "sign_convention": S,
+            "battery": obj({"power_mw": N, "energy_mwh": N, "hours": N, "round_trip_eff": N, "soc0_frac": N, "soc_min_frac": N, "wear_cost_usd_mwh": N}),
             "voll_usd_mwh": N,
-            "days": arr(obj({"id": S, "label": S, "date": S, "season": S, "demand_mw": VEC(24), "net_imports_mw": VEC(24), "fixed_other_mw": VEC(24),
-                             "avail_mw": obj({"solar": VEC(24), "wind": VEC(24)}), "hydro_energy_mwh": N, "temp_c": VEC(24)}), lo=4),
+            "controls": arr(obj({"id": S, "label": S, "unit": S, "kind": {"enum": ["range", "enum"]}, "default": {}, "param_path": S}, req=["id", "label", "unit", "kind", "default", "param_path"]), 7),
+            "scenarios": arr(obj({"id": S, "label": S, "description": S, "params": PARAMS}), 6),
+            "days": arr(obj({"id": S, "label": S, "date": S, "season": S, "intro": B, "dst_transition": B, "local_hours": S, "demand_mw": VEC(24), "net_imports_mw": VEC(24), "fixed_other_mw": VEC(24),
+                             "avail_mw": obj({"solar": VEC(24), "wind": VEC(24)}), "hydro_energy_mwh": N, "temp_c": VEC(24),
+                             "observed_gen_mw": {"type": "object", "minProperties": 7, "additionalProperties": VEC(24)}, "observed_interchange_mw": VEC(24)},
+                            req=["id", "label", "date", "season", "intro", "dst_transition", "local_hours", "demand_mw", "net_imports_mw", "fixed_other_mw", "avail_mw", "hydro_energy_mwh", "temp_c", "observed_gen_mw", "observed_interchange_mw"]), lo=4),
             "heat_wave": obj({"cool_base_c": N, "b_cool_mw_per_c_by_hour": arr(N, 24)})})),
         "reference_lp": obj({"ba": S, "day": S, "scenario": S, "objective_usd": N, "cplex_lp": S})}),
     "dispatch_results": top("dispatch_results", {"bas": per_ba(obj({"days": {"type": "object", "minProperties": 4, "additionalProperties": obj({s: obj({
-        "objective_usd": N, "cost_breakdown_usd": {"type": "object"}, "dispatch_mw": {"type": "object"}, "renewable_used_mw": obj({"solar": VEC(24), "wind": VEC(24)}),
+        "objective_usd": N, "cost_breakdown_usd": COST, "dispatch_mw": DISP, "renewable_used_mw": obj({"solar": VEC(24), "wind": VEC(24)}),
         "curtailment_mw": VEC(24), "unserved_mw": VEC(24), "battery": obj({"charge_mw": VEC(24), "discharge_mw": VEC(24), "soc_mwh": VEC(25)}),
-        "price_usd_mwh": VEC(24), "co2_t": N, "renewable_share_pct": N, "unserved_mwh": N, "curtailed_mwh": N}) for s in SCEN})}}))}),
-    "dispatch_test_vectors": top("dispatch_test_vectors", {"tolerance_rel": N, "tolerance_abs": N, "note": S, "parity_keys": arr(S, lo=3), "vectors": arr(obj({
-        "ba": S, "day": S, "scenario": S, "params": {"type": "object"},
-        "expected": obj({"objective_usd": N, "cost_breakdown_usd": {"type": "object"}, "class_energy_mwh": {"type": "object"}, "unserved_mwh": N,
-                         "curtailed_mwh": N, "soc_mwh": VEC(25), "max_price_usd_mwh": N, "co2_t": N})}), lo=24)}),
+        "price_usd_mwh": VEC(24), "marginal_class": arr(S, 24), "co2_t": N, "renewable_share_pct": N, "unserved_mwh": N, "curtailed_mwh": N}) for s in SCEN})}}))}),
+    "dispatch_test_vectors": top("dispatch_test_vectors", {"tolerance_rel": N, "tolerance_abs": N, "tolerance_price_usd_mwh": N, "note": S, "lp_text": S, "parity_keys": arr(S, lo=3), "vectors": arr(obj({
+        "ba": S, "day": S, "scenario": S, "kind": {"enum": ["preset", "random", "stress_unserved", "stress_curtailment"]}, "params": PARAMS, "lp_text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "expected": obj({"objective_usd": N, "cost_breakdown_usd": COST, "class_energy_mwh": DISP_E, "unserved_mwh": N, "curtailed_mwh": N, "soc_mwh": VEC(25), "price_usd_mwh": VEC(24),
+                         "price_comparable": B, "max_price_usd_mwh": N, "co2_t": N, "marginal_class": arr(S, 24)})}), lo=24)}),
     "grid_topology": top("grid_topology", {
-        "label": S, "illustrative": {"const": True}, "source": S, "license": S, "notes": S, "base_mva": N,
+        "label": S, "tag": {"const": "SYNTHETIC"}, "illustrative": {"const": True}, "source": S, "license": S, "notes": S, "base_mva": N,
         "buses": arr(obj({"id": I, "type": I, "pd_mw": N, "qd_mvar": N, "gs_mw": N, "bs_mvar": N, "base_kv": N}), 14),
         "branches": arr(obj({"from": I, "to": I, "r_pu": N, "x_pu": N, "b_pu": N, "rate_a_mva": N}), 20),
         "generators": arr(obj({"bus": I, "pmax_mw": N, "pmin_mw": N, "cost_usd_mwh": N, "pglib_note": S}), 5)}),

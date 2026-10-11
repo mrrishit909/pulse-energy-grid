@@ -54,6 +54,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -68,7 +100,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -131,6 +229,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -180,6 +279,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -194,7 +325,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -257,6 +454,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -306,6 +504,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -320,7 +550,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -383,6 +679,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -432,6 +729,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -446,7 +775,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -509,6 +904,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -558,6 +954,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -572,7 +1000,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -635,6 +1129,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -684,6 +1179,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -698,7 +1225,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -761,6 +1354,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -837,6 +1431,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -851,7 +1477,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -914,6 +1606,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -963,6 +1656,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -977,7 +1702,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -1040,6 +1831,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -1089,6 +1881,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -1103,7 +1927,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -1166,6 +2056,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -1215,6 +2106,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -1229,7 +2152,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -1292,6 +2281,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -1341,6 +2331,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -1355,7 +2377,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -1418,6 +2506,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",
@@ -1467,6 +2556,38 @@
             "type": "number"
            },
            "cost_breakdown_usd": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_wear": {
+              "type": "number"
+             },
+             "ccgt": {
+              "type": "number"
+             },
+             "coal": {
+              "type": "number"
+             },
+             "hydro": {
+              "type": "number"
+             },
+             "nuclear": {
+              "type": "number"
+             },
+             "peaker": {
+              "type": "number"
+             },
+             "unserved_voll": {
+              "type": "number"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_wear",
+             "unserved_voll"
+            ],
             "type": "object"
            },
            "curtailed_mwh": {
@@ -1481,7 +2602,73 @@
             "type": "array"
            },
            "dispatch_mw": {
+            "additionalProperties": false,
+            "properties": {
+             "battery_discharge": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "ccgt": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "coal": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "hydro": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "nuclear": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "peaker": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "nuclear",
+             "ccgt",
+             "peaker",
+             "hydro",
+             "battery_discharge"
+            ],
             "type": "object"
+           },
+           "marginal_class": {
+            "items": {
+             "type": "string"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
            },
            "objective_usd": {
             "type": "number"
@@ -1544,6 +2731,7 @@
            "unserved_mw",
            "battery",
            "price_usd_mwh",
+           "marginal_class",
            "co2_t",
            "renewable_share_pct",
            "unserved_mwh",

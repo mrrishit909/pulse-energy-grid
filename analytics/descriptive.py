@@ -45,12 +45,23 @@ def fuel_mix(df: pl.DataFrame, ba: str) -> dict:
     for f, c in g.items():
         a = df.group_by(["local_month", "local_hour"]).agg(pl.col(c).mean().alias("v")).sort("local_month", "local_hour")["v"].to_list()
         mh[f] = [_clean(round(x, 0)) for x in a]
+    yr_prof = {}
+    for y in sorted(df["local_year"].unique().to_list()):
+        if y < 2021:
+            continue
+        sub = df.filter(pl.col("local_year") == y)
+        okd = sub.filter(pl.col("demand_status") == "ok")
+        grid = lambda frame, col: frame.group_by(["local_month", "local_hour"]).agg(pl.col(col).mean().alias("v"))  # noqa: E731
+        def arr288(frame, col):
+            m = {(a, b): v for a, b, v in grid(frame, col).iter_rows()}
+            return [_clean(round(m[(mo, h)], 0)) if (mo, h) in m and m[(mo, h)] is not None else None for mo in range(1, 13) for h in range(24)]
+        yr_prof[str(y)] = {"demand": arr288(okd, "demand"), "SUN": arr288(sub, "gen_sun"), "WND": arr288(sub, "gen_wnd"), "months_present": int(sub["local_month"].n_unique())}
     cap = {f: float(df[g[f]].max()) for f in fuels}
     # evening ramp: change in net load (demand - solar - wind) between 16:00 and 20:00 local, divided by 4 h, per day
     d = df.filter(pl.col("local_hour").is_in([16, 20])).with_columns((pl.col("demand") - pl.col("gen_sun") - pl.col("gen_wnd")).alias("nl"))
     p = d.pivot(on="local_hour", index="local_date", values="nl").drop_nulls()
     ramp = ((p["20"] - p["16"]) / 4).to_numpy()
-    return {"fuels": fuels, "annual_share_pct": share, "annual_share_by_year": by_year, "month_hour_mean_mw": mh, "capacity_proxy_mw": cap,
+    return {"fuels": fuels, "annual_share_pct": share, "annual_share_by_year": by_year, "month_hour_mean_mw": mh, "month_hour_mean_mw_by_year": yr_prof, "capacity_proxy_mw": cap,
             "capacity_proxy_rule": "Maximum hourly net generation observed in the window for the fuel (DERIVED). A proxy for installed capacity, not nameplate: it understates fleets that never ran flat out and includes storage in OTH.",
             "evening_ramp": {"definition": "(net load at 20:00 local - net load at 16:00 local) / 4 h, net load = demand - solar - wind, per day", "mean_mw_per_h": float(np.mean(ramp)), "p95_mw_per_h": float(np.percentile(ramp, 95))}}
 
@@ -122,3 +133,19 @@ def weather_relation(df: pl.DataFrame, ba: str) -> dict:
             "r2": float(1 - sse / sst), "n": int(len(y)), "b_cool_mw_per_c_by_hour": bc, "b_heat_mw_per_c_by_hour": bh, "intercept_mw_by_hour": ic, "binned": bins,
             "pct_demand_per_c_above_base": point, "pct_ci": ci,
             "note": "Association, not causation; one BA-level population-weighted temperature series; R2 is pooled across hours with hour-specific intercepts, so it mostly reflects the daily shape. Percent per degC uses hours 12-20 local; CI is a 60-draw day bootstrap."}
+
+
+def net_load_facts(df: pl.DataFrame, ba: str) -> dict:
+    """Midday (10:00-15:59 local) net load = demand - solar - wind on clean hours; interchange share of demand."""
+    ok = df.filter((pl.col("demand_status") == "ok") & pl.col("gen_sun").is_not_null() & pl.col("gen_wnd").is_not_null())
+    ok = ok.with_columns((pl.col("demand") - pl.col("gen_sun") - pl.col("gen_wnd")).alias("nl"))
+    mid = ok.filter(pl.col("local_hour").is_between(10, 15))
+    full_years = [int(y) for y in ok.group_by("local_year").len().filter(pl.col("len") >= 8000)["local_year"].sort().to_list()]
+    first, latest = full_years[0], full_years[-1]
+    byy = {y: float(mid.filter(pl.col("local_year") == y)["nl"].min()) for y in full_years}
+    lm = mid.filter(pl.col("local_year") == latest).group_by("local_month").agg(pl.col("nl").mean().alias("m")).sort("m")
+    inter = df.filter((pl.col("demand_status") == "ok") & pl.col("interchange").is_not_null())
+    return {"interchange_abs_mean_pct_of_demand": round(float(inter["interchange"].abs().mean() / inter["demand"].mean() * 100), 2),
+            "interchange_net_mean_pct_of_demand": round(float(inter["interchange"].mean() / inter["demand"].mean() * 100), 2),
+            "deepest_bite_month": int(lm["local_month"][0]), "deepest_bite_month_mean_midday_net_load_mw": round(float(lm["m"][0]), 0), "bite_year": latest,
+            "midday_net_load_min_mw_first_year": byy[first], "midday_net_load_min_mw_latest_year": byy[latest], "net_load_first_year": first, "net_load_latest_year": latest}

@@ -134,6 +134,9 @@
   "source": {
    "type": "string"
   },
+  "tag": {
+   "const": "SYNTHETIC"
+  },
   "tags": {
    "additionalProperties": {
     "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
@@ -147,6 +150,7 @@
   "schema_version",
   "tags",
   "label",
+  "tag",
   "illustrative",
   "source",
   "license",

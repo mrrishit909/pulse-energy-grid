@@ -82,17 +82,17 @@ def build_all() -> None:
         prof[ba] = D.demand_profile(df, ba)
         mix[ba] = D.fuel_mix(df, ba)
         wrel[ba] = D.weather_relation(df, ba)
-        r = F.run(ba)
+        r = F.run_cached(ba)
         runs[ba] = r
         fe[ba] = EV.evaluate(ba, r)
-        fs[ba] = EV.samples(ba, r)
+        fs[ba] = EV.samples(ba, r, fe[ba])
         peak = float(df.filter(pl.col("demand_status") == "ok")["demand"].max())
-        cfgs[ba] = X.build_config(ba, df, mix[ba]["capacity_proxy_mw"], wrel[ba], peak)
+        cfgs[ba] = rnd(X.build_config(ba, df, mix[ba]["capacity_proxy_mw"], wrel[ba], peak))  # round BEFORE solving so the published inputs reproduce the LP exactly
         # predictions cache for tests/inspection
         PROCESSED.mkdir(parents=True, exist_ok=True)
         pr = r["df"].select("ts_utc", "demand", "demand_status", "demand_forecast", "demand_forecast_status").with_columns(
             pl.Series("split", np.where(r["masks"]["train"], "train", np.where(r["masks"]["val"], "val", "test"))), pl.Series("common", r["common"]),
-            *[pl.Series(f"{k}_p{int(q * 100)}", v[q]) for k, d in r["preds"].items() for q, v in d.items() for _ in [0]])
+            *[pl.Series(f"{k}_p{int(q * 100)}", v) for k, d in r["preds"].items() for q, v in d.items()])
         pr.fill_nan(None).write_parquet(PROCESSED / f"predictions_{ba}.parquet")
     emit("demand_profile", {"schema_version": "v1", "tags": T("demand_profile", daily="OBSERVED/DERIVED", month_hour_mean_mw="OBSERVED/DERIVED", how_mean_mw="OBSERVED/DERIVED", annual="OBSERVED/DERIVED"), "bas": prof})
     emit("fuel_mix", {"schema_version": "v1", "tags": T("fuel_mix", annual_share_pct="OBSERVED/DERIVED", month_hour_mean_mw="OBSERVED/DERIVED", capacity_proxy_mw="DERIVED", evening_ramp="DERIVED"), "bas": mix})
@@ -103,19 +103,25 @@ def build_all() -> None:
     # ---- dispatch
     results, vectors = X.run_all(cfgs)
     ref_ba, ref_day = "CISO", "summer"
-    lp = X.make_lp(cfgs[ref_ba], next(d for d in cfgs[ref_ba]["days"] if d["id"] == ref_day), {})
+    ref_cfg = cfgs[ref_ba]
+    lp = X.make_lp(ref_cfg, next(d for d in ref_cfg["days"] if d["id"] == ref_day), {})
     sol = X.solve(lp)
-    emit("dispatch_model", {"schema_version": "v1", "tags": T("dispatch_model", formulation="SIMULATED", scenarios="SIMULATED", assumptions="SIMULATED", classes="SIMULATED/DERIVED", days="OBSERVED/DERIVED", battery="SIMULATED", heat_wave="DERIVED"),
-                            "formulation": X.formulation(), "scenarios": X.SCENARIOS, "assumptions": X.assumptions("CISO") + [{"id": "gas_price_by_ba", "value": X.GAS_PRICE, "unit": "USD/MMBtu", "basis": "ASSUMPTION (SIMULATED)"}],
-                            "bas": {ba: {"classes": cfgs[ba]["classes"], "battery": cfgs[ba]["battery"], "voll_usd_mwh": cfgs[ba]["voll_usd_mwh"], "days": cfgs[ba]["days"], "heat_wave": cfgs[ba]["heat_wave"]} for ba in BAS},
+    emit("dispatch_model", {"schema_version": "v1", "tags": T("dispatch_model", formulation="SIMULATED", scenarios="SIMULATED", assumptions="SIMULATED", classes="SIMULATED/DERIVED", days="OBSERVED/DERIVED", observed_gen_mw="OBSERVED",
+                                                           observed_interchange_mw="OBSERVED", battery="SIMULATED", heat_wave="DERIVED", controls="SIMULATED"),
+                            "formulation": X.formulation(), "solver_versions": {"python_highspy": X.HIGHSPY_VERSION, "python_highs": X.HIGHS_VERSION, "browser": "highs@1.15.3 (HiGHS-wasm), declared by the web build and not executed in this repository"},
+                            "scenarios": [{k: v for k, v in m.items()} for m in X.SCENARIO_META], "assumptions": X.assumptions("CISO") + [{"id": "gas_price_by_ba", "value": X.GAS_PRICE, "unit": "USD/MMBtu", "basis": "ASSUMPTION (SIMULATED)"}],
+                            "bas": {ba: {k: cfgs[ba][k] for k in ("classes", "battery", "voll_usd_mwh", "days", "heat_wave", "display_order", "fixed_series", "sinks", "sign_convention", "controls", "scenarios")} for ba in BAS},
                             "reference_lp": {"ba": ref_ba, "day": ref_day, "scenario": "baseline", "objective_usd": sol["objective"], "cplex_lp": X.to_cplex_lp(lp)}})
-    emit("dispatch_results", {"schema_version": "v1", "tags": T("dispatch_results", dispatch="SIMULATED", price="SIMULATED", co2="SIMULATED", renewable_share="SIMULATED"), "bas": results})
-    emit("dispatch_test_vectors", {"schema_version": "v1", "tags": T("dispatch_test_vectors", expected="SIMULATED"), "tolerance_rel": TOL_REL, "tolerance_abs": 0.5,
+    emit("dispatch_results", {"schema_version": "v1", "tags": T("dispatch_results", dispatch="SIMULATED", price="SIMULATED", co2="SIMULATED", renewable_share="SIMULATED", marginal_class="SIMULATED/DERIVED"), "bas": results})
+    emit("dispatch_test_vectors", {"schema_version": "v1", "tags": T("dispatch_test_vectors", expected="SIMULATED"), "tolerance_rel": TOL_REL, "tolerance_abs": 0.5, "tolerance_price_usd_mwh": 0.01,
                                    "parity_keys": ["objective_usd", "cost_breakdown_usd", "unserved_mwh", "co2_t"],
+                                   "lp_text": "lp_text_sha256 is the SHA-256 of the UTF-8 CPLEX LP text produced by analytics/dispatch.py::to_cplex_lp for that vector (numbers formatted '%.10g', variables x0.., rows r0..; see dispatch_model.formulation for the order). "
+                                              "The text itself is not stored per vector (about 30 KB each); rebuild it from dispatch_model.json (ba, day, params). Objective parity is the pass criterion; the hash is a diagnostic that fails first if the builder differs.",
                                    "note": "Rebuild the LP from dispatch_model.json (ba, day, params) in the browser and solve with HiGHS. Compare objective_usd, cost_breakdown_usd, unserved_mwh and co2_t within tolerance_rel (abs tolerance_abs for values near zero). "
-                                           "class_energy_mwh, curtailed_mwh, soc_mwh and max_price_usd_mwh are informative: zero-cost choices (hydro timing, curtailment split) and duals can differ between optimal vertices.",
+                                           "price_usd_mwh is compared (tolerance_price_usd_mwh) only when expected.price_comparable is true, i.e. the balance duals were verified unique by finite differences; otherwise duals can differ between optimal vertices. "
+                                           "class_energy_mwh, curtailed_mwh, soc_mwh and marginal_class are informative: zero-cost choices (hydro timing, curtailment split) can differ between optimal vertices. Vector kinds: preset, random (seeded interior control combinations), stress_unserved, stress_curtailment.",
                                    "vectors": vectors})
-    emit("grid_topology", {"schema_version": "v1", "tags": T("grid_topology", buses="OBSERVED", branches="OBSERVED", generators="OBSERVED"), **topo})
+    emit("grid_topology", {"schema_version": "v1", "tags": T("grid_topology", buses="SYNTHETIC", branches="SYNTHETIC", generators="SYNTHETIC"), "tag": "SYNTHETIC", **topo})
 
     # ---- facts
     facts = {}
@@ -134,12 +140,15 @@ def build_all() -> None:
                      "test_hours": e["common_test_hours"], "test_mape": {k: round(v["mape_pct"], 2) for k, v in e["models"].items()}, "test_mae_mw": {k: round(v["mae_mw"], 0) for k, v in e["models"].items()},
                      "interval_coverage_cqr_pct": round(e["intervals"]["gbm"]["cqr_coverage_pct"], 1), "interval_nominal_pct": 80, "beats_eia": e["comparison_vs_eia"]["beats_eia"], "best_model": best_dep,
                      "skill_vs_eia_pct": round((1 - e["models"]["gbm"]["mape_pct"] / e["models"]["eia_day_ahead"]["mape_pct"]) * 100, 1),
-                     "dispatch_baseline_cost_usd": round(summer["objective_usd"], 0), "dispatch_reference_days": len(cfgs[ba]["days"])}
+                     "dispatch_baseline_cost_usd": round(summer["objective_usd"], 0), "dispatch_reference_days": len(cfgs[ba]["days"]), **D.net_load_facts(df, ba)}
     tot_raw = sum(r["raw_rows"] for r in ledger)
     tot_kept = sum(r["kept"] for r in ledger)
     emit("facts", {"schema_version": "v1", "tags": T("facts", bas="OBSERVED/DERIVED/PREDICTED/SIMULATED", **{"global": "DERIVED"}), "bas": facts,
                    "global": {"raw_rows_total": tot_raw, "kept_rows_total": tot_kept, "flagged_rows_total": sum(r["flagged_outlier"] for r in ledger), "bas": list(BAS),
-                              "window_days": round(len(hourly(BAS[0])) / 24, 1), "topology_buses": len(topo["buses"])}})
+                              "window_days": round(len(hourly(BAS[0])) / 24, 1), "topology_buses": len(topo["buses"]),
+                              "definitions": {"interchange_abs_mean_pct_of_demand": "mean |total interchange| / mean demand x 100, clean demand hours", "interchange_net_mean_pct_of_demand": "mean total interchange (positive = export) / mean demand x 100",
+                                              "deepest_bite_month": "calendar month (1-12) with the lowest mean midday (10:00-15:59 local) net load = demand - solar - wind, in bite_year (latest year with at least 8000 clean hours)",
+                                              "midday_net_load_min_mw_first_year/latest_year": "minimum hourly midday net load in net_load_first_year / net_load_latest_year (first and latest years with at least 8000 clean hours); in CISO this is the depth of the duck-curve belly"}}})
 
     # ---- meta (last, with sizes)
     sizes = {}

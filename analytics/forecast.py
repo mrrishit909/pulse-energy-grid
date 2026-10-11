@@ -160,3 +160,21 @@ if __name__ == "__main__":
         print(ba, r["params"], "test n", t.sum())
         for k, v in r["preds"].items():
             print(" ", k, "test MAPE %.2f" % mape(y[t], v[0.5][t]), "val MAPE %.2f" % mape(y[m["val"] & c], v[0.5][m["val"] & c]))
+
+
+def run_cached(ba: str) -> dict:
+    """run() with an on-disk cache keyed by the sha256 of the hourly table and of this file (training is ~4 min per BA)."""
+    import hashlib
+    import pickle
+
+    from pipelines.common import INTERIM, PROCESSED
+    key = hashlib.sha256((INTERIM / "hourly.parquet").read_bytes() + open(__file__, "rb").read()).hexdigest()
+    f = PROCESSED / f"forecast_run_{ba}.pkl"
+    if f.exists():
+        d = pickle.loads(f.read_bytes())
+        if d["key"] == key:
+            return d["run"]
+    r = run(ba)
+    PROCESSED.mkdir(parents=True, exist_ok=True)
+    f.write_bytes(pickle.dumps({"key": key, "run": r}))
+    return r
