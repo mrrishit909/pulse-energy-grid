@@ -33,6 +33,7 @@
    "type": "number"
   },
   "tolerance_rel": {
+   "exclusiveMinimum": 0,
    "type": "number"
   },
   "vectors": {

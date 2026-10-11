@@ -41,6 +41,15 @@ def write() -> None:
             w(f"- {c['statement']}")
         iv = e["intervals"]["gbm"]
         w(f"- 80% interval (gbm): raw coverage {iv['raw_coverage_pct']:.1f}%, conformal coverage {iv['cqr_coverage_pct']:.1f}%, mean width {iv['cqr_mean_width_mw']:,.0f} MW.\n")
+    w("### Drift of the EIA day-ahead forecast\n")
+    w("Bias = 100 x mean(EIA-930 day-ahead demand forecast - demand) / mean(demand) per local calendar year, over hours where both are clean "
+      "(years with at least 1000 such hours; negative = the BA's own forecast ran low). It is `facts.bas[ba].eia_dayahead_bias_pct_by_year`; "
+      f"`facts.eia_ciso_dayahead_bias_pct` = {facts['eia_ciso_dayahead_bias_pct']:+.2f}% is the CISO value in {facts['eia_ciso_dayahead_bias_year']} (partial year). "
+      "Part of the GBM's margin over the EIA forecast in CISO is this drift in the published series, which is why `eia_debiased` is reported beside it.\n")
+    w("| BA | " + " | ".join(facts["bas"]["CISO"]["eia_dayahead_bias_pct_by_year"]) + " |\n|---|" + "---|" * len(facts["bas"]["CISO"]["eia_dayahead_bias_pct_by_year"]))
+    for ba in ("CISO", "ERCO"):
+        w(f"| {ba} | " + " | ".join(f"{v:+.2f}%" for v in facts["bas"][ba]["eia_dayahead_bias_pct_by_year"].values()) + " |")
+    w("")
     w("## Demand and weather\n")
     for ba, x in wr["bas"].items():
         w(f"- **{ba}**: cooling base {x['cool_base_c']:.0f} C, heating base {x['heat_base_c']:.0f} C, +{x['pct_demand_per_c_above_base']:.2f}% demand per degC above the cooling base in the afternoon hours (day-bootstrap CI {x['pct_ci'][0]:.2f} to {x['pct_ci'][1]:.2f}; association only).")

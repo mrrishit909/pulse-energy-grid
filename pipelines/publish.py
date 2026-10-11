@@ -31,8 +31,17 @@ def rnd(o, nd=4):
     return o
 
 
-def emit(name: str, obj: dict) -> int:
-    return write_json(PUBLIC / f"{name}.json", rnd(obj))
+def emit(name: str, obj: dict, exact: dict | None = None) -> int:
+    """Write an artifact with floats rounded to 4 decimals; `exact` top-level keys are written unrounded
+    (tolerances such as 1e-6 would otherwise round to 0.0)."""
+    return write_json(PUBLIC / f"{name}.json", {**rnd(obj), **(exact or {})})
+
+
+def eia_bias_by_year(df: pl.DataFrame) -> dict[str, float]:
+    """100 x mean(EIA day-ahead forecast - demand) / mean(demand) per local year, hours where both are clean (>= 1000 hours)."""
+    ok = df.filter((pl.col("demand_status") == "ok") & (pl.col("demand_forecast_status") == "ok"))
+    g = ok.group_by("local_year").agg(((pl.col("demand_forecast") - pl.col("demand")).mean() / pl.col("demand").mean() * 100).alias("b"), pl.len().alias("n")).sort("local_year")
+    return {str(y): round(float(b), 2) for y, b, n in g.iter_rows() if n >= 1000}
 
 
 def _generated_at() -> str:
@@ -120,7 +129,7 @@ def build_all() -> None:
                                    "note": "Rebuild the LP from dispatch_model.json (ba, day, params) in the browser and solve with HiGHS. Compare objective_usd, cost_breakdown_usd, unserved_mwh and co2_t within tolerance_rel (abs tolerance_abs for values near zero). "
                                            "price_usd_mwh is compared (tolerance_price_usd_mwh) only when expected.price_comparable is true, i.e. the balance duals were verified unique by finite differences; otherwise duals can differ between optimal vertices. "
                                            "class_energy_mwh, curtailed_mwh, soc_mwh and marginal_class are informative: zero-cost choices (hydro timing, curtailment split) can differ between optimal vertices. Vector kinds: preset, random (seeded interior control combinations), stress_unserved, stress_curtailment.",
-                                   "vectors": vectors})
+                                   "vectors": vectors}, exact={"tolerance_rel": TOL_REL})
     emit("grid_topology", {"schema_version": "v1", "tags": T("grid_topology", buses="SYNTHETIC", branches="SYNTHETIC", generators="SYNTHETIC"), "tag": "SYNTHETIC", **topo})
 
     # ---- facts
@@ -140,14 +149,19 @@ def build_all() -> None:
                      "test_hours": e["common_test_hours"], "test_mape": {k: round(v["mape_pct"], 2) for k, v in e["models"].items()}, "test_mae_mw": {k: round(v["mae_mw"], 0) for k, v in e["models"].items()},
                      "interval_coverage_cqr_pct": round(e["intervals"]["gbm"]["cqr_coverage_pct"], 1), "interval_nominal_pct": 80, "beats_eia": e["comparison_vs_eia"]["beats_eia"], "best_model": best_dep,
                      "skill_vs_eia_pct": round((1 - e["models"]["gbm"]["mape_pct"] / e["models"]["eia_day_ahead"]["mape_pct"]) * 100, 1),
-                     "dispatch_baseline_cost_usd": round(summer["objective_usd"], 0), "dispatch_reference_days": len(cfgs[ba]["days"]), **D.net_load_facts(df, ba)}
+                     "dispatch_baseline_cost_usd": round(summer["objective_usd"], 0), "dispatch_reference_days": len(cfgs[ba]["days"]), **D.net_load_facts(df, ba),
+                     "eia_dayahead_bias_pct_by_year": eia_bias_by_year(df)}
     tot_raw = sum(r["raw_rows"] for r in ledger)
     tot_kept = sum(r["kept"] for r in ledger)
-    emit("facts", {"schema_version": "v1", "tags": T("facts", bas="OBSERVED/DERIVED/PREDICTED/SIMULATED", **{"global": "DERIVED"}), "bas": facts,
+    ciso_bias = facts["CISO"]["eia_dayahead_bias_pct_by_year"]
+    bias_year = max(ciso_bias, key=int)
+    emit("facts", {"schema_version": "v1", "tags": T("facts", bas="OBSERVED/DERIVED/PREDICTED/SIMULATED", **{"global": "DERIVED"}, eia_ciso_dayahead_bias_pct="DERIVED"), "bas": facts,
+                   "eia_ciso_dayahead_bias_pct": ciso_bias[bias_year], "eia_ciso_dayahead_bias_year": int(bias_year),
                    "global": {"raw_rows_total": tot_raw, "kept_rows_total": tot_kept, "flagged_rows_total": sum(r["flagged_outlier"] for r in ledger), "bas": list(BAS),
                               "window_days": round(len(hourly(BAS[0])) / 24, 1), "topology_buses": len(topo["buses"]),
                               "definitions": {"interchange_abs_mean_pct_of_demand": "mean |total interchange| / mean demand x 100, clean demand hours", "interchange_net_mean_pct_of_demand": "mean total interchange (positive = export) / mean demand x 100",
                                               "deepest_bite_month": "calendar month (1-12) with the lowest mean midday (10:00-15:59 local) net load = demand - solar - wind, in bite_year (latest year with at least 8000 clean hours)",
+                                              "eia_dayahead_bias_pct_by_year": "100 x mean(EIA-930 day-ahead demand forecast - demand) / mean(demand) per local calendar year, hours where both are clean, years with at least 1000 such hours; negative = the BA's forecast ran low. eia_ciso_dayahead_bias_pct is CISO's value in eia_ciso_dayahead_bias_year (the latest year; partial when the window ends mid-year)",
                                               "midday_net_load_min_mw_first_year/latest_year": "minimum hourly midday net load in net_load_first_year / net_load_latest_year (first and latest years with at least 8000 clean hours); in CISO this is the depth of the duck-curve belly"}}})
 
     # ---- meta (last, with sizes)

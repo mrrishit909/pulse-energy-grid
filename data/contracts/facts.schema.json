@@ -19,6 +19,7 @@
       "demand_temp_slope_pct_per_c": {},
       "dispatch_baseline_cost_usd": {},
       "dispatch_reference_days": {},
+      "eia_dayahead_bias_pct_by_year": {},
       "evening_ramp_mw_per_h": {},
       "gas_share_pct": {},
       "hours_expected": {},
@@ -73,7 +74,8 @@
       "midday_net_load_min_mw_first_year",
       "midday_net_load_min_mw_latest_year",
       "net_load_first_year",
-      "net_load_latest_year"
+      "net_load_latest_year",
+      "eia_dayahead_bias_pct_by_year"
      ],
      "type": "object"
     },
@@ -91,6 +93,7 @@
       "demand_temp_slope_pct_per_c": {},
       "dispatch_baseline_cost_usd": {},
       "dispatch_reference_days": {},
+      "eia_dayahead_bias_pct_by_year": {},
       "evening_ramp_mw_per_h": {},
       "gas_share_pct": {},
       "hours_expected": {},
@@ -145,7 +148,8 @@
       "midday_net_load_min_mw_first_year",
       "midday_net_load_min_mw_latest_year",
       "net_load_first_year",
-      "net_load_latest_year"
+      "net_load_latest_year",
+      "eia_dayahead_bias_pct_by_year"
      ],
      "type": "object"
     }
@@ -155,6 +159,12 @@
     "ERCO"
    ],
    "type": "object"
+  },
+  "eia_ciso_dayahead_bias_pct": {
+   "type": "number"
+  },
+  "eia_ciso_dayahead_bias_year": {
+   "type": "integer"
   },
   "global": {
    "additionalProperties": true,
@@ -194,7 +204,9 @@
   "schema_version",
   "tags",
   "bas",
-  "global"
+  "global",
+  "eia_ciso_dayahead_bias_pct",
+  "eia_ciso_dayahead_bias_year"
  ],
  "title": "facts",
  "type": "object"

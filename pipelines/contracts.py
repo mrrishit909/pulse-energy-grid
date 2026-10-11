@@ -59,8 +59,10 @@ SCHEMAS = {
         "solar_share_pct", "wind_share_pct", "gas_share_pct", "clean_share_pct", "evening_ramp_mw_per_h", "demand_temp_slope_pct_per_c",
         "test_hours", "test_mape", "test_mae_mw", "interval_coverage_cqr_pct", "interval_nominal_pct", "beats_eia", "best_model", "skill_vs_eia_pct",
         "dispatch_baseline_cost_usd", "dispatch_reference_days", "interchange_abs_mean_pct_of_demand", "interchange_net_mean_pct_of_demand", "deepest_bite_month",
-        "deepest_bite_month_mean_midday_net_load_mw", "bite_year", "midday_net_load_min_mw_first_year", "midday_net_load_min_mw_latest_year", "net_load_first_year", "net_load_latest_year"]})), "global": obj({k: {} for k in [
-        "raw_rows_total", "kept_rows_total", "flagged_rows_total", "bas", "window_days", "topology_buses", "definitions"]})}),
+        "deepest_bite_month_mean_midday_net_load_mw", "bite_year", "midday_net_load_min_mw_first_year", "midday_net_load_min_mw_latest_year", "net_load_first_year", "net_load_latest_year",
+        "eia_dayahead_bias_pct_by_year"]})), "global": obj({k: {} for k in [
+        "raw_rows_total", "kept_rows_total", "flagged_rows_total", "bas", "window_days", "topology_buses", "definitions"]}),
+        "eia_ciso_dayahead_bias_pct": N, "eia_ciso_dayahead_bias_year": I}),
     "reconciliation": top("reconciliation", {
         "invariants": arr(S, lo=2),
         "ledger": arr(obj({"ba": S, "kind": S, "fuel": S, "grid_slots": I, "raw_rows": I, "missing_slots": I, "null_value": I, "flagged_outlier": I,
@@ -129,7 +131,7 @@ SCHEMAS = {
         "objective_usd": N, "cost_breakdown_usd": COST, "dispatch_mw": DISP, "renewable_used_mw": obj({"solar": VEC(24), "wind": VEC(24)}),
         "curtailment_mw": VEC(24), "unserved_mw": VEC(24), "battery": obj({"charge_mw": VEC(24), "discharge_mw": VEC(24), "soc_mwh": VEC(25)}),
         "price_usd_mwh": VEC(24), "marginal_class": arr(S, 24), "co2_t": N, "renewable_share_pct": N, "unserved_mwh": N, "curtailed_mwh": N}) for s in SCEN})}}))}),
-    "dispatch_test_vectors": top("dispatch_test_vectors", {"tolerance_rel": N, "tolerance_abs": N, "tolerance_price_usd_mwh": N, "note": S, "lp_text": S, "parity_keys": arr(S, lo=3), "vectors": arr(obj({
+    "dispatch_test_vectors": top("dispatch_test_vectors", {"tolerance_rel": {"type": "number", "exclusiveMinimum": 0}, "tolerance_abs": N, "tolerance_price_usd_mwh": N, "note": S, "lp_text": S, "parity_keys": arr(S, lo=3), "vectors": arr(obj({
         "ba": S, "day": S, "scenario": S, "kind": {"enum": ["preset", "random", "stress_unserved", "stress_curtailment"]}, "params": PARAMS, "lp_text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "expected": obj({"objective_usd": N, "cost_breakdown_usd": COST, "class_energy_mwh": DISP_E, "unserved_mwh": N, "curtailed_mwh": N, "soc_mwh": VEC(25), "price_usd_mwh": VEC(24),
                          "price_comparable": B, "max_price_usd_mwh": N, "co2_t": N, "marginal_class": arr(S, 24)})}), lo=24)}),

@@ -63,6 +63,15 @@ Forecast origin is local midnight starting the target day. Models: seasonal naiv
 - gbm_perfect_weather test MAPE is 0.30 percentage points lower than gbm (95% CI -0.56 to -0.04): better than gbm.
 - 80% interval (gbm): raw coverage 60.0%, conformal coverage 86.1%, mean width 8,315 MW.
 
+### Drift of the EIA day-ahead forecast
+
+Bias = 100 x mean(EIA-930 day-ahead demand forecast - demand) / mean(demand) per local calendar year, over hours where both are clean (years with at least 1000 such hours; negative = the BA's own forecast ran low). It is `facts.bas[ba].eia_dayahead_bias_pct_by_year`; `facts.eia_ciso_dayahead_bias_pct` = -6.36% is the CISO value in 2025 (partial year). Part of the GBM's margin over the EIA forecast in CISO is this drift in the published series, which is why `eia_debiased` is reported beside it.
+
+| BA | 2021 | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|---|
+| CISO | -0.72% | -1.63% | -2.11% | -4.33% | -6.36% |
+| ERCO | +0.70% | +0.23% | +0.52% | +0.34% | +0.96% |
+
 ## Demand and weather
 
 - **CISO**: cooling base 16 C, heating base 16 C, +5.49% demand per degC above the cooling base in the afternoon hours (day-bootstrap CI 5.32 to 5.69; association only).
