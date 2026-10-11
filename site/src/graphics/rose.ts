@@ -57,12 +57,14 @@ export const FUEL: Record<string, Fuel> = {
   peaker: { c0: "#3A0F06", c1: "#D9481F" },
   coal: { c0: "#1E1E1E", c1: "#5A5A5A" },
   oil: { c0: "#1E1E1E", c1: "#5A5A5A", hatch: true },
+  /** S04 before the unroll: OBSERVED demand only, in dim neutral light (unlit-window #1A1A1A to the coal-grey #5A5A5A), no fuel colour */
+  demand: { c0: "#1A1A1A", c1: "#5A5A5A" },
 };
 /** Band key (EIA fuel code or dispatch class id) -> fuel token. */
 export const TOKEN: Record<string, keyof typeof FUEL> = {
   SUN: "solar", WND: "wind", NUC: "nuclear", WAT: "hydro", IMPORTS: "imports", OTH: "other", NG: "gas", COL: "coal", OIL: "oil",
   solar: "solar", wind: "wind", nuclear: "nuclear", hydro: "hydro", imports: "imports", other: "other", battery_discharge: "battery",
-  ccgt: "gas", peaker: "peaker", coal: "coal", oil: "oil",
+  ccgt: "gas", peaker: "peaker", coal: "coal", oil: "oil", actual: "demand",
 };
 const SINK_CHARGE = "#9B5CFF", SINK_EXPORT = "#9A9A9A", CURTAIL = "#8FD9FF", UNSERVED_EDGE = "#FF6A4D";
 
@@ -371,49 +373,68 @@ export function drawEdgeGlow(ctx: Ctx, petals: PetalIn[], v: RoseView, color: st
 // ---------------------------------------------------------------- PRICE layer (S06, CTRL): the Spectral bins only
 /** VISUAL_DESIGN "PRICE layer": bin edges in USD/MWh and their outer stops (the Spectral orb family). */
 export const PRICE_BINS = [
-  { id: "P0", label: "0 OR BELOW", color: "#FFB26B", test: (p: number) => p <= 0 },
-  { id: "P1", label: "0-25", color: "#C21FD6", test: (p: number) => p <= 25 },
-  { id: "P2", label: "25-50", color: "#FF2F7A", test: (p: number) => p <= 50 },
-  { id: "P3", label: "50-100", color: "#FF6A2B", test: (p: number) => p <= 100 },
-  { id: "P4", label: "100-500", color: "#FFB26B", test: (p: number) => p <= 500 },
-  { id: "P5", label: "500 TO VOLL", color: "#FFD9B5", test: (p: number, voll: number) => p < voll - 1e-6 },
-  { id: "P6", label: "VOLL (UNSERVED)", color: "#FFFFFF", test: () => true },
+  { id: "P0", label: "0 OR BELOW", color: "#FFB26B", lo: -Infinity, hi: 0, test: (p: number) => p <= 0 },
+  { id: "P1", label: "0-25", color: "#C21FD6", lo: 0, hi: 25, test: (p: number) => p <= 25 },
+  { id: "P2", label: "25-50", color: "#FF2F7A", lo: 25, hi: 50, test: (p: number) => p <= 50 },
+  { id: "P3", label: "50-100", color: "#FF6A2B", lo: 50, hi: 100, test: (p: number) => p <= 100 },
+  { id: "P4", label: "100-500", color: "#FFB26B", lo: 100, hi: 500, test: (p: number) => p <= 500 },
+  { id: "P5", label: "500 TO VOLL", color: "#FFD9B5", lo: 500, hi: Infinity, test: (p: number, voll: number) => p < voll - 1e-6 },
+  { id: "P6", label: "VOLL (UNSERVED)", color: "#FFFFFF", lo: Infinity, hi: Infinity, test: () => true },
 ] as const;
 export const priceBin = (p: number, voll: number) => PRICE_BINS.findIndex((b) => b.test(p, voll));
+/** Distinct bins a day's prices span (the "nearly flat" note when it is 1 or 2). */
+export const binsSpanned = (prices: number[], voll: number) => new Set(prices.map((p) => priceBin(p, voll))).size;
 const dim = (hex: string, k: number) => { const n = parseInt(hex.slice(1), 16); return `rgb(${Math.round(((n >> 16) & 255) * k)},${Math.round(((n >> 8) & 255) * k)},${Math.round((n & 255) * k)})`; };
+/** Where a price sits inside its bin (0..1), so petals of one bin still differ in light; open-ended bins use 0.5. */
+export function binPosition(price: number, bin: number) {
+  const b = PRICE_BINS[bin]!;
+  return Number.isFinite(b.lo) && Number.isFinite(b.hi) ? clamp((price - b.lo) / (b.hi - b.lo)) : 0.5;
+}
 
 /**
- * One fill per petal by its SIMULATED shadow price bin (luminance rises with price): a gradient from the bin
- * colour at 35% brightness to the bin colour, with the rim glow. P0 has no fill, only a dotted tip arc; P6 adds
- * the unserved hatch. The bands' geometry (and the log) stays the class stack, so area truth is unchanged.
+ * PRICE layer (S06, CTRL; the Spectral bins only). It keeps the rose's band light model, so a day whose prices fall in
+ * one bin can never read as a flat pie: every visible band of every petal is its own radial gradient in the petal's
+ * bin colour (dark at the band's inner edge, bright at its outer edge), the outer brightness also rising with the
+ * petal's own price inside the bin's edges; the tapered hairline gaps and the rim glow stay. P0 (surplus) keeps the
+ * demand silhouette and a dotted tip; P6 adds the unserved hatch. The geometry (and the log) is the class stack.
  */
-export function drawPriceRose(ctx: Ctx, petals: PetalIn[], v: RoseView, bins: (number | null)[]): RoseLog {
-  const log = drawRose(ctx, petals, { ...v, bands: 0, ghost: 0, marks: 0 });
+export function drawPriceRose(ctx: Ctx, petals: PetalIn[], v: RoseView, bins: (number | null)[], prices?: number[]): RoseLog {
+  const log = drawRose(ctx, petals, { ...v, bands: 0, marks: 0, ghost: Math.max(v.ghost, 0.06) });
   petals.forEach((p, i) => {
     const b = bins[i];
     if (b === null || b === undefined) return;
     const bin = PRICE_BINS[b]!;
-    const r1 = radius(Math.min(p.served, p.demand), v.R100);
+    const top = Math.min(p.served, p.demand);
     ctx.save();
     ctx.translate(v.cx, v.cy);
     if (b === 0) {
       ctx.strokeStyle = bin.color; ctx.lineWidth = 1; ctx.setLineDash([1, 3]);
-      arcStroke(ctx, r1, p.hour, v);
+      arcStroke(ctx, radius(top, v.R100), p.hour, v);
       ctx.setLineDash([]);
     } else {
-      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(r1, 0.01));
-      g.addColorStop(0, dim(bin.color, 0.35));
-      g.addColorStop(1, bin.color);
-      ctx.fillStyle = g;
-      sectorPath(ctx, 0, r1, p.hour, v);
-      ctx.fill();
-      const rg = Math.max(0, r1 - v.glow);
-      const gl = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(r1, 0.01));
-      gl.addColorStop(clamp(rg / Math.max(r1, 0.01)), "rgba(255,255,255,0)");
-      gl.addColorStop(1, "rgba(255,255,255,0.32)");
-      ctx.fillStyle = gl;
-      sectorPath(ctx, rg, r1, p.hour, v);
-      ctx.fill();
+      const k = 0.62 + 0.38 * binPosition(prices?.[i] ?? 0, b);
+      let outer: [number, number] | null = null;
+      for (const [i0, o0] of p.bands) {
+        const vi = Math.min(i0, top), vo = Math.min(o0, top);
+        if (vo - vi <= 0) continue;
+        const q0 = radius(vi, v.R100), q1 = radius(vo, v.R100);
+        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(q1, 0.01));
+        g.addColorStop(clamp(q0 / Math.max(q1, 0.01)), dim(bin.color, 0.22));
+        g.addColorStop(1, dim(bin.color, k));
+        ctx.fillStyle = g;
+        sectorPath(ctx, q0, q1, p.hour, v);
+        ctx.fill();
+        outer = [q0, q1];
+      }
+      if (outer) {
+        const [q0, q1] = outer, rg = Math.max(q0, q1 - v.glow);
+        const gl = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(q1, 0.01));
+        gl.addColorStop(clamp(rg / Math.max(q1, 0.01)), "rgba(255,255,255,0)");
+        gl.addColorStop(1, "rgba(255,255,255,0.32)");
+        ctx.fillStyle = gl;
+        sectorPath(ctx, rg, q1, p.hour, v);
+        ctx.fill();
+      }
     }
     if (p.unserved > 0.5) {
       const ru = radius(p.served, v.R100), rD = radius(p.demand, v.R100);

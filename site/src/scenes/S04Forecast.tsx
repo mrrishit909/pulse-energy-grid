@@ -82,15 +82,17 @@ registerFrame("forecast", ({ now, p, L, W }) => {
   const peak = Math.max(...(slice(d.w.actual_mw, d.first, 24).filter((v) => v !== null) as number[]));
   const R100 = fitR100(L.G3, peak);
   const firstDay = d.actual.slice(0, 24);
-  const petalsDay = firstDay.map((v, h) => ({ hour: h, bands: [] as [number, number][], demand: v ?? 0, served: v ?? 0, charge: 0, exports: 0, residual: 0, unserved: 0, curtailed: 0 }));
-  const view = baseView([], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: L.gap, ghost: 0.12, bands: 0, marks: 0 });
+  const petalsDay = firstDay.map((v, h) => ({ hour: h, bands: [[0, v ?? 0]] as [number, number][], demand: v ?? 0, served: v ?? 0, charge: 0, exports: 0, residual: 0, unserved: 0, curtailed: 0 }));
+  // no petal gaps here: on a near-round day they would run most of the radius and read as spokes; the tips and the rim glow separate the petals
+  const view = baseView(["actual"], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: 0, ghost: 0, marks: 0 });
   const label = L.label;
   const dayLabels = M ? [days(d.w)[st.mDay]!] : days(d.w);
   const shown = seriesAt(step, d.b.best_model).filter((id) => !st.hidden.includes(id));
   const anim = shown.some((id) => now - (fstate.revealAt[id] ?? -1e9) < 800);
   const fade = motion ? 1 - windowed(p, 0.94, 1) : 1;
   return {
-    petals: p < 0.08 && motion ? petalsDay : null, view, labels: 0, bloom: 0, glow: null, sky: null, opacity: fade,
+    // before the unroll: tomorrow's first day as a dim silhouette whose rim is lit (it leads the unroll); dim relative to S03b
+    petals: p < 0.08 && motion ? petalsDay : null, view, labels: p < 0.08 ? 0.7 : 0, bloom: 0, glow: null, sky: null, opacity: fade,
     extra: (c) => {
       if (p < 0.08 && motion) return;
       if (t < 1) { drawUnroll(c, d.actual, view, plot, t); drawAxis(c, plot, dayLabels, label, t); return; }

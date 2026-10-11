@@ -7,14 +7,14 @@ import { Sheet } from "../components/Sheet";
 import { HourInspector, RoseHit } from "../components/HourInspector";
 import { useArtifact } from "../data/useArtifact";
 import { MODEL, RESULTS } from "../data/artifacts";
-import { copyCtrl, ctrlLedger, fmtControl, inspectorSimulated, parityLine, parityShort, statusLine } from "../data/copy";
+import { copyCtrl, ctrlLedger, flatNote, fmtControl, inspectorSimulated, parityLine, parityShort, statusLine } from "../data/copy";
 import { ctrl } from "../state/scenes";
 import { cancelSolve, getSolver, retrySolver, subscribeSolver } from "../state/solver";
 import { nearestPreset, sameParams, setPreset, useLiveSolve } from "../state/lab";
 import { percent } from "../data/loader";
 import { fullParams, scenarioDemand } from "../model/lp";
 import { int } from "../model/format";
-import { PRICE_BINS } from "../graphics/rose";
+import { binsSpanned, PRICE_BINS } from "../graphics/rose";
 import { BAS, type BAModel, type Control, type Params, type RangeControl } from "../model/types";
 import { useViewport } from "./useViewport";
 import { viewportClass } from "../graphics/canvas";
@@ -175,6 +175,7 @@ export function Ctrl({ def }: { def: SceneDef }) {
                         ) : null}
                         {layer === "price" ? (
                           <div className="price-legend" aria-label="Price bins">
+                            {m && binsSpanned(r.price_usd_mwh, m.voll_usd_mwh) <= 2 ? <p className="price-legend__flat" data-flat>{flatNote(binsSpanned(r.price_usd_mwh, m.voll_usd_mwh))}</p> : null}
                             <div className="price-legend__swatches">{PRICE_BINS.map((b, i) => <span key={b.id} style={{ "--c": b.color } as CSSProperties} className={i === 0 ? "is-p0" : i === 6 ? "is-p6" : ""} />)}</div>
                             <div className="price-legend__edges">{PRICE_BINS.map((b) => <span key={b.id}>{b.label}</span>)}</div>
                           </div>

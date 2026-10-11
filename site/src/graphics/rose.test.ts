@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { FUEL, areaLerp, drawRose, gapHalf, radius, type Ctx, type RoseView } from "./rose";
+import { FUEL, areaLerp, binsSpanned, drawPriceRose, drawRose, gapHalf, priceBin, radius, type Ctx, type RoseView } from "./rose";
 import { observedStack, petals, simulatedStack } from "../model/stack";
 import type { DispatchModel, DispatchResults } from "../model/types";
 
@@ -25,7 +25,7 @@ function mockCtx() {
     fill: () => { fills.push({ style: ctx.fillStyle, path: [...path] }); },
     stroke: () => { strokes.push([...path]); },
     save() {}, restore() {}, translate() {}, setLineDash() {}, fillText() {},
-    createRadialGradient: () => { const g = { addColorStop() {} }; gradients.add(g); return g; },
+    createRadialGradient: () => { const g = { stops: [] as string[], addColorStop(_o: number, c: string) { g.stops.push(c); } }; gradients.add(g); return g; },
     createPattern: () => ({}),
   };
   return { ctx: ctx as unknown as Ctx, gradients, strokes, fills };
@@ -129,5 +129,26 @@ describe("stack rules", () => {
       const ps = petals(s, (j) => Math.max(0, Math.min(1, k - j)));
       for (const p of ps) p.bands.forEach(([i, o], j) => { if (j > Math.floor(k)) expect(o - i).toBe(0); });
     }
+  });
+});
+
+describe("PRICE layer (criterion 21: never a flat pie)", () => {
+  it("draws every band of every priced petal as its own gradient: no fill spans more than one petal, light varies with the petal's price", () => {
+    const m = model.bas.ERCO, day = m.days.find((d) => d.id === "summer")!;
+    const r = results.bas.ERCO.days.summer!.demand_growth!;
+    const D = day.demand_mw.map((x) => x * 1.15);
+    const s = simulatedStack(m.display_order, day, D, r);
+    const bins = r.price_usd_mwh.map((p) => priceBin(p, m.voll_usd_mwh));
+    expect(binsSpanned(r.price_usd_mwh, m.voll_usd_mwh)).toBeLessThanOrEqual(3);
+    const { ctx, gradients, fills } = mockCtx();
+    drawPriceRose(ctx, petals(s, () => 1), view(s.keys, 300, 300), bins, r.price_usd_mwh);
+    const gfills = fills.filter((f) => gradients.has(f.style as object));
+    // one closed sector per gradient fill (the only multi-petal fill is the white demand silhouette, a plain colour)
+    for (const f of gfills) expect(f.path.filter((x) => x === "close").length).toBe(1);
+    const priced = bins.filter((b) => b !== null && b !== 0).length;
+    expect(gfills.length).toBeGreaterThan(priced); // several bands per petal, plus the rim glow
+    // within one bin, two petals at different prices get different outer light
+    const outer = new Set([...gradients].map((g) => (g as unknown as { stops: string[] }).stops.at(-1)));
+    expect(outer.size).toBeGreaterThan(2);
   });
 });

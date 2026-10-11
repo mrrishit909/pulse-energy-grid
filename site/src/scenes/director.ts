@@ -119,7 +119,7 @@ const model = () => { const s = getStore(MODEL).state; return s.status === "read
 // ------------------------------------------------------------------ per-scene frames
 export interface Frame {
   /** null: no rose this frame (e.g. the S04 week plot after the unroll) */
-  petals: PetalIn[] | null; view: RoseView; labels: number; bloom: number; glow: { color: string; a: number } | null;
+  petals: PetalIn[] | null; view: RoseView; labels: number; bloom: number; glow: { color: string; a: number; reach?: number } | null;
   sky: { list: Win[]; lit: number; win: number; base: number; x1: number; drop?: number } | null; sig: string;
   /** canvas CSS opacity (S02 backdrop 25%, S07 15%) */
   opacity?: number;
@@ -127,6 +127,8 @@ export interface Frame {
   mixB?: { petals: PetalIn[]; view: RoseView; mix: number };
   /** PRICE layer: one Spectral bin per petal instead of the class stack (S06, CTRL) */
   price?: (number | null)[];
+  /** the petals' own prices (light inside a bin) */
+  prices?: number[];
   /** scene-specific marks drawn after the rose (CSS px) */
   extra?: (c: CanvasRenderingContext2D) => void;
 }
@@ -359,7 +361,7 @@ function draw(now: number) {
   debug.labels = [];
   if (f.petals) {
     const draw1 = (c: CanvasRenderingContext2D, ps: PetalIn[], v: RoseView) =>
-      f!.price ? drawPriceRose(c as unknown as Ctx, ps, v, f!.price) : drawRose(c as unknown as Ctx, ps, v);
+      f!.price ? drawPriceRose(c as unknown as Ctx, ps, v, f!.price, f!.prices) : drawRose(c as unknown as Ctx, ps, v);
     let log: RoseLog;
     if (f.mixB && f.mixB.mix > 0 && f.mixB.mix < 1) {
       // crossfade two real states through offscreen layers
@@ -374,7 +376,7 @@ function draw(now: number) {
     debug.log = log;
     // radial-only hook: per petal, the outermost band index with any area (must never exceed the band being filled)
     debug.bandCounts = log.petals.map((p) => p.bands.reduce((a, b, k) => (b.r1 > b.r0 ? k : a), -1));
-    if (f.glow) drawEdgeGlow(ctx as unknown as Ctx, f.petals, f.view, f.glow.color, f.glow.a);
+    if (f.glow) drawEdgeGlow(ctx as unknown as Ctx, f.petals, f.view, f.glow.color, f.glow.a, f.glow.reach);
     debug.labels = f.labels > 0 ? drawHourLabels(ctx as unknown as Ctx, f.petals, f.view, L.label, f.labels * 0.7) : [];
   } else debug.log = null;
   if (f.extra) { ctx.save(); f.extra(ctx); ctx.restore(); }

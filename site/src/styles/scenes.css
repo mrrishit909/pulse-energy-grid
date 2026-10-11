@@ -558,3 +558,4 @@ html[data-motion="off"] .ev-x.is-old, html[data-motion="off"] .ev-x.is-old .ev-a
   .fill-ledger-open { min-height: 0; padding: 4px 0; margin-top: 2px; font-size: 11px; }
   .fill-ledger { top: 540px; }
 }
+.price-legend__flat { margin: 0 0 2px; font: 400 12px / 1.2 var(--font-mono); letter-spacing: var(--tracking-label); color: #FFB26B; }

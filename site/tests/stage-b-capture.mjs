@@ -12,8 +12,8 @@ import { fileURLToPath } from "node:url";
 import { preview } from "vite";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const OUT = join(HERE, "..", "..", "artifacts", "evidence", "stage-b");
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, arr) => (a.startsWith("--") ? [a.slice(2), arr[i + 1]] : null)).filter(Boolean));
+const OUT = args.out ? join(HERE, "..", args.out) : join(HERE, "..", "..", "artifacts", "evidence", "stage-b");
 const BASE = args.base ?? "http://localhost:4331/pulse-energy-grid/";
 const VIEWPORTS = [[1440, 900], [768, 1024], [390, 844]].map(([width, height]) => ({ width, height, label: `${width}x${height}` }))
   .filter((v) => !args.only || args.only.split(",").includes(v.label));

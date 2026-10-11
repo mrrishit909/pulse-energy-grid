@@ -6,7 +6,7 @@ import { Radio } from "../components/Radio";
 import { HourInspector, RoseHit } from "../components/HourInspector";
 import { useArtifact } from "../data/useArtifact";
 import { MODEL, RESULTS } from "../data/artifacts";
-import { copyS06, inspectorSimulated, STRESS_ORDER, stressRows } from "../data/copy";
+import { copyS06, flatNote, inspectorSimulated, STRESS_ORDER, stressRows } from "../data/copy";
 import { store } from "../state/store";
 import { inspector } from "../state/inspector";
 import { useMotion, useProgress } from "../scroll/hooks";
@@ -17,7 +17,7 @@ import { Tween } from "../motion/tween";
 import { DUR, easeSmooth } from "../motion/ease";
 import { dayPeak, fullParams, scenarioDemand } from "../model/lp";
 import { petals, simulatedStack, tweenPetals } from "../model/stack";
-import { drawGhostArcs, drawPriceRose, drawRose, PRICE_BINS, priceBin, radius, type Ctx, type PetalIn } from "../graphics/rose";
+import { binsSpanned, drawGhostArcs, drawPriceRose, drawRose, PRICE_BINS, priceBin, radius, type Ctx, type PetalIn } from "../graphics/rose";
 import { BAS, type BA, type BAModel, type DispatchResults } from "../model/types";
 import { baseView, registerFrame } from "./director";
 import { fitR100, layout } from "./geometry";
@@ -72,15 +72,16 @@ registerFrame("stress", ({ now, L, model }) => {
   const view = baseView(m.display_order, { cx: L.G4.cx, cy: L.G4.cy, R100, rref: radius(Math.max(...s.D), R100), gap: L.gap, lift: ins.scene === "stress" ? ins.hour : null, liftT: 1 });
   return {
     petals: ps, view, labels: 0.7, bloom: 0, glow: null, sky: null,
-    price: st.layer === "price" ? s.bins : undefined,
+    price: st.layer === "price" ? s.bins : undefined, prices: s.r.price_usd_mwh,
     extra: (c) => drawGhostArcs(c as unknown as Ctx, base.D, view),
     sig: `stress|${key}|${st.layer}|${tw.value.toFixed(3)}|${ins.scene}${ins.hour}`,
   };
 });
 
-function PriceLegend() {
+function PriceLegend({ spanned }: { spanned?: number }) {
   return (
     <div className="price-legend" aria-label="Price bins, USD per MWh, model shadow price">
+      {spanned !== undefined && spanned <= 2 ? <p className="price-legend__flat" data-flat>{flatNote(spanned)}</p> : null}
       <div className="price-legend__swatches">{PRICE_BINS.map((b, i) => <span key={b.id} style={{ "--c": b.color } as CSSProperties} className={i === 0 ? "is-p0" : i === 6 ? "is-p6" : ""} />)}</div>
       <div className="price-legend__edges">{PRICE_BINS.map((b) => <span key={b.id}>{b.label}</span>)}</div>
       <p className="price-legend__unit">MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER</p>
@@ -145,7 +146,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
                         </button>
                       ))}
                     </div>
-                    {st.layer === "price" ? <div className="stress-legend"><PriceLegend /></div> : null}
+                    {st.layer === "price" ? <div className="stress-legend"><PriceLegend spanned={cur ? binsSpanned(cur.r.price_usd_mwh, model.bas[st.ba].voll_usd_mwh) : undefined} /></div> : null}
                     <div className="stress-chip"><HonestyChip tag="SIMULATED" detail="MODEL · PRECOMPUTED · PYTHON HiGHS" /></div>
                     {cur ? (
                       <>
@@ -168,7 +169,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
                               const LL = layout(w, h, viewportClass(innerWidth));
                               const R100 = dayR100(model.bas[st.ba], st.dayId, LL.G4);
                               const v = baseView(model.bas[st.ba].display_order, { cx: w * 0.5, cy: h * 0.5, R100: R100 * 0.85, rref: radius(Math.max(...s.D), R100), gap: LL.gap });
-                              if (st.layer === "price") drawPriceRose(c, s.petals, v, s.bins); else drawRose(c, s.petals, v);
+                              if (st.layer === "price") drawPriceRose(c, s.petals, v, s.bins, s.r.price_usd_mwh); else drawRose(c, s.petals, v);
                               drawGhostArcs(c, data.base!.D, v);
                             }} />
                           ) : <p className="state-line state-line--empty">{copyS06.missing}</p>}

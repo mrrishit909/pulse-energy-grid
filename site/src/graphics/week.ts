@@ -18,7 +18,8 @@ export const py = (p: Plot, mw: number) => p.y1 - ((p.y1 - p.y0) * mw) / p.ymax;
  */
 export function drawUnroll(c: CanvasRenderingContext2D, mw: (number | null)[], rose: { cx: number; cy: number; R100: number }, plot: Plot, t: number, first = 0) {
   const bw = (plot.x1 - plot.x0) / plot.hours;
-  c.fillStyle = `rgba(255,255,255,${(0.12 + 0.1 * t).toFixed(3)})`;
+  const tops: [number, number][][] = [];
+  c.fillStyle = `rgba(255,255,255,${(0.08 + 0.12 * t).toFixed(3)})`;
   for (let h = 0; h < 24; h++) {
     const v = mw[first + h];
     if (v === null || v === undefined) continue;
@@ -27,16 +28,24 @@ export function drawUnroll(c: CanvasRenderingContext2D, mw: (number | null)[], r
     const x0 = px(plot, first + h), x1 = x0 + bw * 0.86, top = py(plot, v), bot = plot.y1;
     const L = (a: number, b: number) => a + (b - a) * t;
     c.beginPath();
+    const edge: [number, number][] = [];
     for (let i = 0; i <= 5; i++) {
       const a = a0 + ((a1 - a0) * i) / 5;
       const X = L(rose.cx + Math.cos(a) * r, x0 + ((x1 - x0) * i) / 5), Y = L(rose.cy + Math.sin(a) * r, top);
+      edge.push([X, Y]);
       if (i === 0) c.moveTo(X, Y); else c.lineTo(X, Y);
     }
+    tops.push(edge);
     c.lineTo(L(rose.cx, x1), L(rose.cy, bot));
     c.lineTo(L(rose.cx, x0), L(rose.cy, bot));
     c.closePath();
     c.fill();
   }
+  // the lit rim leads the unroll: each petal's tip (it becomes the bar top), never a radial line
+  c.save();
+  c.strokeStyle = `rgba(255,255,255,${(0.45 + 0.4 * t).toFixed(2)})`; c.lineWidth = 1.5; c.lineCap = "round";
+  for (const e of tops) { c.beginPath(); e.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); c.stroke(); }
+  c.restore();
 }
 
 /** Bars for hours [from, to) rising from the axis (scaleY 0..1, 4ms-equivalent stagger folded into `rise`). */

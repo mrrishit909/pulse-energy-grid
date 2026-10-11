@@ -1,3 +1,4 @@
+import { LINKS } from "../config";
 /**
  * Copy deck (VISUAL_DESIGN 5). Every number on screen is formatted here from a named field
  * (facts.json, dispatch_model.json, a dispatch result, the parity report, window-city.json),
@@ -347,7 +348,10 @@ export const fmtAssumption = (v: unknown) => (typeof v === "number" ? fixed(v, N
 // ---------------------------------------------------------------- S08
 export const copyS08 = {
   paragraph: "Tonight it will happen again: twenty-four times, someone will decide what to burn so the lights stay on. The cheapest answer is known in milliseconds. The cleanest one is a choice.",
-  methodology: "https://github.com/mrrishit909/pulse-energy-grid/blob/main/docs/METHODOLOGY.md",
-  source: "https://github.com/mrrishit909/pulse-energy-grid",
+  methodology: LINKS.methodology,
+  source: LINKS.source,
 };
 export const closingCaption = (d: { date: string; ba: string; served: number; tag: string }) => `${d.date} · ${d.ba} · ${int(d.served)} MWH SERVED`;
+
+/** PRICE layer: when the day's model prices span only 1 or 2 bins, say so (the layer is nearly flat, not a pie). */
+export const flatNote = (n: number) => `PRICES NEARLY FLAT TODAY: ${n} ${n === 1 ? "BIN" : "BINS"}`;
