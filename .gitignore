@@ -1,0 +1,10 @@
+data/raw/
+data/interim/
+.venv/
+__pycache__/
+node_modules/
+site/dist/
+artifacts/evidence/recordings/
+*.part
+.DS_Store
+data/processed/
