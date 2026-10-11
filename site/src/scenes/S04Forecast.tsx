@@ -4,6 +4,7 @@ import { HonestyChip } from "../components/HonestyChip";
 import { ArtifactStatus } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
+import { useNear } from "../scroll/useNear";
 import { EVAL, FACTS, SAMPLES } from "../data/artifacts";
 import { biasLine, calendarCaption, copyS04, coverageLine, MODEL_LABEL, verdict, weekStats } from "../data/copy";
 import { store } from "../state/store";
@@ -115,8 +116,9 @@ registerFrame("forecast", ({ now, p, L, W }) => {
 
 /** S04 "Tomorrow, Unrolled" (interaction 5). */
 export function S04Forecast({ def }: { def: SceneDef }) {
-  const [fsS, retryS] = useArtifact(SAMPLES);
-  const [feS, retryE] = useArtifact(EVAL);
+  const near = useNear(def.id);
+  const [fsS, retryS] = useArtifact(SAMPLES, near);
+  const [feS, retryE] = useArtifact(EVAL, near);
   const [factsS] = useArtifact(FACTS);
   const st = useSyncExternalStore(forecast.subscribe, forecast.get);
   const motion = useMotion();

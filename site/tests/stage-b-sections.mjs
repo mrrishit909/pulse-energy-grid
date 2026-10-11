@@ -81,4 +81,14 @@ export const s08Section = {
     await wait(page, 3200); await jump(page, "closing", 0.9); await wait(page, 1200); await shot("s08-4-p90-caption-links");
   },
 };
-export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02, ...s07Section, ...s08Section };
+export const rmSection = {
+  /** reduced motion (context created with reducedMotion: reduce): static frames in normal flow */
+  async reduced(page, shot, { wait }) {
+    for (const [sel, name] of [[".s01-statement", "rm-1-s01"], [".scene-source .story-card", "rm-2-s02"], [".bite-stills", "rm-3-s03b"], [".fc-still-strip", "rm-4-s04"], [".stress-list", "rm-5-s06"], [".ev-stack", "rm-6-s07"], [".scene-control", "rm-7-ctrl"], [".scene-closing", "rm-8-s08"]]) {
+      await page.evaluate((x) => document.querySelector(x)?.scrollIntoView({ block: "start" }), sel);
+      await wait(page, 1300);
+      await shot(name);
+    }
+  },
+};
+export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02, ...s07Section, ...s08Section, ...rmSection };

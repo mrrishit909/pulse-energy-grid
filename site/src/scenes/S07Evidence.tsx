@@ -2,6 +2,7 @@ import { useState, useSyncExternalStore, type CSSProperties, type ReactNode } fr
 import { Track } from "../scroll/Track";
 import { HonestyChip, type Honesty } from "../components/HonestyChip";
 import { useArtifact } from "../data/useArtifact";
+import { useNear } from "../scroll/useNear";
 import { EVAL, FACTS, MODEL, RECON, RESULTS, TOPOLOGY } from "../data/artifacts";
 import { answerCosts, answerIntervals, answerLp, answerRows, answerSolve, answerWeather, answerWires, fmtAssumption, ledgerCopy, MODEL_LABEL, OBJECTIONS, verdict, wiresCaption } from "../data/copy";
 import { getSolver, subscribeSolver } from "../state/solver";
@@ -93,8 +94,9 @@ function CiBar({ lo, hi, pp }: { lo: number; hi: number; pp: number }) {
 
 /** S07 "How we know": seven exchanges, an objection then an orange answer with a mini-visual. */
 export function S07Evidence({ def }: { def: SceneDef }) {
-  const [fe] = useArtifact(EVAL); const [ff] = useArtifact(FACTS); const [ms] = useArtifact(MODEL); const [rs] = useArtifact(RESULTS);
-  const [tp] = useArtifact(TOPOLOGY); const [rc] = useArtifact(RECON); const [q] = useArtifact(QUALITY); const [mt] = useArtifact(META);
+  const near = useNear(def.id);
+  const [fe] = useArtifact(EVAL, near); const [ff] = useArtifact(FACTS); const [ms] = useArtifact(MODEL); const [rs] = useArtifact(RESULTS);
+  const [tp] = useArtifact(TOPOLOGY, near); const [rc] = useArtifact(RECON); const [q] = useArtifact(QUALITY); const [mt] = useArtifact(META);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const motion = useMotion();
   const [k, setK] = useState(0);

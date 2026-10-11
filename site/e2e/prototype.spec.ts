@@ -115,7 +115,7 @@ test.describe("S05 Fill the Day", () => {
   test("the worker runs all 108 parity vectors on this build and the badge shows the real count", async ({ page }) => {
     await page.goto("#dispatch");
     await page.keyboard.press("Escape");
-    const badge = page.locator(".parity");
+    const badge = page.locator(".fill-status .parity");
     await expect(badge).toHaveAttribute("data-parity-n", "108", { timeout: 60_000 });
     const s = await peg(page).solver();
     expect(s.parity.passed).toBe(108);
@@ -162,7 +162,7 @@ test.describe("S05 Fill the Day", () => {
     await expect(page.locator(".fill-status [data-source]")).toHaveText("LIVE SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS");
     await expect(page.locator(".fill-chip")).toContainText("PRECOMPUTED");
     await expect(page.locator(".fill-status")).not.toContainText("SOLVED IN BROWSER");
-    await expect(page.getByRole("button", { name: "RETRY" })).toBeVisible();
+    await expect(page.locator(".fill-status").getByRole("button", { name: "RETRY" })).toBeVisible();
     expect((await peg(page).fill()).source).toBe("precomputed");
   });
 

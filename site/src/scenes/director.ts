@@ -14,7 +14,8 @@ import { clamp } from "../lib/math";
 import { getProgress, locate } from "../scroll/engine";
 import { motionEnabled } from "../state/motion";
 import { getStore } from "../data/loader";
-import { MODEL } from "../data/artifacts";
+import { DEMAND, FUEL_MIX, MODEL } from "../data/artifacts";
+import { biteStack, bitePeak } from "../model/bite";
 import { city, fill } from "../state/scenes";
 import { inspector } from "../state/inspector";
 import { drawEdgeGlow, drawHourLabels, drawPriceRose, drawRose, radius, resetRoseCache, type Ctx, type PetalIn, type RoseLog, type RoseView } from "../graphics/rose";
@@ -205,10 +206,21 @@ function demandFrame(now: number, m: BAModel): Frame | null {
   const wkey = `${W}x${H}`;
   if (!winCache || winCache.key !== wkey) winCache = { key: wkey, list: windows(sky) };
   debug.lit = Math.round(litTw.value); debug.hour = hour;
+  // exit (p 0.94-1): the skyline sinks, the rose moves G2 -> G3 and becomes S03b's first state (January's mean day)
+  const p = getProgress("demand");
+  const x = motionEnabled() ? easeSymmetric(windowed(p, 0.94, 1)) : 0;
+  const fm = getStore(FUEL_MIX).state, dp = getStore(DEMAND).state;
+  let outPs = ps, outView = view;
+  if (x > 0 && fm.status === "ready" && dp.status === "ready" && L) {
+    const b = petals(biteStack(fm.data, dp.data, c.ba, 1, null, 0), () => 1);
+    outPs = tweenPetals(ps, b, () => x, x);
+    const cam = camera({ cx: view.cx, cy: view.cy, R100: view.R100 }, { cx: L.G3.cx, cy: L.G3.cy, R100: fitR100(L.G3, bitePeak(dp.data, c.ba)) }, x);
+    outView = { ...view, ...cam, rref: radius(Math.max(...b.map((q) => q.demand)), cam.R100), lift: x > 0.5 ? null : view.lift };
+  }
   return {
-    petals: ps, view, labels: 1, bloom: 0, glow: null,
-    sky: { list: winCache.list, lit: litTw.value, win: sky.win, base: sky.base, x1: Math.max(...winCache.list.map((w) => w.x)) + sky.pitch },
-    sig: `demand|${key}|${hour}|${liftTw.value.toFixed(3)}|${litTw.value.toFixed(2)}|${cityMix.value.toFixed(3)}`,
+    petals: outPs, view: outView, labels: 1, bloom: 0, glow: null,
+    sky: { list: winCache.list, lit: litTw.value, win: sky.win, base: sky.base, x1: Math.max(...winCache.list.map((w) => w.x)) + sky.pitch, drop: x * 320 },
+    sig: `demand|${key}|${hour}|${liftTw.value.toFixed(3)}|${litTw.value.toFixed(2)}|${cityMix.value.toFixed(3)}|${x.toFixed(4)}`,
   };
 }
 

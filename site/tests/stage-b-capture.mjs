@@ -82,7 +82,7 @@ async function run() {
       page.on("pageerror", (e) => log.push(`${vp.label} ${sec} pageerror ${e.message}`));
       const shot = async (name, p = page) => { await p.screenshot({ path: join(dir, `${name}.png`) }); log.push(`${vp.label}/${name}.png`); };
       if (sec !== "fixes") {
-        await page.goto(`${BASE}?quality=high`);
+        await page.goto(`${BASE}?quality=high`, reduced ? { waitUntil: "networkidle" } : {});
         await page.evaluate(() => document.fonts.ready);
         await page.keyboard.press("Escape");
         await page.waitForFunction(() => window.__peg && !window.__peg.introStats().playing, null, { timeout: 20000 });

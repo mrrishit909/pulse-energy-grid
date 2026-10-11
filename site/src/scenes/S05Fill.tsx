@@ -21,6 +21,7 @@ import { fitR100, layout } from "./geometry";
 import { useViewport } from "./useViewport";
 import { Still } from "./Still";
 import { HourInspector, RoseHit } from "../components/HourInspector";
+import { Sheet } from "../components/Sheet";
 import { viewportClass } from "../graphics/canvas";
 import type { SceneDef } from "../app/scenes";
 
@@ -46,6 +47,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
   const [draft, setDraft] = useState<Partial<Record<LabId, number>>>({});
   const soc = useRef<SVGPolylineElement>(null);
   const lab = useRef<HTMLDivElement>(null);
+  const [sheet, setSheet] = useState(false);
 
   const m = ms.status === "ready" ? ms.data.bas[f.ba] : null;
   const n = m?.display_order.length ?? 9;
@@ -134,6 +136,18 @@ export function S05Fill({ def }: { def: SceneDef }) {
                     <p className={`readout-line tnum ${show.rows >= n ? "is-in" : ""}`}>{co2Line(r)}</p>
                     {unservedLine(r) ? <p className="readout-line readout-line--warn tnum">{unservedLine(r)}</p> : null}
                     {isM ? <p className="readout-line tnum">MODEL BATTERY SHIFTED {int(r.battery.discharge_mw.reduce((a, b) => a + b, 0))} MWH</p> : null}
+                    {isM ? (
+                      <>
+                        <button type="button" className="btn-square fill-ledger-open" onClick={() => setSheet(true)}>FULL LEDGER</button>
+                        <Sheet open={sheet} onClose={() => setSheet(false)} title="Dispatch ledger" returnFocus={() => document.querySelector<HTMLElement>(".fill-ledger-open")}>
+                          <ul className="ledger ledger--sheet" aria-label="Dispatch ledger, centre outward">
+                            {ledger.map((row) => { const l = ledgerLine(row); return <li key={row.key} className="is-in"><span className="ledger__label">{row.label}</span><span className="tnum">{l.mwh}</span><span className="tnum">{l.cost}</span></li>; })}
+                          </ul>
+                          <p className="readout-line tnum">{totalLine(r)} ✓</p>
+                          <p className="fill-footer">{copyS05.footer(data.bas[f.ba])}</p>
+                        </Sheet>
+                      </>
+                    ) : null}
                     {E > 0 ? <p className={`soc-cap ${show.rows >= n ? "is-in" : ""}`}>MODEL BATTERY STATE OF CHARGE · 00 TO 24H · {int(socMin)} TO {int(E)} MWH</p> : null}
                     {E > 0 ? (
                       <svg className={`soc ${show.rows >= n ? "is-in" : ""}`} viewBox="-2 -4 364 68" role="img" aria-label="Model battery state of charge over the day">
