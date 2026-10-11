@@ -12,7 +12,7 @@ import { nearestPreset, sameParams, setPreset as setLabPreset, useLiveSolve } fr
 import { useMotion, useProgress } from "../scroll/hooks";
 import { windowed } from "../motion/progress";
 import { percent } from "../data/loader";
-import { fullParams, scenarioDemand } from "../model/lp";
+import { dayPeak, fullParams, scenarioDemand } from "../model/lp";
 import { simulatedStack, petals } from "../model/stack";
 import { drawHourLabels, drawRose, FUEL, radius, TOKEN } from "../graphics/rose";
 import { int } from "../model/format";
@@ -36,7 +36,7 @@ const fmtValue = (c: RangeControl, v: number) => (c.unit === "x" ? `×${v.toFixe
 /** S05 "Fill the Day" (interaction 6): radial merit-order fill, the rim beat, then a live HiGHS lab. */
 export function S05Fill({ def }: { def: SceneDef }) {
   const [ms, retryM] = useArtifact(MODEL);
-  const [rs, retryR] = useArtifact(RESULTS);
+  const [rs, retryR] = useArtifact(RESULTS, false);
   const f = useSyncExternalStore(fill.subscribe, fill.get);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const motion = useMotion();
@@ -184,7 +184,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
                 const D = scenarioDemand(m, day, f.params!);
                 const s = simulatedStack(m.display_order, day, D, r);
                 const peak = Math.max(...D);
-                const R4 = fitR100(LL.G4, peak);
+                const R4 = fitR100(LL.G4, dayPeak(m, day));
                 const v = { cx: LL.G4.cx, cy: LL.G4.cy, R100: R4, rref: radius(peak, R4), gap: LL.gap, ghost: 0.08, bands: 1, marks: 1, beat: 0, lift: null, liftT: 0, glow: LL.glow, keys: s.keys };
                 const ps = petals(s, () => 1);
                 drawRose(ctx, ps, v);

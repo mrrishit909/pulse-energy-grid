@@ -42,6 +42,16 @@ test("seams: S02 hands the rose to S03a, and S03a hands it to S03b, without a ju
   expect(Math.abs(c.cx - d.cx)).toBeLessThan(1); expect(Math.abs(c.cy - d.cy)).toBeLessThan(1); expect(Math.abs(c.R100 - d.R100)).toBeLessThan(1);
 });
 
+test("seams: S05 -> S06 (G4 = G5, no camera move) and S06 -> S07 agree within 1px", async ({ page }) => {
+  await open(page);
+  await page.waitForFunction(() => (window as any).__peg.ready(["dispatch_results.json"]), null, { timeout: 20_000 });
+  const at = async (id: string, p: number) => { await P(page).jump(id, p); await page.waitForTimeout(600); return page.evaluate(() => (window as any).__peg.view()); };
+  for (const [a, pa, b, pb] of [["dispatch", 1, "stress", 0], ["stress", 1, "evidence", 0]] as const) {
+    const x = await at(a, pa), y = await at(b, pb);
+    expect(Math.abs(x.cx - y.cx), `${a}->${b} cx`).toBeLessThan(1); expect(Math.abs(x.cy - y.cy)).toBeLessThan(1); expect(Math.abs(x.R100 - y.R100), `${a}->${b} R100`).toBeLessThan(1);
+  }
+});
+
 test("S03b: NET LOAD and the year steps; the 2025 caption is marked partial", async ({ page }) => {
   await open(page);
   await P(page).jump("netload", 0.95);
@@ -99,6 +109,8 @@ test("CTRL: a non-preset combination solves in the browser and cost == objective
   await page.waitForFunction((s) => (window as any).__peg.ctrl().seq >= s + 1 && (window as any).__peg.ctrl().params.heat_wave_c === 2.5, seq, { timeout: 30_000 });
   await page.waitForFunction(() => (window as any).__peg.ctrl().source === "browser" && (window as any).__peg.ctrl().params.battery_power_mw === 3700);
   const ul = page.locator(".ctrl-lines");
+  // the DOM shows the result of these exact params (not a stale one still on screen)
+  await page.waitForFunction(() => Number(document.querySelector(".ctrl-lines")?.getAttribute("data-objective")) === (window as any).__peg.ctrl().objective);
   const obj = Number(await ul.getAttribute("data-objective")), sum = Number(await ul.getAttribute("data-breakdown-sum"));
   expect(Math.abs(obj - sum)).toBeLessThanOrEqual(1e-6 * obj);
   await expect(ul.locator('[data-line="cost"]')).toContainText("= SOLVER OBJECTIVE ✓");
@@ -108,18 +120,60 @@ test("CTRL: a non-preset combination solves in the browser and cost == objective
   await page.waitForFunction(() => { const c = (window as any).__peg.ctrl(); return c.ba === "CISO" && c.dayId === "winter" && c.params.renewables_scale === 1 && c.params.battery_power_mw === 1500; });
 });
 
-test("CTRL: a 1 microsecond time limit is a handled non-Optimal status; cancel keeps the parity badge and recovers", async ({ page }) => {
+test("CTRL: a 1 microsecond time limit is a handled non-Optimal status that keeps the last optimal result", async ({ page }) => {
   await open(page);
   await P(page).jump("control");
   await page.waitForFunction(() => (window as any).__peg.ctrl().source === "browser" && (window as any).__peg.solver().parity, null, { timeout: 60_000 });
   const before = await P(page).ctrl();
   await page.evaluate(() => { (window as any).__peg.setCtrlTimeLimit(0.000001); (window as any).__peg.setCtrl({ battery_hours: 5 }); });
   await page.waitForFunction(() => /TIME LIMIT REACHED/.test((window as any).__peg.ctrl().check ?? ""));
-  expect((await P(page).ctrl()).objective).toBe(before.objective); // the last optimal result stays
-  await page.evaluate(() => { (window as any).__peg.setCtrlTimeLimit(10); (window as any).__peg.setCtrl({ battery_hours: 6 }); (window as any).__peg.cancel(); });
-  await page.waitForFunction(() => /CANCELLED/.test((window as any).__peg.ctrl().check ?? "") || (window as any).__peg.ctrl().params.battery_hours === 6);
+  expect((await P(page).ctrl()).objective).toBe(before.objective);
+  await expect(page.locator(".ctrl-status [data-check]")).toContainText("TIME LIMIT REACHED");
+});
+
+test("CTRL: cancel terminates an in-flight solve, re-creates the worker, keeps the cached parity and does not count as a failure", async ({ page }) => {
+  await open(page);
+  await P(page).jump("control");
+  await page.waitForFunction(() => (window as any).__peg.ctrl().source === "browser" && (window as any).__peg.solver().parity, null, { timeout: 60_000 });
+  const attempt = (await page.evaluate(() => (window as any).__peg.solver())).attempt;
+  const r = await page.evaluate(() => (window as any).__peg.cancelProbe());
+  expect(r).toEqual({ cancelled: true, cb: "CANCELLED" });
   await page.waitForFunction(() => (window as any).__peg.solver().status === "ready", null, { timeout: 30_000 });
-  expect((await page.evaluate(() => (window as any).__peg.solver())).parity.passed).toBe(108);
+  const seen = await page.evaluate(() => (window as any).__peg.cancelSeen());
+  expect(seen.slice(0, 3)).toEqual(["idle", "loading", "ready"]);
+  const s = await page.evaluate(() => (window as any).__peg.solver());
+  expect(s.parity.passed).toBe(108); // cached: no re-run, never blanked
+  expect(s.status).not.toBe("disabled");
+  expect(s.attempt).toBe(attempt + 1); // a fresh worker, not a failure (failures would lead to "disabled")
+});
+
+test("states: a 404 on forecast_eval shows COULD NOT LOAD with RETRY in S04 and S07, and RETRY recovers", async ({ page }) => {
+  let block = true;
+  await page.route("**/data/forecast_eval.json", (r) => (block ? r.fulfill({ status: 404, body: "" }) : r.continue()));
+  await page.route("**/data/fuel_mix.json", (r) => r.fulfill({ status: 404, body: "" }));
+  await open(page);
+  await P(page).jump("forecast", 0.9);
+  const err = page.locator(".scene-forecast [role=alert]").filter({ hasText: "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 404)" });
+  await expect(err).toBeVisible({ timeout: 20_000 });
+  await P(page).jump("evidence", 0.05);
+  await expect(page.locator('[data-exchange="1"] [role=alert]')).toContainText("COULD NOT LOAD FORECAST_EVAL.JSON");
+  await P(page).jump("source", 0.36);
+  await page.waitForTimeout(600);
+  await expect(page.locator(".scene-source [role=alert]").first()).toContainText("COULD NOT LOAD FUEL_MIX.JSON (HTTP 404)");
+  block = false;
+  await P(page).jump("forecast", 0.9);
+  await page.locator(".scene-forecast [role=alert] button").first().click();
+  await expect(page.locator('.fc-card[data-ba="CISO"]')).toBeVisible({ timeout: 20_000 });
+});
+
+test("load schedule: nothing but facts and dispatch_model before the intro ends (no results, samples, wasm)", async ({ page, context }) => {
+  const reqs: string[] = [];
+  context.on("request", (r) => reqs.push(r.url()));
+  await page.goto("?quality=high");
+  await page.waitForTimeout(1500); // inside the 4.6s intro
+  const data = reqs.filter((u) => /\/data\//.test(u)).map((u) => u.split("/data/")[1]);
+  expect(data.sort()).toEqual(["dispatch_model.json", "facts.json"]);
+  expect(reqs.filter((u) => /\.wasm|solver\.worker/.test(u))).toEqual([]);
 });
 
 test("Hour Inspector: a click on a petal opens it, the balance identity holds, Esc returns focus", async ({ page }) => {

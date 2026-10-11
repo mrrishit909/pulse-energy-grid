@@ -57,14 +57,12 @@ export const FUEL: Record<string, Fuel> = {
   peaker: { c0: "#3A0F06", c1: "#D9481F" },
   coal: { c0: "#1E1E1E", c1: "#5A5A5A" },
   oil: { c0: "#1E1E1E", c1: "#5A5A5A", hatch: true },
-  /** S04: an OBSERVED demand silhouette (white, low alpha) that still carries the rim glow before it unrolls */
-  silhouette: { c0: "rgba(255,255,255,0.05)", c1: "rgba(255,255,255,0.2)" },
 };
 /** Band key (EIA fuel code or dispatch class id) -> fuel token. */
 export const TOKEN: Record<string, keyof typeof FUEL> = {
   SUN: "solar", WND: "wind", NUC: "nuclear", WAT: "hydro", IMPORTS: "imports", OTH: "other", NG: "gas", COL: "coal", OIL: "oil",
   solar: "solar", wind: "wind", nuclear: "nuclear", hydro: "hydro", imports: "imports", other: "other", battery_discharge: "battery",
-  ccgt: "gas", peaker: "peaker", coal: "coal", oil: "oil", actual: "silhouette",
+  ccgt: "gas", peaker: "peaker", coal: "coal", oil: "oil",
 };
 const SINK_CHARGE = "#9B5CFF", SINK_EXPORT = "#9A9A9A", CURTAIL = "#8FD9FF", UNSERVED_EDGE = "#FF6A4D";
 

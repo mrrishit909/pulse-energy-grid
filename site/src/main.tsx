@@ -9,7 +9,7 @@ import { getProgress, jumpTo, startEngine } from "./scroll/engine";
 import { debug, intro, introTime, quality } from "./scenes/director";
 import { layout } from "./scenes/geometry";
 import { city, ctrl, fill } from "./state/scenes";
-import { cancelSolve } from "./state/solver";
+import { cancelSolve, requestSolve, subscribeSolver } from "./state/solver";
 import { openHour } from "./state/inspector";
 import { liveLog } from "./scenes/LiveRose";
 import { getSolver } from "./state/solver";
@@ -45,6 +45,18 @@ Object.assign(window, {
     setCtrl: (p: Record<string, number | string>) => { const c = ctrl.get(); if (c.params) ctrl.set({ params: { ...c.params, ...p }, presetId: null }); },
     setCtrlTimeLimit: (t: number) => ctrl.set({ timeLimit: t }),
     cancel: () => cancelSolve(),
+    /** A real in-flight cancel: post a solve and cancel it in the same synchronous turn (the worker is ready, so it is in flight). */
+    cancelProbe: () => {
+      const c = ctrl.get();
+      const seen: string[] = [];
+      const un = subscribeSolver(() => { const s = getSolver().status; if (seen.at(-1) !== s) seen.push(s); });
+      let cb = "none";
+      requestSolve({ ba: c.ba, dayId: c.dayId, params: { ...c.params!, battery_hours: 7 } }, (r) => { cb = "error" in r ? r.error : "solved"; });
+      const cancelled = cancelSolve();
+      (window as unknown as { __pegCancel: { seen: string[]; un: () => void } }).__pegCancel = { seen, un };
+      return { cancelled, cb };
+    },
+    cancelSeen: () => (window as unknown as { __pegCancel?: { seen: string[] } }).__pegCancel?.seen ?? [],
     openHour: (scene: string, h: number) => openHour(scene, h),
     liveRose: () => (liveLog.log ? { R100: liveLog.R100, frames: liveLog.frames, petals: liveLog.log.petals.length } : null),
     setBite: (p: Partial<ReturnType<typeof bite.get>>) => bite.set(p),

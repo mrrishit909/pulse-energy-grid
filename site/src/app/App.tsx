@@ -62,9 +62,12 @@ export function App() {
     getStore(FACTS).prefetch(); getStore(MODEL).prefetch();
     startDirector(rose.current!);
     resolveInitialHash();
-    // idle after the intro: the mid-page artifacts (MOTION_SYSTEM 9.3)
-    idle(() => { for (const a of [RESULTS, DEMAND, FUEL_MIX, WEATHER, RECON, QUALITY, META]) getStore(a as never).prefetch(); });
   }, []);
+  // idle AFTER the intro: the mid-page artifacts (MOTION_SYSTEM 9.3); nothing but facts + dispatch_model before it ends
+  useEffect(() => {
+    if (intro.playing) return;
+    idle(() => { for (const a of [RESULTS, DEMAND, FUEL_MIX, WEATHER, RECON, QUALITY, META]) getStore(a as never).prefetch(); });
+  }, [intro.playing]);
   // S03b entry: the forecast artifacts; S04 onward: the solver and the network card
   useEffect(() => {
     const i = SCENES.findIndex((s) => s.id === active);

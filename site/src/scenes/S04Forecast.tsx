@@ -82,8 +82,8 @@ registerFrame("forecast", ({ now, p, L, W }) => {
   const peak = Math.max(...(slice(d.w.actual_mw, d.first, 24).filter((v) => v !== null) as number[]));
   const R100 = fitR100(L.G3, peak);
   const firstDay = d.actual.slice(0, 24);
-  const petalsDay = firstDay.map((v, h) => ({ hour: h, bands: [[0, v ?? 0]] as [number, number][], demand: v ?? 0, served: v ?? 0, charge: 0, exports: 0, residual: 0, unserved: 0, curtailed: 0 }));
-  const view = baseView(["actual"], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: L.gap, ghost: 0.06, marks: 0 });
+  const petalsDay = firstDay.map((v, h) => ({ hour: h, bands: [] as [number, number][], demand: v ?? 0, served: v ?? 0, charge: 0, exports: 0, residual: 0, unserved: 0, curtailed: 0 }));
+  const view = baseView([], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: L.gap, ghost: 0.12, bands: 0, marks: 0 });
   const label = L.label;
   const dayLabels = M ? [days(d.w)[st.mDay]!] : days(d.w);
   const shown = seriesAt(step, d.b.best_model).filter((id) => !st.hidden.includes(id));

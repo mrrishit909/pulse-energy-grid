@@ -24,6 +24,11 @@ export function scenarioDemand(m: BAModel, day: Day, p: Params): number[] {
   return day.demand_mw.map((d, h) => d * (1 + p.demand_growth_pct / 100) + shock[h]!);
 }
 
+/** The largest demand of a reference day across its preset scenarios: S05, S06 and S07 share one R100 (G4 = G5, no camera move). */
+export function dayPeak(m: BAModel, day: Day) {
+  return Math.max(...m.scenarios.flatMap((s) => scenarioDemand(m, day, fullParams(m, s.params))));
+}
+
 export interface LP {
   cost: Float64Array; lb: Float64Array; ub: Float64Array;
   rows: { idx: number[]; val: number[]; lo: number; hi: number }[];

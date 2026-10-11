@@ -66,7 +66,7 @@ export function StoryDeck({ track, cards }: { track: string; cards: DeckCard[] }
       // travelling diagonally into the centre as the row shifts (reference behaviour)
       const y = j === 0 ? rise0 * 0.6 * vh : (1 - easeSymmetric(clamp(k - (j - 1)))) * vh;
       c.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
-      c.style.opacity = exit > 0 ? String(1 - 0.6 * exit) : "";
+      c.style.opacity = exit > 0 ? String(1 - exit) : ""; // the deck has fully left when the rose arrives (S03a seam)
     });
     const cur = Math.round(k);
     const seg = Math.floor(k);

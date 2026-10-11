@@ -82,7 +82,7 @@ function Controls({ m, p, onParams, onPreset, presetId, layer, setLayer, tl, set
 /** CTRL "The Control Room" (interaction 8): the free live simulation, normal flow, not pinned. */
 export function Ctrl({ def }: { def: SceneDef }) {
   const [ms, retryM] = useArtifact(MODEL);
-  const [rs, retryR] = useArtifact(RESULTS);
+  const [rs, retryR] = useArtifact(RESULTS, false);
   const st = useSyncExternalStore(ctrl.subscribe, ctrl.get);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const vp = useViewport();

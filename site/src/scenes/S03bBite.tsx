@@ -101,8 +101,8 @@ function BiteStill({ fm, dp, ba, month, year, label }: { fm: FuelMix; dp: Demand
 
 /** S03b "The Bite" (interaction 3). */
 export function S03bBite({ def }: { def: SceneDef }) {
-  const [fmS, retryF] = useArtifact(FUEL_MIX);
-  const [dpS, retryD] = useArtifact(DEMAND);
+  const [fmS, retryF] = useArtifact(FUEL_MIX, false);
+  const [dpS, retryD] = useArtifact(DEMAND, false);
   const [factsS] = useArtifact(FACTS);
   const st = useSyncExternalStore(bite.subscribe, bite.get);
   const motion = useMotion();

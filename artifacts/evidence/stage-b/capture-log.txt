@@ -235,3 +235,93 @@
 390x844/s01-2-p55-statement.png
 390x844/s01-3-p90-cards.png
 390x844 s01 external requests: none
+1440x900/fix1-s00-t2600.png
+1440x900/fix1-s00-t3500.png
+1440x900/fix2-s03a-h12.png
+1440x900/fix2-s03a-h19.png
+1440x900/fix2-s03a-h19-erco-summer.png
+1440x900/fix4-s05-default.png
+1440x900 labels at S05: [[0,934,725],[6,718,409],[12,1010,150],[18,1283,483]]
+1440x900 fixes external requests: none
+1440x900/s02-1-card1.png
+1440x900/s02-2-card2.png
+1440x900/s02-3-card3.png
+1440x900/s02-4-card4.png
+1440x900/s02-5-exit-to-s03a.png
+1440x900 s02 external requests: none
+1440x900/s04-1-rose-p03.png
+1440x900/s04-2-unrolling-p24.png
+1440x900/s04-3-line-forms-p50.png
+1440x900/s04-4-verdict-hover-ciso.png
+1440x900/s04-5-erco-raw.png
+1440x900 s04 external requests: none
+1440x900/s06-1-renewables-up.png
+1440x900/s06-4-heat-wave.png
+1440x900/s06-5-outage.png
+1440x900/s06-2-demand-growth-erco-summer-price.png
+1440x900 s06 external requests: none
+1440x900/s07-1-forecast-vs-eia.png
+1440x900/s07-4-the-wires.png
+1440x900/s07-6-browser-solves.png
+1440x900/s07-7-every-row.png
+1440x900 s07 external requests: none
+768x1024/fix1-s00-t2600.png
+768x1024/fix1-s00-t3500.png
+768x1024/fix2-s03a-h12.png
+768x1024/fix2-s03a-h19.png
+768x1024/fix2-s03a-h19-erco-summer.png
+768x1024/fix4-s05-default.png
+768x1024 labels at S05: [[0,351,635],[6,204,420],[12,402,245],[18,587,471]]
+768x1024 fixes external requests: none
+768x1024/s02-1-card1.png
+768x1024/s02-2-card2.png
+768x1024/s02-3-card3.png
+768x1024/s02-4-card4.png
+768x1024/s02-5-exit-to-s03a.png
+768x1024 s02 external requests: none
+768x1024/s04-1-rose-p03.png
+768x1024/s04-2-unrolling-p24.png
+768x1024/s04-3-line-forms-p50.png
+768x1024/s04-4-verdict-hover-ciso.png
+768x1024/s04-5-erco-raw.png
+768x1024 s04 external requests: none
+768x1024/s06-1-renewables-up.png
+768x1024/s06-4-heat-wave.png
+768x1024/s06-5-outage.png
+768x1024/s06-2-demand-growth-erco-summer-price.png
+768x1024 s06 external requests: none
+768x1024/s07-1-forecast-vs-eia.png
+768x1024/s07-4-the-wires.png
+768x1024/s07-6-browser-solves.png
+768x1024/s07-7-every-row.png
+768x1024 s07 external requests: none
+390x844/fix1-s00-t2600.png
+390x844/fix1-s00-t3500.png
+390x844/fix2-s03a-h12.png
+390x844/fix2-s03a-h19.png
+390x844/fix2-s03a-h19-erco-summer.png
+390x844/fix4-s05-default.png
+390x844 labels at S05: [[0,170,501],[6,64,347],[12,206,222],[18,338,383]]
+390x844 fixes external requests: none
+390x844/s02-1-card1.png
+390x844/s02-2-card2.png
+390x844/s02-3-card3.png
+390x844/s02-4-card4.png
+390x844/s02-5-exit-to-s03a.png
+390x844 s02 external requests: none
+390x844/s04-1-rose-p03.png
+390x844/s04-2-unrolling-p24.png
+390x844/s04-3-line-forms-p50.png
+390x844/s04-4-verdict-hover-ciso.png
+390x844/s04-5-erco-raw.png
+390x844 s04 external requests: none
+390x844/s06-1-renewables-up.png
+390x844/s06-4-heat-wave.png
+390x844/s06-5-outage.png
+390x844/s06-2-demand-growth-erco-summer-price.png
+390x844 s06 external requests: none
+390x844/s07-1-forecast-vs-eia.png
+390x844/s07-4-the-wires.png
+390x844/s07-6-browser-solves.png
+390x844/s07-7-every-row.png
+390x844 s07 external requests: none

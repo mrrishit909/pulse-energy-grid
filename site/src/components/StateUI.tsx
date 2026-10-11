@@ -57,3 +57,10 @@ export function ArtifactStatus<T>({ file, state, retry, empty, children }: {
       return <>{children(state.data)}</>;
   }
 }
+
+/** Several artifacts at once: the first one not ready decides the state line (loading %, error + RETRY, empty). */
+export function AllReady({ items, children }: { items: { file: string; state: LoadState<unknown>; retry: () => void }[]; children: () => ReactNode }) {
+  const bad = items.find((i) => i.state.status !== "ready");
+  if (!bad) return <>{children()}</>;
+  return <ArtifactStatus file={bad.file} state={bad.state} retry={bad.retry} empty="UNAVAILABLE">{() => null}</ArtifactStatus>;
+}

@@ -1,6 +1,7 @@
 import { useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip, type Honesty } from "../components/HonestyChip";
+import { ArtifactStatus } from "../components/StateUI";
 import { useArtifact } from "../data/useArtifact";
 import { useNear } from "../scroll/useNear";
 import { EVAL, FACTS, MODEL, RECON, RESULTS, TOPOLOGY } from "../data/artifacts";
@@ -11,6 +12,7 @@ import { getStore } from "../data/loader";
 import { stepState, windowed } from "../motion/progress";
 import { fixed } from "../model/format";
 import { petals, simulatedStack } from "../model/stack";
+import { dayPeak } from "../model/lp";
 import { radius } from "../graphics/rose";
 import LAYOUT from "../data/ieee14-layout.json";
 import type { ForecastEval, Topology } from "../model/types";
@@ -27,7 +29,7 @@ registerFrame("evidence", ({ p, L, model }) => {
   const s = simulatedStack(m.display_order, day, day.demand_mw, r);
   const peak = Math.max(...day.demand_mw);
   const e = windowed(p, 0, 0.08);
-  const cam = camera({ cx: L.G4.cx, cy: L.G4.cy, R100: fitR100(L.G4, peak) }, L.G1, e);
+  const cam = camera({ cx: L.G4.cx, cy: L.G4.cy, R100: fitR100(L.G4, dayPeak(m, day)) }, L.G1, e);
   return { petals: petals(s, () => 1), view: baseView(s.keys, { ...cam, rref: radius(peak, cam.R100), gap: L.gap }), labels: 0, bloom: 0, glow: null, sky: null, opacity: 1 - 0.85 * e, sig: `evidence|${e.toFixed(3)}` };
 });
 
@@ -95,24 +97,25 @@ function CiBar({ lo, hi, pp }: { lo: number; hi: number; pp: number }) {
 /** S07 "How we know": seven exchanges, an objection then an orange answer with a mini-visual. */
 export function S07Evidence({ def }: { def: SceneDef }) {
   const near = useNear(def.id);
-  const [fe] = useArtifact(EVAL, near); const [ff] = useArtifact(FACTS); const [ms] = useArtifact(MODEL); const [rs] = useArtifact(RESULTS);
-  const [tp] = useArtifact(TOPOLOGY, near); const [rc] = useArtifact(RECON); const [q] = useArtifact(QUALITY); const [mt] = useArtifact(META);
+  const [fe, rFe] = useArtifact(EVAL, near); const [ff] = useArtifact(FACTS); const [ms] = useArtifact(MODEL); const [rs] = useArtifact(RESULTS, false);
+  const [tp, rTp] = useArtifact(TOPOLOGY, near); const [rc] = useArtifact(RECON, false); const [q] = useArtifact(QUALITY, false); const [mt] = useArtifact(META, false);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const motion = useMotion();
   const [k, setK] = useState(0);
   useProgress(def.id, (p) => setK((o) => stepState(o, p, STEPS)));
   const shown = motion ? k : 6;
   const E: ForecastEval | null = fe.status === "ready" ? fe.data : null;
+  const evalLine = fe.status === "ready" ? null : <ArtifactStatus file="forecast_eval.json" state={fe} retry={rFe} empty="UNAVAILABLE">{() => null}</ArtifactStatus>;
   const answers: { body: ReactNode; tag: Honesty; detail: string }[] = [
     { tag: "DERIVED", detail: "PAIRED BOOTSTRAP, 95% CI", body: E ? (
       <>
         {(["CISO", "ERCO"] as const).map((ba) => { const v = verdict(E, ba); const c = E.bas[ba].comparison_vs_eia; return <div key={ba} className="ev-v"><p>{v.serif}</p><CiBar lo={c.mape_diff_ci95[0]} hi={c.mape_diff_ci95[1]} pp={c.mape_diff_pp} /><p className="ev-small tnum">{c.statement.toUpperCase()}</p></div>; })}
         <table className="ev-table tnum"><thead><tr><th>TEST MAPE</th><th>CISO</th><th>ERCO</th></tr></thead>
           <tbody>{["seasonal_naive", "eia_day_ahead", "eia_debiased", "gbm", "gbm_stacked"].map((id) => <tr key={id}><td>{MODEL_LABEL[id]}</td><td>{fixed(E.bas.CISO.models[id]!.mape_pct, 2)}%</td><td>{fixed(E.bas.ERCO.models[id]!.mape_pct, 2)}%</td></tr>)}</tbody></table>
-      </>) : null },
-    { tag: "DERIVED", detail: "COUNTED TEST HOURS", body: E ? (["CISO", "ERCO"] as const).map((ba) => { const iv = E.bas[ba].intervals.gbm!; return <div key={ba}><p>{answerIntervals(E, ba)}</p><Bars max={100} rows={[{ label: "RAW", v: iv.raw_coverage_pct }, { label: "CALIBRATED", v: iv.cqr_coverage_pct }, { label: "NOMINAL", v: iv.nominal_pct, tone: "nominal" }]} /></div>; }) : null },
-    { tag: "PREDICTED", detail: "UPPER BOUND · NOT AVAILABLE AT FORECAST TIME", body: E ? (["CISO", "ERCO"] as const).map((ba) => <div key={ba}><p>{answerWeather(E, ba)}</p><Bars max={6} rows={[{ label: "OURS", v: E.bas[ba].models.gbm!.mape_pct }, { label: "PERFECT WEATHER", v: E.bas[ba].models.gbm_perfect_weather!.mape_pct, tone: "bound" }]} /></div>) : null },
-    { tag: tp.status === "ready" ? (tp.data.tag as Honesty) : "SYNTHETIC", detail: "ILLUSTRATIVE", body: <><p>{answerWires}</p>{tp.status === "ready" ? <Wires topo={tp.data} on={shown >= 3} /> : <p className="state-line">UNAVAILABLE</p>}<p className="ev-small">{wiresCaption}</p></> },
+      </>) : evalLine },
+    { tag: "DERIVED", detail: "COUNTED TEST HOURS", body: E ? (["CISO", "ERCO"] as const).map((ba) => { const iv = E.bas[ba].intervals.gbm!; return <div key={ba}><p>{answerIntervals(E, ba)}</p><Bars max={100} rows={[{ label: "RAW", v: iv.raw_coverage_pct }, { label: "CALIBRATED", v: iv.cqr_coverage_pct }, { label: "NOMINAL", v: iv.nominal_pct, tone: "nominal" }]} /></div>; }) : evalLine },
+    { tag: "PREDICTED", detail: "UPPER BOUND · NOT AVAILABLE AT FORECAST TIME", body: E ? (["CISO", "ERCO"] as const).map((ba) => <div key={ba}><p>{answerWeather(E, ba)}</p><Bars max={6} rows={[{ label: "OURS", v: E.bas[ba].models.gbm!.mape_pct }, { label: "PERFECT WEATHER", v: E.bas[ba].models.gbm_perfect_weather!.mape_pct, tone: "bound" }]} /></div>) : evalLine },
+    { tag: tp.status === "ready" ? (tp.data.tag as Honesty) : "SYNTHETIC", detail: "ILLUSTRATIVE", body: <><p>{answerWires}</p>{tp.status === "ready" ? <Wires topo={tp.data} on={shown >= 3} /> : <ArtifactStatus file="grid_topology.json" state={tp} retry={rTp} empty="UNAVAILABLE">{() => null}</ArtifactStatus>}<p className="ev-small">{wiresCaption}</p></> },
     { tag: "SIMULATED", detail: "ASSUMPTIONS", body: <><p>{answerCosts}</p>{ms.status === "ready" ? <ul className="ev-assume">{ms.data.assumptions.slice(0, 8).map((a) => <li key={a.id}><b>{a.id.toUpperCase().replace(/_/g, " ")}</b> {fmtAssumption(a.value)} {a.unit.toUpperCase()}</li>)}</ul> : null}</> },
     { tag: "SIMULATED", detail: "PARITY ON THIS BUILD", body: <><p>{answerSolve(sv.parity)}</p>{sv.parity ? <p className="ev-small tnum" data-parity-ev>OBJECTIVE {sv.parity.objective}/{sv.parity.n} · PRICES {sv.parity.price}/{sv.parity.priceComparable} WHERE UNIQUE · LP TEXT SHA-256 {sv.parity.hash}/{sv.parity.n} · TOLERANCE 1E-6</p> : null}{ms.status === "ready" && rs.status === "ready" ? <p className="ev-small tnum">{answerLp(ms.data.reference_lp.objective_usd, rs.data.bas.CISO.days.summer!.baseline!.objective_usd)}</p> : null}</> },
     { tag: "OBSERVED", detail: "ROW LEDGER", body: <>{ff.status === "ready" ? <p>{answerRows(ff.data)}</p> : null}{rc.status === "ready" && q.status === "ready" && ff.status === "ready" && mt.status === "ready" ? <ul className="ev-assume">{ledgerCopy(rc.data, q.data, ff.data, mt.data).rows.map((r) => <li key={r.ba}>{r.text}</li>)}</ul> : null}</> },

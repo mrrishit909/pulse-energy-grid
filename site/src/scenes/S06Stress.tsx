@@ -15,7 +15,7 @@ import { getStore } from "../data/loader";
 import { stepState } from "../motion/progress";
 import { Tween } from "../motion/tween";
 import { DUR, easeSmooth } from "../motion/ease";
-import { fullParams, scenarioDemand } from "../model/lp";
+import { dayPeak, fullParams, scenarioDemand } from "../model/lp";
 import { petals, simulatedStack, tweenPetals } from "../model/stack";
 import { drawGhostArcs, drawPriceRose, drawRose, PRICE_BINS, priceBin, radius, type Ctx, type PetalIn } from "../graphics/rose";
 import { BAS, type BA, type BAModel, type DispatchResults } from "../model/types";
@@ -41,11 +41,9 @@ function scenarioState(m: BAModel, rs: DispatchResults, ba: BA, dayId: string, i
   const D = scenarioDemand(m, day, fullParams(m, sc.params));
   return { day, r, D, petals: petals(simulatedStack(m.display_order, day, D, r), () => 1), bins: r.price_usd_mwh.map((p) => priceBin(p, m.voll_usd_mwh)) };
 }
-/** One R100 for the whole stepper (the largest demand of the day's scenarios), so steps never move the camera. */
+/** One R100 for the whole stepper, shared with S05 and S07 (model/lp.ts dayPeak), so steps and seams never move the camera. */
 function dayR100(m: BAModel, dayId: string, fit: { R100: number; fit: number }) {
-  const day = m.days.find((d) => d.id === dayId)!;
-  const peak = Math.max(...m.scenarios.flatMap((s) => scenarioDemand(m, day, fullParams(m, s.params))));
-  return fitR100(fit, peak);
+  return fitR100(fit, dayPeak(m, m.days.find((d) => d.id === dayId)!));
 }
 
 // ------------------------------------------------------------------ the canvas frame (stepped 1200ms keyed settles)
@@ -93,7 +91,7 @@ function PriceLegend() {
 /** S06 "Stress Lab" (interaction 7): five stepped scenarios over the dashed baseline ghost. */
 export function S06Stress({ def }: { def: SceneDef }) {
   const [ms, retryM] = useArtifact(MODEL);
-  const [rs, retryR] = useArtifact(RESULTS);
+  const [rs, retryR] = useArtifact(RESULTS, false);
   const st = useSyncExternalStore(stress.subscribe, stress.get);
   const motion = useMotion();
   const vp = useViewport();

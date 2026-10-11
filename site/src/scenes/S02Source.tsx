@@ -1,7 +1,7 @@
 import { Track } from "../scroll/Track";
 import { StoryDeck, type DeckCard } from "../components/StoryDeck";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { AllReady, ArtifactStatus } from "../components/StateUI";
 import { useArtifact } from "../data/useArtifact";
 import { DEMAND, FACTS, FUEL_MIX, META, MODEL, QUALITY, RECON, WEATHER } from "../data/artifacts";
 import { copyS02, fuelName, heatCopy, ledgerCopy, sharesLine } from "../data/copy";
@@ -72,8 +72,10 @@ function meanDay(fm: FuelMix, dp: DemandProfile, ba: BA): DayStack {
   })) };
 }
 function TwoGrids() {
-  const [fmS] = useArtifact(FUEL_MIX); const [dpS] = useArtifact(DEMAND); const [fS] = useArtifact(FACTS);
-  if (fmS.status !== "ready" || dpS.status !== "ready" || fS.status !== "ready") return <p className="state-line">LOADING FUEL_MIX</p>;
+  const [fmS, rF] = useArtifact(FUEL_MIX, false); const [dpS, rD] = useArtifact(DEMAND, false); const [fS, rFa] = useArtifact(FACTS);
+  if (fmS.status !== "ready" || dpS.status !== "ready" || fS.status !== "ready") {
+    return <AllReady items={[{ file: "fuel_mix.json", state: fmS, retry: rF }, { file: "demand_profile.json", state: dpS, retry: rD }, { file: "facts.json", state: fS, retry: rFa }]}>{() => null}</AllReady>;
+  }
   const stacks = { CISO: meanDay(fmS.data, dpS.data, "CISO"), ERCO: meanDay(fmS.data, dpS.data, "ERCO") };
   const peak = Math.max(...stacks.ERCO.hours.map((x) => x.demand), ...stacks.CISO.hours.map((x) => x.demand));
   return (
@@ -113,13 +115,15 @@ function Heat({ w, ba }: { w: WeatherRelation; ba: BA }) {
   );
 }
 function HeatCard() {
-  const [ws] = useArtifact(WEATHER);
-  if (ws.status !== "ready") return <p className="state-line">LOADING WEATHER_RELATION</p>;
+  const [ws] = useArtifact(WEATHER, false);
+  if (ws.status !== "ready") return null;
   return <div className="heat-card"><Heat w={ws.data} ba="CISO" /><p className="heat-readout tnum">CISO {heatCopy(ws.data, "CISO").readout}</p></div>;
 }
 function Ledger() {
-  const [r] = useArtifact(RECON); const [q] = useArtifact(QUALITY); const [f] = useArtifact(FACTS); const [m] = useArtifact(META);
-  if (r.status !== "ready" || q.status !== "ready" || f.status !== "ready" || m.status !== "ready") return <p className="state-line">LOADING RECONCILIATION</p>;
+  const [r, rr] = useArtifact(RECON, false); const [q, rq] = useArtifact(QUALITY, false); const [f, rf] = useArtifact(FACTS); const [m, rm] = useArtifact(META, false);
+  if (r.status !== "ready" || q.status !== "ready" || f.status !== "ready" || m.status !== "ready") {
+    return <AllReady items={[{ file: "reconciliation.json", state: r, retry: rr }, { file: "quality.json", state: q, retry: rq }, { file: "facts.json", state: f, retry: rf }, { file: "meta.json", state: m, retry: rm }]}>{() => null}</AllReady>;
+  }
   const l = ledgerCopy(r.data, q.data, f.data, m.data);
   return (
     <div className="ledger-card">
@@ -133,8 +137,8 @@ function Ledger() {
 
 /** S02 "Ledger Deck" (interaction 4): four story cards over the dimmed rose. */
 export function S02Source({ def }: { def: SceneDef }) {
-  const [ws, retryW] = useArtifact(WEATHER);
-  const [rs, retryR] = useArtifact(RECON);
+  const [ws, retryW] = useArtifact(WEATHER, false);
+  const [rs, retryR] = useArtifact(RECON, false);
   const cards: DeckCard[] = [
     { variant: "dark", chip: "SOURCE 01 · EIA-930", title: copyS02.c1.title, tag: <HonestyChip tag="OBSERVED" detail="EIA-930" />,
       visual: <OnePetal />, body: <p>{copyS02.c1.body}</p> },

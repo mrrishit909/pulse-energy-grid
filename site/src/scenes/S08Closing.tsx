@@ -68,7 +68,7 @@ export const echoState = () => ({ at: echo.at, armed: echo.armed });
 /** S08 "The Day Closes" (interaction 11): the rose returns to G0, drains and re-blooms; the links. */
 export function S08Closing({ def, onReplay }: { def: SceneDef; onReplay: () => void }) {
   const [ms] = useArtifact(MODEL);
-  const [mt] = useArtifact(META);
+  const [mt] = useArtifact(META, false);
   const motion = useMotion();
   useSyncExternalStore(ctrl.subscribe, ctrl.get); // re-render when the visitor's CTRL result changes the closing day
   const [ph, setPh] = useState({ caption: false, links: false, corners: false });

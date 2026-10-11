@@ -20,7 +20,7 @@ import { city, fill } from "../state/scenes";
 import { inspector } from "../state/inspector";
 import { drawEdgeGlow, drawHourLabels, drawPriceRose, drawRose, radius, resetRoseCache, type Ctx, type PetalIn, type RoseLog, type RoseView } from "../graphics/rose";
 import { observedStack, petals, simulatedStack, tweenPetals, firstChanged, type DayStack } from "../model/stack";
-import { scenarioDemand, fullParams } from "../model/lp";
+import { dayPeak, scenarioDemand, fullParams } from "../model/lp";
 import { litCount, windows, type Win } from "../model/city";
 import { camera, fillR100, fitR100, layout, type Layout } from "./geometry";
 import { SCENES } from "../app/scenes";
@@ -277,7 +277,7 @@ function dispatchFrame(now: number, m: BAModel, p: number): Frame | null {
   const ins = inspector.get();
   const view = baseView(keys, {
     lift: ins.scene === "dispatch" ? ins.hour : null, liftT: 1,
-    cx: L.G4.cx, cy: L.G4.cy, R100: fitR100(L.G4, peak), rref: radius(peak, fitR100(L.G4, peak)), gap: L.gap,
+    cx: L.G4.cx, cy: L.G4.cy, R100: fitR100(L.G4, dayPeak(m, day)), rref: radius(peak, fitR100(L.G4, dayPeak(m, day))), gap: L.gap,
     ghost: 0.08, marks: f.result ? (motion ? windowed(p, 0.55, 0.6) : 1) : 0, beat,
   });
   debug.fillK = fk; debug.pulse = glowA;

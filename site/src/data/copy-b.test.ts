@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
+  copyCtrl, copyS03b, answerWires, wiresCaption, OBJECTIONS,
   answerIntervals, answerLp, answerRows, answerWeather, biasLine, biteLedger, calendarCaption, ctrlLedger, ledgerCopy, s01Cards, stressRows, verdict, weekStats,
 } from "./copy";
 import { biteStack } from "../model/bite";
@@ -15,6 +16,13 @@ const fm = read<FuelMix>("fuel_mix.json"), dp = read<DemandProfile>("demand_prof
 const rc = read<Reconciliation>("reconciliation.json"), q = read<Quality>("quality.json"), meta = read<Meta>("meta.json");
 
 describe("Stage B copy is bound to artifact fields", () => {
+  it("static Stage B copy has no number that is not a design literal", () => {
+    const numbers = (s: string) => (s.match(/\d[\d,]*(\.\d+)?/g) ?? []).map((n) => n.replace(/,$/, ""));
+    // literals: 24-hour LP, IEEE 14-bus, pglib-opf v23.07, CC BY 4.0, the TIME LIMIT choices (seconds)
+    const allowed = new Set(["24", "14", "23.07", "4.0", "10", "0.000001"]);
+    for (const t of [copyS03b.mix, copyS03b.demand, copyS03b.net, copyCtrl.note, copyCtrl.line, answerWires, wiresCaption, ...OBJECTIONS, "10 S", "0.000001 S (TOO SHORT)"])
+      for (const n of numbers(t)) expect(allowed, `"${n}" in "${t}"`).toContain(n);
+  });
   it("S01 cards print facts.json peaks and the ERCO interchange share", () => {
     const [c, e] = s01Cards(facts);
     expect(c!.body).toContain(int(facts.bas.CISO.peak_demand_mw));
