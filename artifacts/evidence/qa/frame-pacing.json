@@ -1,0 +1,48 @@
+[
+  {
+    "device": "Mac15,6",
+    "browser": "Chromium 156.0.8078.4 headed",
+    "uptimeAtStart": "7:54  up 2 days, 10:25, 4 users, load averages: 33.89 30.00 26.03",
+    "uptimeAtEnd": "7:55  up 2 days, 10:25, 4 users, load averages: 32.46 30.06 26.17",
+    "heavyInteraction": "S05 fill + S04 unroll scroll-scrub (rapid, repeated across pulse..stress)",
+    "measuredAt": "2026-10-11T11:55:08.188Z",
+    "runs": [
+      {
+        "label": "1440x900 unthrottled",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+        "stateBefore": "pulse:45",
+        "stateAfter": "dispatch:483",
+        "stateChanged": true,
+        "sampleCount": 697,
+        "p50_ms": 8.3,
+        "p95_ms": 10.1,
+        "pct_over_16_7ms": 0.033,
+        "pct_over_33ms": 0.006
+      },
+      {
+        "label": "1440x900 4x CPU throttle",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+        "stateBefore": "pulse:46",
+        "stateAfter": "forecast:340",
+        "stateChanged": true,
+        "sampleCount": 497,
+        "p50_ms": 8.2,
+        "p95_ms": 13.1,
+        "pct_over_16_7ms": 0.044,
+        "pct_over_33ms": 0.042
+      },
+      {
+        "label": "390x844 4x CPU throttle",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+        "stateBefore": "pulse:48",
+        "stateAfter": "dispatch:395",
+        "stateChanged": true,
+        "sampleCount": 547,
+        "p50_ms": 8.3,
+        "p95_ms": 36.1,
+        "pct_over_16_7ms": 0.077,
+        "pct_over_33ms": 0.066
+      }
+    ]
+  }
+]

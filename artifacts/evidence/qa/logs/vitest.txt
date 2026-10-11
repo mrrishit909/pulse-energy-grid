@@ -1,0 +1,14 @@
+
+> pulse-energy-grid@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/site
+
+
+ Test Files  9 passed (9)
+      Tests  70 passed (70)
+   Start at  07:37:33
+   Duration  1.45s (tests 46%, transform 45%, import 8%, worker 1%)
+
+EXIT 0

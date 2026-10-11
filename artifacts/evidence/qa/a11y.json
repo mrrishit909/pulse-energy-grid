@@ -1,0 +1,680 @@
+{
+ "axe": [
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "S00/S01 top",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->pulse (scene=pulse)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->source (scene=source)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->demand (scene=demand)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->netload (scene=netload)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->forecast (scene=forecast)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->dispatch (scene=dispatch)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->stress (scene=stress)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->evidence (scene=evidence)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "nav->control (scene=control)",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "no-preference",
+   "at": "closing 0.97",
+   "violations": []
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "S00/S01 top",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->pulse (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->source (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->demand (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->netload (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->forecast (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->dispatch (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->stress (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->evidence (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "nav->control (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "1440x900",
+   "motion": "reduce",
+   "at": "closing 0.97",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 8,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "S00/S01 top",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 2,
+     "sample": [
+      ".ev-obj ::   Element has insufficient color contrast of 1.54 (foreground color: #313131, background color: #070707, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+      ".chip--on-light.chip--derived.chip ::   Element has insufficient color contrast of 1.03 (foreground color: #200a05, background color: #270c06, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->pulse (scene=pulse)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->source (scene=source)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->demand (scene=demand)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->netload (scene=netload)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->forecast (scene=forecast)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->dispatch (scene=dispatch)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->stress (scene=stress)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->evidence (scene=evidence)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "nav->control (scene=control)",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "no-preference",
+   "at": "closing 0.97",
+   "violations": []
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "S00/S01 top",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->pulse",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->pulse (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->source",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->source (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->demand",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->demand (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->netload",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->netload (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->forecast",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->forecast (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->dispatch",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->dispatch (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->stress",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->stress (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->evidence",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->evidence (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->control",
+   "navFailed": "TimeoutError: locator.click: Timeout 5000ms exceeded."
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "nav->control (scene=)",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  },
+  {
+   "vp": "390x844",
+   "motion": "reduce",
+   "at": "closing 0.97",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 7,
+     "sample": [
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"1\"] > .ev-ans > .chip--derived.chip--on-light.chip > .chip__detail ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "li[data-exchange=\"2\"] > .ev-ans > .chip--derived.chip--on-light.chip ::   Element has insufficient color contrast of 1.27 (foreground color: #000000, background color: #341710, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+     ]
+    }
+   ]
+  }
+ ],
+ "kb": [
+  {
+   "name": "first Tab reaches SKIP INTRO or skip link",
+   "ok": false,
+   "d": "button[tab] \"Card 1 of 4\" in #source"
+  },
+  {
+   "name": "Enter on SKIP ends the intro",
+   "ok": true
+  },
+  {
+   "name": "Tab walk shows a focus ring on every stop",
+   "ok": true,
+   "d": "button[radio] \"CISO\" in #demand [ring] | button[radio] \"WINTER\" in #demand [ring] | div[button] \"Day rose of CISO on 2025-01-02, 00:00: 2\" in #demand [ring] | button[radio] \"DEMAND\" in #netload [ring] | button[radio] \"CISO\" in #netload [ring] | button[radio] \"ALL\" in #netload [ring] | div[img] \"Mean day of JAN in CISO, demand. Up and \" in #netload [ring] | button[radio] \"CISO\" in #stress [ring] | button[radio] \"SUMMER\" in #stress [ring] | button[radio] \"STACK\" in #stress [ring] | button[tab] \"1 Renewables +50%\" in #stress [ring] | div[button] \"Scenario rose. Enter or a click opens th\" in #stress [ring] | div[button] \"Control room rose. Enter or a click open\" in #control [ring] | button[radio] \"CISO\" in #control [ring]"
+  },
+  {
+   "name": "S03a GRID arrow selects ERCO",
+   "ok": true,
+   "d": "button[radio] \"ERCO\" in #demand"
+  },
+  {
+   "name": "S03a DAY arrow changes day",
+   "ok": true,
+   "d": "{\"ba\":\"ERCO\",\"dayId\":\"spring\",\"hour\":18}"
+  },
+  {
+   "name": "S03a Enter on rose opens the inspector and moves focus into it",
+   "ok": true,
+   "d": "div[dialog] \"Hour inspector 12:00\" in #demand"
+  },
+  {
+   "name": "Esc closes the inspector and returns focus to the rose",
+   "ok": true,
+   "d": "div[button] \"Day rose of ERCO on 2025-04-30, 12:00: 5\" in #demand"
+  },
+  {
+   "name": "S03b LAYER NET LOAD via keyboard",
+   "ok": true
+  },
+  {
+   "name": "S03b YEAR 2023 via keyboard",
+   "ok": true
+  },
+  {
+   "name": "S04 NAIVE toggle via keyboard sets aria-pressed=false",
+   "ok": true,
+   "d": "false"
+  },
+  {
+   "name": "S04 WEEK via keyboard",
+   "ok": true
+  },
+  {
+   "name": "S05 battery slider via keyboard re-solves in browser",
+   "ok": true,
+   "d": "{\"p\":1800,\"seq\":3,\"src\":\"browser\"}"
+  },
+  {
+   "name": "every slider has an accessible name",
+   "ok": true,
+   "d": "BATTERY POWER1,800 MW | BATTERY DURATION4 H | RENEWABLES MULTIPLIER×1.00 | RENEWABLES MULTIPLIER×1.00 | DEMAND GROWTH0% | HEAT WAVE+0.0 °C | BATTERY POWER1,500 MW | BATTERY DURATION4 H"
+  },
+  {
+   "name": "S06 tablist ArrowRight steps the scenario",
+   "ok": true,
+   "d": "{\"ba\":\"CISO\",\"dayId\":\"summer\",\"step\":1,\"layer\":\"stack\"} focus button[tab] \"2 Demand +15%\" in #stress"
+  },
+  {
+   "name": "CTRL GRID via keyboard",
+   "ok": true
+  },
+  {
+   "name": "CTRL preset HEAT WAVE via keyboard",
+   "ok": true,
+   "d": "{\"renewables_scale\":1,\"demand_growth_pct\":0,\"heat_wave_c\":5,\"battery_power_mw\":2600,\"battery_hours\":4,\"outage_class\":\"none\",\"outage_pct\":100}"
+  },
+  {
+   "name": "CTRL OUTAGE select via keyboard",
+   "ok": false,
+   "d": "none"
+  },
+  {
+   "name": "CTRL LAYER PRICE via keyboard",
+   "ok": true
+  },
+  {
+   "name": "CTRL TIME LIMIT too short: handled, last optimal kept, said on screen",
+   "ok": true,
+   "d": "SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 4 MS SOLVER STATUS TIME LIMIT REACHED: SHOWING THE LAST OPTIMAL RESULT PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE "
+  },
+  {
+   "name": "CTRL RESET restores CISO / first day / baseline params",
+   "ok": true,
+   "d": "{\"ba\":\"CISO\",\"day\":\"winter\",\"p\":{\"renewables_scale\":1,\"demand_growth_pct\":0,\"heat_wave_c\":0,\"battery_power_mw\":1500,\"battery_hours\":4,\"outage_class\":\"none\",\"outage_pct\":100}}"
+  },
+  {
+   "name": "CTRL RESET returns LAYER to STACK",
+   "ok": true,
+   "d": "true"
+  },
+  {
+   "name": "CTRL inspector Enter/Esc returns focus to the rose",
+   "ok": true,
+   "d": "div[button] \"Control room rose. Enter or a click open\" in #control"
+  }
+ ]
+}

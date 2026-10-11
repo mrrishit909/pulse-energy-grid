@@ -1,0 +1,76 @@
+1440 no-preference S00/S01 top: clean
+1440 no-preference nav->pulse (scene=pulse): clean
+1440 no-preference nav->source (scene=source): clean
+1440 no-preference nav->demand (scene=demand): clean
+1440 no-preference nav->netload (scene=netload): clean
+1440 no-preference nav->forecast (scene=forecast): clean
+1440 no-preference nav->dispatch (scene=dispatch): clean
+1440 no-preference nav->stress (scene=stress): clean
+1440 no-preference nav->evidence (scene=evidence): clean
+1440 no-preference nav->control (scene=control): clean
+1440 no-preference closing 0.97: clean
+1440 reduce S00/S01 top: color-contrast(serious,8)
+1440 reduce nav->pulse (scene=): color-contrast(serious,8)
+1440 reduce nav->source (scene=): color-contrast(serious,8)
+1440 reduce nav->demand (scene=): color-contrast(serious,8)
+1440 reduce nav->netload (scene=): color-contrast(serious,8)
+1440 reduce nav->forecast (scene=): color-contrast(serious,8)
+1440 reduce nav->dispatch (scene=): color-contrast(serious,8)
+1440 reduce nav->stress (scene=): color-contrast(serious,8)
+1440 reduce nav->evidence (scene=): color-contrast(serious,8)
+1440 reduce nav->control (scene=): color-contrast(serious,8)
+1440 reduce closing 0.97: color-contrast(serious,8)
+390 no-preference S00/S01 top: color-contrast(serious,2)
+390 no-preference nav->pulse (scene=pulse): clean
+390 no-preference nav->source (scene=source): clean
+390 no-preference nav->demand (scene=demand): clean
+390 no-preference nav->netload (scene=netload): clean
+390 no-preference nav->forecast (scene=forecast): clean
+390 no-preference nav->dispatch (scene=dispatch): clean
+390 no-preference nav->stress (scene=stress): clean
+390 no-preference nav->evidence (scene=evidence): clean
+390 no-preference nav->control (scene=control): clean
+390 no-preference closing 0.97: clean
+390 reduce S00/S01 top: color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for PULSE; jumpTo fallback
+390 reduce nav->pulse (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for SOURCE; jumpTo fallback
+390 reduce nav->source (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for DEMAND; jumpTo fallback
+390 reduce nav->demand (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for NET LOAD; jumpTo fallback
+390 reduce nav->netload (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for FORECAST; jumpTo fallback
+390 reduce nav->forecast (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for DISPATCH; jumpTo fallback
+390 reduce nav->dispatch (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for STRESS; jumpTo fallback
+390 reduce nav->stress (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for EVIDENCE; jumpTo fallback
+390 reduce nav->evidence (scene=): color-contrast(serious,7)
+390 reduce NAV CLICK FAILED for CONTROL ROOM; jumpTo fallback
+390 reduce nav->control (scene=): color-contrast(serious,7)
+390 reduce closing 0.97: color-contrast(serious,7)
+FAIL first Tab reaches SKIP INTRO or skip link button[tab] "Card 1 of 4" in #source
+PASS Enter on SKIP ends the intro 
+PASS Tab walk shows a focus ring on every stop button[radio] "CISO" in #demand [ring] | button[radio] "WINTER" in #demand [ring] | div[button] "Day rose of CISO on 2025-01-02, 00:00: 2" in #demand [ring] | button[radio] "DEMAND" in #netload [ring] | button[radio] "CISO" in #netload [ring] | button[radio] "ALL" in #netload [ring] | div[img] "Mean day of JAN in CISO, demand. Up and " in #netload [ring] | button[radio] "CISO" in #stress [ring] | button[radio] "SUMMER" in #stress [ring] | button[radio] "STACK" in #stress [ring] | button[tab] "1 Renewables +50%" in #stress [ring] | div[button] "Scenario rose. Enter or a click opens th" in #stress [ring] | div[button] "Control room rose. Enter or a click open" in #control [ring] | button[radio] "CISO" in #control [ring]
+PASS S03a GRID arrow selects ERCO button[radio] "ERCO" in #demand
+PASS S03a DAY arrow changes day {"ba":"ERCO","dayId":"spring","hour":18}
+PASS S03a Enter on rose opens the inspector and moves focus into it div[dialog] "Hour inspector 12:00" in #demand
+PASS Esc closes the inspector and returns focus to the rose div[button] "Day rose of ERCO on 2025-04-30, 12:00: 5" in #demand
+PASS S03b LAYER NET LOAD via keyboard 
+PASS S03b YEAR 2023 via keyboard 
+PASS S04 NAIVE toggle via keyboard sets aria-pressed=false false
+PASS S04 WEEK via keyboard 
+PASS S05 battery slider via keyboard re-solves in browser {"p":1800,"seq":3,"src":"browser"}
+PASS every slider has an accessible name BATTERY POWER1,800 MW | BATTERY DURATION4 H | RENEWABLES MULTIPLIER×1.00 | RENEWABLES MULTIPLIER×1.00 | DEMAND GROWTH0% | HEAT WAVE+0.0 °C | BATTERY POWER1,500 MW | BATTERY DURATION4 H
+PASS S06 tablist ArrowRight steps the scenario {"ba":"CISO","dayId":"summer","step":1,"layer":"stack"} focus button[tab] "2 Demand +15%" in #stress
+PASS CTRL GRID via keyboard 
+PASS CTRL preset HEAT WAVE via keyboard {"renewables_scale":1,"demand_growth_pct":0,"heat_wave_c":5,"battery_power_mw":2600,"battery_hours":4,"outage_class":"none","outage_pct":100}
+FAIL CTRL OUTAGE select via keyboard none
+PASS CTRL LAYER PRICE via keyboard 
+PASS CTRL TIME LIMIT too short: handled, last optimal kept, said on screen SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 4 MS SOLVER STATUS TIME LIMIT REACHED: SHOWING THE LAST OPTIMAL RESULT PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE 
+PASS CTRL RESET restores CISO / first day / baseline params {"ba":"CISO","day":"winter","p":{"renewables_scale":1,"demand_growth_pct":0,"heat_wave_c":0,"battery_power_mw":1500,"battery_hours":4,"outage_class":"none","outage_pct":100}}
+PASS CTRL RESET returns LAYER to STACK true
+PASS CTRL inspector Enter/Esc returns focus to the rose div[button] "Control room rose. Enter or a click open" in #control
+DONE

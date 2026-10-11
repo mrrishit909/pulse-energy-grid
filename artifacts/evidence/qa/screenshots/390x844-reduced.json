@@ -1,0 +1,1321 @@
+{
+ "viewport": "390x844-reduced",
+ "errors": [],
+ "shots": [
+  {
+   "name": "00-s00-end",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "s01-00-p30",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "s01-01-p78-landing",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930",
+    "OBSERVED · EIA-930 · 1 PETAL = 1 HOUR"
+   ]
+  },
+  {
+   "name": "s02-00-p14-card1",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · MEAN DAY OF EIA-930"
+   ]
+  },
+  {
+   "name": "s02-01-p36-card2",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "OBSERVED · EIA-930",
+    "DERIVED · MEAN DAY OF EIA-930"
+   ]
+  },
+  {
+   "name": "s02-02-p58-card3",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · MEAN DAY OF EIA-930",
+    "DERIVED · FITTED, NOT A FORECAST"
+   ]
+  },
+  {
+   "name": "s02-03-p80-card4",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · MEAN DAY OF EIA-930",
+    "DERIVED · FITTED, NOT A FORECAST"
+   ]
+  },
+  {
+   "name": "s02-04-p97-exit",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · FITTED, NOT A FORECAST",
+    "OBSERVED · COUNTED ROWS"
+   ]
+  },
+  {
+   "name": "s03a-00-p20-0500",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03a-01-p74-landing",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03a-02-p90-2100",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03a-03-erco",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03a-04-inspector-18h",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03a-05-inspector-closed",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03b-00-p15-mar",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · EIA-930 MONTH-HOUR MEANS"
+   ]
+  },
+  {
+   "name": "s03b-01-p30-jun",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · EIA-930 MONTH-HOUR MEANS"
+   ]
+  },
+  {
+   "name": "s03b-02-p60-net",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03b-03-p80-years",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03b-04-p97-exit",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s03b-05-erco",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-00-p03-preunroll",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "OBSERVED · ACTUAL",
+    "PREDICTED · FORECASTS",
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-01-p15-unroll",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED",
+    "DERIVED"
+   ]
+  },
+  {
+   "name": "s04-02-p25-unroll",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-03-p35-unroll",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-04-p50-line",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-05-p60-naive",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-06-p72-eia",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-07-p82-ours",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-08-p90-verdict",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-09-erco-verdict",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s04-10-p97-exit",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s05-00-p04-silhouette",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-01-p20-fill",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-02-p40-fill",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-03-p60-rimbeat",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-04-p68-soc",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-05-p80-lab",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s05-06-lab-battery",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · MODEL · SOLVED IN BROWSER"
+   ]
+  },
+  {
+   "name": "s06-00-p10-renew",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-01-p28-demand",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-02-p46-battery",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-03-p64-heat",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-04-p82-outage",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-05-price-renew",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-06-price-heat",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s06-07-stack-back",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": []
+  },
+  {
+   "name": "s07-00-p05-ex1",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · PAIRED BOOTSTRAP, 95% CI",
+    "DERIVED · COUNTED TEST HOURS",
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE "
+   ]
+  },
+  {
+   "name": "s07-01-p20-ex2",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · PAIRED BOOTSTRAP, 95% CI",
+    "DERIVED · COUNTED TEST HOURS",
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE "
+   ]
+  },
+  {
+   "name": "s07-02-p35-ex3",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · PAIRED BOOTSTRAP, 95% CI",
+    "DERIVED · COUNTED TEST HOURS",
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE "
+   ]
+  },
+  {
+   "name": "s07-03-p50-ex4-wires",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · PAIRED BOOTSTRAP, 95% CI",
+    "DERIVED · COUNTED TEST HOURS",
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE ",
+    "SYNTHETIC · ILLUSTRATIVE"
+   ]
+  },
+  {
+   "name": "s07-04-p65-ex5",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "DERIVED · COUNTED TEST HOURS",
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE ",
+    "SYNTHETIC · ILLUSTRATIVE",
+    "SIMULATED · ASSUMPTIONS"
+   ]
+  },
+  {
+   "name": "s07-05-p80-ex6",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE ",
+    "SYNTHETIC · ILLUSTRATIVE",
+    "SIMULATED · ASSUMPTIONS",
+    "SIMULATED · PARITY ON THIS BUILD"
+   ]
+  },
+  {
+   "name": "s07-06-p95-ex7",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "PREDICTED · UPPER BOUND · NOT AVAILABLE ",
+    "SYNTHETIC · ILLUSTRATIVE",
+    "SIMULATED · ASSUMPTIONS",
+    "SIMULATED · PARITY ON THIS BUILD"
+   ]
+  },
+  {
+   "name": "ctrl-00-landing",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-01-custom",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-02-ledger-bottom",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "ctrl-03-inspector-19h",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · MODEL"
+   ]
+  },
+  {
+   "name": "ctrl-04-inspector-closed",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR"
+   ]
+  },
+  {
+   "name": "s08-00-p20",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-01-p50-paragraph",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-02-p72-echo",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-03-p76-echo",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  },
+  {
+   "name": "s08-04-p97-links",
+   "scrollW": 524,
+   "clientW": 390,
+   "innerW": 524,
+   "jsClassFromClientW": "M",
+   "jsClassFromInnerW": "M",
+   "cssClass": "M",
+   "scene": "",
+   "frames": 0,
+   "cls": {
+    "js": "M",
+    "css": "M",
+    "layout": "M",
+    "clientWidth": 390,
+    "innerWidth": 524
+   },
+   "chips": [
+    "SIMULATED · YOUR SCENARIO · SOLVED IN BR",
+    "SIMULATED · YOUR SCENARIO"
+   ]
+  }
+ ],
+ "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+ "introStats": {
+  "minR": null,
+  "monotonic": true,
+  "playing": false,
+  "firstSilhouette": -1,
+  "G0": 712.7369668246446
+ }
+}

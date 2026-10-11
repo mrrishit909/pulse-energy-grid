@@ -1,0 +1,10 @@
+import { chromium } from "/Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/site/node_modules/@playwright/test/index.mjs";
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }); const page = await ctx.newPage();
+await page.goto("http://localhost:4331/pulse-energy-grid/?quality=high"); await page.waitForFunction(() => window.__peg); await page.keyboard.press("Escape"); await page.waitForFunction(() => !window.__peg.introStats().playing);
+await page.evaluate(() => window.__peg.jumpTo("forecast", 0.82)); await page.waitForTimeout(2500);
+const btn = page.getByRole("button", { name: /09\.05/ }).or(page.getByRole("radio", { name: /09\.05/ })).or(page.getByRole("tab", { name: /09\.05/ })).first();
+console.log("found", await btn.count(), await btn.evaluate((e) => e.outerHTML.slice(0, 160)).catch(() => "none"));
+await btn.tap(); await page.waitForTimeout(1500);
+console.log("mDay", JSON.stringify(await page.evaluate(() => ({ axis: [...document.querySelectorAll("#forecast *")].filter((e) => /^\d\d\.\d\d$/.test(e.textContent.trim()) && e.children.length === 0 && !e.closest("button")).map((e) => e.textContent.trim()), sel: [...document.querySelectorAll("#forecast [aria-checked=true],#forecast [aria-selected=true],#forecast [aria-pressed=true]")].map((e) => e.textContent.trim()) }))));
+await page.screenshot({ path: "/Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/screens/s04-daypicker-0905-390.jpg", type: "jpeg", quality: 70 });
+await b.close();

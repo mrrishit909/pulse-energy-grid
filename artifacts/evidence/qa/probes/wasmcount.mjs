@@ -1,0 +1,11 @@
+import { chromium } from "/Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/site/node_modules/@playwright/test/index.mjs";
+const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+const reqs = []; ctx.on("request", (r) => { if (/wasm|worker/.test(r.url())) reqs.push(r.method() + " " + r.url().split("/").pop() + " " + (r.frame() ? "page" : "worker")); });
+let block = true; let n=0; await ctx.route(/\.wasm/, (r) => { n++; return block ? r.fulfill({ status: 503, body: "" }) : r.continue(); });
+const page = await ctx.newPage(); await page.goto("http://localhost:4331/pulse-energy-grid/?quality=high"); await page.keyboard.press("Escape");
+await page.waitForFunction(() => window.__peg && !window.__peg.introStats().playing);
+await page.evaluate(() => window.__peg.jumpTo("dispatch", 0.8)); await page.waitForTimeout(6000);
+console.log("blocked phase", n, reqs); block=false; reqs.length=0; n=0;
+await page.locator("#dispatch button", { hasText: /^RETRY$/ }).first().click(); await page.waitForTimeout(8000);
+console.log("after retry", n, reqs);
+await b.close();

@@ -1,0 +1,243 @@
+{
+ "checks": [
+  {
+   "name": "S01 CISO peak = facts",
+   "ok": true,
+   "detail": "51104 2022-09-06 18:00"
+  },
+  {
+   "name": "S01 ERCO peak = facts",
+   "ok": true
+  },
+  {
+   "name": "S01 ERCO interchange % = facts",
+   "ok": true
+  },
+  {
+   "name": "S02 slope 5.49 / CI",
+   "ok": true,
+   "detail": "+5.49% DEMAND PER °C ABOVE 16 °C (95% CI 5.32 TO 5.69)"
+  },
+  {
+   "name": "S02 solar share CISO 21.8",
+   "ok": true,
+   "detail": "SOLAR 21.8% · WIND 10.2% ·  | SOLAR 7.9% · WIND 24.4% · "
+  },
+  {
+   "name": "S02 rows in = raw_rows_total",
+   "ok": true,
+   "detail": "937020 / 936905"
+  },
+  {
+   "name": "S03a evening ramp = facts",
+   "ok": true,
+   "detail": "3059"
+  },
+  {
+   "name": "S03a lit windows = round(MW/100)",
+   "ok": true,
+   "detail": "24,862 MW SERVED 249 OF 960 WINDOWS LIT 12.0 °C · POP.-W"
+  },
+  {
+   "name": "S03b partial 2025 marked",
+   "ok": true
+  },
+  {
+   "name": "S04 CISO MAPE ours 3.35 vs EIA 7.82",
+   "ok": true
+  },
+  {
+   "name": "S04 ERCO MAPE ours 4.06 vs EIA 2.23",
+   "ok": true
+  },
+  {
+   "name": "S04 drift -6.36% printed from facts",
+   "ok": true,
+   "detail": "-6.36"
+  },
+  {
+   "name": "S04 CISO diff -4.47 pp CI -4.89 to -4.02",
+   "ok": true,
+   "detail": "{\"beats_eia\":true,\"best_model\":\"gbm\",\"ci_method\":\"circular moving-block bootstrap over test days, block 7 days, 2000 resamples\",\"mape_diff_ci95\":[-4.8907,-4.019"
+  },
+  {
+   "name": "S04 ERCO diff +1.83 pp CI +1.50 to +2.20",
+   "ok": true,
+   "detail": "{\"beats_eia\":false,\"best_model\":\"eia_debiased\",\"ci_method\":\"circular moving-block bootstrap over test days, block 7 days, 2000 resamples\",\"mape_diff_ci95\":[1.49"
+  },
+  {
+   "name": "S04 CISO coverage 83.4",
+   "ok": true
+  },
+  {
+   "name": "parity computed this session (108 vectors)",
+   "ok": true,
+   "detail": "{\"n\":108,\"objective\":108,\"priceComparable\":85,\"price\":85,\"keys\":107,\"hash\":108,\"passed\":108,\"ms\":1417.1000000238419}"
+  },
+  {
+   "name": "S05 parity badge text = session report",
+   "ok": true,
+   "detail": "PARITY 108/108 VECTORS "
+  },
+  {
+   "name": "S05 SOLVED IN BROWSER label",
+   "ok": true
+  },
+  {
+   "name": "S05 baseline objective == Python within 1e-6",
+   "ok": true,
+   "detail": "11145697.999951512 vs 11145698"
+  },
+  {
+   "name": "S05 displayed model cost == objective (rounded $)",
+   "ok": true,
+   "detail": "MODEL COST $11,145,698"
+  },
+  {
+   "name": "CTRL non-preset params",
+   "ok": true,
+   "detail": "{\"renewables_scale\":1.25,\"demand_growth_pct\":7,\"heat_wave_c\":0,\"battery_power_mw\":2800,\"battery_hours\":4,\"outage_class\":\"none\",\"outage_pct\":100}"
+  },
+  {
+   "name": "CTRL displayed cost == objective (rounded $)",
+   "ok": true,
+   "detail": "MODEL COST $7,104,392 = SOLVER OBJECTIVE ✓ (+$386,298 VS BASELINE) MODEL CO2 71,052 T (+4,095 T VS BASELINE) UNSERVED 0 "
+  },
+  {
+   "name": "CTRL data-objective == solver objective; sum(breakdown) within 1e-6",
+   "ok": true,
+   "detail": "7104391.717459554 7104391.717459555 7104391.717459554"
+  },
+  {
+   "name": "CTRL status says SOLVED IN BROWSER with parity",
+   "ok": true,
+   "detail": "SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 5 MS PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE UNIQUE · LP TEXT SHA-256 108/108"
+  },
+  {
+   "name": "Hour Inspector closes when its scene leaves",
+   "ok": false,
+   "detail": "opened=true visibleInS08=[\"sheet sheet--side inspector\",\"inspector__title tnum\",\"inspector__rows\"]"
+  },
+  {
+   "name": "S07 Wires ILLUSTRATIVE and no MW",
+   "ok": true
+  },
+  {
+   "name": "S07 parity answer bound to session report",
+   "ok": true,
+   "detail": "OBJECTIVE 108/108 "
+  },
+  {
+   "name": "no 'live' claims in copy",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "name": "no U+2014/U+2015 in rendered text",
+   "ok": true
+  },
+  {
+   "name": "worker blocked: S05 PRECOMPUTED labelled, no SOLVED IN BROWSER, no PARITY ✓",
+   "ok": true,
+   "detail": "PRECOMPUTED IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS RETRY"
+  },
+  {
+   "name": "worker blocked: CTRL PRECOMPUTED labelled, no parity",
+   "ok": true,
+   "detail": "THE CONTROL ROOM Run tomorrow yourself. IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS RETRY SOLAR WIND IMPORTS OTHER HYDRO NUCLEAR BATTERY GAS GAS PEAKER SIMULATED · MODEL · PRECOM"
+  }
+ ],
+ "texts": {
+  "pulse": "PULSE ENERGY GRID CISO · 2024-05-27 · PEAK 26,793 MW The invisible machine that powers everything. Animated introduction: one day of California's grid drawn as 24 petals, one per hour, noon at the top. Each petal's area is the electricity used in that hour. It fills from the centre with solar, wind, nuclear, hydro, imports and other sources, and gas burns at the rim. A grid keeps no stock. Every hour, supply has to meet demand exactly. FROM: EIA-930 / CISO 2022-09-06 18:00 PEAK DEMAND 51,104 MW. EVERY MEGAWATT HAD TO BE MADE OR IMPORTED IN THAT SAME HOUR. OBSERVED · EIA-930 FROM: EIA-930 / ERCO 2024-08-20 18:00 ERCOT PEAKED AT 85,544 MW, WITH NET INTERCHANGE AVERAGING 0.46% OF DEMAND. OBSERVED · EIA-930 OBSERVED · EIA-930 · 1 PETAL = 1 HOUR AREA = MW · NOON AT TOP · CLEANEST AT THE CENTRE",
+  "source": "SOURCE · WHERE EVERY NUMBER COMES FROM Where every number comes from. SOURCE 01 · EIA-930 One hour, one petal. SOLAR 13,846 MW WIND 2,475 MW NUCLEAR 2,271 MW HYDRO 1,839 MW GAS 4,771 MW OIL 85 MW CHARGING (SINK) −616 MW DEMAND 18:00 21,191 MW EIA-930 REPORTS, FOR EVERY HOUR AND EVERY BALANCING AUTHORITY, HOW MUCH POWER WAS USED, WHAT THE OPERATOR EXPECTED, AND WHAT EACH FUEL MADE. FIELDS: BA · HOUR (UTC) · DEMAND · DAY-AHEAD FORECAST · NET GENERATION · INTERCHANGE · GENERATION BY FUEL ×8 OBSERVED · EIA-930 SOURCE 02 · TWO GRIDS Two grids, two weathers. CISO · SOLAR 21.8% · WIND 10.2% · GAS 45.0% ERCO · SOLAR 7.9% · WIND 24.4% · GAS 43.0% CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS. DERIVED · MEAN DAY OF EIA-930 SOURCE 03 · NOAA ISD Heat leans on the load. 9 °C 27 °C CISO +5.49% DEMAND PER °C ABOVE 16 °C (95% CI 5.32 TO 5.69) ABOVE 16 °C, EVERY EXTRA DEGREE ADDS ABOUT 5.5% TO DEMAND. AN ASSOCIATION FITTED ON 27,900 HOURS, NOT A FORECAST. DERIVED · FITTED, NOT A FORECAST SOURCE 04 · THE LEDGER Rows in, rows kept. CISO · 12 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED ✓ · DST DAYS 9 ERCO · 11 SERIES · SLOTS = RAW + MISSING ✓ · RAW = KEPT + NULL + FLAGGED ✓ · DST DAYS 9 937,020 ROWS IN · 936,905 KEPT · 15 FLAGGED CISO: NET GENERATION − DEMAND − INTERCHANGE AVERAGES 994 MW IN SIZE (EIA'S OWN BALANCE, KEPT AS REPORTED) ERCO: THE FUELS MISS THE TOTAL BY MORE THAN 2% IN 1,992 HOURS FLAGGED SPIKE: CISO DEMAND 2025-07-31 21:00 UTC 11,819 MW VS 31,293 MW TYPICAL PIPELINE v0.1.0 · GENERATED 2026-10-10T05:04:09Z RAW ROWS = KEPT + EXCLUDED, CHECKED FOR EVERY SERIES BELOW. OBSERVED · COUNTED ROWS",
+  "demand": "Every window is a hundred megawatts. DEMAND · CISO · ONE REAL DAY, HOUR BY HOUR · 2025-01-02 GRID CISO ERCO DAY WINTER SPRING SUMMER FALL SOLAR PEAK 18:00 24,862 MW SERVED 249 OF 960 WINDOWS LIT 12.0 °C · POP.-WEIGHTED +1,497 MW SINCE 17:00 TYPICAL EVENING RAMP IN CISO: 3,059 MW PER HOUR. SOLAR 1,477 WIND 647 NUCLEAR 2,269 HYDRO 2,247 IMPORTS 7,738 OTHER 3,492 GAS 7,046 OIL 46 CHARGING, STATION USE 1 BALANCE RESIDUAL (AS REPORTED) -99 OBSERVED · EIA-930 DERIVED · 1 WINDOW = 100 MW OBSERVED · TEMPERATURE · NOAA ISD · DERIVED WEIGHTS BUILDINGS ARE GROUPS OF 80 WINDOWS (8,000 MW), NOT PLACES. THE ROSE IS SCALED TO THIS DAY'S PEAK; THE WINDOWS KEEP ONE SCALE FOR EVERY DAY.",
+  "netload": "The sun takes a bite out of noon. NET LOAD · CISO · MEAN DAY OF THE MONTH · 2025 LAYER DEMAND NET LOAD GRID CISO ERCO YEAR ALL 2021 2022 2023 2024 2025* MAY MIDDAY NET LOAD MIN 5,467 MW AT 14:00 EVENING NET LOAD MAX 24,564 MW AT 22:00 RAMP 19,097 MW IN 8 H 2025: MIDDAY NET LOAD FELL TO 5,467 MW IN MAY (MEAN DAY). PARTIAL YEAR. DERIVED · MONTH-HOUR MEANS OF EIA-930 SOLAR WIND NUCLEAR HYDRO IMPORTS OTHER GAS COAL OIL IMPORTS AND BALANCE = MEAN DEMAND − MEAN GENERATION (DERIVED). IN YEAR STEPS THE OTHER SOURCES KEEP THEIR ALL-YEARS MIX, SCALED TO THAT YEAR'S NET LOAD.",
+  "forecast": "Tomorrow, unrolled. FORECAST · CISO · HOTTEST WEEK (2024-09-02) GRID CISO ERCO WEEK HOTTEST WEEK COLDEST WEEK LARGEST EIA MISS INTERVAL RAW CONFORMAL MODELS NAIVE EIA OURS ACTUAL ━ · EIA DAY-AHEAD ╌ · SEASONAL NAIVE ┈ · OURS P50 ━ / P10-P90 ▨ THIS WEEK MAPE SEASONAL NAIVE 13.35% THIS WEEK MAPE EIA DAY-AHEAD (PUBLISHED BY THE BA) 4.45% THIS WEEK MAPE OURS P50 5.80% THIS WEEK: 68 OF 168 HOURS INSIDE THE BAND (40.5% · NOMINAL 80%) WHOLE TEST PERIOD (8,567 H): 83.4% INSIDE THE CALIBRATED BAND OBSERVED · ACTUAL, EIA-930 PREDICTED · FORECASTS Our model beat the operator's own forecast. CISO: MAPE OURS 3.35% VS EIA 7.82% OVER 8,567 TEST HOURS. DIFFERENCE −4.47 PP (95% CI −4.89 TO −4.02). BEST MODEL OURS P50: −4.47 PP VS EIA (95% CI −4.89 TO −4.02) EIA'S CISO DAY-AHEAD SERIES DRIFTED TO −6.36% BIAS IN 2025 (PARTIAL YEAR), SO PART OF OUR CISO MARGIN IS THAT DRIFT. BIAS-CORRECTED, EIA SCORES 7.20%; OURS IS STILL 3.83 PP LOWER (95% CI −4.24 TO −3.41). OURS LOWER ON 337 OF 356 TEST DAYS · DERIVED The operator's own forecast is still better. ERCO: MAPE OURS 4.06% VS EIA 2.23% OVER 8,640 TEST HOURS. DIFFERENCE +1.83 PP (95% CI +1.50 TO +2.20). WE SAY SO. BEST MODEL HERE IS EIA, BIAS-CORRECTED (PREDICTED); THE VERDICT USES OUR GBM VS EIA (COMPARISON_VS_EIA) OURS LOWER ON 68 OF 359 TEST DAYS · DERIVED → DATA TABLE FOR THIS WEEK",
+  "dispatch": "A battery moves noon into the evening. GRID CISO ERCO DAY WINTER SPRING SUMMER FALL INTRO BATTERY POWER 1,500 MW BATTERY DURATION 4 H RENEWABLES MULTIPLIER ×1.00 SOLAR 182,490 MWH MODEL $0 WIND 58,515 MWH MODEL $0 IMPORTS (OBSERVED) 86,436 MWH NOT COSTED OTHER MUST-RUN 0 MWH NOT COSTED HYDRO (ENERGY-LIMITED) 74,018 MWH MODEL $0 NUCLEAR 55,416 MWH MODEL $498,744 BATTERY 3,000 MWH MODEL $6,000 GAS COMBINED CYCLE 302,569 MWH MODEL $10,438,642 GAS PEAKER 3,872 MWH MODEL $202,312 MODEL COST $11,145,698 = SOLVER OBJECTIVE ✓ MODEL CO2 114,538 T MODEL BATTERY STATE OF CHARGE · 00 TO 24H · 600 TO 6,000 MWH MODEL OF 4 GENERATOR CLASSES. COSTS ARE ASSUMPTIONS, NOT MARKET PRICES. SIMULATED · MODEL · SOLVED IN BROWSER SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 6 MS PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE UNIQUE · LP TEXT SHA-256 108/108",
+  "evidence": "EVIDENCE · SEVEN QUESTIONS, SEVEN ANSWERS How we know. ISN'T YOUR FORECAST JUST EIA'S? DO YOUR INTERVALS MEAN ANYTHING? DID YOU PEEK AT THE WEATHER? WHERE ARE THE WIRES? NOT IN OUR MODEL. EACH GRID IS TREATED AS ONE COPPER PLATE. THIS IS WHAT A NETWORK LOOKS LIKE: A 14-BUS TEST SYSTEM, NOT CALIFORNIA OR TEXAS. 1 G 2 G 3 G 4 5 6 G 7 8 G 9 10 11 12 13 14 IEEE 14-BUS TEST SYSTEM · PGLIB-OPF V23.07 · CC BY 4.0 · ILLUSTRATIVE: NOT THE CAISO OR ERCOT NETWORK. OUR DISPATCH IGNORES NETWORK LIMITS. SYNTHETIC · ILLUSTRATIVE",
+  "closing": "PULSE ENERGY GRID CISO · 2025-01-02 Tonight it will happen again: twenty-four times, someone will decide what to burn so the lights stay on. The cheapest answer is known in milliseconds. The cleanest one is a choice. 2025-01-02 · CISO · 615,732 MWH SERVED SIMULATED · YOUR SCENARIO → OPEN THE CONTROL ROOM → REPLAY THE INTRO → READ THE METHODOLOGY → SOURCE CODE Source: U.S. Energy Information Administration (EIA-930 Hourly Electric Grid Monitor, bulk file EBA.zip). EIA content here is the observed hourly demand, forecast, generation and interchange series; everything else is this project's own computation. · Weather: NOAA National Centers for Environmental Information, Integrated Surface Database (hourly). · Topology: IEEE PES Power Grid Library pglib-opf, IEEE 14-bus case, CC BY 4.0. Illustrative test system, not a real grid. · RETRIEVED 2026-10-10T05:04:09Z"
+ },
+ "s04drift": [
+  "02) EIA'S CISO DAY-AHEAD SERIES DRIFTED TO −6.36% BIAS IN 2025 (PARTIAL YEAR), SO PART OF OUR CISO MARGIN IS THAT DRIFT"
+ ],
+ "verdictCards": [
+  {
+   "w": 492,
+   "h": 110,
+   "fs": "16px",
+   "t": "THIS WEEK MAPE SEASONAL NAIVE 13.35%\nTHIS WEEK MAPE EIA DAY-"
+  },
+  {
+   "w": 1248,
+   "h": 216,
+   "fs": "22px",
+   "t": "Our model beat the operator's own forecast.\n\nCISO: MAPE OURS"
+  }
+ ],
+ "cmp": {
+  "CISO": {
+   "beats_eia": true,
+   "best_model": "gbm",
+   "ci_method": "circular moving-block bootstrap over test days, block 7 days, 2000 resamples",
+   "mape_diff_ci95": [
+    -4.8907,
+    -4.0195
+   ],
+   "mape_diff_pp": -4.4652,
+   "statement": "gbm test MAPE is 4.47 percentage points lower than eia_day_ahead (95% CI -4.89 to -4.02): better than eia_day_ahead."
+  },
+  "ERCO": {
+   "beats_eia": false,
+   "best_model": "eia_debiased",
+   "ci_method": "circular moving-block bootstrap over test days, block 7 days, 2000 resamples",
+   "mape_diff_ci95": [
+    1.4983,
+    2.1954
+   ],
+   "mape_diff_pp": 1.8285,
+   "statement": "gbm test MAPE is 1.83 percentage points higher than eia_day_ahead (95% CI 1.50 to 2.20): worse than eia_day_ahead."
+  }
+ },
+ "solver": {
+  "status": "ready",
+  "version": "1.15.1",
+  "parity": {
+   "n": 108,
+   "objective": 108,
+   "priceComparable": 85,
+   "price": 85,
+   "keys": 107,
+   "hash": 108,
+   "passed": 108,
+   "ms": 1417.1000000238419
+  },
+  "error": null,
+  "attempt": 1
+ },
+ "ctrl": {
+  "ba": "CISO",
+  "dayId": "winter",
+  "source": "browser",
+  "objective": 7104391.717459554,
+  "breakdownSum": 7104391.717459555,
+  "params": {
+   "renewables_scale": 1.25,
+   "demand_growth_pct": 7,
+   "heat_wave_c": 0,
+   "battery_power_mw": 2800,
+   "battery_hours": 4,
+   "outage_class": "none",
+   "outage_pct": 100
+  },
+  "check": null,
+  "seq": 5,
+  "timeLimit": 10
+ },
+ "ctrlDom": {
+  "obj": 7104391.717459554,
+  "sum": 7104391.717459555,
+  "text": "MODEL COST $7,104,392 = SOLVER OBJECTIVE ✓ (+$386,298 VS BASELINE) MODEL CO2 71,052 T (+4,095 T VS BASELINE) UNSERVED 0 MWH (±0 MWH VS BASELINE) CURTAILED 0 MWH (±0 MWH VS BASELINE) RENEWABLE SHARE 24.0% (+3.5 PP VS BASELINE) MAX PRICE $34.5/MWH (+$0.0 VS BASELINE)",
+  "status": "SOLVED IN BROWSER · HIGHS 1.15.1 (HIGHS-JS 1.15.3) · 5 MS PARITY 108/108 VECTORS · OBJECTIVE WITHIN 1E-6 108/108 · PRICES 85/85 WHERE UNIQUE · LP TEXT SHA-256 108/108"
+ },
+ "live": []
+}

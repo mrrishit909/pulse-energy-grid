@@ -1,0 +1,153 @@
+
+Running 144 tests using 1 worker
+
+  ✓    1 [desktop] › e2e/labels.spec.ts:29:3 › hour labels clear of text: demand (1.0s)
+  ✓    2 [desktop] › e2e/labels.spec.ts:29:3 › hour labels clear of text: dispatch (2.4s)
+  ✓    3 [desktop] › e2e/labels.spec.ts:29:3 › hour labels clear of text: netload (1.5s)
+  ✓    4 [desktop] › e2e/labels.spec.ts:29:3 › hour labels clear of text: stress (1.1s)
+  ✓    5 [desktop] › e2e/labels.spec.ts:29:3 › hour labels clear of text: source (1.0s)
+  ✓    6 [desktop] › e2e/labels.spec.ts:29:3 › hour labels clear of text: pulse (1.0s)
+  ✓    7 [desktop] › e2e/prototype.spec.ts:18:3 › S00 The Bloom › LCP headline is in the HTML as ghost text from first paint (0.55 + blur, never opacity 0) (143ms)
+  ✓    8 [desktop] › e2e/prototype.spec.ts:26:3 › S00 The Bloom › SKIP is visible at once; the nav enters within 400ms of the click; plays once per session (846ms)
+  ✓    9 [desktop] › e2e/prototype.spec.ts:41:3 › S00 The Bloom › giant geometry: the peak petal is >= G0 from the first silhouette frame and never shrinks; diameter >= 1.2 x frame height (4.7s)
+  ✓   10 [desktop] › e2e/prototype.spec.ts:52:3 › S00 The Bloom › radial only: in sampled fill frames no petal shows a band beyond the one being filled (1.0s)
+  ✓   11 [desktop] › e2e/prototype.spec.ts:66:3 › S00 The Bloom › area truth in the drawn rose: (r1^2 - r0^2) / R100^2 x 100,000 = the OBSERVED fuel MW of that hour (4.8s)
+  ✓   12 [desktop] › e2e/prototype.spec.ts:84:3 › S03a Window City › an integer hour from scroll; the readout MW is that hour's demand; windows = round(MW / 100) (793ms)
+  ✓   13 [desktop] › e2e/prototype.spec.ts:102:3 › S03a Window City › GRID and DAY are live and RESET restores CISO / the first day (624ms)
+  ✓   14 [desktop] › e2e/prototype.spec.ts:115:3 › S05 Fill the Day › the worker runs all 108 parity vectors on this build and the badge shows the real count (1.6s)
+  ✓   15 [desktop] › e2e/prototype.spec.ts:128:3 › S05 Fill the Day › cost == solver objective; the live baseline equals the precomputed Python result within 1e-6 (377ms)
+  ✓   16 [desktop] › e2e/prototype.spec.ts:141:3 › S05 Fill the Day › a slider re-solves in the worker (battery 6000 MW = the battery_big preset) (386ms)
+  ✓   17 [desktop] › e2e/prototype.spec.ts:157:3 › S05 Fill the Day › worker blocked: PRECOMPUTED fallback, labelled, with RETRY; never 'SOLVED IN BROWSER' (190ms)
+  ✓   18 [desktop] › e2e/prototype.spec.ts:169:3 › S05 Fill the Day › area truth in the drawn S05 rose and nothing heavy before S04: no wasm or worker request on the first screens (2.5s)
+  ✓   19 [desktop] › e2e/qa.spec.ts:22:1 › L1: classic 15px scrollbar at 1024x768 and 768x1024: JS class == CSS class == layout class, and no collisions (31.1s)
+  ✓   20 [desktop] › e2e/qa.spec.ts:46:1 › L2: no text, chip or control collisions in any scene at 1024x768, 1280x720 and 768x1024 (1.0m)
+  ✓   21 [desktop] › e2e/qa.spec.ts:58:3 › L11: phones flow, no collisions in any scene at 360x800, 375x812 and 390x844 (motion) (59.8s)
+  ✓   22 [desktop] › e2e/qa.spec.ts:58:3 › L11: phones flow, no collisions in any scene at 360x800, 375x812 and 390x844 (reduced motion) (46.8s)
+  ✓   23 [desktop] › e2e/qa.spec.ts:82:1 › L3: every visual keeps a visible, in-viewport honesty tag (and every rose a colour key) at 360/375/390/768 (42.8s)
+  ✓   24 [desktop] › e2e/qa.spec.ts:103:1 › L5: no sideways scroll in any scene, normal and reduced motion, at 360/375/390/768 (1.2m)
+  ✓   25 [desktop] › e2e/qa.spec.ts:120:1 › L7: every visible text node is at least 11 CSS px (SVG text measured on screen) at 1440, 768 and 390 (59.9s)
+  ✓   26 [desktop] › e2e/qa.spec.ts:150:1 › L8: SKIP INTRO and REPLAY INTRO clear the nav pill by >= 8px at 768/390/375/360 (13.5s)
+  ✓   27 [desktop] › e2e/qa.spec.ts:169:1 › L9: every visible control is the topmost element at its centre (no canvas hit area over it) at 1440 and 390 (39.8s)
+  ✓   28 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: pulse shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.6s)
+  ✓   29 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: source shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY (6.1s)
+  ✓   30 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: demand shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.6s)
+  ✓   31 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: netload shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY (5.8s)
+  ✓   32 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: forecast shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY (5.8s)
+  ✓   33 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: dispatch shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.6s)
+  ✓   34 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: stress shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.6s)
+  ✓   35 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: evidence shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY (6.2s)
+  ✓   36 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: control shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (1.2s)
+  ✓   37 [desktop] › e2e/qa.spec.ts:213:5 › L4 1440: closing shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.7s)
+  ✓   38 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: pulse shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.6s)
+  ✓   39 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: source shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY (6.1s)
+  ✓   40 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: demand shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.6s)
+  ✓   41 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: netload shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY (5.7s)
+  ✓   42 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: forecast shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY (5.7s)
+  ✓   43 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: dispatch shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.7s)
+  ✓   44 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: stress shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.7s)
+  ✓   45 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: evidence shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY (6.2s)
+  ✓   46 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: control shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.9s)
+  ✓   47 [desktop] › e2e/qa.spec.ts:213:5 › L4 390: closing shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY (5.7s)
+  ✓   48 [desktop] › e2e/shell.spec.ts:13:1 › shell renders the ten scene tracks with the static hero (153ms)
+  ✓   49 [desktop] › e2e/shell.spec.ts:21:1 › zero external requests while visiting every scene, the HiGHS wasm included (served from this origin) (2.6s)
+  ✓   50 [desktop] › e2e/shell.spec.ts:39:1 › desktop nav: keyboard jump, aria-current, focus, back (801ms)
+  -   51 [desktop] › e2e/shell.spec.ts:62:1 › mobile menu pill: open, Esc closes and returns focus, item jumps
+  ✓   52 [desktop] › e2e/shell.spec.ts:82:1 › reduced motion renders in flow: no pinned stages, no blur, static rose frames (826ms)
+  ✓   53 [desktop] › e2e/shell.spec.ts:99:1 › axe: no serious or critical violations at S00, S03a and S05 (6.8s)
+  ✓   54 [desktop] › e2e/shell.spec.ts:112:1 › production build excludes the dev gallery (178ms)
+  ✓   55 [desktop] › e2e/stageb.spec.ts:17:1 › S01: the statement and the two facts cards (facts.json numbers) (4.8s)
+  ✓   56 [desktop] › e2e/stageb.spec.ts:26:1 › S02: four cards; the ledger identities are recomputed and hold (5.4s)
+  ✓   57 [desktop] › e2e/stageb.spec.ts:35:1 › seams: S02 hands the rose to S03a, and S03a hands it to S03b, without a jump (within 1px) (6.8s)
+  ✓   58 [desktop] › e2e/stageb.spec.ts:45:1 › seams: S05 -> S06 (G4 = G5, no camera move) and S06 -> S07 agree within 1px (7.3s)
+  ✓   59 [desktop] › e2e/stageb.spec.ts:55:1 › S03b: NET LOAD and the year steps; the 2025 caption is marked partial (4.9s)
+  ✓   60 [desktop] › e2e/stageb.spec.ts:65:1 › S04: the rose unrolls into the week; both BAs' verdicts, the CISO drift bound to facts (5.1s)
+  ✓   61 [desktop] › e2e/stageb.spec.ts:78:1 › S06: the stepper steps the scenario; each ledger row is scenario - baseline (5.1s)
+  ✓   62 [desktop] › e2e/stageb.spec.ts:89:1 › S07: The Wires is ILLUSTRATIVE, carries the artifact tag, no MW on any line and nothing moves along a path (4.9s)
+  ✓   63 [desktop] › e2e/stageb.spec.ts:100:1 › CTRL: a non-preset combination solves in the browser and cost == objective (unrounded, in the DOM) (5.1s)
+  ✓   64 [desktop] › e2e/stageb.spec.ts:123:1 › CTRL: a 1 microsecond time limit is a handled non-Optimal status that keeps the last optimal result (6.4s)
+  ✓   65 [desktop] › e2e/stageb.spec.ts:134:1 › CTRL: cancel terminates an in-flight solve, re-creates the worker, keeps the cached parity and does not count as a failure (6.4s)
+  ✓   66 [desktop] › e2e/stageb.spec.ts:150:1 › states: a 404 on forecast_eval shows COULD NOT LOAD with RETRY in S04 and S07, and RETRY recovers (5.6s)
+  ✓   67 [desktop] › e2e/stageb.spec.ts:169:1 › load schedule: nothing but facts and dispatch_model before the intro ends (no results, samples, wasm) (1.6s)
+  ✓   68 [desktop] › e2e/stageb.spec.ts:179:1 › Hour Inspector: a click on a petal opens it, the balance identity holds, Esc returns focus (5.9s)
+  -   69 [desktop] › e2e/stageb.spec.ts:195:1 › M: the S05 full ledger opens as a bottom sheet
+  ✓   70 [desktop] › e2e/stageb.spec.ts:204:1 › S08: the echo keeps the rose at G0 and ends with the caption and the links (5.5s)
+  ✓   71 [desktop] › e2e/stageb.spec.ts:217:1 › axe: no serious or critical violations in the Stage B scenes (21.7s)
+  ✓   72 [desktop] › e2e/stageb.spec.ts:228:1 › reduced motion: every Stage B scene renders static frames in flow (851ms)
+  ✓   73 [mobile] › e2e/labels.spec.ts:29:3 › hour labels clear of text: demand (1.1s)
+  ✓   74 [mobile] › e2e/labels.spec.ts:29:3 › hour labels clear of text: dispatch (2.5s)
+  ✓   75 [mobile] › e2e/labels.spec.ts:29:3 › hour labels clear of text: netload (5.7s)
+  ✓   76 [mobile] › e2e/labels.spec.ts:29:3 › hour labels clear of text: stress (1.1s)
+  ✓   77 [mobile] › e2e/labels.spec.ts:29:3 › hour labels clear of text: source (1.1s)
+  ✓   78 [mobile] › e2e/labels.spec.ts:29:3 › hour labels clear of text: pulse (1.1s)
+  ✓   79 [mobile] › e2e/prototype.spec.ts:18:3 › S00 The Bloom › LCP headline is in the HTML as ghost text from first paint (0.55 + blur, never opacity 0) (185ms)
+  ✓   80 [mobile] › e2e/prototype.spec.ts:26:3 › S00 The Bloom › SKIP is visible at once; the nav enters within 400ms of the click; plays once per session (874ms)
+  ✓   81 [mobile] › e2e/prototype.spec.ts:41:3 › S00 The Bloom › giant geometry: the peak petal is >= G0 from the first silhouette frame and never shrinks; diameter >= 1.2 x frame height (4.7s)
+  ✓   82 [mobile] › e2e/prototype.spec.ts:52:3 › S00 The Bloom › radial only: in sampled fill frames no petal shows a band beyond the one being filled (1.1s)
+  ✓   83 [mobile] › e2e/prototype.spec.ts:66:3 › S00 The Bloom › area truth in the drawn rose: (r1^2 - r0^2) / R100^2 x 100,000 = the OBSERVED fuel MW of that hour (4.8s)
+  ✓   84 [mobile] › e2e/prototype.spec.ts:84:3 › S03a Window City › an integer hour from scroll; the readout MW is that hour's demand; windows = round(MW / 100) (795ms)
+  ✓   85 [mobile] › e2e/prototype.spec.ts:102:3 › S03a Window City › GRID and DAY are live and RESET restores CISO / the first day (613ms)
+  ✓   86 [mobile] › e2e/prototype.spec.ts:115:3 › S05 Fill the Day › the worker runs all 108 parity vectors on this build and the badge shows the real count (2.1s)
+  ✓   87 [mobile] › e2e/prototype.spec.ts:128:3 › S05 Fill the Day › cost == solver objective; the live baseline equals the precomputed Python result within 1e-6 (476ms)
+  ✓   88 [mobile] › e2e/prototype.spec.ts:141:3 › S05 Fill the Day › a slider re-solves in the worker (battery 6000 MW = the battery_big preset) (506ms)
+  ✓   89 [mobile] › e2e/prototype.spec.ts:157:3 › S05 Fill the Day › worker blocked: PRECOMPUTED fallback, labelled, with RETRY; never 'SOLVED IN BROWSER' (228ms)
+  ✓   90 [mobile] › e2e/prototype.spec.ts:169:3 › S05 Fill the Day › area truth in the drawn S05 rose and nothing heavy before S04: no wasm or worker request on the first screens (2.5s)
+  -   91 [mobile] › e2e/qa.spec.ts:22:1 › L1: classic 15px scrollbar at 1024x768 and 768x1024: JS class == CSS class == layout class, and no collisions
+  -   92 [mobile] › e2e/qa.spec.ts:46:1 › L2: no text, chip or control collisions in any scene at 1024x768, 1280x720 and 768x1024
+  -   93 [mobile] › e2e/qa.spec.ts:58:3 › L11: phones flow, no collisions in any scene at 360x800, 375x812 and 390x844 (motion)
+  -   94 [mobile] › e2e/qa.spec.ts:58:3 › L11: phones flow, no collisions in any scene at 360x800, 375x812 and 390x844 (reduced motion)
+  -   95 [mobile] › e2e/qa.spec.ts:82:1 › L3: every visual keeps a visible, in-viewport honesty tag (and every rose a colour key) at 360/375/390/768
+  -   96 [mobile] › e2e/qa.spec.ts:103:1 › L5: no sideways scroll in any scene, normal and reduced motion, at 360/375/390/768
+  -   97 [mobile] › e2e/qa.spec.ts:120:1 › L7: every visible text node is at least 11 CSS px (SVG text measured on screen) at 1440, 768 and 390
+  -   98 [mobile] › e2e/qa.spec.ts:150:1 › L8: SKIP INTRO and REPLAY INTRO clear the nav pill by >= 8px at 768/390/375/360
+  -   99 [mobile] › e2e/qa.spec.ts:169:1 › L9: every visible control is the topmost element at its centre (no canvas hit area over it) at 1440 and 390
+  -  100 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: pulse shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  101 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: source shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY
+  -  102 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: demand shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  103 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: netload shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY
+  -  104 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: forecast shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY
+  -  105 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: dispatch shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  106 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: stress shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  107 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: evidence shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY
+  -  108 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: control shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  109 [mobile] › e2e/qa.spec.ts:213:5 › L4 1440: closing shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  110 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: pulse shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  111 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: source shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY
+  -  112 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: demand shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  113 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: netload shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY
+  -  114 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: forecast shows its own alert + RETRY for each of its 3 artifacts, one live region per file, one re-fetch per RETRY
+  -  115 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: dispatch shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  116 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: stress shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  117 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: evidence shows its own alert + RETRY for each of its 8 artifacts, one live region per file, one re-fetch per RETRY
+  -  118 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: control shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  -  119 [mobile] › e2e/qa.spec.ts:213:5 › L4 390: closing shows its own alert + RETRY for each of its 2 artifacts, one live region per file, one re-fetch per RETRY
+  ✓  120 [mobile] › e2e/shell.spec.ts:13:1 › shell renders the ten scene tracks with the static hero (196ms)
+  ✓  121 [mobile] › e2e/shell.spec.ts:21:1 › zero external requests while visiting every scene, the HiGHS wasm included (served from this origin) (2.6s)
+  -  122 [mobile] › e2e/shell.spec.ts:39:1 › desktop nav: keyboard jump, aria-current, focus, back
+  ✓  123 [mobile] › e2e/shell.spec.ts:62:1 › mobile menu pill: open, Esc closes and returns focus, item jumps (746ms)
+  ✓  124 [mobile] › e2e/shell.spec.ts:82:1 › reduced motion renders in flow: no pinned stages, no blur, static rose frames (839ms)
+  ✓  125 [mobile] › e2e/shell.spec.ts:99:1 › axe: no serious or critical violations at S00, S03a and S05 (5.3s)
+  ✓  126 [mobile] › e2e/shell.spec.ts:112:1 › production build excludes the dev gallery (152ms)
+  ✓  127 [mobile] › e2e/stageb.spec.ts:17:1 › S01: the statement and the two facts cards (facts.json numbers) (4.8s)
+  ✓  128 [mobile] › e2e/stageb.spec.ts:26:1 › S02: four cards; the ledger identities are recomputed and hold (5.4s)
+  ✓  129 [mobile] › e2e/stageb.spec.ts:35:1 › seams: S02 hands the rose to S03a, and S03a hands it to S03b, without a jump (within 1px) (6.8s)
+  ✓  130 [mobile] › e2e/stageb.spec.ts:45:1 › seams: S05 -> S06 (G4 = G5, no camera move) and S06 -> S07 agree within 1px (7.2s)
+  ✓  131 [mobile] › e2e/stageb.spec.ts:55:1 › S03b: NET LOAD and the year steps; the 2025 caption is marked partial (4.9s)
+  ✓  132 [mobile] › e2e/stageb.spec.ts:65:1 › S04: the rose unrolls into the week; both BAs' verdicts, the CISO drift bound to facts (5.0s)
+  ✓  133 [mobile] › e2e/stageb.spec.ts:78:1 › S06: the stepper steps the scenario; each ledger row is scenario - baseline (5.1s)
+  ✓  134 [mobile] › e2e/stageb.spec.ts:89:1 › S07: The Wires is ILLUSTRATIVE, carries the artifact tag, no MW on any line and nothing moves along a path (4.9s)
+  -  135 [mobile] › e2e/stageb.spec.ts:100:1 › CTRL: a non-preset combination solves in the browser and cost == objective (unrounded, in the DOM)
+  ✓  136 [mobile] › e2e/stageb.spec.ts:123:1 › CTRL: a 1 microsecond time limit is a handled non-Optimal status that keeps the last optimal result (6.3s)
+  ✓  137 [mobile] › e2e/stageb.spec.ts:134:1 › CTRL: cancel terminates an in-flight solve, re-creates the worker, keeps the cached parity and does not count as a failure (6.2s)
+  ✓  138 [mobile] › e2e/stageb.spec.ts:150:1 › states: a 404 on forecast_eval shows COULD NOT LOAD with RETRY in S04 and S07, and RETRY recovers (5.6s)
+  ✓  139 [mobile] › e2e/stageb.spec.ts:169:1 › load schedule: nothing but facts and dispatch_model before the intro ends (no results, samples, wasm) (1.6s)
+  ✓  140 [mobile] › e2e/stageb.spec.ts:179:1 › Hour Inspector: a click on a petal opens it, the balance identity holds, Esc returns focus (5.8s)
+  ✓  141 [mobile] › e2e/stageb.spec.ts:195:1 › M: the S05 full ledger opens as a bottom sheet (5.0s)
+  ✓  142 [mobile] › e2e/stageb.spec.ts:204:1 › S08: the echo keeps the rose at G0 and ends with the caption and the links (874ms)
+  ✓  143 [mobile] › e2e/stageb.spec.ts:217:1 › axe: no serious or critical violations in the Stage B scenes (18.1s)
+  ✓  144 [mobile] › e2e/stageb.spec.ts:228:1 › reduced motion: every Stage B scene renders static frames in flow (850ms)
+
+  Slow test file: [desktop] › e2e/qa.spec.ts (9.0m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  33 skipped
+  111 passed (13.6m)
+EXIT 0

@@ -1,0 +1,75 @@
+ 7:41  up 2 days, 10:12, 4 users, load averages: 27.21 23.42 19.96
+capturing 1920x1080
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/1920x1080.jpg
+1920x1080 shots 38 errors 2 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 1440x900
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/1440x900.jpg
+1440x900 shots 70 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 1024x768
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/1024x768.jpg
+1024x768 shots 38 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 768x1024
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/768x1024.jpg
+768x1024 shots 70 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 390x844
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/390x844.jpg
+390x844 shots 70 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 375x812
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/375x812.jpg
+375x812 shots 38 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 360x800
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/360x800.jpg
+360x800 shots 38 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+[
+ {
+  "label": "1440x900 unthrottled",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+  "stateBefore": "pulse:45",
+  "stateAfter": "dispatch:483",
+  "stateChanged": true,
+  "sampleCount": 697,
+  "p50_ms": 8.3,
+  "p95_ms": 10.1,
+  "pct_over_16_7ms": 0.033,
+  "pct_over_33ms": 0.006
+ },
+ {
+  "label": "1440x900 4x CPU throttle",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+  "stateBefore": "pulse:46",
+  "stateAfter": "forecast:340",
+  "stateChanged": true,
+  "sampleCount": 497,
+  "p50_ms": 8.2,
+  "p95_ms": 13.1,
+  "pct_over_16_7ms": 0.044,
+  "pct_over_33ms": 0.042
+ },
+ {
+  "label": "390x844 4x CPU throttle",
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+  "stateBefore": "pulse:48",
+  "stateAfter": "dispatch:395",
+  "stateChanged": true,
+  "sampleCount": 547,
+  "p50_ms": 8.3,
+  "p95_ms": 36.1,
+  "pct_over_16_7ms": 0.077,
+  "pct_over_33ms": 0.066
+ }
+]
+capturing 1440x900-reduced
+page.waitForFunction: Timeout 60000ms exceeded.
+    at captureViewport (/Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/site/tests/evidence-harness.mjs:76:14)
+    at async main (/Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/site/tests/evidence-harness.mjs:193:19) {
+  log: [],
+  name: 'TimeoutError'
+}
+capturing 1024x768-classic
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/1024x768-classic.jpg
+1024x768-classic shots 38 errors 1 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+capturing 768x1024-classic
+contact sheet: /Users/rishitmathurrishit/data-frontier/projects/04-pulse-energy-grid/artifacts/evidence/qa/contact-sheets/768x1024-classic.jpg
+768x1024-classic shots 38 errors 0 ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)
+ 7:59  up 2 days, 10:29, 4 users, load averages: 20.54 25.95 25.45
+HARNESS-DONE
