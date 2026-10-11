@@ -31,4 +31,15 @@ export const ctrlSection = {
   },
 };
 
-export default { ...base, ...ctrlSection };
+export const s04Section = {
+  async s04(page, shot, { jump, wait }) {
+    await page.waitForFunction(() => window.__peg && true);
+    await jump(page, "forecast", 0.03); await page.waitForFunction(() => window.__peg.debug().scene === "forecast"); await wait(page, 1500); await shot("s04-1-rose-p03");
+    await jump(page, "forecast", 0.24); await wait(page, 700); await shot("s04-2-unrolling-p24");
+    await jump(page, "forecast", 0.5); await wait(page, 700); await shot("s04-3-line-forms-p50");
+    await jump(page, "forecast", 0.88); await wait(page, 2200);
+    await page.evaluate(() => window.__peg.setForecast({ hover: 100 })); await wait(page, 400); await shot("s04-4-verdict-hover-ciso");
+    await page.evaluate(() => window.__peg.setForecast({ ba: "ERCO", week: 2, interval: "raw", hover: null, mDay: 3 })); await wait(page, 1500); await shot("s04-5-erco-raw");
+  },
+};
+export default { ...base, ...ctrlSection, ...s04Section };

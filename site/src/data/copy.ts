@@ -183,3 +183,70 @@ export function ctrlLedger(r: DispatchResult, b: DispatchResult | null) {
   ];
 }
 export const fmtControl = (unit: string, v: number) => (unit === "x" ? `×${v.toFixed(2)}` : unit === "%" ? `${v > 0 ? "+" : ""}${int(v)}%` : unit === "C" ? `+${fixed(v, 1)} °C` : unit === "h" ? `${int(v)} H` : unit === "MW" ? `${int(v)} MW` : `${int(v)}%`);
+
+// ---------------------------------------------------------------- S04 Forecast
+import type { ForecastEval, ForecastSamples, Week } from "../model/types";
+export const MODEL_LABEL: Record<string, string> = {
+  actual: "ACTUAL (OBSERVED)", seasonal_naive: "SEASONAL NAIVE", eia_day_ahead: "EIA DAY-AHEAD (PUBLISHED BY THE BA)", gbm: "OURS P50",
+  eia_debiased: "EIA, BIAS-CORRECTED (PREDICTED)", gbm_stacked: "OURS, STACKED ON EIA", gbm_perfect_weather: "OURS WITH PERFECT WEATHER",
+};
+export const copyS04 = {
+  statement: "Tomorrow, unrolled.",
+  legend: "ACTUAL ━ · EIA DAY-AHEAD ╌ · SEASONAL NAIVE ┈ · OURS P50 ━ / P10-P90 ▨",
+  table: "DATA TABLE FOR THIS WEEK",
+};
+const pp = (x: number) => `${x > 0 ? "+" : x < 0 ? "−" : "±"}${fixed(Math.abs(x), 2)}`;
+/**
+ * The verdict for one BA (VISUAL_DESIGN S04 copy): the comparisons[] row where model = best_model and
+ * baseline = eia_day_ahead; when no such row exists (ERCO's best model is eia_debiased itself), the headline
+ * comparison_vs_eia (our gbm vs EIA) is used and labelled so. A row whose CI crosses 0 says no clear winner.
+ */
+export function verdict(fe: ForecastEval, ba: "CISO" | "ERCO") {
+  const b = fe.bas[ba];
+  const best = b.comparison_vs_eia.best_model;
+  const row = b.comparisons.find((c) => c.model === best && c.baseline === "eia_day_ahead");
+  const gbmRow = b.comparisons.find((c) => c.model === "gbm" && c.baseline === "eia_day_ahead")!;
+  const used = row ?? gbmRow;
+  const beats = row ? row.mape_diff_pp < 0 : b.comparison_vs_eia.beats_eia;
+  const serif = !used.significant ? "No clear winner over the operator's forecast." : beats ? "Our model beat the operator's own forecast." : "The operator's own forecast is still better.";
+  const ours = b.models.gbm!.mape_pct, eia = b.models.eia_day_ahead!.mape_pct;
+  const ci = `95% CI ${pp(used.ci95[0])} TO ${pp(used.ci95[1])}`;
+  return {
+    ba, serif,
+    mono: `${ba}: MAPE OURS ${fixed(ours, 2)}% VS EIA ${fixed(eia, 2)}% OVER ${int(b.common_test_hours)} TEST HOURS. DIFFERENCE ${pp(gbmRow.mape_diff_pp)} PP (${`95% CI ${pp(gbmRow.ci95[0])} TO ${pp(gbmRow.ci95[1])}`}).${beats ? "" : " WE SAY SO."}`,
+    basis: row ? `BEST MODEL ${MODEL_LABEL[best] ?? best}: ${pp(row.mape_diff_pp)} PP VS EIA (${ci})` : `BEST MODEL HERE IS ${MODEL_LABEL[best] ?? best}; THE VERDICT USES OUR GBM VS EIA (comparison_vs_eia)`.toUpperCase(),
+    beats, significant: used.significant,
+  };
+}
+/** ED #25: the drift of EIA's CISO day-ahead series, bound to facts and the eia_debiased comparison. */
+export function biasLine(f: Facts & { eia_ciso_dayahead_bias_pct?: number; eia_ciso_dayahead_bias_year?: number }, fe: ForecastEval) {
+  const deb = fe.bas.CISO.comparisons.find((c) => c.model === "gbm" && c.baseline === "eia_debiased")!;
+  return `EIA'S CISO DAY-AHEAD SERIES DRIFTED TO ${pp(f.eia_ciso_dayahead_bias_pct!)}% BIAS IN ${f.eia_ciso_dayahead_bias_year} (PARTIAL YEAR), SO PART OF OUR CISO MARGIN IS THAT DRIFT. BIAS-CORRECTED, EIA SCORES ${fixed(fe.bas.CISO.models.eia_debiased!.mape_pct, 2)}%; OURS IS STILL ${fixed(Math.abs(deb.mape_diff_pp), 2)} PP LOWER (95% CI ${pp(deb.ci95[0])} TO ${pp(deb.ci95[1])}).`;
+}
+/** Week-level numbers, computed in the client from the sample arrays and labelled THIS WEEK. */
+export function weekStats(w: Week, interval: "raw" | "cqr") {
+  const mape = (pred: (number | null)[]) => {
+    let s = 0, n = 0;
+    w.actual_mw.forEach((a, i) => { const p = pred[i]; if (a !== null && p !== null && p !== undefined && a > 0) { s += Math.abs(p - a) / a; n++; } });
+    return n ? (s / n) * 100 : null;
+  };
+  const lo = interval === "raw" ? w.gbm_p10_mw : w.gbm_p10_cqr_mw, hi = interval === "raw" ? w.gbm_p90_mw : w.gbm_p90_cqr_mw;
+  let covered = 0, hours = 0;
+  w.actual_mw.forEach((a, i) => { if (a === null || lo[i] === null || hi[i] === null) return; hours++; if (lo[i]! <= a && a <= hi[i]!) covered++; });
+  const missing = w.actual_mw.filter((a) => a === null).length;
+  return { mape: { seasonal_naive: mape(w.naive_mw), eia_day_ahead: mape(w.eia_mw), gbm: mape(w.gbm_mw), best: mape(w.best_mw) }, covered, hours, missing };
+}
+export function coverageLine(fe: ForecastEval, ba: "CISO" | "ERCO", interval: "raw" | "cqr", week: { covered: number; hours: number }) {
+  const iv = fe.bas[ba].intervals.gbm!;
+  const whole = interval === "raw" ? iv.raw_coverage_pct : iv.cqr_coverage_pct;
+  return {
+    week: `THIS WEEK: ${week.covered} OF ${week.hours} HOURS INSIDE THE BAND (${fixed((week.covered / Math.max(1, week.hours)) * 100, 1)}% · NOMINAL ${fixed(iv.nominal_pct, 0)}%)`,
+    whole: `WHOLE TEST PERIOD (${int(fe.bas[ba].common_test_hours)} H): ${fixed(whole, 1)}% INSIDE THE ${interval === "raw" ? "RAW" : "CALIBRATED"} BAND`,
+  };
+}
+export function calendarCaption(fs: ForecastSamples, ba: "CISO" | "ERCO") {
+  const d = fs.bas[ba].daily_test;
+  let k = 0, n = 0;
+  d.mape_gbm.forEach((g, i) => { const e = d.mape_eia[i]; if (g === null || e === null || e === undefined) return; n++; if (g < e) k++; });
+  return { k, n, text: `OURS LOWER ON ${k} OF ${n} TEST DAYS` };
+}

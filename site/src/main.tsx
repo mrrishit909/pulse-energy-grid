@@ -14,6 +14,7 @@ import { openHour } from "./state/inspector";
 import { liveLog } from "./scenes/LiveRose";
 import { getSolver } from "./state/solver";
 import { stress } from "./scenes/S06Stress";
+import { forecast } from "./scenes/S04Forecast";
 
 // The dev gallery is excluded from production builds: the guard is a build-time constant, so the
 // chunk is not emitted. `npm run build:gallery` (VITE_GALLERY=1, separate outDir) is for evidence only.
@@ -43,6 +44,7 @@ Object.assign(window, {
     cancel: () => cancelSolve(),
     openHour: (scene: string, h: number) => openHour(scene, h),
     liveRose: () => (liveLog.log ? { R100: liveLog.R100, frames: liveLog.frames, petals: liveLog.log.petals.length } : null),
+    setForecast: (p: Partial<ReturnType<typeof forecast.get>>) => forecast.set(p),
     stress: () => stress.get(),
     setStress: (p: Partial<ReturnType<typeof stress.get>>) => stress.set(p),
     city: () => city.get(),

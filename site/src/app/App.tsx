@@ -7,13 +7,14 @@ import { useActiveScene } from "../scroll/hooks";
 import { NAV_ITEMS, SCENES, navActive, type SceneDef } from "./scenes";
 import { useIntro } from "./useIntro";
 import { getStore } from "../data/loader";
-import { FACTS, MODEL, RESULTS, VECTORS } from "../data/artifacts";
+import { DEMAND, EVAL, FACTS, FUEL_MIX, META, MODEL, QUALITY, RECON, RESULTS, SAMPLES, TOPOLOGY, VECTORS, WEATHER } from "../data/artifacts";
 import { startDirector } from "../scenes/director";
 import { PulseLayer } from "../scenes/S00Pulse";
 import { S03aCity } from "../scenes/S03aCity";
 import { S05Fill } from "../scenes/S05Fill";
 import { S06Stress } from "../scenes/S06Stress";
 import { Ctrl } from "../scenes/Ctrl";
+import { S04Forecast } from "../scenes/S04Forecast";
 import { startSolver } from "../state/solver";
 import { idle } from "../lib/math";
 
@@ -28,7 +29,7 @@ function Placeholder({ s }: { s: SceneDef }) {
   );
 }
 
-const SCENE_COMPONENTS: Record<string, (p: { def: SceneDef }) => React.ReactNode> = { demand: S03aCity, dispatch: S05Fill, stress: S06Stress, control: Ctrl };
+const SCENE_COMPONENTS: Record<string, (p: { def: SceneDef }) => React.ReactNode> = { demand: S03aCity, dispatch: S05Fill, stress: S06Stress, control: Ctrl, forecast: S04Forecast };
 
 /** Prefetch the solver's inputs and start the worker (MOTION_SYSTEM 9.3: S04 entry, or S05 directly). */
 function prefetchSolver() {
@@ -57,8 +58,15 @@ export function App() {
     getStore(FACTS).prefetch(); getStore(MODEL).prefetch();
     startDirector(rose.current!);
     resolveInitialHash();
-    idle(() => getStore(RESULTS).prefetch());
+    // idle after the intro: the mid-page artifacts (MOTION_SYSTEM 9.3)
+    idle(() => { for (const a of [RESULTS, DEMAND, FUEL_MIX, WEATHER, RECON, QUALITY, META]) getStore(a as never).prefetch(); });
   }, []);
+  // S03b entry: the forecast artifacts; S04 onward: the solver and the network card
+  useEffect(() => {
+    const i = SCENES.findIndex((s) => s.id === active);
+    if (i >= SCENES.findIndex((s) => s.id === "netload")) { getStore(SAMPLES).prefetch(); getStore(EVAL).prefetch(); }
+    if (i >= SCENES.findIndex((s) => s.id === "forecast")) getStore(TOPOLOGY).prefetch();
+  }, [active]);
   const solverStarted = useRef<(() => void) | null>(null);
   useEffect(() => {
     if (!solverStarted.current && (active === "forecast" || active === "dispatch" || active === "stress" || active === "control")) solverStarted.current = prefetchSolver();

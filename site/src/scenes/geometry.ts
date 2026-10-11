@@ -15,14 +15,17 @@ export interface Layout {
   /** fit: the largest peak-petal radius the free area holds (R100 shrinks for a bigger day, never grows) */
   G2: { cx: number; cy: number; R100: number; fit: number; sky: Skyline };
   G4: { cx: number; cy: number; R100: number; fit: number };
+  G3: { cx: number; cy: number; R100: number; fit: number };
+  /** L: the S04 week plot box */
+  week: { x0: number; x1: number; y0: number; y1: number };
   /** petal gap half-widths: at G0 and elsewhere (VISUAL_DESIGN section 0) */
   gap0: number; gap: number; glow: number; label: number;
 }
 const REF: Record<ViewportClass, [number, number]> = { D: [1440, 900], T: [768, 1024], M: [390, 844] };
 const TABLE = {
-  D: { G0: [720, 400, 620], G1: [1030, 450, 380], G2: [1040, 300, 300, 270], sky: [96, 812, 9, 12, 24], G4: [980, 450, 470, 380], gap0: 0.75, gap: 0.5, glow: 22, label: 13 },
-  T: { G0: [384, 430, 620], G1: [384, 700, 330], G2: [384, 440, 220, 190], sky: [52, 940, 5, 7, 12], G4: [384, 450, 360, 220], gap0: 0.75, gap: 0.5, glow: 14, label: 12 },
-  M: { G0: [195, 360, 530], G1: [195, 600, 230], G2: [195, 278, 175, 115], sky: [21, 700, 3, 4, 4], G4: [195, 370, 240, 150], gap0: 0.5, gap: 0.375, glow: 10, label: 11 },
+  D: { G0: [720, 400, 620], G1: [1030, 450, 380], G2: [1040, 300, 300, 270], sky: [96, 812, 9, 12, 24], G4: [980, 450, 470, 380], G3: [980, 450, 520, 380], week: [96, 1344, 312, 586], gap0: 0.75, gap: 0.5, glow: 22, label: 13 },
+  T: { G0: [384, 430, 620], G1: [384, 700, 330], G2: [384, 440, 220, 190], sky: [52, 940, 5, 7, 12], G4: [384, 450, 360, 220], G3: [384, 560, 380, 280], week: [48, 720, 420, 700], gap0: 0.75, gap: 0.5, glow: 14, label: 12 },
+  M: { G0: [195, 360, 530], G1: [195, 600, 230], G2: [195, 278, 175, 115], sky: [21, 700, 3, 4, 4], G4: [195, 370, 240, 150], G3: [195, 420, 250, 165], week: [16, 374, 340, 570], gap0: 0.5, gap: 0.375, glow: 10, label: 11 },
 } as const;
 
 /** `cls` forces a composition (reduced-motion stills draw the page's class into a smaller box). */
@@ -42,6 +45,8 @@ export function layout(vw: number, vh: number, force?: ViewportClass): Layout {
     G1: pt(t.G1),
     G2: { ...pt(t.G2), sky: { x0: ox + t.sky[0] * s, base: oy + t.sky[1] * s, win: t.sky[2] * s, pitch: t.sky[3] * s, gap: t.sky[4] * s } },
     G4: pt(t.G4),
+    G3: pt(t.G3),
+    week: { x0: ox + t.week[0] * s, x1: ox + t.week[1] * s, y0: oy + t.week[2] * s, y1: oy + t.week[3] * s },
     gap0: t.gap0, gap: t.gap, glow: t.glow, label: t.label,
   };
 }
