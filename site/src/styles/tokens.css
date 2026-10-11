@@ -1,0 +1,90 @@
+/* Data Frontier shared design tokens.
+   Source: user's design override (2026-10-10) + measured reference values (design/reference-analysis.md).
+   Fonts: design/fonts/DECISION.md. Projects override only --accent-primary / --accent-secondary / --orb-*. */
+:root {
+  /* surfaces */
+  --background-primary: #000000;
+  --background-secondary: #111111;
+  --surface-primary: #161616;
+  --surface-elevated: #292929;
+  --surface-glass: rgba(242, 242, 242, 0.1); /* nav bar, measured */
+  --line: rgba(255, 255, 255, 0.16);
+
+  /* text */
+  --text-primary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-faint: rgba(255, 255, 255, 0.32); /* decorative only, never body copy (fails AA) */
+  --text-on-light: #000000;
+
+  /* accents */
+  --accent-orange: #ff4c25;
+  --accent-blue: #192ce4;
+  --accent-light-blue: #58b8e1;
+  --accent-purple: #690de2;
+  /* contrast on #000: orange 6.3, light-blue 9.4, blue 2.5, purple 2.8 -> blue/purple are FILL ONLY (white text on them passes) */
+  --near-black: #080808;
+  --accent-primary: var(--accent-light-blue);   /* per project */
+  --accent-secondary: var(--accent-orange);     /* per project */
+
+  /* semantic (data honesty tags + states) */
+  --tag-observed: #ffffff;
+  --tag-derived: var(--accent-light-blue);
+  --tag-predicted: #8fa2ff;   /* lighter than --accent-blue so it passes 4.5:1 on black */
+  --tag-simulated: var(--accent-orange);
+  --tag-synthetic: #b48cff;   /* lighter than --accent-purple for contrast */
+  --state-success: #6be38a;
+  --state-warning: #ffb547;
+  --state-error: #ff6a4d;
+
+  /* luminous orb gradient families (rendered by the Orb component, not flat circles) */
+  --orb-solar: #fff3a6, #ffc23d 38%, #ff7a1f 66%, #ff4c25 100%;
+  --orb-electric: #8fd9ff, #58b8e1 30%, #192ce4 68%, #3a0aa8 100%;
+  --orb-spectral: #ffb26b, #ff6a2b 35%, #ff2f7a 72%, #c21fd6 100%;
+
+  /* typography */
+  --font-display: "Newsreader Variable", "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+  --type-hero: clamp(2.25rem, 1.2rem + 5.2vw, 6.5rem);      /* 36 -> 104px */
+  --type-section: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);      /* 36 -> 64px */
+  --type-title: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);     /* 28 -> 44px */
+  --type-card-title: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);   /* 28 -> 40px */
+  --type-body: clamp(0.875rem, 0.75rem + 0.6vw, 1.5rem);     /* 14 -> 24px, mono uppercase */
+  --type-label: clamp(0.6875rem, 0.65rem + 0.15vw, 0.8125rem); /* 11 -> 13px */
+  --type-numeral: clamp(2.5rem, 1.5rem + 5vw, 7rem);
+  --leading-display: 1.0;
+  --leading-body: 1.1;
+  --tracking-label: 0.04em;
+  --tracking-body: 0.01em;
+
+  /* spacing (4px grid) */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px; --space-10: 128px;
+  --gutter: clamp(16px, 2.5vw, 32px);
+
+  /* shape */
+  --radius-card: 8px;
+  --radius-nav: 0px;
+
+  /* blur */
+  --blur-nav: 16px;
+  --blur-reveal: 12px;
+
+  /* motion (measured on reference: 0.2 / 0.35 / 0.8 / 1.2 / 1.4s) */
+  --motion-fast: 200ms;
+  --motion-standard: 350ms;
+  --motion-panel: 600ms;
+  --motion-card: 800ms;
+  --motion-scene: 1200ms;
+  --ease-premium: cubic-bezier(.5, 0, 0, 1);
+  --ease-symmetric: cubic-bezier(.5, 0, .5, 1);
+  --ease-smooth: cubic-bezier(.33, 1, .68, 1);
+
+  /* layers */
+  --z-background: 0; --z-stage: 10; --z-cards: 20; --z-overlay: 40; --z-nav: 50; --z-intro: 60; --z-skip: 70;
+
+  /* scroll tracks */
+  --track-hero: 200vh; --track-scene: 300vh; --track-short: 150vh;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 0ms; --motion-standard: 0ms; --motion-panel: 0ms; --motion-card: 0ms; --motion-scene: 0ms; --blur-reveal: 0px; }
+}

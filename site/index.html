@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-motion="on">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <title>Pulse Energy Grid</title>
+    <meta name="description" content="Pulse Energy Grid: one real day of California's and Texas's power grids drawn as a 24-petal rose, filled in merit order, with an in-browser HiGHS dispatch lab." />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2" />
+    <script>
+      // Before first paint: motion preference (OS or in-site session override) and gallery flag.
+      (function () {
+        var d = document.documentElement, o = null;
+        try { o = sessionStorage.getItem("peg.motion"); } catch (e) {}
+        var rm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+        d.setAttribute("data-motion", o === "on" || o === "off" ? o : rm ? "off" : "on");
+        if (/[?&]gallery(=|&|$)/.test(location.search)) d.classList.add("is-gallery");
+      })();
+    </script>
+  </head>
+  <body>
+    <main id="main">
+      <!-- S00/S01 is static HTML so the LCP headline paints before any JS (MOTION_SYSTEM 2). Layer order: canvas, scrim, h1. -->
+      <section id="pulse" class="track track--pinned scene scene-pulse" aria-labelledby="hero-title" style="--track-h: 200vh" data-static-track>
+        <div class="stage">
+          <div class="stage-content" data-stage-content>
+            <div id="pulse-still"></div>
+            <div class="hero-scrim" aria-hidden="true"></div>
+            <p class="wordmark" data-intro-corner>PULSE ENERGY GRID</p>
+            <p class="intro-corner tnum" data-intro-corner aria-hidden="true"><span data-intro-day></span><span class="intro-corner__fuel" data-intro-fuel></span></p>
+            <h1 id="hero-title" class="hero-title wr" data-hero data-scene-heading tabindex="-1"><span class="wr-word">The</span> <span class="wr-word">invisible</span> <span class="wr-word">machine</span> <span class="wr-word">that</span> <span class="wr-word">powers</span> <span class="wr-word">everything.</span></h1>
+            <p class="sr-only" id="hero-alt">Animated introduction: one day of California's grid drawn as 24 petals, one per hour, noon at the top. Each petal's area is the electricity used in that hour. It fills from the centre with solar, wind, nuclear, hydro, imports and other sources, and gas burns at the rim.</p>
+            <div id="pulse-portal"></div>
+          </div>
+        </div>
+      </section>
+      <div id="root"></div>
+    </main>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
