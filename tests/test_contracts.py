@@ -37,7 +37,9 @@ def test_schema_files_match_generator():
 
 def test_no_emdash_characters_in_tracked_files():
     files = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split()
-    bad = [f for f in files if (ROOT / f).exists() and any(c in (ROOT / f).read_text(errors="ignore") for c in (chr(0x2014), chr(0x2015)))]
+    # binary evidence (png/jpg/webm/wasm) can contain the UTF-8 byte sequence by chance; scan text only
+    binary = (".png", ".jpg", ".jpeg", ".webp", ".webm", ".mp4", ".wasm", ".woff2", ".gz", ".bin")
+    bad = [f for f in files if not f.endswith(binary) and (ROOT / f).exists() and any(c in (ROOT / f).read_text(errors="ignore") for c in (chr(0x2014), chr(0x2015)))]
     assert not bad, bad
 
 
