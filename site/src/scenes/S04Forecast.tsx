@@ -1,3 +1,4 @@
+import { RoseSlot, useSceneLayout } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
 import { useMemo, useState, useSyncExternalStore, type KeyboardEvent, type PointerEvent } from "react";
 import { Track } from "../scroll/Track";
@@ -126,7 +127,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   const st = useSyncExternalStore(forecast.subscribe, forecast.get);
   const motion = useMotion();
   const vp = useViewport();
-  const L = layout(vp.w, vp.h);
+  const L = useSceneLayout(def.id);
   const M = vp.cls === "M";
   const [ph, setPh] = useState({ step: 0, verdict: false, live: false });
   useProgress(def.id, (p) => {
@@ -154,6 +155,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Forecast: tomorrow, unrolled">
       <SceneErrors id={def.id} specs={[SAMPLES, EVAL, FACTS] as ArtifactSpec<unknown>[]} />
+      <RoseSlot scene={def.id} slot="week" />
       <div className="fc-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">{copyS04.statement}</h2>
         <p className="scene-kicker">FORECAST · {st.ba} · {d ? `${d.w.label.toUpperCase()} (${d.w.ts_local[0]!.slice(0, 10)})` : ""}</p>
@@ -190,7 +192,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
             {motion ? <div className="fc-hit" role="img" tabIndex={0} aria-label="Week plot: arrow keys move the crosshair hour" style={{ left: L.week.x0, top: L.week.y0, width: L.week.x1 - L.week.x0, height: L.week.y1 - L.week.y0 }}
               onPointerMove={hoverAt} onPointerLeave={() => forecast.set({ hover: null })} onKeyDown={key} /> : null}
             {d && ws ? (
-              <div className={`fc-readout ${show.live ? "is-in" : ""}`} aria-live="polite">
+              <div className={`fc-readout ${show.live ? "is-in" : ""} ${show.verdict ? "is-verdict" : ""}`} aria-live="polite">
                 {hv !== null ? (
                   <ul className="fc-hover tnum">
                     <li>{d.w.ts_local[d.first + hv]!.replace("T", " ")} LOCAL</li>

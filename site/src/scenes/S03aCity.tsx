@@ -1,3 +1,4 @@
+import { RoseSlot, useSceneLayout } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
 import { useSyncExternalStore, type CSSProperties, type KeyboardEvent } from "react";
 import { Track } from "../scroll/Track";
@@ -54,7 +55,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
   const motion = useMotion();
   const vp = useViewport();
   const isM = vp.cls === "M";
-  const L = layout(vp.w, vp.h);
+  const L = useSceneLayout(def.id);
   useProgress(def.id, (p) => { const h = hourAt(p); if (h !== city.get().hour) city.set({ hour: h }); });
   const m = ms.status === "ready" ? ms.data : null;
   const bm = m?.bas[c.ba];
@@ -76,6 +77,8 @@ export function S03aCity({ def }: { def: SceneDef }) {
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Demand: the window city">
       <SceneErrors id={def.id} specs={[MODEL, FACTS] as ArtifactSpec<unknown>[]} />
+      <RoseSlot scene={def.id} />
+      <RoseSlot scene={def.id} slot="sky" />
       <div className="city-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">{copyS03a.statement}</h2>
         <p className="scene-kicker">DEMAND · {c.ba}<span className="kicker-long"> · ONE REAL DAY, HOUR BY HOUR</span>{day ? ` · ${day.date}` : ""}</p>

@@ -22,7 +22,7 @@ import { drawEdgeGlow, drawHourLabels, drawPriceRose, drawRose, radius, resetRos
 import { observedStack, petals, simulatedStack, tweenPetals, firstChanged, type DayStack } from "../model/stack";
 import { dayPeak, scenarioDemand, fullParams } from "../model/lp";
 import { litCount, windows, type Win } from "../model/city";
-import { camera, fillR100, fitR100, layout, type Layout } from "./geometry";
+import { camera, fillR100, fitR100, layout, roomsVersion, sceneLayout, type Layout } from "./geometry";
 import { SCENES } from "../app/scenes";
 import type { BAModel, Day, DispatchModel } from "../model/types";
 
@@ -205,7 +205,7 @@ function demandFrame(now: number, m: BAModel): Frame | null {
   const R2 = Math.exp(Math.log(cityRFrom || cityRTo) + (Math.log(cityRTo) - Math.log(cityRFrom || cityRTo)) * cityMix.value);
   const view = baseView(s.keys, { cx: L.G2.cx, cy: L.G2.cy, R100: R2, rref: radius(peak, R2), gap: L.gap, lift: hour, liftT: liftTw.value });
   const sky = L.G2.sky;
-  const wkey = `${W}x${H}`;
+  const wkey = `${W}x${H}|${sky.x0}|${sky.base}`;
   if (!winCache || winCache.key !== wkey) winCache = { key: wkey, list: windows(sky) };
   debug.lit = Math.round(litTw.value); debug.hour = hour;
   // exit (p 0.94-1): the skyline sinks, the rose moves G2 -> G3 and becomes S03b's first state (January's mean day)
@@ -216,7 +216,7 @@ function demandFrame(now: number, m: BAModel): Frame | null {
   if (x > 0 && fm.status === "ready" && dp.status === "ready" && L) {
     const b = petals(biteStack(fm.data, dp.data, c.ba, 1, null, 0), () => 1);
     outPs = tweenPetals(ps, b, () => x, x);
-    const cam = camera({ cx: view.cx, cy: view.cy, R100: view.R100 }, { cx: L.G3.cx, cy: L.G3.cy, R100: fitR100(L.G3, bitePeak(dp.data, c.ba)) }, x);
+    const cam = camera({ cx: view.cx, cy: view.cy, R100: view.R100 }, { cx: sceneLayout("netload", W, H).G3.cx, cy: sceneLayout("netload", W, H).G3.cy, R100: fitR100(sceneLayout("netload", W, H).G3, bitePeak(dp.data, c.ba)) }, x);
     outView = { ...view, ...cam, rref: radius(Math.max(...b.map((q) => q.demand)), cam.R100), lift: x > 0.5 ? null : view.lift };
   }
   return {
@@ -330,6 +330,23 @@ function renderBloom(f: Frame, key: string) {
   return blur;
 }
 
+/**
+ * QA L11: on a phone each scene's rose sits in its own measured slot, so neighbouring scenes no longer share one
+ * geometry. Over the first 8% of a scene (2% for S04, whose rose unrolls at once) the camera eases from the previous scene's slot to its own, keeping the seam.
+ */
+const HANDOFF: Record<string, [string, "G2" | "G3" | "G4", number]> = { demand: ["source", "G2", 0.08], forecast: ["netload", "G3", 0.02], stress: ["dispatch", "G4", 0.08], evidence: ["stress", "G4", 0.08] };
+function handoff(id: string, f: Frame): Frame {
+  const h = HANDOFF[id];
+  const p = getProgress(id);
+  if (!h || !L || L.cls !== "M" || p >= h[2]) return f;
+  const from = sceneLayout(h[0], W, H)[h[1]], to = L[h[1]];
+  const e = 1 - easeSymmetric(Math.max(0, p) / h[2]);
+  if (e <= 0 || (Math.abs(from.cx - to.cx) < 0.5 && Math.abs(from.cy - to.cy) < 0.5 && Math.abs(from.fit - to.fit) < 0.5)) return f;
+  const k = 1 + (from.fit / to.fit - 1) * e;
+  const move = (v: RoseView): RoseView => ({ ...v, cx: to.cx + (v.cx - to.cx) * k + (from.cx - to.cx) * e, cy: to.cy + (v.cy - to.cy) * k + (from.cy - to.cy) * e, R100: v.R100 * k, rref: v.rref * k });
+  return { ...f, view: move(f.view), mixB: f.mixB ? { ...f.mixB, view: move(f.mixB.view) } : undefined, sig: `${f.sig}|h${e.toFixed(3)}` };
+}
+
 function draw(now: number) {
   if (!canvas || !ctx || !L) return;
   if (!motionEnabled()) { if (lastSig !== "off") { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); lastSig = "off"; } return; }
@@ -337,6 +354,7 @@ function draw(now: number) {
   const loc = locate(SCENE_IDS);
   const id = loc?.id ?? "pulse";
   debug.scene = id;
+  L = sceneLayout(id, W, H); // QA L11: the scene's measured phone slot, if any
   const ba = id === "demand" ? city.get().ba : id === "dispatch" ? fill.get().ba : "CISO";
   const bm = m?.bas[ba] ?? null;
   let f: Frame | null = null;
@@ -346,9 +364,10 @@ function draw(now: number) {
     else if (id === "dispatch") f = dispatchFrame(now, bm, getProgress("dispatch"));
     else if (registry.has(id)) f = registry.get(id)!({ now, p: getProgress(id), L, W, H, model: m });
   }
+  if (f) f = handoff(id, f);
   const opacity = f?.opacity ?? 1;
   if (canvas.style.opacity !== String(opacity)) canvas.style.opacity = String(opacity);
-  const sig = `${W}x${H}|${f ? f.sig : `none|${id}`}`;
+  const sig = `${W}x${H}|${roomsVersion()}|${f ? f.sig : `none|${id}`}`;
   if (sig === lastSig) return;
   lastSig = sig;
   debug.frames++;

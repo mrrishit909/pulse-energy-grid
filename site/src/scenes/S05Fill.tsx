@@ -1,3 +1,4 @@
+import { RoseSlot, useSceneLayout } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { Track } from "../scroll/Track";
@@ -44,7 +45,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
   const motion = useMotion();
   const vp = useViewport();
   const isM = vp.cls === "M";
-  const L = layout(vp.w, vp.h);
+  const L = useSceneLayout(def.id);
   const [ph, setPh] = useState({ rows: 0, s2: false, live: false });
   const [draft, setDraft] = useState<Partial<Record<LabId, number>>>({});
   const soc = useRef<SVGPolylineElement>(null);
@@ -90,6 +91,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Dispatch: fill the day">
       <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
+      <RoseSlot scene={def.id} />
       <div className="fill-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement" key={show.s2 ? "s2" : "s1"}>{show.s2 ? copyS05.s2 : copyS05.s1}</h2>
       </div>

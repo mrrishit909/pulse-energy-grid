@@ -55,6 +55,8 @@ export function collisions(page: Page, id: string, debug = false) {
     for (const c of root2controls()) { if (!seen.has(c) && eff(c) > 0.05) { const r = c.getBoundingClientRect(); if (r.width > 1 && r.bottom > 0 && r.top < vh) boxes.push({ el: c, r, name: c.getAttribute("aria-label") ?? c.tagName, backed: true }); } }
     function root2controls() { return [...scope.querySelectorAll("input[type=range], select")]; }
     if (dbg) return boxes.map((b) => `${b.name} ${Math.round(b.r.left)}..${Math.round(b.r.right)} ${Math.round(b.r.top)}-${Math.round(b.r.bottom)}`);
+    // a scene in normal flow (CTRL, every scene under reduced motion) scrolls under the fixed nav like any page
+    const flow = sid === "control" || getComputedStyle(scope).position !== "sticky";
     const out: string[] = [];
     const inter = (a: DOMRect, b: DOMRect) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
     for (let i = 0; i < boxes.length; i++) {
@@ -63,9 +65,8 @@ export function collisions(page: Page, id: string, debug = false) {
       for (let j = i + 1; j < boxes.length; j++) {
         const b = boxes[j]!;
         if (a.el.contains(b.el) || b.el.contains(a.el) || a.el === b.el) continue;
-        // CTRL is normal flow (not pinned): its content scrolls under the fixed nav like any page
         const isNav = (e: Element) => !!e.closest(".nav-bar, .nav-pill, .corner-btn");
-        if (sid === "control" && isNav(a.el) !== isNav(b.el)) continue;
+        if (flow && isNav(a.el) !== isNav(b.el)) continue;
         if (inter(a.r, b.r) > 4) out.push(`"${a.name}" x "${b.name}"`);
       }
     }

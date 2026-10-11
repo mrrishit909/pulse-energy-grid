@@ -83,3 +83,37 @@ export const fillR100 = (st: { fit: number }, peakMw: number) => st.fit / Math.s
 export function camera(a: { cx: number; cy: number; R100: number }, b: { cx: number; cy: number; R100: number }, t: number) {
   return { cx: a.cx + (b.cx - a.cx) * t, cy: a.cy + (b.cy - a.cy) * t, R100: Math.exp(Math.log(a.R100) + (Math.log(b.R100) - Math.log(a.R100)) * t) };
 }
+
+/*
+ * QA L11: below the M reference (390x844) the phone compositions flow (CSS grid per scene) and the canvas follows
+ * the measured free slot instead of the fixed table. A scene's RoseSlot reports its box in stage pixels here.
+ */
+export interface Room { x: number; y: number; w: number; h: number }
+const rooms = new Map<string, Room>();
+let roomsVer = 0;
+const roomSubs = new Set<() => void>();
+export const roomsVersion = () => roomsVer;
+export function subscribeRooms(fn: () => void) { roomSubs.add(fn); return () => void roomSubs.delete(fn); }
+export function setRoom(key: string, r: Room | null) {
+  const o = rooms.get(key);
+  if (r ? o && Math.abs(o.x - r.x) < 0.5 && Math.abs(o.y - r.y) < 0.5 && Math.abs(o.w - r.w) < 0.5 && Math.abs(o.h - r.h) < 0.5 : !o) return;
+  if (r) rooms.set(key, r); else rooms.delete(key);
+  roomsVer++;
+  roomSubs.forEach((f) => f());
+}
+/** The rose (with its hour labels and ghost ring, ~28px outside the peak petal) centred in a slot; R100 keeps the table's R100/fit ratio. */
+function fitIn<T extends { cx: number; cy: number; R100: number; fit: number }>(g: T, r: Room, pad = 28): T {
+  const fit = Math.max(40, Math.min(r.w, r.h) / 2 - pad);
+  return { ...g, cx: r.x + r.w / 2, cy: r.y + r.h / 2, fit, R100: (g.R100 * fit) / g.fit };
+}
+/** layout() for one scene: on M with a measured slot, the scene's rose (and S03a skyline, S04 week plot) sit in it. */
+export function sceneLayout(id: string, vw: number, vh: number): Layout {
+  const L = layout(vw, vh);
+  if (L.cls !== "M") return L;
+  const rose = rooms.get(`${id}:rose`), sky = rooms.get(`${id}:sky`), week = rooms.get(`${id}:week`);
+  if (id === "demand" && rose) return { ...L, G2: { ...fitIn(L.G2, rose), sky: sky ? { ...L.G2.sky, base: sky.y + sky.h } : L.G2.sky } };
+  if (id === "netload" && rose) return { ...L, G3: fitIn(L.G3, rose) };
+  if ((id === "dispatch" || id === "stress") && rose) return { ...L, G4: fitIn(L.G4, rose) };
+  if (id === "forecast" && week) return { ...L, G3: fitIn(L.G3, week), week: { x0: week.x, x1: week.x + week.w, y0: week.y + 18, y1: week.y + week.h - 16 } };
+  return L;
+}

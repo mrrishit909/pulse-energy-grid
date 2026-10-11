@@ -1,3 +1,4 @@
+import { RoseSlot, useSceneLayout } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
 import { useMemo, useSyncExternalStore, type CSSProperties, type KeyboardEvent } from "react";
 import { Track } from "../scroll/Track";
@@ -98,7 +99,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
   const st = useSyncExternalStore(stress.subscribe, stress.get);
   const motion = useMotion();
   const vp = useViewport();
-  const L = layout(vp.w, vp.h);
+  const L = useSceneLayout(def.id);
   const isM = vp.cls === "M";
   useProgress(def.id, (p) => { const k = stepState(stress.get().step, p, THRESH); if (k !== stress.get().step) stress.set({ step: k }); });
   const go = (k: number) => jumpTo(def.id, STRESS_P[k]);
@@ -116,6 +117,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Stress: five scenarios">
       <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
+      <RoseSlot scene={def.id} />
       <div className="stress-text">
         <p className="scene-kicker">{copyS06.kicker}</p>
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="stress-title" key={id}>{meta(id)?.label ?? def.title}</h2>

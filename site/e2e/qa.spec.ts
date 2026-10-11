@@ -43,9 +43,9 @@ test("L1: classic 15px scrollbar at 1024x768 and 768x1024: JS class == CSS class
   } finally { await b.close(); }
 });
 
-test("L2: no text, chip or control collisions in any scene at 1024x768, 1280x720, 768x1024 and 390x844", async ({ browser }) => {
+test("L2: no text, chip or control collisions in any scene at 1024x768, 1280x720 and 768x1024", async ({ browser }) => {
   const bad: string[] = [];
-  for (const vp of [VP(1024, 768), VP(1280, 720), VP(768, 1024), VP(390, 844)]) {
+  for (const vp of [VP(1024, 768), VP(1280, 720), VP(768, 1024)]) {
     const { ctx, page } = await at(browser, vp);
     await openSite(page);
     for (const [id, p] of WALK) { await goScene(page, id, p); for (const x of await collisions(page, id)) bad.push(`${vp.width}x${vp.height} ${id}@${p}: ${x}`); }
@@ -53,6 +53,19 @@ test("L2: no text, chip or control collisions in any scene at 1024x768, 1280x720
   }
   expect(bad).toEqual([]);
 });
+
+for (const reduced of [false, true]) {
+  test(`L11: phones flow, no collisions in any scene at 360x800, 375x812 and 390x844 (${reduced ? "reduced motion" : "motion"})`, async ({ browser }) => {
+    const bad: string[] = [];
+    for (const vp of [VP(360, 800), VP(375, 812), VP(390, 844)]) {
+      const { ctx, page } = await at(browser, vp, { reduced });
+      await openSite(page);
+      for (const [id, p] of WALK) { await goScene(page, id, p); for (const x of await collisions(page, id)) bad.push(`${vp.width}x${vp.height} ${id}@${p}: ${x}`); }
+      await ctx.close();
+    }
+    expect(bad).toEqual([]);
+  });
+}
 
 /** Visible (opacity, visibility, display) and inside the viewport. */
 const visibleIn = (page: Page, root: string, sel: string) => page.evaluate(([r, s]) => {

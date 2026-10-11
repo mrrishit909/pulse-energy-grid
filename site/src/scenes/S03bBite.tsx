@@ -1,3 +1,4 @@
+import { RoseSlot } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
 import { useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import { Track } from "../scroll/Track";
@@ -133,6 +134,7 @@ export function S03bBite({ def }: { def: SceneDef }) {
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Net load: the bite">
       <SceneErrors id={def.id} specs={[FUEL_MIX, DEMAND, FACTS] as ArtifactSpec<unknown>[]} />
+      <RoseSlot scene={def.id} />
       <div className="bite-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement" key={net ? "net" : "dem"}>{net ? copyS03b.net : copyS03b.demand}</h2>
         <p className="scene-kicker">NET LOAD · {st.ba} · MEAN DAY OF THE MONTH{year ? ` · ${year}` : " · ALL YEARS"}</p>

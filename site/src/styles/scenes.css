@@ -93,6 +93,12 @@ html[data-motion="off"] .rose-layer, html.is-gallery .rose-layer { display: none
   .pulse-foot .chip { font-size: 11px; padding: 6px; }
   .pulse-note { text-align: left; font-size: 12px; }
 }
+/* QA L11: phones below 390x844 anchor the headline above the foot (chip + note) and darken from the bottom up */
+@media (max-width: 389px), (max-width: 767px) and (max-height: 843px) {
+  html:not([data-motion="off"]) .hero-title { top: auto; bottom: calc(var(--nav-clear) + 108px); }
+  html[data-motion="off"] .hero-title { top: calc(100dvh - 290px); }
+  .hero-scrim { background: linear-gradient(to bottom, rgb(0 0 0 / 0.86) 0, rgb(0 0 0 / 0.86) 64px, transparent 120px), linear-gradient(to top, rgb(0 0 0 / 0.96) 0, rgb(0 0 0 / 0.96) 230px, rgb(0 0 0 / 0.75) 290px, transparent 350px); }
+}
 /* short or narrow desktops keep the headline above the nav */
 @media (min-width: 1024px) and (max-height: 860px) { .hero-title { top: auto; bottom: calc(var(--nav-clear) + 24px); } }
 
@@ -263,6 +269,7 @@ html[data-motion="off"] .scene-stress .stage-content > .stress-list { position: 
   .stress-text { gap: 6px; }
   .stress-controls { top: auto; bottom: calc(var(--nav-clear) + 46px); left: 12px; right: 12px; padding: 4px 8px; background: rgb(22 22 22 / 0.94); border-radius: var(--radius-card); flex-wrap: nowrap; justify-content: space-between; gap: 6px; }
   .stress-controls .seg-ctl { gap: 4px; }
+  .stress-controls { flex-wrap: wrap; } .stress-controls .seg-ctl__row { flex-wrap: nowrap; }
   .stress-controls .seg-ctl__label { min-width: 0; font-size: 11px; }
   .stress-controls .chip-btn { padding: 7px 5px; font-size: 11px; }
   .stress-ledger { top: 532px; bottom: auto; left: 16px; right: 16px; width: auto; gap: 4px; }
@@ -648,3 +655,54 @@ html[data-motion="off"] .ev-x.is-old, html[data-motion="off"] .ev-x.is-old .ev-a
 .stack-key .swatch { width: 14px; height: 8px; margin-right: 6px; }
 /* the CTRL key and tag stay in the stage's right margin, clear of the rose */
 @media (min-width: 1024px) { .ctrl-chip { max-width: 210px; } .ctrl-chip .chip { display: block; max-width: 210px; white-space: normal; line-height: 1.25; text-align: right; } .ctrl-chip .chip__mark { display: inline-block; margin-right: 8px; } }
+
+/* ======================================================================================================
+   QA L11: PHONE FLOW. On M the five rose scenes are a grid, not fixed tops: text stacks at its real wrapped
+   height, the rose (and S03a skyline, S04 week plot) take the measured free row (RoseSlot -> sceneLayout), and
+   if a very small phone still runs out of room the stage scrolls inside itself. Type never shrinks (11px floor).
+   ====================================================================================================== */
+.rose-slot { display: none; pointer-events: none; }
+@media (max-width: 767px) {
+  html:not([data-motion="off"]) :is(.scene-demand, .scene-netload, .scene-forecast, .scene-dispatch, .scene-stress) .stage { overflow-x: hidden; overflow-y: auto; scrollbar-width: none; }
+  html:not([data-motion="off"]) :is(.scene-demand, .scene-netload, .scene-forecast, .scene-dispatch, .scene-stress) .stage-content {
+    display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 8px; box-sizing: border-box; height: auto; min-height: 100%;
+    padding: 36px 16px calc(var(--nav-clear) + 4px);
+  }
+  html:not([data-motion="off"]) :is(.scene-demand, .scene-netload, .scene-forecast, .scene-dispatch, .scene-stress) .stage-content > :not(.rose-hit, .fc-hit, .bite-hit, .fc-table) {
+    position: relative; inset: auto; width: auto; max-width: none; margin: 0;
+  }
+  html:not([data-motion="off"]) .rose-slot { display: block; position: relative; min-height: 150px; }
+  html:not([data-motion="off"]) .rose-slot--sky { min-height: 0; height: 92px; }
+
+  html:not([data-motion="off"]) .scene-demand .stage-content { grid-template-rows: auto minmax(150px, 1fr) auto auto 92px auto auto; grid-template-areas: "text" "rose" "readout" "chips" "sky" "note" "controls"; }
+  .scene-demand .city-text { grid-area: text; } .scene-demand .rose-slot--rose { grid-area: rose; } .scene-demand .city-readout { grid-area: readout; }
+  .scene-demand .city-chips { grid-area: chips; } .scene-demand .rose-slot--sky { grid-area: sky; } .scene-demand .city-note { grid-area: note; } .scene-demand .city-controls { grid-area: controls; }
+
+  html:not([data-motion="off"]) .scene-netload .stage-content { grid-template-rows: auto minmax(150px, 1fr) auto auto; grid-template-areas: "text" "rose" "readout" "controls"; }
+  .scene-netload .bite-text { grid-area: text; } .scene-netload .rose-slot { grid-area: rose; } .scene-netload .bite-readout { grid-area: readout; } .scene-netload .bite-controls { grid-area: controls; }
+
+  html:not([data-motion="off"]) .scene-forecast .stage-content { grid-template-rows: auto auto auto auto minmax(120px, 1fr) auto auto; grid-template-areas: "text" "controls" "readout" "legend" "week" "days" "verdict"; }
+  /* the verdict joins the flow at its step: the week's MAPE lines and the day tabs give it their room (the tags stay) */
+  .scene-forecast .fc-verdict { grid-area: verdict; }
+  html:not([data-motion="off"]) .scene-forecast .fc-verdict:not(.is-in), html:not([data-motion="off"]) .scene-forecast .fc-days.is-off, html:not([data-motion="off"]) .scene-forecast .fc-readout.is-verdict .fc-hover { display: none; }
+  .scene-forecast .fc-text { grid-area: text; } .scene-forecast .fc-controls { grid-area: controls; } .scene-forecast .fc-readout { grid-area: readout; }
+  .scene-forecast .fc-legend { grid-area: legend; } .scene-forecast .rose-slot { grid-area: week; } .scene-forecast .fc-days { grid-area: days; }
+
+  html:not([data-motion="off"]) .scene-dispatch .stage-content { grid-template-rows: auto auto minmax(150px, 1fr) auto auto; grid-template-areas: "text" "status" "rose" "ledger" "lab"; }
+  .scene-dispatch .fill-text { grid-area: text; } .scene-dispatch .fill-status { grid-area: status; } .scene-dispatch .rose-slot { grid-area: rose; }
+  .scene-dispatch .fill-ledger { grid-area: ledger; } .scene-dispatch .fill-lab { grid-area: lab; }
+
+  html:not([data-motion="off"]) .scene-stress .stage-content { grid-template-rows: auto auto minmax(150px, 1fr) auto auto auto auto; grid-template-areas: "text" "chip" "rose" "ledger" "legend" "controls" "stepper"; }
+  .scene-stress .stress-text { grid-area: text; } .scene-stress .stress-chip { grid-area: chip; } .scene-stress .rose-slot { grid-area: rose; }
+  .scene-stress .stress-ledger { grid-area: ledger; } .scene-stress .stress-legend { grid-area: legend; } .scene-stress .stress-controls { grid-area: controls; } .scene-stress .stress-stepper { grid-area: stepper; }
+}
+
+/* QA L11, reduced motion on phones: S04 stacks in flow above its stills; S05's lab follows its still instead of covering it */
+@media (max-width: 767px) {
+  html[data-motion="off"] .scene-forecast .stage-content > :not(.fc-still-strip, .fc-hit, .fc-table) { position: relative; inset: auto; width: auto; margin: 0 16px 8px; }
+  html[data-motion="off"] .scene-forecast .fc-text { padding-top: 36px; }
+  html[data-motion="off"] .fc-still-strip { padding-top: 16px; }
+  html[data-motion="off"] .scene-dispatch .stage-content { display: flex; flex-direction: column; }
+  html[data-motion="off"] .scene-dispatch .fill-still { order: 1; }
+  html[data-motion="off"] .scene-dispatch .fill-lab { order: 2; position: relative; inset: auto; margin: 0 12px 96px; }
+}
