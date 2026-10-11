@@ -324,3 +324,30 @@ export function ledgerCopy(r: Reconciliation, q: Quality, f: Facts, meta: Meta) 
     footer: `PIPELINE v${meta.pipeline_version} · GENERATED ${meta.generated_at}`,
   };
 }
+
+// ---------------------------------------------------------------- S07 Evidence (objection, answer)
+export const OBJECTIONS = [
+  "ISN'T YOUR FORECAST JUST EIA'S?", "DO YOUR INTERVALS MEAN ANYTHING?", "DID YOU PEEK AT THE WEATHER?", "WHERE ARE THE WIRES?",
+  "ARE THESE REAL COSTS?", "DOES YOUR BROWSER REALLY SOLVE IT?", "IS EVERY HOUR ACCOUNTED FOR?",
+];
+export const answerIntervals = (fe: ForecastEval, ba: "CISO" | "ERCO") => {
+  const iv = fe.bas[ba].intervals.gbm!;
+  return `${ba}: THE RAW BAND HELD ${fixed(iv.raw_coverage_pct, 1)}% OF HOURS; CALIBRATED, ${fixed(iv.cqr_coverage_pct, 1)}%. WE PROMISED ${fixed(iv.nominal_pct, 0)}%.`;
+};
+export const answerWeather = (fe: ForecastEval, ba: "CISO" | "ERCO") =>
+  `${ba}: NO. EVERY FEATURE IS KNOWN AT FORECAST TIME (${fixed(fe.bas[ba].models.gbm!.mape_pct, 2)}%). A VERSION THAT CHEATS WITH TOMORROW'S REAL WEATHER SCORES ${fixed(fe.bas[ba].models.gbm_perfect_weather!.mape_pct, 2)}%: AN UPPER BOUND, NOT A MODEL.`;
+export const answerWires = "NOT IN OUR MODEL. EACH GRID IS TREATED AS ONE COPPER PLATE. THIS IS WHAT A NETWORK LOOKS LIKE: A 14-BUS TEST SYSTEM, NOT CALIFORNIA OR TEXAS.";
+export const wiresCaption = "IEEE 14-BUS TEST SYSTEM · pglib-opf v23.07 · CC BY 4.0 · ILLUSTRATIVE: NOT THE CAISO OR ERCOT NETWORK. OUR DISPATCH IGNORES NETWORK LIMITS.";
+export const answerCosts = "NO. THEY ARE STATED ASSUMPTIONS. CHANGE THEM AND THE ANSWER CHANGES.";
+export const answerSolve = (p: ParityReport | null) => (p ? `YES. SAME LP, SAME SOLVER. ${p.passed} OF ${p.n} TEST VECTORS MATCH THE PYTHON RESULT ON THIS BUILD.` : "SAME LP, SAME SOLVER. THE PARITY CHECK RUNS WHEN THE SOLVER LOADS (FROM THE FORECAST CHAPTER ON).");
+export const answerLp = (refObj: number, cost: number) => `REFERENCE LP (CISO SUMMER, BASELINE): SOLVER OBJECTIVE ${usd(refObj)} = PUBLISHED MODEL COST ${usd(cost)} ${Math.abs(refObj - cost) <= 1e-6 * Math.abs(cost) ? "✓" : "✗"}`;
+export const answerRows = (f: Facts) => { const g = f.global as Record<string, number>; return `${int(g.raw_rows_total!)} ROWS IN, ${int(g.kept_rows_total!)} KEPT, ${int(g.flagged_rows_total!)} FLAGGED. EVERY ONE COUNTED.`; };
+export const fmtAssumption = (v: unknown) => (typeof v === "number" ? fixed(v, Number.isInteger(v) ? 0 : 2) : typeof v === "string" ? v.toUpperCase() : Object.entries(v as Record<string, number>).map(([k, x]) => `${k.toUpperCase()} ${x}`).join(" · "));
+
+// ---------------------------------------------------------------- S08
+export const copyS08 = {
+  paragraph: "Tonight it will happen again: twenty-four times, someone will decide what to burn so the lights stay on. The cheapest answer is known in milliseconds. The cleanest one is a choice.",
+  methodology: "https://github.com/mrrishit909/pulse-energy-grid/blob/main/docs/METHODOLOGY.md",
+  source: "https://github.com/mrrishit909/pulse-energy-grid",
+};
+export const closingCaption = (d: { date: string; ba: string; served: number; tag: string }) => `${d.date} · ${d.ba} · ${int(d.served)} MWH SERVED`;

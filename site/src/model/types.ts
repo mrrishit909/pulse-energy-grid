@@ -30,6 +30,7 @@ export interface BAModel {
 export interface DispatchModel {
   bas: Record<BA, BAModel>;
   reference_lp: { ba: BA; day: string; scenario: string; objective_usd: number; cplex_lp: string };
+  assumptions: { id: string; value: unknown; unit: string; basis: string }[];
   scenarios: { id: string; label: string; description: string }[];
   solver_versions: Record<string, string>;
   tags: Record<string, string>;

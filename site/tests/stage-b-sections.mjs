@@ -63,4 +63,22 @@ export const s01s02 = {
     await jump(page, "source", 0.97); await wait(page, 900); await shot("s02-5-exit-to-s03a");
   },
 };
-export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02 };
+export const s07Section = {
+  async s07(page, shot, { jump, wait }) {
+    await jump(page, "evidence", 0.05); await wait(page, 1500); await shot("s07-1-forecast-vs-eia");
+    await jump(page, "evidence", 0.51); await wait(page, 2200); await shot("s07-4-the-wires");
+    await page.waitForFunction(() => window.__peg.solver().parity, null, { timeout: 60000 }).catch(() => {});
+    await jump(page, "evidence", 0.8); await wait(page, 1200); await shot("s07-6-browser-solves");
+    await jump(page, "evidence", 0.97); await wait(page, 1200); await shot("s07-7-every-row");
+  },
+};
+export const s08Section = {
+  async s08(page, shot, { jump, wait }) {
+    await jump(page, "closing", 0.2); await wait(page, 1200); await shot("s08-1-p20-return-to-g0");
+    await jump(page, "closing", 0.55); await wait(page, 1000); await shot("s08-2-p55-paragraph");
+    await jump(page, "closing", 0.66); await wait(page, 600);
+    await jump(page, "closing", 0.72); await wait(page, 700); await shot("s08-3-echo-draining");
+    await wait(page, 3200); await jump(page, "closing", 0.9); await wait(page, 1200); await shot("s08-4-p90-caption-links");
+  },
+};
+export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02, ...s07Section, ...s08Section };
