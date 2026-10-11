@@ -64,7 +64,8 @@ html[data-motion="off"] .rose-layer, html.is-gallery .rose-layer { display: none
 .wordmark { left: var(--gutter); }
 .intro-corner { right: var(--gutter); display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
 .intro-corner__fuel { min-height: 1.4em; color: var(--text-muted); }
-.hero-scrim { inset: 0; z-index: 1 !important; pointer-events: none; background: linear-gradient(to bottom, transparent 470px, rgb(0 0 0 / 0.9) 660px); opacity: var(--scrim, 1); }
+/* the ghost headline must stay readable over the brightest frame of the bloom: the scrim reaches 0.96 at the headline box (sampled in the evidence log) */
+.hero-scrim { inset: 0; z-index: 1 !important; pointer-events: none; background: linear-gradient(to bottom, transparent 430px, rgb(0 0 0 / 0.75) 560px, rgb(0 0 0 / 0.96) 630px); opacity: var(--scrim, 1); }
 .hero-title {
   z-index: 3 !important; margin: 0; left: var(--margin); top: 650px; width: min(1000px, calc(100vw - 2 * var(--margin)));
   font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; font-size: 88px; line-height: 1; letter-spacing: -0.02em; text-wrap: balance;
@@ -81,11 +82,11 @@ html[data-motion="off"] .rose-layer, html.is-gallery .rose-layer { display: none
 html[data-motion="off"] .scene-pulse .stage { height: 100dvh; min-height: 0; overflow: hidden; }
 @media (max-width: 1023px) {
   /* the rose fills the top on T/M: the corner labels get a top scrim (canvas, scrim, text) */
-  .hero-scrim { background: linear-gradient(to bottom, rgb(0 0 0 / 0.82) 0, transparent 96px, transparent 560px, rgb(0 0 0 / 0.9) 740px); }
+  .hero-scrim { background: linear-gradient(to bottom, rgb(0 0 0 / 0.82) 0, transparent 96px, transparent 540px, rgb(0 0 0 / 0.75) 660px, rgb(0 0 0 / 0.96) 740px); }
   .hero-title { font-size: 64px; top: 760px; width: calc(100vw - 2 * var(--margin)); }
 }
 @media (max-width: 767px) {
-  .hero-scrim { background: linear-gradient(to bottom, rgb(0 0 0 / 0.86) 0, rgb(0 0 0 / 0.86) 64px, transparent 120px, transparent 500px, rgb(0 0 0 / 0.9) 590px); }
+  .hero-scrim { background: linear-gradient(to bottom, rgb(0 0 0 / 0.86) 0, rgb(0 0 0 / 0.86) 64px, transparent 120px, transparent 460px, rgb(0 0 0 / 0.75) 520px, rgb(0 0 0 / 0.96) 566px); }
   .hero-title { font-size: 40px; top: 568px; }
   .intro-corner { top: 44px; left: var(--gutter); right: auto; align-items: flex-start; text-align: left; font-size: 12px; }
   .wordmark { font-size: 12px; }
@@ -115,21 +116,23 @@ html[data-motion="off"] .scene-pulse .stage { height: 100dvh; min-height: 0; ove
 .city-controls__row { display: flex; align-items: center; gap: 16px; }
 .city-rose-hit { left: calc(var(--rose-cx, 1040px) - 160px); top: calc(var(--rose-cy, 300px) - 160px); width: 320px; height: 320px; }
 .city-rose-hit:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-.city-stills { position: relative !important; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 0 var(--margin) 96px; }
+/* reduced motion: each of the 4 frames is drawn at the live frame's own scale (full width, the viewport's aspect) */
+.city-stills { position: relative !important; display: grid; grid-template-columns: 1fr; gap: 24px; padding: 0 0 96px; }
 /* reduced motion: the scene is one normal-flow column (statement, chips, controls, then the 4 frames) */
 html[data-motion="off"] .scene-demand .stage-content { display: flex; flex-direction: column; gap: 16px; padding: 56px 0 0; }
 html[data-motion="off"] .scene-demand .stage-content > * { position: relative; inset: auto; top: auto; bottom: auto; left: auto; right: auto; margin-left: var(--margin); }
 html[data-motion="off"] .scene-demand .city-stills { margin-left: 0; }
 html[data-motion="off"] .scene-demand .city-note { margin-bottom: 96px; }
 .city-still { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.city-still { padding: 0 0 8px; }
 .city-still .still { width: 100%; aspect-ratio: 1440 / 900; display: block; }
+.city-still figcaption { padding: 0 var(--margin); }
 @media (max-width: 1023px) {
   .city-text { left: var(--margin); right: var(--margin); top: 56px; width: auto; }
   .city-chips { top: 176px; left: var(--margin); right: var(--margin); width: auto; }
   .city-controls { top: 240px; left: var(--margin); right: var(--margin); width: auto; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
   .city-readout { top: 640px; left: var(--margin); right: var(--margin); width: auto; grid-template-columns: 1fr 1fr; }
   .stack-legend { gap: 1px; font-size: 11px; }
-  .city-stills { grid-template-columns: 1fr 1fr; }
   .city-still .still { aspect-ratio: 768 / 1024; }
 }
 @media (max-width: 767px) {
@@ -139,9 +142,9 @@ html[data-motion="off"] .scene-demand .city-note { margin-bottom: 96px; }
   .city-controls { top: auto; bottom: calc(var(--nav-clear) + 2px); left: 12px; right: 12px; gap: 10px; flex-direction: row; align-items: center; justify-content: space-between; padding: 6px 8px; background: rgb(22 22 22 / 0.94); border-radius: var(--radius-card); }
   .city-controls .chip-btn { padding: 8px 8px; font-size: 12px; }
   .city-controls .seg-ctl__label { min-width: 0; }
-  .city-readout { top: 400px; left: 16px; right: 16px; display: flex; flex-direction: column; gap: 2px; }
+  .city-readout { top: 432px; left: 16px; right: 16px; display: flex; flex-direction: column; gap: 2px; }
+  .city-text .kicker-long { display: none; }
   .city-note { bottom: auto; top: 706px; left: 16px; right: 16px; font-size: 10px; }
-  .city-stills { grid-template-columns: 1fr; }
   .city-still .still { aspect-ratio: 390 / 844; }
 }
 
@@ -186,7 +189,7 @@ html[data-motion="off"] .fill-lab { opacity: 1; transform: none; }
 }
 @media (max-width: 767px) {
   .fill-text { top: 36px; left: 16px; right: 16px; }
-  .fill-ledger { left: 16px; right: 16px; bottom: auto; top: 492px; gap: 2px; }
+  .fill-ledger { left: 16px; right: 16px; bottom: auto; top: 532px; gap: 2px; }
   .fill-ledger .soc, .soc-cap, .fill-footer, .deltas { display: none; }
   .ledger-total, .fill-ledger .readout-line { font-size: 12px; }
   .fill-lab { left: 12px; right: 12px; bottom: calc(var(--nav-clear) + 2px); gap: 4px; padding: 6px 10px; background: rgb(22 22 22 / 0.94); border-radius: var(--radius-card); }

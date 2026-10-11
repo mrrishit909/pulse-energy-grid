@@ -33,6 +33,7 @@ export const copyS03a = {
   windowChip: `EIA-930 · DERIVED: 1 WINDOW = ${CITY.mw_per_window} MW`,
   tempChip: "NOAA ISD · DERIVED WEIGHTS",
   empty: "FUEL BREAKDOWN NOT PUBLISHED FOR THIS DAY",
+  scale: "THE ROSE IS SCALED TO THIS DAY'S PEAK; THE WINDOWS KEEP ONE SCALE FOR EVERY DAY.",
 };
 /** S03a readout for one integer hour of a reference day (dispatch_model days[]). */
 export function cityReadout(day: Day, hour: number, lit: number) {

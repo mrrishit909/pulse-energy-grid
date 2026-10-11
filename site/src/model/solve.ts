@@ -34,9 +34,10 @@ export function solveDay(h: HighsLike, m: BAModel, dayId: string, params: Partia
 }
 
 export interface VectorCheck { objective: boolean; price: boolean | null; keys: boolean; hash: boolean }
-const TOL_REL = 1e-6; // published tolerance_rel was rounded to 0.0 by the 4-decimal emit (reported data bug); DATA_CONTRACTS / ED #25 state 1e-6
 
-export async function checkVector(h: HighsLike, model: DispatchModel, v: Vector, tolAbs: number, tolPrice: number): Promise<VectorCheck> {
+/** tolRel = dispatch_test_vectors.tolerance_rel (1e-6; published unrounded since the Data fix of P04-FE-002). */
+export async function checkVector(h: HighsLike, model: DispatchModel, v: Vector, tolAbs: number, tolPrice: number, tolRel: number): Promise<VectorCheck> {
+  const TOL_REL = tolRel;
   const s = solveDay(h, model.bas[v.ba], v.day, v.params);
   const e = v.expected, r = s.result;
   const near = (a: number, b: number) => Math.abs(a - b) <= Math.max(TOL_REL * Math.abs(b), tolAbs);

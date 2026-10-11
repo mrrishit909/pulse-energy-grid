@@ -20,7 +20,7 @@ import { drawEdgeGlow, drawHourLabels, drawRose, radius, resetRoseCache, type Ct
 import { observedStack, petals, simulatedStack, tweenPetals, firstChanged, type DayStack } from "../model/stack";
 import { scenarioDemand, fullParams } from "../model/lp";
 import { litCount, windows, type Win } from "../model/city";
-import { camera, fitR100, layout, type Layout } from "./geometry";
+import { camera, fillR100, fitR100, layout, type Layout } from "./geometry";
 import { SCENES } from "../app/scenes";
 import type { BAModel, Day } from "../model/types";
 
@@ -65,6 +65,8 @@ export const introBandIndex = (t: number, n: number) => (t < FILL0 ? -1 : Math.m
 export const debug = {
   frames: 0, scene: "", log: null as RoseLog | null, fillK: -1, bandCounts: [] as number[], lit: 0, hour: -1,
   pulse: 0, view: null as null | { cx: number; cy: number; R100: number },
+  /** CSS-px boxes of the canvas hour labels (overlap tests against DOM text) */
+  labels: [] as { h: number; x: number; y: number; w: number; hgt: number }[],
 };
 
 // ------------------------------------------------------------------ state
@@ -85,7 +87,7 @@ function obsStack(day: Day, skipEmpty: boolean) {
 const liftTw = new Tween(1, DUR.fast, easeSmooth);
 const litTw = new Tween(0, DUR.fast, linear);
 let cityHour = -1, cityKey = "", lastHourAt = 0;
-let cityFrom: PetalIn[] | null = null, cityTo: PetalIn[] | null = null;
+let cityFrom: PetalIn[] | null = null, cityTo: PetalIn[] | null = null, cityRFrom = 0, cityRTo = 0;
 const cityMix = new Tween(1, DUR.panel, easeSmooth);
 let winCache: { key: string; list: Win[] } | null = null;
 
@@ -159,8 +161,12 @@ function demandFrame(now: number, m: BAModel): Frame | null {
   const target = petals(s, () => 1);
   const key = `${c.ba}|${day.id}`;
   const motion = motionEnabled() && quality.tier === "high";
+  const peak = Math.max(...day.demand_mw);
   if (key !== cityKey) {
-    // GRID / DAY: every petal re-fills as a keyed area transition (600ms); first entry snaps
+    // GRID / DAY: every petal re-fills as a keyed area transition (600ms); first entry snaps.
+    // The per-day scale moves on the same clock, in log space, so no frame draws the old day at the new scale.
+    cityRFrom = cityKey ? cityRTo : fillR100(L.G2, peak);
+    cityRTo = fillR100(L.G2, peak);
     cityFrom = cityKey && cityTo ? cityTo : target;
     cityTo = target;
     cityKey = key;
@@ -178,8 +184,8 @@ function demandFrame(now: number, m: BAModel): Frame | null {
     litTw.retarget(litCount(day.demand_mw[hour]!), now, ms);
   } else if (litTw.target !== litCount(day.demand_mw[hour]!)) litTw.retarget(litCount(day.demand_mw[hour]!), now, motion ? DUR.fast : 0);
   liftTw.update(now); litTw.update(now);
-  const peak = Math.max(...day.demand_mw);
-  const R2 = fitR100(L.G2, peak);
+  cityRTo = fillR100(L.G2, peak); // resize keeps the target current
+  const R2 = Math.exp(Math.log(cityRFrom || cityRTo) + (Math.log(cityRTo) - Math.log(cityRFrom || cityRTo)) * cityMix.value);
   const view = baseView(s.keys, { cx: L.G2.cx, cy: L.G2.cy, R100: R2, rref: radius(peak, R2), gap: L.gap, lift: hour, liftT: liftTw.value });
   const sky = L.G2.sky;
   const wkey = `${W}x${H}`;
@@ -311,7 +317,7 @@ function draw(now: number) {
   // radial-only hook: per petal, the outermost band index with any area (must never exceed the band being filled)
   debug.bandCounts = log.petals.map((p) => p.bands.reduce((a, b, k) => (b.r1 > b.r0 ? k : a), -1));
   if (f.glow) drawEdgeGlow(ctx as unknown as Ctx, f.petals, f.view, f.glow.color, f.glow.a);
-  if (f.labels > 0) drawHourLabels(ctx as unknown as Ctx, f.petals, f.view, L.label, f.labels * 0.7);
+  debug.labels = f.labels > 0 ? drawHourLabels(ctx as unknown as Ctx, f.petals, f.view, L.label, f.labels * 0.7) : [];
   if (f.bloom > 0.001 && f.view.marks >= 1) {
     const b = renderBloom(f, `${W}x${H}|${f.view.R100.toFixed(2)}|${f.view.cx.toFixed(1)}`);
     ctx.save();

@@ -29,7 +29,7 @@ Object.assign(window, {
     introStats: () => ({ minR: intro.minR, monotonic: intro.monotonic, playing: intro.playing, firstSilhouette: intro.firstSilhouette, G0: layout(document.documentElement.clientWidth, innerHeight).G0.rPeak }),
     /** the last drawn rose: R100, centre and every band's r0 / r1 / MW (area-truth checks) */
     rose: () => (debug.log ? JSON.parse(JSON.stringify(debug.log)) : null),
-    debug: () => ({ frames: debug.frames, scene: debug.scene, fillK: debug.fillK, bandCounts: [...debug.bandCounts], lit: debug.lit, hour: debug.hour, pulse: debug.pulse }),
+    debug: () => ({ labels: debug.labels.map((b) => ({ ...b })), frames: debug.frames, scene: debug.scene, fillK: debug.fillK, bandCounts: [...debug.bandCounts], lit: debug.lit, hour: debug.hour, pulse: debug.pulse }),
     solver: () => { const s = getSolver(); return { status: s.status, version: s.version, parity: s.parity, error: s.error, attempt: s.attempt }; },
     fill: () => { const f = fill.get(); return { ba: f.ba, dayId: f.dayId, source: f.source, objective: f.result?.objective_usd ?? null, params: f.params, check: f.check, seq: f.resultSeq }; },
     setFill: (p: Partial<{ battery_power_mw: number; battery_hours: number; renewables_scale: number }>) => { const f = fill.get(); if (f.params) fill.set({ params: { ...f.params, ...p }, presetId: null }); },

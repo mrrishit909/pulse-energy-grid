@@ -16,7 +16,7 @@ import { litCount, windows } from "../model/city";
 import { observedStack, petals } from "../model/stack";
 import { drawHourLabels, drawRose, FUEL, radius, TOKEN, type Ctx } from "../graphics/rose";
 import { BAS, type BA, type DispatchModel } from "../model/types";
-import { fitR100, layout } from "./geometry";
+import { fillR100, layout } from "./geometry";
 import { viewportClass } from "../graphics/canvas";
 import { Still } from "./Still";
 import { useViewport } from "./useViewport";
@@ -37,7 +37,7 @@ function paintCity(ctx: Ctx & CanvasRenderingContext2D, w: number, h: number, m:
   const lit = litCount(day.demand_mw[hour]!);
   for (const win of windows(sky)) { ctx.fillStyle = win.rank < lit ? "#FFF3A6" : "#1A1A1A"; ctx.fillRect(win.x, win.y, sky.win, sky.win); }
   const ps = petals(s, () => 1);
-  const R2 = fitR100(L.G2, peak);
+  const R2 = fillR100(L.G2, peak);
   const v = { cx: L.G2.cx, cy: L.G2.cy, R100: R2, rref: radius(peak, R2), gap: L.gap, ghost: 0, bands: 1, marks: 1, beat: 0, lift: hour, liftT: 1, glow: L.glow, keys: s.keys };
   drawRose(ctx, ps, v);
   drawHourLabels(ctx, ps, v, L.label, 0.7);
@@ -73,7 +73,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Demand: the window city">
       <div className="city-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">{copyS03a.statement}</h2>
-        <p className="scene-kicker">{copyS03a.kicker(c.ba)}{day ? ` · ${day.date}` : ""}</p>
+        <p className="scene-kicker">DEMAND · {c.ba}<span className="kicker-long"> · ONE REAL DAY, HOUR BY HOUR</span>{day ? ` · ${day.date}` : ""}</p>
       </div>
       <ArtifactStatus file="dispatch_model.json" state={ms} retry={retry} empty="NO REFERENCE DAYS PUBLISHED">
         {(data) => (
@@ -111,7 +111,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
               <HonestyChip tag="DERIVED" detail={copyS03a.windowChip.replace("EIA-930 · DERIVED: ", "")} />
               <HonestyChip tag="OBSERVED" detail={`TEMPERATURE · ${copyS03a.tempChip}`} />
             </div>
-            <p className="city-note">{copyS03a.note}</p>
+            <p className="city-note">{copyS03a.note} {copyS03a.scale}</p>
             {motion ? (
               <div className="city-rose-hit" tabIndex={0} role="img" onKeyDown={onKey}
                 aria-label={`Day rose of ${c.ba} on ${day!.date}, ${r?.hour}: ${r?.served}. Arrow keys step the hour.`} />

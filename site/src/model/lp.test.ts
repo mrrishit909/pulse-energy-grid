@@ -37,13 +37,14 @@ describe("HiGHS-wasm (highs@1.15.3) parity on all 108 vectors", () => {
     const h = (await highsLoader()) as unknown as HighsLike;
     const checks: VectorCheck[] = [];
     const t0 = performance.now();
-    for (const v of tv.vectors) checks.push(await checkVector(h, model, v, tv.tolerance_abs, tv.tolerance_price_usd_mwh));
+    for (const v of tv.vectors) checks.push(await checkVector(h, model, v, tv.tolerance_abs, tv.tolerance_price_usd_mwh, tv.tolerance_rel));
     const rep = tally(checks, performance.now() - t0);
     console.log("parity", JSON.stringify(rep));
     expect(rep.objective).toBe(108);
     expect(rep.price).toBe(rep.priceComparable);
     expect(rep.passed).toBe(108);
   });
+  it("publishes tolerance_rel = 1e-6 (not the 4-decimal 0.0)", () => expect(tv.tolerance_rel).toBe(1e-6));
   it("preset objectives equal dispatch_results (cost == objective)", () => {
     for (const v of tv.vectors.filter((x) => x.kind === "preset")) {
       expect(results.bas[v.ba].days[v.day]![v.scenario]!.objective_usd).toBe(v.expected.objective_usd);

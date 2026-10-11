@@ -1,0 +1,6 @@
+1440x900 s00-t2600: background p95 rgb(8, 9, 10) -> ghost text contrast 6.26:1
+1440x900 s00-t3500: background p95 rgb(8, 9, 10) -> ghost text contrast 6.26:1
+390x844 s00-t2600: background p95 rgb(9, 10, 10) -> ghost text contrast 6.26:1
+390x844 s00-t3500: background p95 rgb(9, 10, 10) -> ghost text contrast 6.26:1
+768x1024 s00-t2600: background p95 rgb(3, 7, 9) -> ghost text contrast 6.26:1
+768x1024 s00-t3500: background p95 rgb(4, 7, 9) -> ghost text contrast 6.26:1

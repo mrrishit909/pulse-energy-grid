@@ -1,0 +1,24 @@
+1440x900/fix1-s00-t2600.png
+1440x900/fix1-s00-t3500.png
+1440x900/fix2-s03a-h12.png
+1440x900/fix2-s03a-h19.png
+1440x900/fix2-s03a-h19-erco-summer.png
+1440x900/fix4-s05-default.png
+1440x900 labels at S05: [[0,934,725],[6,718,409],[12,1010,150],[18,1283,483]]
+1440x900 fixes external requests: none
+768x1024/fix1-s00-t2600.png
+768x1024/fix1-s00-t3500.png
+768x1024/fix2-s03a-h12.png
+768x1024/fix2-s03a-h19.png
+768x1024/fix2-s03a-h19-erco-summer.png
+768x1024/fix4-s05-default.png
+768x1024 labels at S05: [[0,348,658],[6,183,417],[12,405,221],[18,613,474]]
+768x1024 fixes external requests: none
+390x844/fix1-s00-t2600.png
+390x844/fix1-s00-t3500.png
+390x844/fix2-s03a-h12.png
+390x844/fix2-s03a-h19.png
+390x844/fix2-s03a-h19-erco-summer.png
+390x844/fix4-s05-default.png
+390x844 labels at S05: [[0,168,517],[6,49,345],[12,209,206],[18,356,385]]
+390x844 fixes external requests: none

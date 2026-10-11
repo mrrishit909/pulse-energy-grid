@@ -78,7 +78,7 @@ async function parity(tv: TestVectors) {
     const checks: VectorCheck[] = [];
     const t0 = performance.now();
     for (const v of tv.vectors) {
-      checks.push(await checkVector(highs!, model!, v, tv.tolerance_abs, tv.tolerance_price_usd_mwh));
+      checks.push(await checkVector(highs!, model!, v, tv.tolerance_abs, tv.tolerance_price_usd_mwh, tv.tolerance_rel));
       await new Promise((r) => setTimeout(r, 0)); // let a visitor's solve in
       drain();
     }

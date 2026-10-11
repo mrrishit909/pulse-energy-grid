@@ -324,7 +324,8 @@ function hexA(hex: string, a: number) {
 
 /** Hour labels 00 06 12 18, 16px beyond that petal's own tip (they follow the data). */
 export function drawHourLabels(ctx: Ctx, petals: PetalIn[], v: RoseView, size: number, alpha: number) {
-  if (alpha <= 0) return;
+  const boxes: { h: number; x: number; y: number; w: number; hgt: number }[] = [];
+  if (alpha <= 0) return boxes;
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.fillStyle = "#ffffff";
@@ -337,9 +338,12 @@ export function drawHourLabels(ctx: Ctx, petals: PetalIn[], v: RoseView, size: n
     const [a0, a1] = petalAngles(h);
     const mid = (a0 + a1) / 2;
     const r = radius(Math.max(p.demand + p.charge + p.exports, p.demand), v.R100) + 16 + size / 2;
-    ctx.fillText(String(h).padStart(2, "0"), v.cx + Math.cos(mid) * r, v.cy + Math.sin(mid) * r);
+    const x = v.cx + Math.cos(mid) * r, y = v.cy + Math.sin(mid) * r;
+    ctx.fillText(String(h).padStart(2, "0"), x, y);
+    boxes.push({ h, x: x - size * 0.65, y: y - size * 0.6, w: size * 1.3, hgt: size * 1.2 });
   }
   ctx.restore();
+  return boxes;
 }
 
 /** The re-solve energy pulse: a soft glow inside each petal's tip (8px falloff, screen blend; never a stroke). */

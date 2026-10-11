@@ -22,7 +22,7 @@ const REF: Record<ViewportClass, [number, number]> = { D: [1440, 900], T: [768, 
 const TABLE = {
   D: { G0: [720, 400, 620], G1: [1030, 450, 380], G2: [1040, 300, 300, 270], sky: [96, 812, 9, 12, 24], G4: [980, 450, 470, 380], gap0: 0.75, gap: 0.5, glow: 22, label: 13 },
   T: { G0: [384, 430, 620], G1: [384, 700, 330], G2: [384, 440, 220, 190], sky: [52, 940, 5, 7, 12], G4: [384, 450, 360, 220], gap0: 0.75, gap: 0.5, glow: 14, label: 12 },
-  M: { G0: [195, 360, 530], G1: [195, 600, 230], G2: [195, 250, 175, 120], sky: [21, 700, 3, 4, 4], G4: [195, 330, 240, 158], gap0: 0.5, gap: 0.375, glow: 10, label: 11 },
+  M: { G0: [195, 360, 530], G1: [195, 600, 230], G2: [195, 278, 175, 115], sky: [21, 700, 3, 4, 4], G4: [195, 370, 240, 150], gap0: 0.5, gap: 0.375, glow: 10, label: 11 },
 } as const;
 
 /** `cls` forces a composition (reduced-motion stills draw the page's class into a smaller box). */
@@ -47,6 +47,9 @@ export function layout(vw: number, vh: number, force?: ViewportClass): Layout {
 }
 /** Effective R100 for a day: the table value, shrunk only if the day's peak petal would exceed `fit`. */
 export const fitR100 = (st: { R100: number; fit: number }, peakMw: number) => Math.min(st.R100, st.fit / Math.sqrt(peakMw / 1e5));
+
+/** S03a: the rose fills its free area for the day shown (one real day; the window city keeps the absolute scale). */
+export const fillR100 = (st: { fit: number }, peakMw: number) => st.fit / Math.sqrt(peakMw / 1e5);
 
 /** Camera move between states: centre linear, R100 in log space (MOTION_SYSTEM 5.3). */
 export function camera(a: { cx: number; cy: number; R100: number }, b: { cx: number; cy: number; R100: number }, t: number) {
