@@ -1,0 +1,9 @@
+{
+  "note": "S03a window city (VISUAL_DESIGN 3.4). A unit chart, not geography: 1 window = mw_per_window of OBSERVED demand. Buildings are groups of windows_per_building windows. Widths divide windows_per_building; height = windows_per_building / width. Lighting fills one building completely (bottom row first, left to right) before the next, in lighting_order.",
+  "mw_per_window": 100,
+  "windows_per_building": 80,
+  "widths": [4, 5, 8, 10, 4, 5, 8, 5, 10, 4, 8, 5],
+  "lighting_order": [5, 6, 4, 7, 3, 8, 2, 9, 1, 10, 0, 11],
+  "total_windows": 960,
+  "capacity_mw": 96000
+}

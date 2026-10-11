@@ -1,0 +1,10 @@
+{
+  "note": "Original 2D layout for the S07 'Where are the wires?' card (VISUAL_DESIGN 3.4, interaction 10). Bus ids and branch pairs follow pglib_opf_case14_ieee (CC BY 4.0) as published in grid_topology.json; the coordinates are ours, hand placed in a unit box (x right, y down), and carry no geographic or electrical meaning. Tag in the UI: ILLUSTRATIVE plus the artifact's own tag.",
+  "buses": {
+    "1": [0.08, 0.55], "2": [0.22, 0.80], "3": [0.45, 0.92], "4": [0.48, 0.66], "5": [0.30, 0.50],
+    "6": [0.38, 0.28], "7": [0.66, 0.58], "8": [0.88, 0.60], "9": [0.66, 0.38], "10": [0.58, 0.24],
+    "11": [0.48, 0.16], "12": [0.20, 0.12], "13": [0.38, 0.06], "14": [0.78, 0.14]
+  },
+  "energize_from": [1],
+  "check": "Vitest: every bus and every (from, to) pair in grid_topology.json has a coordinate here, and no extra ids exist."
+}
