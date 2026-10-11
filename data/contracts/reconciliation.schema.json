@@ -159,6 +159,12 @@
      "flagged_outlier": {
       "type": "integer"
      },
+     "flagged_range": {
+      "type": "integer"
+     },
+     "flagged_spike": {
+      "type": "integer"
+     },
      "fuel": {
       "type": "string"
      },
@@ -194,7 +200,9 @@
      "null_value",
      "flagged_outlier",
      "kept",
-     "imputed_short_gap"
+     "imputed_short_gap",
+     "flagged_range",
+     "flagged_spike"
     ],
     "type": "object"
    },

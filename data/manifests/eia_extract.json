@@ -1,0 +1,196 @@
+{
+  "raw_rows_extracted": 937020,
+  "series": {
+    "EBA.CISO-ALL.D.H": {
+      "end": "20261010T08",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Demand for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40775,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.DF.H": {
+      "end": "20261010T07",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Day-ahead demand forecast for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40704,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.COL.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from coal for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40744,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40752,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.NG.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from natural gas for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40729,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.NUC.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from nuclear for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40750,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.OIL.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from petroleum for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40749,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.OTH.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from other for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40752,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.SUN.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from solar for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40752,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.WAT.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from hydro for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40729,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.NG.WND.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from wind for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40752,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.CISO-ALL.TI.H": {
+      "end": "20261009T06",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Total interchange for California Independent System Operator (CISO), hourly - UTC time",
+      "rows_in_window": 40320,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.D.H": {
+      "end": "20261010T08",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Demand for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40775,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.DF.H": {
+      "end": "20261010T05",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Day-ahead demand forecast for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40776,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.COL.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from coal for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40776,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40776,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.NG.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from natural gas for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40776,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.NUC.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from nuclear for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40775,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.OTH.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from other for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40773,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.SUN.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from solar for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40772,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.WAT.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from hydro for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40770,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.NG.WND.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Net generation from wind for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40776,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    },
+    "EBA.ERCO-ALL.TI.H": {
+      "end": "20261009T04",
+      "last_updated": "10-OCT-26 05.04.09 AM",
+      "name": "Total interchange for Electric Reliability Council of Texas, Inc. (ERCO), hourly - UTC time",
+      "rows_in_window": 40767,
+      "start": "20190101T00",
+      "units": "megawatthours"
+    }
+  },
+  "source_url": "https://www.eia.gov/opendata/bulk/EBA.zip",
+  "window": [
+    "2021-01-01T00:00:00",
+    "2025-08-26T23:00:00"
+  ],
+  "zip_bytes": 695225184,
+  "zip_sha256": "da37884447678f87b503d63cd8fceadcf98af2a4b2e8908027c661fa05897dfc"
+}

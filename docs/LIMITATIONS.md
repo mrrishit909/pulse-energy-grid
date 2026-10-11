@@ -1,0 +1,16 @@
+# Limitations (data, forecast and dispatch)
+
+Stated plainly; the site must repeat the first three.
+
+1. **Dispatch is a model, not the grid.** Costs, heat rates, fuel prices, ramp limits, minimum outputs, battery size and VOLL are assumptions (SIMULATED), not market data. Capacities are the maximum hourly output observed in 2021-2025, not nameplate. Reported dollars are costs under those assumptions on one observed day, not electricity prices or real system costs.
+2. **Single node, no unit commitment.** There are no transmission limits, voltage or reactive constraints, no start-up costs, no reserves, no forced-outage statistics, no inertia. The IEEE 14-bus case is an illustrative network and is not used in the LP.
+3. **The forecast does not use weather forecasts.** Only weather observed before the forecast origin is available to the deployable model; EIA's BA forecasts use weather forecasts we do not have. The `gbm_perfect_weather` variant uses observed target-day weather as a stand-in and is an upper bound, not deployable. Where EIA's forecast is better (see forecast_eval.json), it is better.
+4. **CISO's reported day-ahead forecast drifts.** In this extract the CISO day-ahead series under-forecasts by a growing margin (mean bias about -6% in 2025). Our model beating it is partly a data-definition effect, not proof of a better forecaster; the `eia_debiased` baseline and the stacked model are provided to separate the two.
+5. **Test period covers 2024-09-01 to 2025-08-26 only** (about 12 months, one winter, one summer). Intervals are 80% conformal intervals calibrated on the preceding 14 months; coverage on test can differ because demand regimes drift (ERCOT load growth).
+6. **Study window ends 2025-08-26** because NOAA hourly data on the AWS mirror ends 2025-08-27. EIA data to 2026-10 are not used.
+7. **Weather is a population-weighted mean of four airport stations per BA.** Weights are rounded metro populations, not demand-weighted. Airports are not city centres; humidity and wind are not used beyond dew point.
+8. **Fuel data quirks.** CISO `OTH` includes storage (negative hours), so it is treated as a flat floor in dispatch. ERCOT's sum of fuels departs from total net generation by more than 2% in about 1,990 hours (mostly from Oct 2024; cause not documented in the file). CISO's net generation minus demand minus interchange does not close (mean absolute residual about 1 GW), unlike ERCOT's, where it closes to rounding. These are reported in reconciliation.json, not corrected.
+9. **Imputation is limited** to gaps of at most 3 hours and imputed hours are never forecast targets; the 2021-2025 hourly series otherwise keep their original gaps.
+10. **Associations only.** The temperature-demand coefficients are descriptive regressions on one aggregated temperature series; the bootstrap CI reflects day resampling at fixed base temperatures and understates model uncertainty.
+11. **Reference days are three-month-weekday medians or the 90th percentile summer day** of the test year; they are illustrative, not worst cases. Scenario results on them are not forecasts of any future year.
+12. **Two balancing authorities only,** chosen for regime contrast. No claim is made about other regions.

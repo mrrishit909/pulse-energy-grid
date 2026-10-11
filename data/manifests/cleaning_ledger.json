@@ -1,0 +1,1058 @@
+{
+  "CISO": {
+    "balance": {
+      "definition": "net generation - demand - total interchange (EIA identity: net generation = demand + interchange), hours where all three are clean",
+      "mean_abs_resid_mw": 994.2825979053954,
+      "mean_resid_mw": -415.52794460713756,
+      "n_hours": 40294,
+      "p99_abs_resid_mw": 3352.0699999999997
+    },
+    "generation_vs_total": {
+      "definition": "100 * (sum of fuel net generation - total net generation) / total net generation, hours where all fuels and a clean total exist",
+      "hours_gt_2pct": 1,
+      "mean_abs_resid_pct": 0.0033202433413426114,
+      "mean_signed_resid_pct": 0.0004640429838078733,
+      "n_hours": 40710,
+      "p99_abs_resid_pct": 0.013471651872798633
+    },
+    "ledger": [
+      {
+        "_range": 0,
+        "_spike": 1,
+        "ba": "CISO",
+        "flagged_outlier": 1,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 12,
+        "kept": 40764,
+        "kind": "D",
+        "missing_slots": 1,
+        "null_value": 10,
+        "raw_rows": 40775
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40704,
+        "kind": "DF",
+        "missing_slots": 72,
+        "null_value": 0,
+        "raw_rows": 40704
+      },
+      {
+        "_range": 13,
+        "_spike": 1,
+        "ba": "CISO",
+        "flagged_outlier": 14,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 11,
+        "kept": 40728,
+        "kind": "NG",
+        "missing_slots": 24,
+        "null_value": 10,
+        "raw_rows": 40752
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40320,
+        "kind": "TI",
+        "missing_slots": 456,
+        "null_value": 0,
+        "raw_rows": 40320
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "NG",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40719,
+        "kind": "GEN",
+        "missing_slots": 47,
+        "null_value": 10,
+        "raw_rows": 40729
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "COL",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40734,
+        "kind": "GEN",
+        "missing_slots": 32,
+        "null_value": 10,
+        "raw_rows": 40744
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "NUC",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40740,
+        "kind": "GEN",
+        "missing_slots": 26,
+        "null_value": 10,
+        "raw_rows": 40750
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "OIL",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40739,
+        "kind": "GEN",
+        "missing_slots": 27,
+        "null_value": 10,
+        "raw_rows": 40749
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "OTH",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40742,
+        "kind": "GEN",
+        "missing_slots": 24,
+        "null_value": 10,
+        "raw_rows": 40752
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "SUN",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40742,
+        "kind": "GEN",
+        "missing_slots": 24,
+        "null_value": 10,
+        "raw_rows": 40752
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "WAT",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40719,
+        "kind": "GEN",
+        "missing_slots": 47,
+        "null_value": 10,
+        "raw_rows": 40729
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "CISO",
+        "flagged_outlier": 0,
+        "fuel": "WND",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40742,
+        "kind": "GEN",
+        "missing_slots": 24,
+        "null_value": 10,
+        "raw_rows": 40752
+      }
+    ],
+    "quality": {
+      "dst": {
+        "days_23h": 5,
+        "days_25h": 4,
+        "local_days": 1699,
+        "transitions": [
+          {
+            "date": "2021-03-14",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2021-11-07",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2022-03-13",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2022-11-06",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2023-03-12",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2023-11-05",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2024-03-10",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2024-11-03",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2025-03-09",
+            "hours": 23,
+            "type": "spring_forward"
+          }
+        ],
+        "tz": "America/Los_Angeles"
+      },
+      "flag_counts": {
+        "range": 13,
+        "spike": 2
+      },
+      "gaps": [
+        {
+          "longest_gap_h": 1,
+          "missing_hours": 11,
+          "n_gaps": 11,
+          "series": "D",
+          "top_runs": [
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-31T09"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-31T14"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 49,
+          "missing_hours": 72,
+          "n_gaps": 2,
+          "series": "DF",
+          "top_runs": [
+            {
+              "hours": 49,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 23,
+              "start_utc": "2025-03-09T09"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 34,
+          "n_gaps": 11,
+          "series": "NG",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-31T09"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 72,
+          "missing_hours": 456,
+          "n_gaps": 11,
+          "series": "TI",
+          "top_runs": [
+            {
+              "hours": 72,
+              "start_utc": "2023-12-18T09"
+            },
+            {
+              "hours": 72,
+              "start_utc": "2024-01-18T09"
+            },
+            {
+              "hours": 72,
+              "start_utc": "2024-03-14T08"
+            },
+            {
+              "hours": 48,
+              "start_utc": "2024-05-17T08"
+            },
+            {
+              "hours": 48,
+              "start_utc": "2024-11-01T08"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 57,
+          "n_gaps": 12,
+          "series": "GEN.NG",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 23,
+              "start_utc": "2023-11-09T21"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 42,
+          "n_gaps": 13,
+          "series": "GEN.COL",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 7,
+              "start_utc": "2024-11-08T02"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 36,
+          "n_gaps": 12,
+          "series": "GEN.NUC",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 2,
+              "start_utc": "2024-11-08T03"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 37,
+          "n_gaps": 13,
+          "series": "GEN.OIL",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 2,
+              "start_utc": "2024-11-08T07"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 34,
+          "n_gaps": 11,
+          "series": "GEN.OTH",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-31T09"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 34,
+          "n_gaps": 11,
+          "series": "GEN.SUN",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-31T09"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 57,
+          "n_gaps": 12,
+          "series": "GEN.WAT",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 23,
+              "start_utc": "2023-11-09T21"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 24,
+          "missing_hours": 34,
+          "n_gaps": 11,
+          "series": "GEN.WND",
+          "top_runs": [
+            {
+              "hours": 24,
+              "start_utc": "2024-11-02T08"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T06"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-29T17"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-30T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-31T09"
+            }
+          ]
+        }
+      ],
+      "spikes": [
+        {
+          "ratio": 0.3776943357034433,
+          "reference": 31292.5,
+          "rule": "spike",
+          "series": "D",
+          "ts_utc": "2025-07-31T21",
+          "value": 11819.0
+        },
+        {
+          "ratio": 0.6031026451505573,
+          "reference": 24044.0,
+          "rule": "spike",
+          "series": "NG",
+          "ts_utc": "2025-04-01T19",
+          "value": 14501.0
+        }
+      ]
+    },
+    "weather": [
+      {
+        "ba": "CISO",
+        "hours_expected": 40776,
+        "hours_interpolated": 20,
+        "hours_missing": 10,
+        "hours_observed": 40746,
+        "name": "Los Angeles Intl",
+        "station_id": "72295023174",
+        "weight": 0.55
+      },
+      {
+        "ba": "CISO",
+        "hours_expected": 40776,
+        "hours_interpolated": 10,
+        "hours_missing": 42,
+        "hours_observed": 40724,
+        "name": "San Francisco Intl",
+        "station_id": "72494023234",
+        "weight": 0.2
+      },
+      {
+        "ba": "CISO",
+        "hours_expected": 40776,
+        "hours_interpolated": 30,
+        "hours_missing": 25,
+        "hours_observed": 40721,
+        "name": "San Diego Intl",
+        "station_id": "72290023188",
+        "weight": 0.15
+      },
+      {
+        "ba": "CISO",
+        "hours_expected": 40776,
+        "hours_interpolated": 31,
+        "hours_missing": 75,
+        "hours_observed": 40670,
+        "name": "Sacramento Metropolitan",
+        "station_id": "72483993225",
+        "weight": 0.1
+      }
+    ]
+  },
+  "ERCO": {
+    "balance": {
+      "definition": "net generation - demand - total interchange (EIA identity: net generation = demand + interchange), hours where all three are clean",
+      "mean_abs_resid_mw": 0.45631163224255505,
+      "mean_resid_mw": -0.08580679978413383,
+      "n_hours": 40766,
+      "p99_abs_resid_mw": 2.0
+    },
+    "generation_vs_total": {
+      "definition": "100 * (sum of fuel net generation - total net generation) / total net generation, hours where all fuels and a clean total exist",
+      "hours_gt_2pct": 1992,
+      "mean_abs_resid_pct": 0.2761320753351421,
+      "mean_signed_resid_pct": 0.044410429083266076,
+      "n_hours": 40767,
+      "p99_abs_resid_pct": 4.659105413534884
+    },
+    "ledger": [
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 1,
+        "kept": 40775,
+        "kind": "D",
+        "missing_slots": 1,
+        "null_value": 0,
+        "raw_rows": 40775
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40776,
+        "kind": "DF",
+        "missing_slots": 0,
+        "null_value": 0,
+        "raw_rows": 40776
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40776,
+        "kind": "NG",
+        "missing_slots": 0,
+        "null_value": 0,
+        "raw_rows": 40776
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40767,
+        "kind": "TI",
+        "missing_slots": 9,
+        "null_value": 0,
+        "raw_rows": 40767
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "NG",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40776,
+        "kind": "GEN",
+        "missing_slots": 0,
+        "null_value": 0,
+        "raw_rows": 40776
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "COL",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40776,
+        "kind": "GEN",
+        "missing_slots": 0,
+        "null_value": 0,
+        "raw_rows": 40776
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "NUC",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40775,
+        "kind": "GEN",
+        "missing_slots": 1,
+        "null_value": 0,
+        "raw_rows": 40775
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "OTH",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40773,
+        "kind": "GEN",
+        "missing_slots": 3,
+        "null_value": 0,
+        "raw_rows": 40773
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "SUN",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40772,
+        "kind": "GEN",
+        "missing_slots": 4,
+        "null_value": 0,
+        "raw_rows": 40772
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "WAT",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40770,
+        "kind": "GEN",
+        "missing_slots": 6,
+        "null_value": 0,
+        "raw_rows": 40770
+      },
+      {
+        "_range": 0,
+        "_spike": 0,
+        "ba": "ERCO",
+        "flagged_outlier": 0,
+        "fuel": "WND",
+        "grid_slots": 40776,
+        "imputed_short_gap": 0,
+        "kept": 40776,
+        "kind": "GEN",
+        "missing_slots": 0,
+        "null_value": 0,
+        "raw_rows": 40776
+      }
+    ],
+    "quality": {
+      "dst": {
+        "days_23h": 5,
+        "days_25h": 4,
+        "local_days": 1699,
+        "transitions": [
+          {
+            "date": "2021-03-14",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2021-11-07",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2022-03-13",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2022-11-06",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2023-03-12",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2023-11-05",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2024-03-10",
+            "hours": 23,
+            "type": "spring_forward"
+          },
+          {
+            "date": "2024-11-03",
+            "hours": 25,
+            "type": "fall_back"
+          },
+          {
+            "date": "2025-03-09",
+            "hours": 23,
+            "type": "spring_forward"
+          }
+        ],
+        "tz": "America/Chicago"
+      },
+      "flag_counts": {
+        "range": 0,
+        "spike": 0
+      },
+      "gaps": [
+        {
+          "longest_gap_h": 1,
+          "missing_hours": 1,
+          "n_gaps": 1,
+          "series": "D",
+          "top_runs": [
+            {
+              "hours": 1,
+              "start_utc": "2021-11-07T06"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 0,
+          "missing_hours": 0,
+          "n_gaps": 0,
+          "series": "DF",
+          "top_runs": []
+        },
+        {
+          "longest_gap_h": 0,
+          "missing_hours": 0,
+          "n_gaps": 0,
+          "series": "NG",
+          "top_runs": []
+        },
+        {
+          "longest_gap_h": 2,
+          "missing_hours": 9,
+          "n_gaps": 8,
+          "series": "TI",
+          "top_runs": [
+            {
+              "hours": 2,
+              "start_utc": "2023-10-12T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-07-28T16"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2021-08-18T05"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2023-04-13T21"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2023-10-04T05"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 0,
+          "missing_hours": 0,
+          "n_gaps": 0,
+          "series": "GEN.NG",
+          "top_runs": []
+        },
+        {
+          "longest_gap_h": 0,
+          "missing_hours": 0,
+          "n_gaps": 0,
+          "series": "GEN.COL",
+          "top_runs": []
+        },
+        {
+          "longest_gap_h": 1,
+          "missing_hours": 1,
+          "n_gaps": 1,
+          "series": "GEN.NUC",
+          "top_runs": [
+            {
+              "hours": 1,
+              "start_utc": "2024-07-16T04"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 2,
+          "missing_hours": 3,
+          "n_gaps": 2,
+          "series": "GEN.OTH",
+          "top_runs": [
+            {
+              "hours": 2,
+              "start_utc": "2024-11-08T05"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2024-11-08T02"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 2,
+          "missing_hours": 4,
+          "n_gaps": 3,
+          "series": "GEN.SUN",
+          "top_runs": [
+            {
+              "hours": 2,
+              "start_utc": "2024-11-08T05"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2024-07-16T04"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2024-11-08T03"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 2,
+          "missing_hours": 6,
+          "n_gaps": 4,
+          "series": "GEN.WAT",
+          "top_runs": [
+            {
+              "hours": 2,
+              "start_utc": "2024-07-15T22"
+            },
+            {
+              "hours": 2,
+              "start_utc": "2024-11-08T05"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2024-07-16T05"
+            },
+            {
+              "hours": 1,
+              "start_utc": "2024-07-25T05"
+            }
+          ]
+        },
+        {
+          "longest_gap_h": 0,
+          "missing_hours": 0,
+          "n_gaps": 0,
+          "series": "GEN.WND",
+          "top_runs": []
+        }
+      ],
+      "spikes": []
+    },
+    "weather": [
+      {
+        "ba": "ERCO",
+        "hours_expected": 40776,
+        "hours_interpolated": 42,
+        "hours_missing": 4,
+        "hours_observed": 40730,
+        "name": "Dallas/Fort Worth",
+        "station_id": "72259003927",
+        "weight": 0.38
+      },
+      {
+        "ba": "ERCO",
+        "hours_expected": 40776,
+        "hours_interpolated": 30,
+        "hours_missing": 0,
+        "hours_observed": 40746,
+        "name": "Houston Intercontinental",
+        "station_id": "72243012960",
+        "weight": 0.35
+      },
+      {
+        "ba": "ERCO",
+        "hours_expected": 40776,
+        "hours_interpolated": 35,
+        "hours_missing": 0,
+        "hours_observed": 40741,
+        "name": "Austin-Bergstrom",
+        "station_id": "72254013904",
+        "weight": 0.14
+      },
+      {
+        "ba": "ERCO",
+        "hours_expected": 40776,
+        "hours_interpolated": 19,
+        "hours_missing": 26,
+        "hours_observed": 40731,
+        "name": "San Antonio Intl",
+        "station_id": "72253012921",
+        "weight": 0.13
+      }
+    ]
+  }
+}

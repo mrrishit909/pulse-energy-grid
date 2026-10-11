@@ -5,6 +5,13 @@
   "note": {
    "type": "string"
   },
+  "parity_keys": {
+   "items": {
+    "type": "string"
+   },
+   "minItems": 3,
+   "type": "array"
+  },
   "schema_version": {
    "const": "v1"
   },
@@ -103,6 +110,7 @@
   "tolerance_rel",
   "tolerance_abs",
   "note",
+  "parity_keys",
   "vectors"
  ],
  "title": "dispatch_test_vectors",

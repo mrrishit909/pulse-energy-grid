@@ -37,7 +37,7 @@ def top(name: str, props: dict, req: list | None = None) -> dict:
     return {"$schema": "https://json-schema.org/draft/2020-12/schema", "title": name, **obj(p, r)}
 
 
-MODEL_IDS = ["seasonal_naive", "eia_day_ahead", "gbm", "gbm_stacked", "gbm_perfect_weather"]
+MODEL_IDS = ["seasonal_naive", "eia_day_ahead", "eia_debiased", "gbm", "gbm_stacked", "gbm_perfect_weather"]
 VEC = lambda n: arr(N, n)  # noqa: E731
 SCEN = ["baseline", "renewables_up", "demand_growth", "battery_big", "heat_wave", "outage"]
 
@@ -56,7 +56,7 @@ SCHEMAS = {
     "reconciliation": top("reconciliation", {
         "invariants": arr(S, lo=2),
         "ledger": arr(obj({"ba": S, "kind": S, "fuel": S, "grid_slots": I, "raw_rows": I, "missing_slots": I, "null_value": I, "flagged_outlier": I,
-                           "kept": I, "imputed_short_gap": I}), lo=20),
+                           "kept": I, "imputed_short_gap": I, "flagged_range": I, "flagged_spike": I}), lo=20),
         "generation_vs_total": per_ba(obj({"n_hours": I, "mean_signed_resid_pct": N, "mean_abs_resid_pct": N, "p99_abs_resid_pct": N, "hours_gt_2pct": I, "definition": S})),
         "balance": per_ba(obj({"n_hours": I, "mean_resid_mw": N, "mean_abs_resid_mw": N, "p99_abs_resid_mw": N, "definition": S})),
         "weather": arr(obj({"ba": S, "station_id": S, "name": S, "weight": N, "hours_expected": I, "hours_observed": I, "hours_interpolated": I, "hours_missing": I}), lo=8)}),
@@ -87,6 +87,7 @@ SCHEMAS = {
         "intervals": obj({m: obj({"nominal_pct": N, "raw_coverage_pct": N, "cqr_coverage_pct": N, "mean_width_mw": N, "cqr_mean_width_mw": N, "cqr_offset_mw": N})
                           for m in ("gbm", "gbm_stacked", "gbm_perfect_weather")}),
         "comparison_vs_eia": obj({"best_model": S, "beats_eia": B, "mape_diff_pp": N, "mape_diff_ci95": arr(N, 2), "ci_method": S, "statement": S}),
+        "comparisons": arr(obj({"model": S, "baseline": S, "mape_diff_pp": N, "ci95": arr(N, 2), "significant": B, "statement": S}), lo=4),
         "importance": arr(obj({"feature": S, "mape_increase_pp": N}), lo=1)}))}),
     "forecast_samples": top("forecast_samples", {"bas": per_ba(obj({
         "weeks": arr(obj({"label": S, "reason": S, "start_utc": S, "hours": I, "ts_local": arr(S), "actual_mw": arr(NN), "eia_mw": arr(NN), "naive_mw": arr(NN),
@@ -109,7 +110,7 @@ SCHEMAS = {
         "objective_usd": N, "cost_breakdown_usd": {"type": "object"}, "dispatch_mw": {"type": "object"}, "renewable_used_mw": obj({"solar": VEC(24), "wind": VEC(24)}),
         "curtailment_mw": VEC(24), "unserved_mw": VEC(24), "battery": obj({"charge_mw": VEC(24), "discharge_mw": VEC(24), "soc_mwh": VEC(25)}),
         "price_usd_mwh": VEC(24), "co2_t": N, "renewable_share_pct": N, "unserved_mwh": N, "curtailed_mwh": N}) for s in SCEN})}}))}),
-    "dispatch_test_vectors": top("dispatch_test_vectors", {"tolerance_rel": N, "tolerance_abs": N, "note": S, "vectors": arr(obj({
+    "dispatch_test_vectors": top("dispatch_test_vectors", {"tolerance_rel": N, "tolerance_abs": N, "note": S, "parity_keys": arr(S, lo=3), "vectors": arr(obj({
         "ba": S, "day": S, "scenario": S, "params": {"type": "object"},
         "expected": obj({"objective_usd": N, "cost_breakdown_usd": {"type": "object"}, "class_energy_mwh": {"type": "object"}, "unserved_mwh": N,
                          "curtailed_mwh": N, "soc_mwh": VEC(25), "max_price_usd_mwh": N, "co2_t": N})}), lo=24)}),

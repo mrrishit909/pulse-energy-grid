@@ -48,6 +48,47 @@
        ],
        "type": "object"
       },
+      "comparisons": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "baseline": {
+          "type": "string"
+         },
+         "ci95": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+         },
+         "mape_diff_pp": {
+          "type": "number"
+         },
+         "model": {
+          "type": "string"
+         },
+         "significant": {
+          "type": "boolean"
+         },
+         "statement": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "model",
+         "baseline",
+         "mape_diff_pp",
+         "ci95",
+         "significant",
+         "statement"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
       "features": {
        "additionalProperties": true,
        "properties": {
@@ -211,6 +252,64 @@
        "additionalProperties": true,
        "properties": {
         "eia_day_ahead": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "eia_debiased": {
          "additionalProperties": true,
          "properties": {
           "available_at_forecast_time": {
@@ -504,6 +603,7 @@
        "required": [
         "seasonal_naive",
         "eia_day_ahead",
+        "eia_debiased",
         "gbm",
         "gbm_stacked",
         "gbm_perfect_weather"
@@ -570,6 +670,7 @@
       "models",
       "intervals",
       "comparison_vs_eia",
+      "comparisons",
       "importance"
      ],
      "type": "object"
@@ -617,6 +718,47 @@
        ],
        "type": "object"
       },
+      "comparisons": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "baseline": {
+          "type": "string"
+         },
+         "ci95": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+         },
+         "mape_diff_pp": {
+          "type": "number"
+         },
+         "model": {
+          "type": "string"
+         },
+         "significant": {
+          "type": "boolean"
+         },
+         "statement": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "model",
+         "baseline",
+         "mape_diff_pp",
+         "ci95",
+         "significant",
+         "statement"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
       "features": {
        "additionalProperties": true,
        "properties": {
@@ -780,6 +922,64 @@
        "additionalProperties": true,
        "properties": {
         "eia_day_ahead": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "eia_debiased": {
          "additionalProperties": true,
          "properties": {
           "available_at_forecast_time": {
@@ -1073,6 +1273,7 @@
        "required": [
         "seasonal_naive",
         "eia_day_ahead",
+        "eia_debiased",
         "gbm",
         "gbm_stacked",
         "gbm_perfect_weather"
@@ -1139,6 +1340,7 @@
       "models",
       "intervals",
       "comparison_vs_eia",
+      "comparisons",
       "importance"
      ],
      "type": "object"
