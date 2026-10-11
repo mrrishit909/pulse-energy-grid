@@ -44,6 +44,8 @@ export function biteAt(p: number, prevYearStep: number, biteMonth: number) {
 }
 export const biteP = (month: number) => 0.05 + ((month - 0.5) / 12) * 0.5;
 
+/** QA D-023: the removed-area outline only where the sun took a bite (>= 3% of demand), so it never closes into a ring. */
+const biteOutline = (s: { demand: number[]; sun: number[] }) => s.demand.map((d, h) => (s.sun[h]! >= 0.03 * d ? d : null));
 /** The S03b rose as the scene ends (p = 1, settled). S04 starts from exactly this rose and unrolls it (QA D-002). */
 export function biteEnd(L: Layout) {
   const fm = getStore(FUEL_MIX).state, dp = getStore(DEMAND).state, facts = getStore(FACTS).state;
@@ -97,7 +99,7 @@ registerFrame("netload", ({ now, p, L }) => {
     petals: fading ? monthFrom! : main, view, labels: 0.7, bloom: 0, glow: null, sky: null,
     mixB: fading ? { petals: main, view, mix: monthTw.value } : undefined,
     // the removed solar and wind area stays as a dotted outline at the demand tip
-    extra: netTw.value > 0.01 ? (c: CanvasRenderingContext2D) => drawGhostArcs(c as unknown as Ctx, stack.demand, view, `rgba(255,243,166,${(0.8 * netTw.value).toFixed(2)})`, [1, 3]) : undefined,
+    extra: netTw.value > 0.01 ? (c: CanvasRenderingContext2D) => drawGhostArcs(c as unknown as Ctx, biteOutline(stack), view, `rgba(255,243,166,${(0.8 * netTw.value).toFixed(2)})`, [1, 3]) : undefined,
     sig: `netload|${st.ba}|${month}|${year}|${netTw.value.toFixed(3)}|${valTw.value.toFixed(3)}|${monthTw.value.toFixed(3)}`,
   };
 });
@@ -111,7 +113,7 @@ function BiteStill({ fm, dp, ba, month, year, label }: { fm: FuelMix; dp: Demand
       const v = baseView(s.keys, { cx: w / 2, cy: h / 2, R100, rref: radius(Math.max(...s.demand), R100), gap: LL.gap, glow: LL.glow });
       const ps = petals(s, () => 1);
       drawRose(c, ps, v);
-      drawGhostArcs(c, s.demand, v, "rgba(255,243,166,0.8)", [1, 3]);
+      drawGhostArcs(c, biteOutline(s), v, "rgba(255,243,166,0.8)", [1, 3]);
       drawHourLabels(c, ps, v, LL.label, 0.7);
     }} />
   );

@@ -1,6 +1,7 @@
 import Lenis from "lenis";
 import { addFrame } from "../motion/loop";
 import { trackProgress } from "../motion/progress";
+import { clamp } from "../lib/math";
 import { motionEnabled, subscribeMotion } from "../state/motion";
 
 /**
@@ -18,6 +19,8 @@ interface Track {
   height: number;
   p: number;
   subs: Set<ProgressFn>;
+  /** last written hand-off opacity (QA D-012) */
+  hand?: number;
 }
 
 const tracks = new Map<string, Track>();
@@ -61,6 +64,13 @@ function tick() {
       t.subs.forEach((fn) => fn(p));
     }
     if (centre >= t.top && centre < t.top + t.height) nextActive = t.id;
+    // QA D-012: while a pinned stage slides in or out (not yet / no longer stuck), its text panels fade, so a
+    // caption backing never drags across the fixed rose; the canvas is not inside the stage and is unaffected
+    if (t.height > vh + 1) {
+      const d = y < t.top ? t.top - y : Math.max(0, y - (t.top + t.height - vh));
+      const hand = Math.round(clamp(1 - d / (0.22 * vh)) * 100) / 100;
+      if (hand !== t.hand) { t.hand = hand; t.el.style.setProperty("--hand", String(hand)); }
+    }
   }
   if (nextActive !== active) {
     active = nextActive;

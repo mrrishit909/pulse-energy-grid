@@ -97,6 +97,10 @@ describe("site source hygiene", () => {
       expect(strings.filter((s) => words.test(s)), f).toEqual([]);
     }
   });
+  it("claims lint: no superseded CISO evaluation numbers are written into the source (they come from facts)", () => {
+    const stale = /7\.82|4\.47|339 OF 356|339 of 356|57\.2%/;
+    for (const f of files.filter((x) => /\.(tsx?|html)$/.test(x) && !/\.test\.ts$/.test(x) && !x.includes("/tests/"))) expect(stale.test(readFileSync(f, "utf-8")), f).toBe(false);
+  });
   it("draws the rose with Canvas2D only (no WebGL, no three.js)", () => {
     // site code only: the QA evidence harness in tests/ probes the browser and is not shipped
     for (const f of files.filter((x) => !x.includes("/tests/"))) expect(/getContext\(\s*["']webgl|from\s+["']three["']/.test(readFileSync(f, "utf-8")), f).toBe(false);

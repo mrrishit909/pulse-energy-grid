@@ -96,6 +96,8 @@ export function S08Closing({ def, onReplay }: { def: SceneDef; onReplay: () => v
         <p className="wordmark">PULSE ENERGY GRID</p>
         {d ? <p className="intro-corner">{d.ba} · {d.date}</p> : null}
       </div>
+      {/* QA D-029: the paragraph and the foot stack from the bottom, so a full, wrapped credit never runs into the text */}
+      <div className="close-text">
       <WordReveal as="h2" id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="close-para" text={copyS08.paragraph}
         mode={motion ? { kind: "scrub", track: def.id, from: 0.35, to: 0.65 } : { kind: "value", t: 1 }} />
       <div className={`close-foot ${show.caption ? "is-in" : ""}`}>
@@ -107,6 +109,7 @@ export function S08Closing({ def, onReplay }: { def: SceneDef; onReplay: () => v
           <li><a className="text-btn" href={copyS08.source} target="_blank" rel="noopener">→ SOURCE CODE</a></li>
         </ul>
         {mt.status === "ready" ? <p className="close-credit">{mt.data.attribution.join(" · ")} · RETRIEVED {mt.data.generated_at}</p> : null}
+      </div>
       </div>
     </Track>
   );

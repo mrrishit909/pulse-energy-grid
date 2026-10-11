@@ -184,11 +184,12 @@ html[data-motion="off"] .menu-panel { transition: none; }
 .chip--simulated {
   --tag: var(--tag-simulated);
   padding: 7px; border: 1px dashed var(--tag);
-  background: repeating-linear-gradient(45deg, rgb(255 76 37 / 0.26) 0 1px, transparent 1px 6px), #ffffff0d;
+  background: repeating-linear-gradient(45deg, rgb(255 76 37 / 0.18) 0 1px, transparent 1px 6px), #0a0a0a;
+  color: #ff8466; /* QA D-030: the text is lighter than the hatch so it holds >= 4.5:1 on every hatch pixel */
 }
 .chip--simulated .chip__mark { background: transparent; outline: 1px dashed var(--tag); outline-offset: -1px; }
 .chip--on-light { --tag: #000; background: rgb(0 0 0 / 0.1); }
-.chip--on-light.chip--simulated { border-color: #000; background: repeating-linear-gradient(45deg, rgb(0 0 0 / 0.3) 0 1px, transparent 1px 6px); }
+.chip--on-light.chip--simulated { border-color: #000; color: #000; background: repeating-linear-gradient(45deg, rgb(0 0 0 / 0.14) 0 1px, transparent 1px 6px), rgb(255 255 255 / 0.3); }
 
 /* ---------- square buttons ---------- */
 .btn-square {
@@ -280,5 +281,13 @@ html[data-motion="off"] .story-card { position: relative; top: auto; transform: 
 
 
 /* QA L4: the active scene's artifact errors, pinned in view above everything (empty when nothing failed) */
-.scene-errors { position: fixed; z-index: calc(var(--z-skip) + 1); left: 50%; top: 12px; translate: -50% 0; width: max-content; max-width: calc(100vw - 32px); display: flex; flex-direction: column; gap: 6px; }
+/* QA D-013: above the nav at the bottom, clear of every scene heading */
+.scene-errors { position: fixed; z-index: calc(var(--z-skip) + 1); left: 50%; bottom: calc(var(--nav-clear, 64px) + 8px); translate: -50% 0; width: max-content; max-width: calc(100vw - 32px); display: flex; flex-direction: column; gap: 6px; }
 .scene-errors:not(:empty) { padding: 10px 12px; border-radius: var(--radius-card); background: rgb(22 22 22 / 0.97); box-shadow: 0 0 0 1px var(--line); }
+
+/* QA D-026 (reduced motion): content flows under the fixed nav, so the nav and corner buttons get an opaque backing */
+html[data-motion="off"] .nav-bar__track, html[data-motion="off"] .nav-bar__utils, html[data-motion="off"] .menu-panel { background: rgb(14 14 14 / 0.96); }
+html[data-motion="off"] .corner-btn { background: rgb(0 0 0 / 0.92); }
+html[data-motion="off"] .corner-btn:hover { background: #fff; }
+/* QA D-030: the corner wordmark and date sit on a backing wherever they appear over the rose */
+.wordmark, .intro-corner { background: rgb(0 0 0 / 0.82); padding: 3px 6px; }

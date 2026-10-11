@@ -222,7 +222,13 @@ export function verdict(fe: ForecastEval, ba: "CISO" | "ERCO") {
 /** ED #25: the drift of EIA's CISO day-ahead series, bound to facts and the eia_debiased comparison. */
 export function biasLine(f: Facts & { eia_ciso_dayahead_bias_pct?: number; eia_ciso_dayahead_bias_year?: number }, fe: ForecastEval) {
   const deb = fe.bas.CISO.comparisons.find((c) => c.model === "gbm" && c.baseline === "eia_debiased")!;
-  return `EIA'S CISO DAY-AHEAD SERIES DRIFTED TO ${pp(f.eia_ciso_dayahead_bias_pct!)}% BIAS IN ${f.eia_ciso_dayahead_bias_year} (PARTIAL YEAR), SO PART OF OUR CISO MARGIN IS THAT DRIFT. BIAS-CORRECTED, EIA SCORES ${fixed(fe.bas.CISO.models.eia_debiased!.mape_pct, 2)}%; OURS IS STILL ${fixed(Math.abs(deb.mape_diff_pp), 2)} PP LOWER (95% CI ${pp(deb.ci95[0])} TO ${pp(deb.ci95[1])}).`;
+  const raw = fe.bas.CISO.models.eia_day_ahead!.mape_pct, debiased = fe.bas.CISO.models.eia_debiased!.mape_pct;
+  // the drift claim is bound to the evaluation: it says the drift explains part of the margin only if removing it helps EIA
+  const drift = debiased < raw
+    ? `SO PART OF OUR CISO MARGIN IS THAT DRIFT. BIAS-CORRECTED, EIA SCORES ${fixed(debiased, 2)}%`
+    : `BUT REMOVING THAT BIAS DOES NOT HELP EIA ON THE TEST SPLIT (${fixed(debiased, 2)}% VS ${fixed(raw, 2)}%)`;
+  const still = deb.mape_diff_pp < 0 ? `OURS IS ${fixed(Math.abs(deb.mape_diff_pp), 2)} PP LOWER` : `OURS IS ${fixed(deb.mape_diff_pp, 2)} PP HIGHER`;
+  return `EIA'S CISO DAY-AHEAD SERIES DRIFTED TO ${pp(f.eia_ciso_dayahead_bias_pct!)}% BIAS IN ${f.eia_ciso_dayahead_bias_year} (PARTIAL YEAR), ${drift}; AGAINST THE BIAS-CORRECTED SERIES ${still} (95% CI ${pp(deb.ci95[0])} TO ${pp(deb.ci95[1])}).`;
 }
 /** Week-level numbers, computed in the client from the sample arrays and labelled THIS WEEK. */
 export function weekStats(w: Week, interval: "raw" | "cqr") {
@@ -308,9 +314,9 @@ export function heatCopy(w: WeatherRelation, ba: "CISO" | "ERCO") {
 export function ledgerCopy(r: Reconciliation, q: Quality, f: Facts, meta: Meta) {
   const rows = (["CISO", "ERCO"] as const).map((ba) => {
     const L = r.ledger.filter((x) => x.ba === ba);
-    const a = L.every((x) => x.grid_slots === x.raw_rows + x.missing_slots), b = L.every((x) => x.raw_rows === x.kept + x.null_value + x.flagged_outlier);
+    const a = L.every((x) => x.grid_slots === x.raw_rows + x.missing_slots), b = L.every((x) => x.raw_rows === x.kept + x.null_value + x.flagged_outlier + (x.timing_excluded ?? 0));
     const dst = q.dst[ba].days_23h + q.dst[ba].days_25h;
-    return { ba, n: L.length, a, b, text: `${ba} · ${L.length} SERIES · SLOTS = RAW + MISSING ${a ? "✓" : "✗"} · RAW = KEPT + NULL + FLAGGED ${b ? "✓" : "✗"} · DST DAYS ${dst}` };
+    return { ba, n: L.length, a, b, text: `${ba} · ${L.length} SERIES · SLOTS = RAW + MISSING ${a ? "✓" : "✗"} · RAW = KEPT + NULL + FLAGGED + TIMING ${b ? "✓" : "✗"} · DST DAYS ${dst}` };
   });
   const sp = q.spike_examples.CISO[0];
   const quirks = [
@@ -319,9 +325,10 @@ export function ledgerCopy(r: Reconciliation, q: Quality, f: Facts, meta: Meta) 
     ...(sp ? [`FLAGGED SPIKE: CISO ${sp.series === "D" ? "DEMAND" : sp.series} ${sp.ts_utc.replace("T", " ")}:00 UTC ${int(sp.value)} MW VS ${int(sp.reference)} MW TYPICAL`] : []),
   ];
   const g = f.global as Record<string, number>;
+  const timing = r.ledger.reduce((s, x) => s + (x.timing_excluded ?? 0), 0);
   return {
     rows, quirks,
-    totals: `${int(g.raw_rows_total!)} ROWS IN · ${int(g.kept_rows_total!)} KEPT · ${int(g.flagged_rows_total!)} FLAGGED`,
+    totals: `${int(g.raw_rows_total!)} ROWS IN · ${int(g.kept_rows_total!)} KEPT · ${int(g.flagged_rows_total!)} FLAGGED${timing ? ` · ${int(timing)} EXCLUDED AT A TIMING CHANGE` : ""}`,
     footer: `PIPELINE v${meta.pipeline_version} · GENERATED ${meta.generated_at}`,
   };
 }

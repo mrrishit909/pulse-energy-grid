@@ -1,5 +1,5 @@
 import { biteEnd } from "./S03bBite";
-import { drawGhostArcs, drawRose, radius, type Ctx } from "../graphics/rose";
+import { drawRose, FUEL, radius, TOKEN, type Ctx } from "../graphics/rose";
 import { sceneLayout } from "./geometry";
 import { RoseSlot, useSceneLayout } from "./RoseSlot";
 import type { ArtifactSpec } from "../data/loader";
@@ -93,7 +93,8 @@ registerFrame("forecast", ({ now, p, L, W, H }) => {
   const peak = Math.max(...(slice(d.w.actual_mw, d.first, 24).filter((v) => v !== null) as number[]));
   const R100 = fitR100(L.G3, peak);
   const view = bt?.view ?? baseView(["actual"], { cx: L.G3.cx, cy: L.G3.cy, R100, rref: Math.max(1, Math.sqrt(peak / 1e5) * R100), gap: 0, ghost: 0, marks: 0 });
-  const biteGhost = (c: CanvasRenderingContext2D, a: number) => { if (bt?.net) drawGhostArcs(c as unknown as Ctx, bt.demand, bt.view, `rgba(255,243,166,${(0.8 * a).toFixed(2)})`, [1, 3]); };
+  // QA D-023: S04 opens without the removed-area outline (in month means it drew as a guide ring)
+  const runs = bt ? bt.petals.map((q) => { const top = Math.min(q.served, q.demand); return q.bands.map(([i0, o0], k) => { const f = FUEL[TOKEN[bt.view.keys[k]!] ?? "other"]!; return [radius(Math.min(i0, top), bt.view.R100), radius(Math.min(o0, top), bt.view.R100), f.c0, f.c1] as [number, number, string, string]; }).filter((b) => b[1] > b[0]); }) : undefined;
   const label = L.label;
   const dayLabels = M ? [days(d.w)[st.mDay]!] : days(d.w);
   const shown = seriesAt(step, d.b.best_model).filter((id) => !st.hidden.includes(id));
@@ -103,16 +104,18 @@ registerFrame("forecast", ({ now, p, L, W, H }) => {
     // before the unroll: the S03b rose itself, so the scene change is seamless (1px seam test)
     petals: p < 0.08 && motion && bt ? bt.petals : null, view, labels: p < 0.08 && bt ? 0.7 : 0, bloom: 0, glow: null, sky: null, opacity: fade,
     extra: (c) => {
-      if (p < 0.08 && motion) { biteGhost(c, 1); return; }
+      if (p < 0.08 && motion) return;
       if (t < 1) {
         // the stack rose hands over to its own petals within the first quarter of the unroll; the petals separate as they leave
         // each petal stays in the stack rose until its turn, then leaves as its own piece (no crossfade, no hub)
         if (bt) {
-          const left = new Set(bt.petals.filter((q) => leaveT(t, q.hour) > 0).map((q) => q.hour));
-          if (left.size < 24) drawRose(c as unknown as Ctx, bt.petals, { ...bt.view, marks: 0, ghost: 0, silhouette: left });
-          biteGhost(c, clamp(1 - t / 0.35));
+          // a leaving petal leaves its core (0.3 of its radius) in the rose, so no empty wedge ever reaches the centre;
+          // the core fades once every petal has left
+          const cap = new Map(bt.petals.filter((q) => leaveT(t, q.hour) > 0).map((q) => [q.hour, 0.3 * (startR?.[q.hour] ?? 0)] as const));
+          const coreA = 1 - clamp((t - 0.3) / 0.1);
+          if (coreA > 0) drawRose(c as unknown as Ctx, bt.petals, { ...bt.view, marks: 0, ghost: 0, bands: coreA, cap });
         }
-        drawUnroll(c, d.actual, view, plot, t, 0, startR);
+        drawUnroll(c, d.actual, view, plot, t, 0, startR, 1, runs);
         drawAxis(c, plot, dayLabels, label, t);
         return;
       }
@@ -143,7 +146,8 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   const [feS, retryE] = useArtifact(EVAL, near);
   const [factsS] = useArtifact(FACTS);
   // S04 opens on the S03b rose (QA D-002): its inputs load with this scene too, for direct jumps
-  useArtifact(FUEL_MIX, near); useArtifact(DEMAND, near);
+  const [fmIn] = useArtifact(FUEL_MIX, near); const [dpIn] = useArtifact(DEMAND, near);
+  const biteReady = fmIn.status === "ready" && dpIn.status === "ready";
   const st = useSyncExternalStore(forecast.subscribe, forecast.get);
   const motion = useMotion();
   const vp = useViewport();
@@ -274,15 +278,19 @@ export function S04Forecast({ def }: { def: SceneDef }) {
             {!motion && d ? (
               <div className="fc-still-strip">
                 {[0, 0.5, 1].map((tt) => (
-                  <Still key={tt} className="fc-still" label={tt === 0 ? "The net-load rose from the last scene" : tt === 1 ? "The week as bars" : "Half unrolled"} deps={[st.ba, st.week, tt]} draw={(c, w, h) => {
+                  <Still key={tt} className="fc-still" label={tt === 0 ? "The net-load rose from the last scene" : tt === 1 ? "The week as bars" : "Half unrolled"} deps={[st.ba, st.week, tt, biteReady]} draw={(c, w, h) => {
                     const LL = layout(w, h, currentClass());
                     const g = c as unknown as CanvasRenderingContext2D;
                     const b0 = biteEnd(LL);
+                    if (!b0 && tt < 1) return; // the opening and the unroll start from the S03b rose; drawn once it has loaded
                     const plot: Plot = { ...LL.week, hours: d.n, ymax: d.ymax };
                     if (b0 && tt === 0) { drawRose(c, b0.petals, { ...b0.view, ghost: 0, marks: 0 }); return; }
                     const peak = Math.max(...(d.actual.slice(0, 24).filter((v) => v !== null) as number[]));
                     const rose = b0 ? b0.view : { cx: LL.G3.cx, cy: LL.G3.cy, R100: fitR100(LL.G3, peak) };
-                    drawUnroll(g, d.actual, rose, plot, tt, 0, b0 ? b0.petals.map((q) => radius(Math.min(q.served, q.demand), b0.view.R100)) : undefined);
+                    const sr = b0 ? b0.petals.map((q) => radius(Math.min(q.served, q.demand), b0.view.R100)) : undefined;
+                    const rn = b0 ? b0.petals.map((q) => { const top = Math.min(q.served, q.demand); return q.bands.map(([i0, o0], k) => { const f = FUEL[TOKEN[b0.view.keys[k]!] ?? "other"]!; return [radius(Math.min(i0, top), b0.view.R100), radius(Math.min(o0, top), b0.view.R100), f.c0, f.c1] as [number, number, string, string]; }).filter((b) => b[1] > b[0]); }) : undefined;
+                    if (b0 && sr && tt < 0.6) drawRose(c, b0.petals, { ...b0.view, marks: 0, ghost: 0, bands: 1 - clamp((tt - 0.35) / 0.25), cap: new Map(b0.petals.filter((q) => leaveT(tt, q.hour) > 0).map((q) => [q.hour, 0.3 * sr[q.hour]!] as const)) });
+                    drawUnroll(g, d.actual, rose, plot, tt, 0, sr, 1, rn);
                     drawAxis(g, plot, M ? [days(d.w)[st.mDay]!] : days(d.w), LL.label, tt);
                   }} />
                 ))}

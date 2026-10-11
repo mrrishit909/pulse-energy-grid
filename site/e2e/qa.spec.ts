@@ -7,7 +7,7 @@ import { chromium, expect, test, type Browser, type Page } from "@playwright/tes
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { WALK, collisions, goScene, openSite } from "./qa";
+import { WALK, collisions, contrastFails, goScene, openSite } from "./qa";
 
 test.skip(({ isMobile }) => isMobile, "viewports are set per test");
 test.describe.configure({ timeout: 300_000 });
@@ -44,9 +44,9 @@ test("L1: classic 15px scrollbar at 1024x768 and 768x1024: JS class == CSS class
   } finally { await b.close(); }
 });
 
-test("L2: no text, chip or control collisions in any scene at 1024x768, 1280x720 and 768x1024", async ({ browser }) => {
+test("L2: no text, chip or control collisions in any scene at 1024x768, 1280x720, 768x1024 and 1440x900", async ({ browser }) => {
   const bad: string[] = [];
-  for (const vp of [VP(1024, 768), VP(1280, 720), VP(768, 1024)]) {
+  for (const vp of [VP(1024, 768), VP(1280, 720), VP(768, 1024), VP(1440, 900)]) {
     const { ctx, page } = await at(browser, vp);
     await openSite(page);
     for (const [id, p] of WALK) { await goScene(page, id, p); for (const x of await collisions(page, id)) bad.push(`${vp.width}x${vp.height} ${id}@${p}: ${x}`); }
@@ -373,4 +373,96 @@ test("D-004: axe finds no serious contrast issue in S07 under reduced motion (14
     expect(bad.map((v) => `${vp.width} ${v.id}: ${v.nodes.slice(0, 3).map((x) => x.target.join(" ")).join(", ")}`)).toEqual([]);
     await ctx.close();
   }
+});
+
+// ------------------------------------------------------------------ P04-FIXF-001
+test("D-002: the S04 unroll keeps colour (no flat grey pieces) and never opens a black wedge at the centre (D/T/M)", async ({ browser }) => {
+  for (const vp of [VP(1440, 900), VP(768, 1024), VP(390, 844)]) {
+    const { ctx, page } = await at(browser, vp);
+    await openSite(page);
+    await goScene(page, "forecast", 0.02);
+    await page.waitForFunction(() => (window as any).__peg.ready(["fuel_mix.json", "demand_profile.json", "forecast_samples.json"]), null, { timeout: 30_000 });
+    await page.waitForTimeout(500);
+    for (const p of [0.1, 0.15, 0.2]) {
+      await goScene(page, "forecast", p);
+      await page.waitForTimeout(300);
+      const vv = await page.evaluate(() => (window as any).__peg.view());
+      const r = await page.evaluate(([cx, cy]) => {
+        const cv = document.querySelector<HTMLCanvasElement>("canvas.rose-layer")!;
+        const k = cv.width / cv.getBoundingClientRect().width;
+        const g = cv.getContext("2d")!;
+        const d = g.getImageData(0, 0, cv.width, cv.height).data;
+        let lit = 0, grey = 0;
+        for (let i = 0; i < d.length; i += 16) {
+          const a = d[i]!, b = d[i + 1]!, c = d[i + 2]!;
+          if (Math.max(a, b, c) < 24) continue;
+          lit++;
+          if (Math.max(a, b, c) - Math.min(a, b, c) < 8 && a > 80 && a < 130) grey++;
+        }
+        // the ring 4-10 px around the rose centre: a black share there means a wedge reaching the hub
+        let black = 0, n = 0;
+        for (let rr = 4; rr <= 10; rr += 2) for (let t = 0; t < 360; t += 5) {
+          const x = Math.round((cx! + rr * Math.cos((t * Math.PI) / 180)) * k), y = Math.round((cy! + rr * Math.sin((t * Math.PI) / 180)) * k);
+          const o = (y * cv.width + x) * 4; n++;
+          if (Math.max(d[o]!, d[o + 1]!, d[o + 2]!) < 24) black++;
+        }
+        return { greyShare: grey / Math.max(1, lit), blackShare: black / n };
+      }, [vv.cx, vv.cy] as const);
+      expect(r.greyShare, `${vp.width} p${p} flat grey share`).toBeLessThan(0.05);
+      expect(r.blackShare, `${vp.width} p${p} black at the hub`).toBeLessThan(0.1);
+    }
+    await ctx.close();
+  }
+});
+
+test("L19: the collision helper finds an overlapping element whose class nobody listed", async ({ browser }) => {
+  const { ctx, page } = await at(browser, VP(1440, 900));
+  await openSite(page);
+  await goScene(page, "demand", 0.74);
+  expect(await collisions(page, "demand")).toEqual([]);
+  await page.evaluate(() => {
+    const t = document.querySelector("#demand .scene-statement")!.getBoundingClientRect();
+    const d = document.createElement("p"); d.className = "brand-new-overlay-" + Date.now(); d.textContent = "OVERLAPPING FIXTURE TEXT";
+    d.style.cssText = `position:absolute;left:${t.left + 10}px;top:${t.top + 10}px;margin:0;font:400 20px monospace;color:#fff;z-index:9`;
+    document.querySelector("#demand .stage-content")!.append(d);
+  });
+  expect((await collisions(page, "demand")).some((x) => x.includes("OVERLAPPING FIXTURE"))).toBe(true);
+  await ctx.close();
+});
+
+test("L16: pixel-sampled text contrast >= 4.5:1 (3:1 large) in every scene, normal and reduced motion (D-026, D-027, D-030)", async ({ browser }) => {
+  const bad: string[] = [];
+  for (const reduced of [false, true]) for (const vp of [VP(1440, 900), VP(768, 1024), VP(390, 844)]) {
+    const { ctx, page } = await at(browser, vp, { reduced });
+    await openSite(page);
+    for (const [id, p] of [...WALK, ["pulse", 0.78] as [string, number]]) {
+      await goScene(page, id, p);
+      for (const x of await contrastFails(page)) bad.push(`${reduced ? "reduced" : "motion"} ${vp.width} ${id}@${p}: ${x}`);
+    }
+    await ctx.close();
+  }
+  expect(bad).toEqual([]);
+});
+
+test("L5/D-028: no sideways scroll at 1024, 1280, 1440 and 1920 in every scene, both layers of S06 and CTRL", async ({ browser }) => {
+  const bad: string[] = [];
+  for (const vp of [VP(1024, 768), VP(1280, 720), VP(1440, 900), VP(1920, 1080)]) {
+    const { ctx, page } = await at(browser, vp);
+    await openSite(page);
+    const check = async (label: string) => {
+      const sw = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth));
+      if (sw > vp.width) bad.push(`${vp.width} ${label}: ${sw}`);
+    };
+    for (const id of SCENES) { await goScene(page, id, 0.5); await check(id); }
+    for (const layer of ["price", "stack"]) {
+      await page.evaluate((l) => (window as any).__peg.setStress({ layer: l }), layer);
+      await goScene(page, "stress", 0.64); await check(`stress ${layer}`);
+      await goScene(page, "control", 0);
+      await page.locator(".ctrl [role=radiogroup][aria-label=LAYER] [role=radio]", { hasText: layer.toUpperCase() }).first().click();
+      await page.evaluate(() => (window as any).__peg.setCtrl({ heat_wave_c: 5 }));
+      await page.waitForTimeout(800); await check(`control ${layer}`);
+    }
+    await ctx.close();
+  }
+  expect(bad).toEqual([]);
 });

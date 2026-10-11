@@ -2,7 +2,7 @@
 /**
  * P04-FIXE-001 evidence: the frames the QA report cites, at 1440, 1024, 768, 390, 360 (+ reduced motion), into
  * artifacts/evidence/fix-e/<label>/<vp>/. Production build on 4331. Then: python3 tests/contact-sheet.py <dir>
- * Usage: node tests/fix-e-capture.mjs --label after [--only 1440x900,...] [--reduced 1] [--shots s04,s06,...]
+ * Usage: node tests/fix-e-capture.mjs [--dir fix-f] --label after [--only 1440x900,...] [--reduced 1] [--shots s04,s06,...] [--base url]
  */
 import { chromium } from "@playwright/test";
 import { mkdirSync } from "node:fs";
@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, arr) => (a.startsWith("--") ? [a.slice(2), arr[i + 1]] : null)).filter(Boolean));
 const REDUCED = args.reduced === "1";
-const OUT = join(HERE, "..", "..", "artifacts", "evidence", "fix-e", args.label ?? "after");
+const OUT = join(HERE, "..", "..", "artifacts", "evidence", args.dir ?? "fix-e", args.label ?? "after");
 const BASE = args.base ?? "http://localhost:4331/pulse-energy-grid/";
 const VPS = [[1440, 900], [1024, 768], [768, 1024], [390, 844], [360, 800]].map(([w, h]) => ({ width: w, height: h, label: `${w}x${h}` }))
   .filter((v) => !args.only || args.only.split(",").includes(v.label));
@@ -24,8 +24,10 @@ const SHOTS = [
   ["s03b", "s03b-p99-end", "netload", 0.99],
   ["s04", "s04-p00-open", "forecast", 0.0],
   ["s04", "s04-p03", "forecast", 0.03],
+  ["s04", "s04-p10-unroll", "forecast", 0.1],
   ["s04", "s04-p12-unroll", "forecast", 0.12],
   ["s04", "s04-p15-unroll", "forecast", 0.15],
+  ["s04", "s04-p20-unroll", "forecast", 0.2],
   ["s04", "s04-p25-unroll", "forecast", 0.25],
   ["s04", "s04-p35-unroll", "forecast", 0.35],
   ["s04", "s04-p90-verdict", "forecast", 0.9],
@@ -41,8 +43,12 @@ const SHOTS = [
     await peg(p, () => window.__peg.setCtrl({ heat_wave_c: 5 }));
   }],
   ["s03a", "s03a-p74", "demand", 0.74],
+  ["s00", "s00-p00", "pulse", 0.0],
+  ["s00", "s01-p78", "pulse", 0.78],
+  ["s05", "s05-p04-open", "dispatch", 0.04],
   ["s05", "s05-p80", "dispatch", 0.8],
   ["s07", "s07-p50", "evidence", 0.5],
+  ["s07", "s07-p20", "evidence", 0.2],
   ["s07", "s07-p95", "evidence", 0.95],
   ["s08", "s08-p76-echo", "closing", 0.76],
   ["s08", "s08-p97", "closing", 0.97],

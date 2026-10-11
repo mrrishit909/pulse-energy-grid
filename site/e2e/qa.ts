@@ -53,7 +53,8 @@ export function collisions(page: Page, id: string, debug = false) {
       }
     }
     for (const c of root2controls()) { if (!seen.has(c) && eff(c) > 0.05) { const r = c.getBoundingClientRect(); if (r.width > 1 && r.bottom > 0 && r.top < vh) boxes.push({ el: c, r, name: c.getAttribute("aria-label") ?? c.tagName, backed: true }); } }
-    function root2controls() { return [...scope.querySelectorAll("input[type=range], select")]; }
+    // L19: every interactive element is a box too (icon buttons, sliders, focusable hit areas), found from the DOM
+    function root2controls() { return [...scope.querySelectorAll("button, a[href], input, select, textarea, [role=button], [role=radio], [role=tab], [role=slider]")].filter((e) => !e.matches(".rose-hit, .fc-hit, .bite-hit")); }
     // QA L13: what the canvases drew (hour labels, skyline, week axis and labels) against every DOM text box
     const marks: { name: string; x: number; y: number; w: number; h: number }[] = (window as any).__peg.marks();
     if (dbg) return boxes.map((b) => `${b.name} ${Math.round(b.r.left)}..${Math.round(b.r.right)} ${Math.round(b.r.top)}-${Math.round(b.r.bottom)}`);
@@ -95,4 +96,74 @@ export function collisions(page: Page, id: string, debug = false) {
     }
     return [...new Set(out)];
   }, [id, debug] as const);
+}
+
+/**
+ * L16/L19: pixel-sampled text contrast for every visible text-bearing element (built from the DOM, no selector list).
+ * The page is captured once with all text made transparent; each element's backdrop is sampled from that frame and
+ * its own text colour (alpha and ancestor opacity applied) is composited over it. Returns elements whose 10th-percentile
+ * contrast is under 4.5:1 (3:1 for large text), as readable descriptions.
+ */
+export async function contrastFails(page: Page) {
+  const items: { i: number; name: string; pts: [number, number][]; rgba: number[]; large: boolean }[] = await page.evaluate(() => {
+    const out: any[] = [];
+    const seen = new Set<Element>();
+    const vw = innerWidth, vh = innerHeight;
+    const eff = (e: Element) => { let o = 1; for (let n: Element | null = e; n; n = n.parentElement) { const cs = getComputedStyle(n); if (cs.display === "none" || cs.visibility === "hidden") return 0; o *= Number(cs.opacity); } return o; };
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      const el = n.parentElement!;
+      if (!n.textContent?.trim() || seen.has(el) || el.closest("svg, canvas, .sr-only, script, style, [aria-hidden=true] .wr")) continue;
+      seen.add(el);
+      const o = eff(el);
+      if (o < 0.6) continue; // mid-transition or deliberately dimmed backdrops are not read as text
+      const rg = document.createRange(); rg.selectNodeContents(n);
+      const rs = [...rg.getClientRects()].filter((r) => r.width > 2 && r.height > 2);
+      if (!rs.length) continue;
+      const r = rs.reduce((a, b) => new DOMRect(Math.min(a.left, b.left), Math.min(a.top, b.top), Math.max(a.right, b.right) - Math.min(a.left, b.left), Math.max(a.bottom, b.bottom) - Math.min(a.top, b.top)));
+      if (r.bottom < 0 || r.top > vh || r.right < 0 || r.left > vw) continue;
+      if (el.closest("details:not([open])") && !el.closest("summary")) continue; // collapsed content is not shown
+      // covered text (scrolled under a fixed bar, behind a card) is not read here; only what is on top is
+      const cx = Math.min(vw - 1, Math.max(0, r.left + r.width / 2)), cy = Math.min(vh - 1, Math.max(0, r.top + r.height / 2));
+      const mine = (x: number, y: number) => { const t = document.elementFromPoint(x, y); return !!t && (t === el || el.contains(t) || t.contains(el)); };
+      if (!mine(cx, cy)) continue;
+      // only the backdrop points where this text is on top (a fixed bar may cover part of a scrolled line)
+      const pts: [number, number][] = [];
+      const step = Math.max(2, Math.sqrt((r.width * r.height) / 160));
+      for (let y = Math.max(0, r.top) + 1; y < Math.min(vh, r.bottom); y += step) for (let x = Math.max(0, r.left) + 1; x < Math.min(vw, r.right); x += step) if (mine(x, y)) pts.push([x, y]);
+      if (pts.length < 4) continue;
+      const cs = getComputedStyle(el);
+      const m = cs.color.match(/[\d.]+/g)!.map(Number);
+      const fs = parseFloat(cs.fontSize), fw = Number(cs.fontWeight) || 400;
+      out.push({ i: out.length, name: (n.textContent ?? "").trim().slice(0, 28), pts, rgba: [m[0]!, m[1]!, m[2]!, (m[3] ?? 1) * o], large: fs >= 24 || (fs >= 18.66 && fw >= 700) });
+    }
+    return out;
+  });
+  await page.evaluate(() => { const s = document.createElement("style"); s.id = "cc-hide"; s.textContent = "*, *::before, *::after { color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; text-decoration-color: transparent !important; }"; document.head.append(s); });
+  await page.waitForTimeout(60);
+  const png = (await page.screenshot()).toString("base64");
+  await page.evaluate(() => document.getElementById("cc-hide")?.remove());
+  return page.evaluate(async ([b64, list]) => {
+    const img = new Image(); img.src = `data:image/png;base64,${b64}`; await img.decode();
+    const cv = document.createElement("canvas"); cv.width = img.width; cv.height = img.height;
+    const g = cv.getContext("2d")!; g.drawImage(img, 0, 0);
+    const k = img.width / innerWidth;
+    const lin = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    const lum = (c: number[]) => 0.2126 * lin(c[0]!) + 0.7152 * lin(c[1]!) + 0.0722 * lin(c[2]!);
+    const bad: string[] = [];
+    for (const it of list) {
+      const rs: number[] = [];
+      for (const [x, y] of it.pts) {
+        const d = g.getImageData(Math.round(x * k), Math.round(y * k), 1, 1).data;
+        const bg = [d[0]!, d[1]!, d[2]!], a = it.rgba[3]!;
+        const fg = [0, 1, 2].map((j) => it.rgba[j]! * a + bg[j]! * (1 - a));
+        const l1 = lum(fg), l2 = lum(bg);
+        rs.push((Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05));
+      }
+      rs.sort((x, y) => x - y);
+      const p10 = rs[Math.floor(rs.length * 0.1)] ?? 21;
+      if (p10 < (it.large ? 3 : 4.5)) bad.push(`"${it.name}" ${p10.toFixed(2)}:1`);
+    }
+    return bad;
+  }, [png, items] as const);
 }

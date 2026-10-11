@@ -53,12 +53,40 @@ export function unrollPetals(mw: (number | null)[], rose: { cx: number; cy: numb
   }
   return out;
 }
-export function drawUnroll(c: CanvasRenderingContext2D, mw: (number | null)[], rose: { cx: number; cy: number; R100: number }, plot: Plot, t: number, first = 0, startR?: number[], alpha = 1) {
+/** A leaving petal's own STACK bands, in px along its radius: [r0, r1, c0, c1] from the centre outward. */
+export type BandRun = [number, number, string, string][];
+const mixHex = (a: string, b: string, k: number) => {
+  const p = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const x = p(a), y = p(b);
+  return `rgb(${x.map((v, i) => Math.round(v + (y[i]! - v) * k)).join(",")})`;
+};
+const BAR = "#383838"; // drawBars: white 22% on black
+export function drawUnroll(c: CanvasRenderingContext2D, mw: (number | null)[], rose: { cx: number; cy: number; R100: number }, plot: Plot, t: number, first = 0, startR?: number[], alpha = 1, bands?: (BandRun | undefined)[]) {
   const ps = unrollPetals(mw, rose, plot, t, first, startR);
   c.save();
   c.globalAlpha = alpha;
-  // a piece leaves bright (it carries the petal's light) and settles to the bars' grey
-  for (const { pts, e } of ps) { c.fillStyle = `rgba(255,255,255,${(0.42 - 0.18 * e).toFixed(3)})`; c.beginPath(); pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); c.closePath(); c.fill(); }
+  for (const { h, pts, e } of ps) {
+    const run = bands?.[h];
+    c.beginPath(); pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); c.closePath();
+    if (run && run.length) {
+      // the piece keeps its own band gradients (QA D-002) along its axis, from the inner chord to the outer arc,
+      // and settles to the bar's grey as it lands
+      const r = startR?.[h] ?? 1, rIn = r * 0.3;
+      const ix = (pts[6]![0] + pts[7]![0]) / 2, iy = (pts[6]![1] + pts[7]![1]) / 2;
+      const ox = (pts[2]![0] + pts[3]![0]) / 2, oy = (pts[2]![1] + pts[3]![1]) / 2;
+      const g = c.createLinearGradient(ix, iy, ox, oy);
+      const land = clamp((e - 0.7) / 0.3);
+      let last = 0;
+      for (const [r0, r1, c0, c1] of run) {
+        if (r1 <= rIn) continue;
+        const f0 = Math.max(last, clamp((r0 - rIn) / (r - rIn))), f1 = Math.max(f0, clamp((r1 - rIn) / (r - rIn)));
+        g.addColorStop(f0, mixHex(c0, BAR, land)); g.addColorStop(f1, mixHex(c1, BAR, land));
+        last = f1;
+      }
+      c.fillStyle = g;
+    } else c.fillStyle = `rgba(255,255,255,${(0.42 - 0.18 * e).toFixed(3)})`;
+    c.fill();
+  }
   // the lit rim leads the unroll: each petal's tip (it becomes the bar top), never a radial line
   c.strokeStyle = `rgba(255,255,255,${(0.45 + 0.4 * t).toFixed(2)})`; c.lineWidth = 1.5; c.lineCap = "round";
   for (const { pts } of ps) { c.beginPath(); pts.slice(0, 6).forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); c.stroke(); }

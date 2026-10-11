@@ -140,19 +140,21 @@ describe("PRICE layer (criterion 21, QA D-001: the stack rose with a price tint,
     return { s, r, bins: r.price_usd_mwh.map((p) => priceBin(p, m.voll_usd_mwh)) };
   };
   for (const [name, c] of [["ERCO demand +15%", case_("ERCO", "demand_growth", (d) => d.map((x) => x * 1.15))], ["CISO renewables +50%", case_("CISO", "renewables_up", (d) => d)]] as const) {
-    it(`${name}: same bands as STACK; price fills stay in one petal and never reach within 6% of the centre; surplus hours unfilled`, () => {
+    it(`${name}: every hour is its STACK petal (>= 3 band fills, no empty sector); price fills stay in one petal, clear of the centre`, () => {
       const ps = petals(c.s, () => 1), v = view(c.s.keys, 300, 300);
       const stack = drawRose(mockCtx().ctx, ps, { ...v, ghost: 0, marks: 0 });
       const { ctx, gradients, fills } = mockCtx();
       const log = drawPriceRose(ctx, ps, v, c.bins, c.r.price_usd_mwh);
       for (const f of fills) if (gradients.has(f.style as object)) expect(f.path.filter((x) => x === "close").length).toBe(1);
       for (const f of log.priceFills!) expect(f.r0).toBeGreaterThanOrEqual(0.06 * log.rPeakDemand - 1e-9);
+      expect(log.petals).toHaveLength(24);
       log.petals.forEach((p, h) => {
-        expect(p.bands).toEqual(stack.petals[h]!.bands); // the geometry is the class stack
-        if (c.bins[h] === 0) expect(p.drawn).toEqual([]); // surplus: silhouette only
-        else expect(p.drawn).toEqual(stack.petals[h]!.drawn);
+        expect(p.bands).toEqual(stack.petals[h]!.bands);
+        expect(p.drawn.filter((k) => c.s.keys.includes(k)), `hour ${h}`).toEqual(stack.petals[h]!.drawn.filter((k) => c.s.keys.includes(k)));
+        expect(p.drawn.filter((k) => c.s.keys.includes(k)).length, `hour ${h} has a lit petal`).toBeGreaterThanOrEqual(3);
       });
-      expect(log.priceFills!.map((f) => f.hour)).toEqual(c.bins.map((b, h) => (b !== null && b !== 0 && stack.petals[h]!.drawn.length > 0 ? h : -1)).filter((h) => h >= 0));
+      // every hour also carries its price tint (surplus hours take the lowest bin)
+      expect(log.priceFills!.map((f) => f.hour)).toEqual(Array.from({ length: 24 }, (_, h) => h));
       if (name.startsWith("CISO")) expect(c.bins.filter((b) => b === 0).length).toBeGreaterThan(0); // the case exercises surplus hours
     });
   }

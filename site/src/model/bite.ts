@@ -8,11 +8,11 @@
 import { OBS_ORDER, type DayStack, type HourStack } from "./stack";
 import type { BA, DemandProfile, FuelMix } from "./types";
 
-export function biteStack(fm: FuelMix, dp: DemandProfile, ba: BA, month: number, year: string | null, net: number): DayStack & { demand: number[]; netload: number[] } {
+export function biteStack(fm: FuelMix, dp: DemandProfile, ba: BA, month: number, year: string | null, net: number): DayStack & { demand: number[]; netload: number[]; sun: number[] } {
   const f = fm.bas[ba].month_hour_mean_mw;
   const y = year ? fm.bas[ba].month_hour_mean_mw_by_year[year] : null;
   const hours: HourStack[] = [];
-  const demand: number[] = [], netload: number[] = [];
+  const demand: number[] = [], netload: number[] = [], sunMw: number[] = [];
   for (let h = 0; h < 24; h++) {
     const i = (month - 1) * 24 + h;
     const v = (k: string) => Math.max(0, f[k]?.[i] ?? 0);
@@ -32,9 +32,9 @@ export function biteStack(fm: FuelMix, dp: DemandProfile, ba: BA, month: number,
     });
     const shown = D - (sun + wnd) * net;
     hours.push({ hour: h, values, demand: shown, charge: 0, exports: Math.max(0, -imp0) * k, residual: 0, unserved: 0, curtailed: 0 });
-    demand.push(D); netload.push(D - sun - wnd);
+    demand.push(D); netload.push(D - sun - wnd); sunMw.push(sun);
   }
-  return { keys: [...OBS_ORDER], hours, tag: "OBSERVED", demand, netload };
+  return { keys: [...OBS_ORDER], hours, tag: "OBSERVED", demand, netload, sun: sunMw };
 }
 /** Largest mean demand over all months (one R100 for every month, so months compare by area). */
 export const bitePeak = (dp: DemandProfile, ba: BA) => Math.max(...(dp.bas[ba].month_hour_mean_mw.filter((x) => x !== null) as number[]));

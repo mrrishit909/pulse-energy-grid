@@ -42,6 +42,9 @@ describe("Stage B copy is bound to artifact fields", () => {
   it("the EIA drift line prints facts.eia_ciso_dayahead_bias_pct (never a typed number)", () => {
     expect(biasLine(facts, fe)).toContain(`−${fixed(Math.abs(facts.eia_ciso_dayahead_bias_pct), 2)}% BIAS IN ${facts.eia_ciso_dayahead_bias_year}`);
     expect(biasLine({ ...facts, eia_ciso_dayahead_bias_pct: -3.21 }, fe)).toContain("−3.21%");
+    // the "part of our margin is that drift" claim appears only when bias correction actually helps EIA
+    const m = fe.bas.CISO.models;
+    expect(biasLine(facts, fe).includes("PART OF OUR CISO MARGIN IS THAT DRIFT")).toBe(m.eia_debiased!.mape_pct < m.eia_day_ahead!.mape_pct);
   });
   it("week numbers are computed from the arrays: covered = count(p10 <= actual <= p90)", () => {
     const w = fs.bas.CISO.weeks[0]!;
@@ -78,5 +81,9 @@ describe("Stage B copy is bound to artifact fields", () => {
     const l = ledgerCopy(rc, q, facts, meta);
     expect(l.rows.every((r) => r.a && r.b)).toBe(true);
     expect(l.rows[0]!.text).toContain(`DST DAYS ${q.dst.CISO.days_23h + q.dst.CISO.days_25h}`);
+    // c1f6277: rows excluded within a day of a timing-convention change are part of the identity and the totals
+    expect(l.rows[0]!.text).toContain("RAW = KEPT + NULL + FLAGGED + TIMING ✓");
+    const timing = rc.ledger.reduce((t, x) => t + (x.timing_excluded ?? 0), 0);
+    if (timing) expect(l.totals).toContain(`${timing.toLocaleString("en-US")} EXCLUDED AT A TIMING CHANGE`);
   });
 });

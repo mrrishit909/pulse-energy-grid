@@ -245,8 +245,10 @@ function dispatchFrame(now: number, m: BAModel, p: number): Frame | null {
     const s = simulatedStack(m.display_order, day, D, f.result);
     keys = s.keys;
     const n = keys.length, w = 0.52 / n;
-    const fillOf = (k: number) => (motion ? easeSymmetric(windowed(p, 0.08 + k * w, 0.08 + (k + 1) * w)) : 1);
-    fk = motion ? Math.min(n - 1, Math.floor((p - 0.08) / w)) : n - 1;
+    // QA D-032: the first two merit-order bands are lit from the first frame, so S05 never opens on a flat disc
+    const PRE = 2;
+    const fillOf = (k: number) => (motion && k >= PRE ? easeSymmetric(windowed(p, 0.08 + k * w, 0.08 + (k + 1) * w)) : 1);
+    fk = motion ? Math.min(n - 1, Math.max(PRE - 1, Math.floor((p - 0.08) / w))) : n - 1;
     const full = petals(s, () => 1);
     const fkey = `${f.ba}|${f.dayId}`;
     if (f.resultSeq !== fillSeq) {
@@ -276,7 +278,7 @@ function dispatchFrame(now: number, m: BAModel, p: number): Frame | null {
   beatStep = step;
   const bel = beatAt < 0 ? 1e9 : now - beatAt;
   const beat = bel < DUR.panel ? (bel < 300 ? easeSmooth(bel / 300) : 1 - easeSmooth((bel - 300) / 300)) : 0;
-  const silhouette = !f.result || p < 0.08;
+  const silhouette = !f.result;
   const ins = inspector.get();
   const view = baseView(keys, {
     lift: ins.scene === "dispatch" ? ins.hour : null, liftT: 1,

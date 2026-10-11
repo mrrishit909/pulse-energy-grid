@@ -105,7 +105,7 @@ export interface ForecastEval { bas: Record<BA, {
   comparisons: Comparison[];
   features: Record<string, string[]>;
 }> }
-export interface LedgerRow { ba: BA; kind: string; fuel: string; grid_slots: number; raw_rows: number; missing_slots: number; null_value: number; flagged_outlier: number; kept: number; imputed_short_gap?: number }
+export interface LedgerRow { ba: BA; kind: string; fuel: string; grid_slots: number; raw_rows: number; missing_slots: number; null_value: number; flagged_outlier: number; kept: number; imputed_short_gap?: number; timing_excluded?: number }
 export interface Reconciliation {
   ledger: LedgerRow[];
   balance: Record<BA, { definition: string; mean_abs_resid_mw: number; mean_resid_mw: number; p99_abs_resid_mw: number; n_hours: number }>;
