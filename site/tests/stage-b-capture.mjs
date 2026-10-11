@@ -95,7 +95,7 @@ async function run() {
   }
   await browser.close();
   await server?.close();
-  const prev = existsSync(join(OUT, "capture-log.txt")) && args.only ? readFileSync(join(OUT, "capture-log.txt"), "utf-8") : "";
+  const prev = existsSync(join(OUT, "capture-log.txt")) && (args.only || args.sections) ? readFileSync(join(OUT, "capture-log.txt"), "utf-8") : "";
   writeFileSync(join(OUT, "capture-log.txt"), prev + log.join("\n") + "\n");
   console.log(log.filter((l) => !l.endsWith(".png")).join("\n"));
 }

@@ -7,7 +7,7 @@ root = os.path.join(sys.argv[1], "contrast")
 lin = lambda c: (c / 255) / 12.92 if c / 255 <= 0.04045 else ((c / 255 + 0.055) / 1.055) ** 2.4
 L = lambda p: 0.2126 * lin(p[0]) + 0.7152 * lin(p[1]) + 0.0722 * lin(p[2])
 out = []
-for vp in sorted(os.listdir(root)):
+for vp in sorted(d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d))):
     for f in sorted(os.listdir(os.path.join(root, vp))):
         if not f.endswith("-noh1.png"): continue
         box = json.load(open(os.path.join(root, vp, f.replace("-noh1.png", "-box.json"))))

@@ -81,6 +81,18 @@ export const s08Section = {
     await wait(page, 3200); await jump(page, "closing", 0.9); await wait(page, 1200); await shot("s08-4-p90-caption-links");
   },
 };
+export const inspectorSection = {
+  async inspector(page, shot, { jump, wait, hourP, solved }) {
+    await jump(page, "demand", hourP(19)); await wait(page, 900);
+    await page.evaluate(() => window.__peg.openHour("demand", 19)); await wait(page, 900); await shot("insp-1-s03a-observed-19h");
+    await page.keyboard.press("Escape");
+    await jump(page, "dispatch", 0.8); await solved(page); await wait(page, 600);
+    await page.evaluate(() => window.__peg.openHour("dispatch", 18)); await wait(page, 900); await shot("insp-2-s05-simulated-18h");
+    await page.keyboard.press("Escape");
+    await jump(page, "stress", 0.64); await wait(page, 1600);
+    await page.evaluate(() => window.__peg.openHour("stress", 17)); await wait(page, 900); await shot("insp-3-s06-heat-wave-17h");
+  },
+};
 export const rmSection = {
   /** reduced motion (context created with reducedMotion: reduce): static frames in normal flow */
   async reduced(page, shot, { wait }) {
@@ -91,4 +103,4 @@ export const rmSection = {
     }
   },
 };
-export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02, ...s07Section, ...s08Section, ...rmSection };
+export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection, ...s01s02, ...s07Section, ...s08Section, ...rmSection, ...inspectorSection };
