@@ -9,5 +9,6 @@ Owner of this file: orchestrator only.
 | 18-19 Shell + prototype (S00 Bloom, S03a Window City, S05 live HiGHS) | PASSED with fixes (orchestrator: tsc, lint, Vitest 54/54; D sheet read; agent e2e 36 passed; browser parity 108/108) | f3d5c72, ada9237; artifacts/evidence/stage-a/ |
 | 20-22 Stage B + fixes | PASSED with fixes (orchestrator: Vitest 68/68, pytest 68/68 after dash-scan test fix e215c15; D sheet read; agent e2e 81 passed) | 5018bf7..9d54756; artifacts/evidence/stage-b/ |
 | Fix batch (price layer, S04 pre-unroll) | PASSED (orchestrator: Vitest 69/69; sheet read) | f08c890; artifacts/evidence/fix-003/ |
-| 23-28 Independent QA | QUEUED (browser cap) | |
+| Pre-QA hardening (QA_LESSONS L1-L11) | PASSED (33e9770, 944db09; orchestrator: Vitest 70/70; phone sheets read) | artifacts/evidence/fix-c/, fix-d/ |
+| 23-28 Independent QA | RUNNING (P04-QA-001) | |
 | 23-30 | NOT_STARTED | |
