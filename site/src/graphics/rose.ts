@@ -112,7 +112,7 @@ export interface RoseLog {
 
 // ---------------------------------------------------------------- drawing
 export type Ctx = Pick<CanvasRenderingContext2D,
-  "beginPath" | "arc" | "lineTo" | "closePath" | "fill" | "stroke" | "save" | "restore" | "createRadialGradient" | "createPattern" |
+  "beginPath" | "moveTo" | "arc" | "lineTo" | "closePath" | "fill" | "stroke" | "save" | "restore" | "createRadialGradient" | "createPattern" |
   "setLineDash" | "translate" | "fillText"> & {
   fillStyle: string | CanvasGradient | CanvasPattern; strokeStyle: string | CanvasGradient | CanvasPattern;
   globalAlpha: number; lineWidth: number; font: string; textAlign: CanvasTextAlign; textBaseline: CanvasTextBaseline;
@@ -139,6 +139,8 @@ function sectorPath(ctx: Ctx, r0: number, r1: number, h: number, v: RoseView, be
   const d = (r: number) => Math.max(edge(r, v.gap, v.rref) / r, -0.13);
   const rs = sideRadii(ri, r1, v.rref);
   if (begin) ctx.beginPath();
+  // a fresh subpath every time: without it, union paths join petals with stray segments that flip the winding
+  ctx.moveTo(Math.cos(a0 + d(r1)) * r1, Math.sin(a0 + d(r1)) * r1);
   ctx.arc(0, 0, r1, a0 + d(r1), a1 - d(r1));
   for (let k = rs.length - 2; k >= 1; k--) { const r = rs[k]!, a = a1 - d(r); ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
   ctx.arc(0, 0, ri, a1 - d(ri), a0 + d(ri), true);
@@ -200,7 +202,9 @@ export function drawRose(ctx: Ctx, petals: PetalIn[], v: RoseView): RoseLog {
     ctx.globalAlpha = v.ghost;
     ctx.fillStyle = "#ffffff";
     ctx.beginPath();
-    for (const p of petals) sectorPath(ctx, 0, radius(p.demand, v.R100), p.hour, v, false);
+    // no gaps on the silhouette: on a 6-8% white field the taper reads as striping (a fan of lines)
+    const solid = { ...v, gap: 0 };
+    for (const p of petals) sectorPath(ctx, 0, radius(p.demand, v.R100), p.hour, solid, false);
     ctx.fill();
     ctx.restore();
   }

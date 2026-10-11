@@ -20,6 +20,7 @@ function mockCtx() {
     beginPath: () => { path = []; },
     arc: () => { path.push("arc"); },
     lineTo: () => { path.push("line"); },
+    moveTo: () => { path.push("move"); },
     closePath: () => { path.push("close"); },
     fill: () => { fills.push({ style: ctx.fillStyle, path: [...path] }); },
     stroke: () => { strokes.push([...path]); },
@@ -87,7 +88,7 @@ describe("Day Rose geometry (VISUAL_DESIGN section 0)", () => {
       const { ctx, gradients, strokes, fills } = mockCtx();
       const log = drawRose(ctx, petals(s, () => 1), view(s.keys, 470, 300));
       expect(strokes.length).toBeGreaterThan(0);
-      for (const st of strokes) expect(st).toEqual(["arc"]);
+      for (const st of strokes) expect(st).toEqual(["arc"]); // arcStroke never moves or lines
       const flat = new Set(Object.values(FUEL).flatMap((f) => [f.c0, f.c1]));
       expect(fills.filter((f) => typeof f.style === "string" && flat.has(f.style as string))).toEqual([]);
       const drawn = log.petals.reduce((a, p) => a + p.drawn.filter((k) => s.keys.includes(k)).length, 0);

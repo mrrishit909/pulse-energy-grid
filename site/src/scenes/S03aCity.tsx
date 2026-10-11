@@ -79,10 +79,12 @@ export function S03aCity({ def }: { def: SceneDef }) {
         {(data) => (
           <>
             <div className="city-controls">
-              <Radio label="GRID" value={c.ba} options={BAS} onChange={setBa} />
+              <div className="city-controls__row">
+                <Radio label="GRID" value={c.ba} options={BAS} onChange={setBa} />
+                {!isDefault ? <button type="button" className="text-btn" onClick={() => city.set({ ba: "CISO", dayId: data.bas.CISO.days[0]!.id })}>RESET</button> : null}
+              </div>
               <Radio label="DAY" asSelect={isM} value={day!.id} options={data.bas[c.ba].days.map((d) => d.id)} onChange={(dayId) => city.set({ dayId })}
                 render={(id) => { const d = data.bas[c.ba].days.find((x) => x.id === id)!; return d.intro ? "SOLAR PEAK" : d.season.toUpperCase(); }} />
-              {!isDefault ? <button type="button" className="text-btn" onClick={() => city.set({ ba: "CISO", dayId: data.bas.CISO.days[0]!.id })}>RESET</button> : null}
             </div>
             {motion && r ? (
               <div className="city-readout" aria-live="polite">

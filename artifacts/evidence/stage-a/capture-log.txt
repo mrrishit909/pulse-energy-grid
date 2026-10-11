@@ -1,0 +1,69 @@
+1440x900/01-s00-t0700.png
+1440x900/01-s00-t1500.png
+1440x900/01-s00-t2600.png
+1440x900/01-s00-t3500.png
+1440x900/01-s00-t4600-end.png
+1440x900 S00 peak petal radius min 619.9999999999998 (G0 620, frame h 900, diameter/h 1.378) monotonic true
+1440x900/02-s03a-h03.png
+1440x900/02-s03a-h12.png
+1440x900/02-s03a-h19.png
+1440x900/02-s03a-h19-erco-summer.png
+1440x900/03-s05-p34-fill.png
+1440x900/03-s05-default-live.png
+1440x900 solver ready HiGHS 1.15.1 parity {"n":108,"objective":108,"priceComparable":85,"price":85,"keys":107,"hash":108,"passed":108,"ms":1399}
+1440x900/03-s05-scenario-battery-6000mw.png
+1440x900 03-s05-scenario-battery-6000mw objective 11099556.666555595
+1440x900/03-s05-scenario-renewables-1.5-battery-6000mw-6h.png
+1440x900 03-s05-scenario-renewables-1.5-battery-6000mw-6h objective 6971898.899836116
+1440x900/04-s05-fallback-worker-blocked.png
+1440x900/04-s05-solver-loading.png
+1440x900/05-reduced-s00.png
+1440x900/05-reduced-s03a.png
+1440x900/05-reduced-s05.png
+1440x900 external requests: none
+768x1024/01-s00-t0700.png
+768x1024/01-s00-t1500.png
+768x1024/01-s00-t2600.png
+768x1024/01-s00-t3500.png
+768x1024/01-s00-t4600-end.png
+768x1024 S00 peak petal radius min 619.9999999999998 (G0 620, frame h 1024, diameter/h 1.211) monotonic true
+768x1024/02-s03a-h03.png
+768x1024/02-s03a-h12.png
+768x1024/02-s03a-h19.png
+768x1024/02-s03a-h19-erco-summer.png
+768x1024/03-s05-p34-fill.png
+768x1024/03-s05-default-live.png
+768x1024 solver ready HiGHS 1.15.1 parity {"n":108,"objective":108,"priceComparable":85,"price":85,"keys":107,"hash":108,"passed":108,"ms":1708.5}
+768x1024/03-s05-scenario-battery-6000mw.png
+768x1024 03-s05-scenario-battery-6000mw objective 11099556.666555595
+768x1024/03-s05-scenario-renewables-1.5-battery-6000mw-6h.png
+768x1024 03-s05-scenario-renewables-1.5-battery-6000mw-6h objective 6971898.899836116
+768x1024/04-s05-fallback-worker-blocked.png
+768x1024/04-s05-solver-loading.png
+768x1024/05-reduced-s00.png
+768x1024/05-reduced-s03a.png
+768x1024/05-reduced-s05.png
+768x1024 external requests: none
+390x844/01-s00-t0700.png
+390x844/01-s00-t1500.png
+390x844/01-s00-t2600.png
+390x844/01-s00-t3500.png
+390x844/01-s00-t4600-end.png
+390x844 S00 peak petal radius min 530.0000000000001 (G0 530, frame h 844, diameter/h 1.256) monotonic true
+390x844/02-s03a-h03.png
+390x844/02-s03a-h12.png
+390x844/02-s03a-h19.png
+390x844/02-s03a-h19-erco-summer.png
+390x844/03-s05-p34-fill.png
+390x844/03-s05-default-live.png
+390x844 solver ready HiGHS 1.15.1 parity {"n":108,"objective":108,"priceComparable":85,"price":85,"keys":107,"hash":108,"passed":108,"ms":1395.7999999821186}
+390x844/03-s05-scenario-battery-6000mw.png
+390x844 03-s05-scenario-battery-6000mw objective 11099556.666555595
+390x844/03-s05-scenario-renewables-1.5-battery-6000mw-6h.png
+390x844 03-s05-scenario-renewables-1.5-battery-6000mw-6h objective 6971898.899836116
+390x844/04-s05-fallback-worker-blocked.png
+390x844/04-s05-solver-loading.png
+390x844/05-reduced-s00.png
+390x844/05-reduced-s03a.png
+390x844/05-reduced-s05.png
+390x844 external requests: none
