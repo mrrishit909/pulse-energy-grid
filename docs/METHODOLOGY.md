@@ -21,7 +21,7 @@ EBA.zip is streamed once (`pipelines/ingestion/eia.py`); NOAA ISD station files 
 
 Fuel series are in `reconciliation.json` (all 15 reconcile exactly: grid slots = raw rows + missing; raw rows = kept + null + flagged).
 
-- **CISO** sum of fuels vs total net generation: mean signed 0.001%, mean absolute 0.003%, P99 absolute 0.01%, 1 hours beyond 2%. Net generation - demand - interchange: mean -415.5 MW, mean absolute 994.3 MW (EIA identity).
+- **CISO** sum of fuels vs total net generation: mean signed 0.001%, mean absolute 0.003%, P99 absolute 0.01%, 1 hours beyond 2%. Net generation - demand - interchange: mean -415.4 MW, mean absolute 994.3 MW (EIA identity).
 - **ERCO** sum of fuels vs total net generation: mean signed 0.044%, mean absolute 0.276%, P99 absolute 4.66%, 1,992 hours beyond 2%. Net generation - demand - interchange: mean -0.1 MW, mean absolute 0.5 MW (EIA identity).
 
 ## Forecasting
@@ -31,51 +31,51 @@ Forecast origin is local midnight starting the target day. Models: seasonal naiv
 
 | model | MAPE % | MAE MW | RMSE MW | bias MW | peak-5% MAPE % | deployable |
 |---|---|---|---|---|---|---|
-| eia_day_ahead | 7.82 | 1,987 | 2,694 | -1,465 | 4.59 | yes |
-| eia_debiased | 7.20 | 1,829 | 2,380 | -14 | 6.31 | yes |
-| gbm | 3.35 | 890 | 1,260 | -500 | 5.54 | yes |
-| gbm_perfect_weather | 3.14 | 828 | 1,133 | -473 | 4.69 | no (upper bound) |
-| gbm_stacked | 3.51 | 909 | 1,302 | -674 | 3.00 | yes |
-| seasonal_naive | 6.79 | 1,832 | 2,785 | -85 | 14.08 | yes |
+| eia_day_ahead | 7.82 | 1,987 | 2,694 | -1,465 | 4.60 | yes |
+| eia_debiased | 7.20 | 1,829 | 2,380 | -14 | 6.33 | yes |
+| gbm | 3.35 | 890 | 1,251 | -505 | 5.49 | yes |
+| gbm_perfect_weather | 3.11 | 818 | 1,117 | -463 | 4.53 | no (upper bound) |
+| gbm_stacked | 3.45 | 894 | 1,281 | -657 | 2.97 | yes |
+| seasonal_naive | 6.79 | 1,832 | 2,785 | -85 | 14.05 | yes |
 
-- gbm test MAPE is 4.47 percentage points lower than eia_day_ahead (95% CI -4.89 to -4.02): better than eia_day_ahead.
-- gbm test MAPE is 3.83 percentage points lower than eia_debiased (95% CI -4.24 to -3.41): better than eia_debiased.
-- gbm test MAPE is 3.44 percentage points lower than seasonal_naive (95% CI -4.72 to -2.45): better than seasonal_naive.
-- gbm_stacked test MAPE is 4.30 percentage points lower than eia_day_ahead (95% CI -4.54 to -4.07): better than eia_day_ahead.
-- gbm_perfect_weather test MAPE is 0.20 percentage points lower than gbm (95% CI -0.30 to -0.10): better than gbm.
-- 80% interval (gbm): raw coverage 62.9%, conformal coverage 83.4%, mean width 2,888 MW.
+- gbm test MAPE is 4.46 percentage points lower than eia_day_ahead (95% CI -4.89 to -4.01): better than eia_day_ahead.
+- gbm test MAPE is 3.85 percentage points lower than eia_debiased (95% CI -4.27 to -3.42): better than eia_debiased.
+- gbm test MAPE is 3.46 percentage points lower than seasonal_naive (95% CI -4.73 to -2.43): better than seasonal_naive.
+- gbm_stacked test MAPE is 4.36 percentage points lower than eia_day_ahead (95% CI -4.59 to -4.11): better than eia_day_ahead.
+- gbm_perfect_weather test MAPE is 0.24 percentage points lower than gbm (95% CI -0.37 to -0.12): better than gbm.
+- 80% interval (gbm): raw coverage 62.6%, conformal coverage 83.4%, mean width 2,901 MW.
 
 ### ERCO test period (8,640 common hours)
 
 | model | MAPE % | MAE MW | RMSE MW | bias MW | peak-5% MAPE % | deployable |
 |---|---|---|---|---|---|---|
-| eia_day_ahead | 2.23 | 1,227 | 1,676 | 384 | 2.08 | yes |
-| eia_debiased | 2.18 | 1,201 | 1,620 | 11 | 1.99 | yes |
-| gbm | 4.06 | 2,262 | 3,189 | -1,178 | 3.72 | yes |
-| gbm_perfect_weather | 3.76 | 2,068 | 2,691 | -1,785 | 3.49 | no (upper bound) |
-| gbm_stacked | 2.20 | 1,212 | 1,683 | -109 | 1.93 | yes |
-| seasonal_naive | 9.02 | 4,885 | 6,818 | -59 | 5.59 | yes |
+| eia_day_ahead | 2.23 | 1,227 | 1,675 | 384 | 2.07 | yes |
+| eia_debiased | 2.18 | 1,201 | 1,621 | 12 | 1.98 | yes |
+| gbm | 4.12 | 2,301 | 3,274 | -1,128 | 3.76 | yes |
+| gbm_perfect_weather | 3.85 | 2,122 | 2,755 | -1,863 | 3.57 | no (upper bound) |
+| gbm_stacked | 2.20 | 1,210 | 1,674 | -67 | 1.88 | yes |
+| seasonal_naive | 9.01 | 4,884 | 6,817 | -60 | 5.55 | yes |
 
-- gbm test MAPE is 1.83 percentage points higher than eia_day_ahead (95% CI 1.50 to 2.20): worse than eia_day_ahead.
-- gbm test MAPE is 1.88 percentage points higher than eia_debiased (95% CI 1.55 to 2.26): worse than eia_debiased.
-- gbm test MAPE is 4.96 percentage points lower than seasonal_naive (95% CI -6.36 to -3.67): better than seasonal_naive.
-- gbm_stacked test MAPE is 0.03 percentage points lower than eia_day_ahead (95% CI -0.18 to 0.13): statistically indistinguishable from eia_day_ahead.
-- gbm_perfect_weather test MAPE is 0.30 percentage points lower than gbm (95% CI -0.56 to -0.04): better than gbm.
-- 80% interval (gbm): raw coverage 60.0%, conformal coverage 86.1%, mean width 8,315 MW.
+- gbm test MAPE is 1.89 percentage points higher than eia_day_ahead (95% CI 1.55 to 2.28): worse than eia_day_ahead.
+- gbm test MAPE is 1.94 percentage points higher than eia_debiased (95% CI 1.60 to 2.34): worse than eia_debiased.
+- gbm test MAPE is 4.90 percentage points lower than seasonal_naive (95% CI -6.29 to -3.61): better than seasonal_naive.
+- gbm_stacked test MAPE is 0.03 percentage points lower than eia_day_ahead (95% CI -0.18 to 0.12): statistically indistinguishable from eia_day_ahead.
+- gbm_perfect_weather test MAPE is 0.27 percentage points lower than gbm (95% CI -0.57 to 0.01): statistically indistinguishable from gbm.
+- 80% interval (gbm): raw coverage 63.1%, conformal coverage 86.2%, mean width 8,528 MW.
 
 ### Drift of the EIA day-ahead forecast
 
-Bias = 100 x mean(EIA-930 day-ahead demand forecast - demand) / mean(demand) per local calendar year, over hours where both are clean (years with at least 1000 such hours; negative = the BA's own forecast ran low). It is `facts.bas[ba].eia_dayahead_bias_pct_by_year`; `facts.eia_ciso_dayahead_bias_pct` = -6.36% is the CISO value in 2025 (partial year). Part of the GBM's margin over the EIA forecast in CISO is this drift in the published series, which is why `eia_debiased` is reported beside it.
+Bias = 100 x mean(EIA-930 day-ahead demand forecast - demand) / mean(demand) per local calendar year, over hours where both are clean (years with at least 1000 such hours; negative = the BA's own forecast ran low). It is `facts.bas[ba].eia_dayahead_bias_pct_by_year`; `facts.eia_ciso_dayahead_bias_pct` = -6.35% is the CISO value in 2025 (partial year). Part of the GBM's margin over the EIA forecast in CISO is this drift in the published series, which is why `eia_debiased` is reported beside it.
 
 | BA | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|
-| CISO | -0.72% | -1.63% | -2.11% | -4.33% | -6.36% |
+| CISO | -0.72% | -1.63% | -2.11% | -4.33% | -6.35% |
 | ERCO | +0.70% | +0.23% | +0.52% | +0.34% | +0.96% |
 
 ## Demand and weather
 
-- **CISO**: cooling base 16 C, heating base 16 C, +5.49% demand per degC above the cooling base in the afternoon hours (day-bootstrap CI 5.32 to 5.69; association only).
-- **ERCO**: cooling base 21 C, heating base 12 C, +3.78% demand per degC above the cooling base in the afternoon hours (day-bootstrap CI 3.75 to 3.82; association only).
+- **CISO**: cooling base 17 C, heating base 17 C, +6.23% demand per degC above the cooling base in the afternoon hours (day-bootstrap CI 6.02 to 6.51; association only).
+- **ERCO**: cooling base 21 C, heating base 12 C, +3.83% demand per degC above the cooling base in the afternoon hours (day-bootstrap CI 3.80 to 3.87; association only).
 
 ## Dispatch LP
 Single-node 24-hour least-cost dispatch. Minimise fuel/VOM cost + battery wear + value-of-lost-load penalty subject to hourly energy balance, battery state of charge, hydro daily energy, ramp limits and capacity bounds.
@@ -95,57 +95,57 @@ All cost, ramp, battery and fuel-price parameters are assumptions (SIMULATED) li
 
 | BA | day | scenario | objective (USD) | unserved MWh | max price USD/MWh |
 |---|---|---|---|---|---|
-| CISO | fall | baseline | 5,626,306 | 0 | 34.5 |
-| CISO | fall | battery_big | 5,626,306 | 0 | 34.5 |
-| CISO | fall | demand_growth | 8,803,399 | 0 | 34.5 |
-| CISO | fall | heat_wave | 11,707,035 | 0 | 34.5 |
-| CISO | fall | outage | 5,626,306 | 0 | 34.5 |
-| CISO | fall | renewables_up | 3,907,055 | 0 | 34.5 |
-| CISO | intro | baseline | 4,543,547 | 0 | 34.5 |
-| CISO | intro | battery_big | 4,543,547 | 0 | 34.5 |
-| CISO | intro | demand_growth | 7,162,435 | 0 | 34.5 |
-| CISO | intro | heat_wave | 9,540,751 | 0 | 34.5 |
-| CISO | intro | outage | 4,543,547 | 0 | 34.5 |
-| CISO | intro | renewables_up | 4,014,339 | 0 | 34.5 |
-| CISO | spring | baseline | 5,518,073 | 0 | 34.5 |
-| CISO | spring | battery_big | 5,518,073 | 0 | 34.5 |
-| CISO | spring | demand_growth | 8,480,598 | 0 | 34.5 |
-| CISO | spring | heat_wave | 9,621,967 | 0 | 34.5 |
-| CISO | spring | outage | 5,518,073 | 0 | 34.5 |
-| CISO | spring | renewables_up | 4,585,699 | 0 | 34.5 |
-| CISO | summer | baseline | 11,145,698 | 0 | 52.2 |
-| CISO | summer | battery_big | 11,099,557 | 0 | 40.3 |
-| CISO | summer | demand_growth | 17,481,248 | 2,118 | 1,000.0 |
-| CISO | summer | heat_wave | 37,604,205 | 20,432 | 1,000.0 |
-| CISO | summer | outage | 15,934,371 | 4,535 | 1,000.0 |
-| CISO | summer | renewables_up | 7,197,039 | 0 | 52.2 |
-| CISO | winter | baseline | 6,718,094 | 0 | 34.5 |
-| CISO | winter | battery_big | 6,718,094 | 0 | 34.5 |
-| CISO | winter | demand_growth | 9,696,047 | 0 | 34.5 |
-| CISO | winter | heat_wave | 8,496,795 | 0 | 34.5 |
-| CISO | winter | outage | 6,718,094 | 0 | 34.5 |
-| CISO | winter | renewables_up | 5,819,211 | 0 | 34.5 |
-| ERCO | fall | baseline | 21,528,630 | 0 | 29.0 |
-| ERCO | fall | battery_big | 21,527,947 | 0 | 28.7 |
-| ERCO | fall | demand_growth | 26,769,158 | 0 | 36.5 |
-| ERCO | fall | heat_wave | 28,470,667 | 0 | 36.5 |
-| ERCO | fall | outage | 22,462,708 | 0 | 36.5 |
-| ERCO | fall | renewables_up | 16,687,944 | 0 | 24.0 |
-| ERCO | spring | baseline | 18,125,928 | 0 | 24.0 |
-| ERCO | spring | battery_big | 18,125,928 | 0 | 24.0 |
-| ERCO | spring | demand_growth | 22,787,211 | 0 | 29.0 |
-| ERCO | spring | heat_wave | 24,553,842 | 0 | 36.5 |
-| ERCO | spring | outage | 18,365,789 | 0 | 36.5 |
-| ERCO | spring | renewables_up | 12,718,440 | 0 | 24.0 |
-| ERCO | summer | baseline | 31,815,231 | 0 | 36.5 |
-| ERCO | summer | battery_big | 31,758,475 | 0 | 36.5 |
-| ERCO | summer | demand_growth | 68,682,519 | 29,471 | 1,000.0 |
-| ERCO | summer | heat_wave | 70,453,988 | 30,784 | 1,000.0 |
-| ERCO | summer | outage | 79,549,525 | 45,909 | 1,000.0 |
-| ERCO | summer | renewables_up | 27,355,176 | 0 | 36.5 |
-| ERCO | winter | baseline | 16,331,232 | 0 | 24.0 |
-| ERCO | winter | battery_big | 16,331,232 | 0 | 24.0 |
-| ERCO | winter | demand_growth | 20,550,135 | 0 | 34.0 |
-| ERCO | winter | heat_wave | 21,657,318 | 0 | 36.5 |
-| ERCO | winter | outage | 16,606,460 | 0 | 36.5 |
-| ERCO | winter | renewables_up | 12,170,385 | 0 | 24.0 |
+| CISO | fall | baseline | 5,571,658 | 0 | 34.5 |
+| CISO | fall | battery_big | 5,571,658 | 0 | 34.5 |
+| CISO | fall | demand_growth | 8,749,517 | 0 | 34.5 |
+| CISO | fall | heat_wave | 11,860,673 | 0 | 40.3 |
+| CISO | fall | outage | 5,571,658 | 0 | 34.5 |
+| CISO | fall | renewables_up | 3,844,372 | 0 | 34.5 |
+| CISO | intro | baseline | 3,895,583 | 0 | 34.5 |
+| CISO | intro | battery_big | 3,853,000 | 0 | 34.5 |
+| CISO | intro | demand_growth | 6,309,167 | 0 | 34.5 |
+| CISO | intro | heat_wave | 8,147,330 | 0 | 34.5 |
+| CISO | intro | outage | 3,895,583 | 0 | 34.5 |
+| CISO | intro | renewables_up | 3,714,418 | 0 | 2.0 |
+| CISO | spring | baseline | 5,495,372 | 0 | 34.5 |
+| CISO | spring | battery_big | 5,495,372 | 0 | 34.5 |
+| CISO | spring | demand_growth | 8,457,308 | 0 | 34.5 |
+| CISO | spring | heat_wave | 9,017,166 | 0 | 34.5 |
+| CISO | spring | outage | 5,495,372 | 0 | 34.5 |
+| CISO | spring | renewables_up | 4,554,408 | 0 | 34.5 |
+| CISO | summer | baseline | 11,214,940 | 0 | 52.2 |
+| CISO | summer | battery_big | 11,168,798 | 0 | 40.3 |
+| CISO | summer | demand_growth | 17,578,303 | 2,118 | 1,000.0 |
+| CISO | summer | heat_wave | 38,311,237 | 20,435 | 1,000.0 |
+| CISO | summer | outage | 16,048,411 | 4,535 | 1,000.0 |
+| CISO | summer | renewables_up | 7,280,132 | 0 | 52.2 |
+| CISO | winter | baseline | 6,773,673 | 0 | 34.5 |
+| CISO | winter | battery_big | 6,773,673 | 0 | 34.5 |
+| CISO | winter | demand_growth | 9,756,662 | 0 | 34.5 |
+| CISO | winter | heat_wave | 8,107,562 | 0 | 34.5 |
+| CISO | winter | outage | 6,773,673 | 0 | 34.5 |
+| CISO | winter | renewables_up | 5,879,086 | 0 | 34.5 |
+| ERCO | fall | baseline | 21,349,051 | 0 | 29.0 |
+| ERCO | fall | battery_big | 21,348,397 | 0 | 28.7 |
+| ERCO | fall | demand_growth | 26,559,279 | 0 | 36.5 |
+| ERCO | fall | heat_wave | 28,150,575 | 0 | 36.5 |
+| ERCO | fall | outage | 22,218,343 | 0 | 36.5 |
+| ERCO | fall | renewables_up | 16,437,492 | 0 | 24.0 |
+| ERCO | spring | baseline | 18,253,560 | 0 | 24.0 |
+| ERCO | spring | battery_big | 18,253,560 | 0 | 24.0 |
+| ERCO | spring | demand_growth | 22,905,394 | 0 | 30.6 |
+| ERCO | spring | heat_wave | 24,659,327 | 0 | 30.7 |
+| ERCO | spring | outage | 18,522,624 | 0 | 36.5 |
+| ERCO | spring | renewables_up | 12,946,020 | 0 | 24.0 |
+| ERCO | summer | baseline | 31,790,237 | 0 | 36.5 |
+| ERCO | summer | battery_big | 31,730,213 | 0 | 36.5 |
+| ERCO | summer | demand_growth | 66,998,876 | 27,765 | 1,000.0 |
+| ERCO | summer | heat_wave | 65,172,842 | 25,376 | 1,000.0 |
+| ERCO | summer | outage | 81,221,281 | 47,696 | 1,000.0 |
+| ERCO | summer | renewables_up | 27,354,897 | 0 | 36.5 |
+| ERCO | winter | baseline | 16,749,312 | 0 | 24.0 |
+| ERCO | winter | battery_big | 16,749,312 | 0 | 24.0 |
+| ERCO | winter | demand_growth | 20,965,284 | 0 | 34.0 |
+| ERCO | winter | heat_wave | 22,131,377 | 0 | 36.5 |
+| ERCO | winter | outage | 17,043,267 | 0 | 36.5 |
+| ERCO | winter | renewables_up | 12,594,830 | 0 | 24.0 |

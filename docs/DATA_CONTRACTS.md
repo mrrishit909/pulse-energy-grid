@@ -10,7 +10,7 @@ into `data/contracts/*.schema.json`, one per published artifact, and every artif
 | ba | str | `CISO` or `ERCO` |
 | kind | str | `D` demand, `DF` EIA day-ahead forecast, `NG` total net generation, `TI` total interchange, `GEN` net generation by fuel |
 | fuel | str | fuel code for `GEN` (NG, COL, NUC, OIL, OTH, SUN, WAT, WND), else empty |
-| ts_utc | timestamp (naive, **UTC**) | start of the hour. EIA publishes hour-ending-agnostic ISO8601 hours in UTC |
+| ts_utc | timestamp (naive, **UTC**) | **start of the interval**. EIA-930 stamps are hour-ending (value stamped T covers [T-1h, T]); ingestion subtracts 1 h so ts_utc is hour-beginning everywhere downstream. Evidence: see Timestamp convention below |
 | value | float, nullable | MWh in the hour (= average MW). Unit as published; no rescaling |
 
 ### `data/interim/hourly.parquet` (cleaned, one row per BA x UTC hour on the full grid)
@@ -84,3 +84,6 @@ Raw files are gitignored and re-creatable (`--fetch`); checksums in `data/manife
 **Solver versions (DR-11).** `dispatch_model.solver_versions` records the Python highspy and HiGHS versions used to produce every number. The browser is declared as highs@1.15.3 (HiGHS-wasm) by the web build; that build is not run here, so cross-version agreement (including duals) is untested by this repository and the vectors define what must agree.
 
 **Not supportable as asked.** None of DR-1..DR-11 was declined. Deviations: controls are per BA (above); an `outage_pct` control was added; `dispatch_mw` has no entry for exports or curtailment (those are separate arrays).
+
+## Timestamp convention (fix P04-DATA-003)
+EBA.txt hourly stamps (`YYYYMMDDTHH`, UTC) are **hour-ending**. The first build treated them as hour-beginning, which pushed every local hour one hour late (observed solar after sunset). Evidence from the data itself: mean solar by stamp hour is ~0 for the stamp that ends at/before sunrise, and after shifting the stamp back one hour (interval start) the month-by-month solar centroid is within +/-0.45 h of astronomical solar noon (CISO ~12:50 PDT, ERCO ~13:30 CDT in summer) versus +1.1 to +1.3 h before; correlation of hourly solar with a clear-sky elevation curve peaks when the interval midpoint is used (CISO 0.917 at offset 0 vs 0.865 at +1 h). EIA documentation of the convention: UNVERIFIED (the EIA Grid Monitor and API documentation pages returned no retrievable text on this machine). Weather: NOAA observations are instants rounded to the nearest UTC hour and are aligned with the interval start of the same label (an at-most 30 minute mismatch with hourly-average demand, documented, not corrected). `local_hour`, `local_date` and all `[24]` arrays refer to the interval start in the BA's zone (hour 13 = 13:00 to 14:00 local); the window is 2021-01-01T00 to 2025-08-26T23 interval starts.

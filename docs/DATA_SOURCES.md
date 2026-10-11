@@ -10,7 +10,7 @@ Verified 2026-10-10 by download. Checksums and row counts: `data/manifests/*.jso
 
 ## EIA-930 row schema (verified)
 `EBA.txt` is JSON lines. Each line: `series_id`, `name`, `units` (megawatthours), `f` ("H"), `description`, `start`, `end`, `last_updated`,
-`data` = `[["YYYYMMDDTHH", value], ...]` newest first. **All timestamps are UTC** (ISO8601 hour). `series_id` pattern `EBA.{BA}-ALL.{KIND}[.{FUEL}].H`:
+`data` = `[["YYYYMMDDTHH", value], ...]` newest first. **All timestamps are UTC** (ISO8601 hour) and **hour-ending** (see DATA_CONTRACTS.md, Timestamp convention). `series_id` pattern `EBA.{BA}-ALL.{KIND}[.{FUEL}].H`:
 
 | Kind | Series used | Meaning |
 |---|---|---|

@@ -1,6 +1,6 @@
 """Stream EBA.zip (4.4 GB JSON lines, one series per line) and keep only the chosen BAs and hourly series.
 
-Output: data/interim/eia_long.parquet  (ba, kind, fuel, ts_utc, value)  plus data/manifests/eia_extract.json.
+Output: data/interim/eia_long.parquet  (ba, kind, fuel, ts_utc = interval START, UTC, value)  plus data/manifests/eia_extract.json.
 kind: D demand, DF EIA day-ahead demand forecast, NG total net generation, TI total interchange, GEN net generation by fuel.
 """
 from __future__ import annotations
@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import polars as pl
 
@@ -43,7 +43,9 @@ def main() -> None:
         ba, kind, fuel = w[d["series_id"]]
         n = 0
         for ts, v in d["data"]:
-            t = datetime.strptime(ts, "%Y%m%dT%H")
+            # EIA-930 hourly stamps are HOUR-ENDING (the value stamped T covers [T-1h, T]); evidence: solar is ~0 in the stamp hour that ends at/before sunrise
+            # and its mean profile centres near local solar noon only after this shift. Store the interval START so ts_utc is hour-beginning everywhere downstream.
+            t = datetime.strptime(ts, "%Y%m%dT%H") - timedelta(hours=1)
             if lo <= t <= hi:
                 rows.append((ba, kind, fuel, t, None if v is None else float(v)))
                 n += 1
