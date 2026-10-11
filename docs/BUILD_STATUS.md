@@ -10,5 +10,5 @@ Owner of this file: orchestrator only.
 | 20-22 Stage B + fixes | PASSED with fixes (orchestrator: Vitest 68/68, pytest 68/68 after dash-scan test fix e215c15; D sheet read; agent e2e 81 passed) | 5018bf7..9d54756; artifacts/evidence/stage-b/ |
 | Fix batch (price layer, S04 pre-unroll) | PASSED (orchestrator: Vitest 69/69; sheet read) | f08c890; artifacts/evidence/fix-003/ |
 | Pre-QA hardening (QA_LESSONS L1-L11) | PASSED (33e9770, 944db09; orchestrator: Vitest 70/70; phone sheets read) | artifacts/evidence/fix-c/, fix-d/ |
-| 23-28 Independent QA | RUNNING (P04-QA-001) | |
+| 23-28 Independent QA | FAILED (P04-QA-001: 11 majors; 34/34 honest; real-GPU p95 10.1 ms; mobile LCP 1.82 s at high load) -> FIXE-001 + DATA-003 (timestamps) RUNNING -> QA pass 2 | b9824fa |
 | 23-30 | NOT_STARTED | |
