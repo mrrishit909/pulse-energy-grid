@@ -137,13 +137,13 @@ Format for each entry:
 
 | Time (ms) | What happens | Duration / easing |
 |---|---|---|
-| 0 | Black. `h1[data-hero]` is painted as ghost text under a 100% black scrim layer (so it is the LCP element but is not seen yet). SKIP INTRO is visible (bottom right) | n/a |
+| 0 | Black. Layer order is **canvas, then scrim, then h1**. The bottom scrim (VISUAL_DESIGN 3.3 G0 gradient) is present at full strength from frame 0; it is black on black, so it is invisible until bands reach it. `h1[data-hero]` sits **above** the scrim and is visible from first paint as ghost text (0.55, blur 12px, AA per ENGINEERING_DECISIONS #10). SKIP INTRO is visible (bottom right) | n/a |
 | 200-500 | Corner labels fade in: `PULSE ENERGY GRID` top-left, `{{ba}} · {{date}} · PEAK {{peak}} MW` top-right | 300ms premium |
 | 400-900 | **The giant outline:** all 24 petals' demand arcs and spokes, white 1px at 50%, fade in **at full G0 size** (opacity only; no growth from the centre). From this frame on, the rose's visible extent is already giant | 500ms premium |
 | 900-3300 | **Radial fill in merit order.** For each band k in the OBSERVED order (SUN, WND, NUC, WAT, IMPORTS, OTH, NG, COL, OIL; empty bands skipped, and their time is redistributed), all 24 petals' band k grows from its inner edge to its outer edge **in `r²`** over 300ms (smooth), with the next band starting 0ms after. The top-right second line steps to the band's name at each start (`linear`, 200ms crossfade). Sink caps and residual outlines appear with the band that creates them | n × 300ms, n ≤ 8 |
 | 3300-3800 | **The rim beat:** the outermost band of every petal brightens to +18% lightness and returns | 500ms (250 up smooth, 250 down smooth) |
 | 3300-3700 | The bloom layer (blurred silhouette copy) fades from 0 to 18% | 400ms smooth |
-| 3600-4300 | The bottom scrim rises (opacity 0 to 1 over the gradient defined in VISUAL_DESIGN 3.3 G0). The headline sharpens word by word (5.2, time-based, 80ms stagger) | 700ms premium |
+| 3600-4300 | The headline sharpens word by word (5.2, time-based, 80ms stagger). The scrim does not animate: it has been there since frame 0 | 700ms premium |
 | 4200-4600 | Nav enters (translateY 16px to 0, opacity). The chip appears bottom-right | 400ms premium |
 
 - **Interruption.** Any wheel, touch-scroll, key or SKIP completes to the end state within 350ms (all remaining bands snap in `r²` together, and the rim beat is skipped). Re-entry within the session starts at the end state.
@@ -281,7 +281,7 @@ The argument stack is identical to P01/P03 5.11 (the shared component), with 7 e
 
 | p | Motion | Sync |
 |---|---|---|
-| 0-0.35 | G6 to G0: the centre goes to the frame centre (D 720, 400), and `R100` grows in log space so the peak petal reaches the G0 radius. The scrim fades in | scrubbed, symmetric |
+| 0-0.35 | G6 to G0: the centre goes to the frame centre (D 720, 400), and `R100` grows in log space so the peak petal reaches the G0 radius. The scrim fades in (S08 has no LCP constraint) | scrubbed, symmetric |
 | 0.35-0.65 | Paragraph word reveal (5.2 scrubbed) | scrubbed |
 | 0.70 | **The echo** (stepped, once per down-crossing). The corner labels fade in (300ms). **Drain:** bands empty from the rim inward, one band per 150ms, all petals at once (outer edge to inner edge in `r²`). **Re-fill:** the S00 sequence (300ms per band, radial, `r²`), then the rim beat (500ms). The caption fades in (350ms) after the beat. The size never changes during the echo | stepped |
 | 0.80-1 | The links fade in (350ms, 60ms stagger) | stepped |

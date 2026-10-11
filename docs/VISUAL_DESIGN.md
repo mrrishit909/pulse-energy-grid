@@ -362,7 +362,9 @@ There are no spinners and no artificial delays.
   2. The giant rose **outline** fades in at full G0 size.
   3. Bands fill radially in merit order, all 24 petals at once.
   4. The rim beats once.
-  5. The scrim rises, the headline sharpens, and the nav enters.
+  5. The headline sharpens, and the nav enters.
+
+  Layer order is canvas, then scrim, then h1. The bottom scrim is at full strength from frame 0 (black on black until bands reach it), so the ghost headline is visible and AA from first paint and never hidden.
 - **The day.** One CISO day with a deep solar fan (DR-2 rule; the sketch uses 2024-04-14, peak 24,094 MW, OBSERVED). Bands follow the OBSERVED order.
 - **Per viewport.**
   - **D:** the headline is left-aligned at x 96, 2 lines at 88px (y 650-820) over the bottom scrim. The rose is at 100%, never dimmed behind text, because the scrim does the contrast work.
@@ -832,7 +834,9 @@ There are eleven interactions. Six are driven by visitor-set analytical paramete
 - **State:** `hour | null`.
 - **Visual output:** a story-card inspector (D right, T/M bottom sheet) listing the stack, price, marginal class, SoC and curtailment (SIMULATED scenes), or the observed stack and temperature (S03a).
 - **Keyboard:** focus moves into the card, and Esc returns focus to the petal.
-- **Test:** the listed MW sum (positive bands minus sinks) equals the demand served within 0.5 MW.
+- **Test** (split by mode, within 0.5 MW):
+  - OBSERVED (S03a): positive bands minus sinks plus the balance residual equals demand. The residual is shown, never absorbed.
+  - SIMULATED (S05, S06, CTRL): served plus unserved equals demand, and positive bands minus sinks equals served.
 
 ### 10. The Wires (S07)
 

@@ -86,7 +86,7 @@ def rose(day, cx, cy, r100, lift=None, gap=1.0):
 
 HEAD = ('<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">\n'
         '<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
-        '<rect width="6" height="6" fill="#000"/><line x1="0" y1="0" x2="0" y2="6" stroke="#B48CFF" stroke-width="1.5"/>'
+        '<rect width="6" height="6" fill="#000"/><line x1="0" y1="0" x2="0" y2="6" stroke="#9B5CFF" stroke-width="1.5"/>'
         '</pattern><filter id="bloom" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="36"/></filter></defs>\n'
         '<rect width="1440" height="900" fill="#000"/>\n')
 MONO = 'font-family="JetBrains Mono, ui-monospace, monospace"'
