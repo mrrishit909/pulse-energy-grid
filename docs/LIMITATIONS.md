@@ -14,3 +14,15 @@ Stated plainly; the site must repeat the first three.
 10. **Associations only.** The temperature-demand coefficients are descriptive regressions on one aggregated temperature series; the bootstrap CI reflects day resampling at fixed base temperatures and understates model uncertainty.
 11. **Reference days are three-month-weekday medians or the 90th percentile summer day** of the test year; they are illustrative, not worst cases. Scenario results on them are not forecasts of any future year.
 12. **Two balancing authorities only,** chosen for regime contrast. No claim is made about other regions.
+
+## Additions for release (sources: METHODOLOGY, DATA_SOURCES, DATA_CONTRACTS, ENGINEERING_DECISIONS #21, #22, #25, #40)
+
+13. **The CISO forecast comparison is partly a data-definition effect.** EIA's CISO day-ahead series drifts to a bias of about -6% by 2025 (-0.72% in 2021, -6.36% in 2025, `facts.json`), so the GBM win over it (test MAPE 3.35% vs 7.82%) is partly that drift, not purely a better forecaster. In ERCO the opposite holds: EIA's forecast (2.23% MAPE) beats the independent GBM (4.06%), and the site shows both with equal prominence.
+14. **HistGradientBoosting replaces LightGBM** (scikit-learn `HistGradientBoostingRegressor`) because libomp is missing on the build machine. Results would differ somewhat with LightGBM.
+15. **The dispatch LP is a single-node, 24-hour model** with assumed costs, heat rates, ramp limits and capacities (SIMULATED). It is not a power-flow model and not a market simulation. There are no losses, no transmission or voltage constraints.
+16. **The IEEE 14-bus topology is illustrative** (pglib-opf case14, CC BY 4.0). It is a drawing of the idea of a network and is never the real CAISO or ERCOT grid; the LP does not use it.
+17. **EIA data quirks are reported, not corrected:** CISO `OTH` goes negative (storage), ERCO's fuel sum departs from total generation by more than 2% in about 1,990 hours, and CISO's net generation minus demand minus interchange leaves a mean absolute residual of about 1 GW (see `reconciliation.json`).
+18. **Study window ends 2025-08-26** because the NOAA hourly mirror on AWS ends 2025-08-27. Later EIA data exist and are not used.
+19. **Browser solver parity is defined on the objective** across all 108 test vectors; dual prices are compared only where the vector is `price_comparable`, so displayed marginal prices on degenerate hours can differ between the browser and Python while the cost is identical. If the solver cannot load, the site shows the precomputed result labelled PRECOMPUTED.
+20. **Payload.** `highs.wasm` is 1.2 MB gzipped and loaded lazily at S04 entry; fonts are 172 KB. On a very slow connection the interactive solver arrives after the first scenes.
+21. **Scenes pending at the time of writing** (S02, S03b, S04, S07, S08): their claims are not yet reflected on the site; see `docs/BUILD_STATUS.md`.

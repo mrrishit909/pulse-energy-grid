@@ -1,0 +1,37 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.12
+      - run: uv sync --python 3.12 --frozen
+      # data/raw and data/interim are gitignored and absent in CI (EBA.zip is 695 MB). The 11 tests
+      # marked `slow` need data/interim/hourly.parquet; tests/conftest.py skips them with a reason
+      # when it is missing, so no -m filter is required. The other 57 run against the committed artifacts.
+      - run: uv run pytest -q
+
+  site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      # Playwright e2e (incl. the 108-vector HiGHS-wasm parity run) is not run here: it needs browsers
+      # and is verified locally against the production build.
