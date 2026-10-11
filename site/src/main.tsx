@@ -8,6 +8,7 @@ import { App } from "./app/App";
 import { getProgress, jumpTo, startEngine } from "./scroll/engine";
 import { debug, intro, introTime, quality } from "./scenes/director";
 import { layout } from "./scenes/geometry";
+import { currentClass } from "./graphics/canvas";
 import { city, ctrl, fill } from "./state/scenes";
 import { cancelSolve, requestSolve, subscribeSolver } from "./state/solver";
 import { openHour } from "./state/inspector";
@@ -62,6 +63,8 @@ Object.assign(window, {
     setBite: (p: Partial<ReturnType<typeof bite.get>>) => bite.set(p),
     setForecast: (p: Partial<ReturnType<typeof forecast.get>>) => forecast.set(p),
     view: () => (debug.view ? { ...debug.view } : null),
+    /** L1: the JS composition class and the CSS media class must agree */
+    cls: () => ({ js: currentClass(), css: getComputedStyle(document.documentElement).getPropertyValue("--vp-class").trim(), layout: layout(document.documentElement.clientWidth, innerHeight).cls, clientWidth: document.documentElement.clientWidth, innerWidth }),
     ready: (files: string[]) => files.every((f) => [DEMAND, FUEL_MIX, SAMPLES, EVAL, RESULTS].some((a) => a.file === f && getStore(a as never).state.status === "ready")),
     stress: () => stress.get(),
     setStress: (p: Partial<ReturnType<typeof stress.get>>) => stress.set(p),

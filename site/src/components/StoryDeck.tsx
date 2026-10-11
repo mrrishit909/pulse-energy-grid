@@ -5,7 +5,7 @@ import { getProgress, jumpTo } from "../scroll/engine";
 import { clamp } from "../lib/math";
 import { easeSymmetric } from "../motion/ease";
 import { windowed } from "../motion/progress";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import { motionEnabled } from "../state/motion";
 
 export type DeckCard = Omit<StoryCardProps, "index" | "count" | "active" | "onSelect" | "visual"> & {
@@ -53,7 +53,7 @@ export function StoryDeck({ track, cards }: { track: string; cards: DeckCard[] }
       return;
     }
     const vw = innerWidth, vh = innerHeight;
-    const cls = viewportClass(vw);
+    const cls = currentClass();
     const [cw] = SIZE[cls];
     const gap = cls === "M" ? Math.max(8, (vw - cw) / 2 - 12) : 8;
     const { k, fill } = deckK(p, n);

@@ -1,7 +1,8 @@
+import type { ArtifactSpec } from "../data/loader";
 import { Track } from "../scroll/Track";
 import { StoryDeck, type DeckCard } from "../components/StoryDeck";
 import { HonestyChip } from "../components/HonestyChip";
-import { AllReady, ArtifactStatus } from "../components/StateUI";
+import { AllReady, ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { useArtifact } from "../data/useArtifact";
 import { DEMAND, FACTS, FUEL_MIX, META, MODEL, QUALITY, RECON, WEATHER } from "../data/artifacts";
 import { copyS02, fuelName, heatCopy, ledgerCopy, sharesLine } from "../data/copy";
@@ -57,7 +58,6 @@ function OnePetal() {
         {x.charge > 0.5 ? <li><span>CHARGING (SINK)</span><span>−{int(x.charge)} MW</span></li> : null}
         <li className="card1__total"><span>DEMAND 18:00</span><span>{int(x.demand)} MW</span></li>
       </ul>
-      <p className="card1__fields">FIELDS: {copyS02.c1.fields.join(" · ")}</p>
     </div>
   );
 }
@@ -102,7 +102,7 @@ function Heat({ w, ba }: { w: WeatherRelation; ba: BA }) {
   const m0 = b.mean_mw[base]!;
   const slope = (t: number) => m0 * (1 + (wr.pct_demand_per_c_above_base / 100) * (t - wr.cool_base_c));
   return (
-    <svg className="heat" viewBox="0 0 300 165" role="img" aria-label={`Mean demand by temperature bin in ${ba}, with the fitted slope above ${wr.cool_base_c} °C`}>
+    <svg className="heat" viewBox="0 0 300 155" role="img" aria-label={`Mean demand by temperature bin in ${ba}, with the fitted slope above ${wr.cool_base_c} °C`}>
       {b.temp_c.map((t, i) => (
         <g key={t}>
           <line x1={X(t)} x2={X(t)} y1={Y(b.p10_mw[i]!)} y2={Y(b.p90_mw[i]!)} stroke="#fff" strokeOpacity="0.6" />
@@ -110,14 +110,17 @@ function Heat({ w, ba }: { w: WeatherRelation; ba: BA }) {
         </g>
       ))}
       <line x1={X(wr.cool_base_c)} x2={X(x1)} y1={Y(slope(wr.cool_base_c))} y2={Y(Math.min(slope(x1), y1))} stroke="#58B8E1" strokeWidth="1.5" />
-      <text x="10" y="162" className="heat__t">{Math.round(x0)} °C</text><text x="290" y="162" textAnchor="end" className="heat__t">{Math.round(x1)} °C</text>
     </svg>
   );
+}
+function heatAxis(w: WeatherRelation, ba: BA) {
+  const t = w.bas[ba].binned.temp_c;
+  return <p className="heat__axis tnum" aria-hidden="true"><span>{Math.round(Math.min(...t))} °C</span><span>{Math.round(Math.max(...t))} °C</span></p>;
 }
 function HeatCard() {
   const [ws] = useArtifact(WEATHER, false);
   if (ws.status !== "ready") return null;
-  return <div className="heat-card"><Heat w={ws.data} ba="CISO" /><p className="heat-readout tnum">CISO {heatCopy(ws.data, "CISO").readout}</p></div>;
+  return <div className="heat-card"><Heat w={ws.data} ba="CISO" />{heatAxis(ws.data, "CISO")}<p className="heat-readout tnum">CISO {heatCopy(ws.data, "CISO").readout}</p></div>;
 }
 function Ledger() {
   const [r, rr] = useArtifact(RECON, false); const [q, rq] = useArtifact(QUALITY, false); const [f, rf] = useArtifact(FACTS); const [m, rm] = useArtifact(META, false);
@@ -141,7 +144,7 @@ export function S02Source({ def }: { def: SceneDef }) {
   const [rs, retryR] = useArtifact(RECON, false);
   const cards: DeckCard[] = [
     { variant: "dark", chip: "SOURCE 01 · EIA-930", title: copyS02.c1.title, tag: <HonestyChip tag="OBSERVED" detail="EIA-930" />,
-      visual: <OnePetal />, body: <p>{copyS02.c1.body}</p> },
+      visual: <OnePetal />, body: <><p>{copyS02.c1.body}</p><p className="card1__fields">FIELDS: {copyS02.c1.fields.join(" · ")}</p></> },
     { variant: "blue", chip: "SOURCE 02 · TWO GRIDS", title: copyS02.c2.title, tag: <HonestyChip tag="DERIVED" detail="MEAN DAY OF EIA-930" />, visual: <TwoGrids />, body: <p>{copyS02.c2.body}</p> },
     { variant: "dark", chip: "SOURCE 03 · NOAA ISD", title: copyS02.c3.title, tag: <HonestyChip tag="DERIVED" detail="FITTED, NOT A FORECAST" />,
       visual: <ArtifactStatus file="weather_relation.json" state={ws} retry={retryW} empty="UNAVAILABLE">{() => <HeatCard />}</ArtifactStatus>,
@@ -151,6 +154,7 @@ export function S02Source({ def }: { def: SceneDef }) {
   ];
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Source: the ledger deck">
+      <SceneErrors id={def.id} specs={[MODEL, FUEL_MIX, DEMAND, FACTS, WEATHER, RECON, QUALITY, META] as ArtifactSpec<unknown>[]} />
       <div className="source-head">
         <p className="scene-kicker">{copyS02.kicker}</p>
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="sr-only">{def.title}</h2>

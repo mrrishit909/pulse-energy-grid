@@ -72,8 +72,8 @@ describe("copy deck numbers are artifact values (VISUAL_DESIGN 5, 6)", () => {
     const base = { version: "1.15.1", pct: null, ms: 4.4, parity: rep, error: null, solving: false };
     expect(statusLine({ ...base, status: "ready", source: "browser" })).toBe("SOLVED IN BROWSER · HiGHS 1.15.1 (highs-js 1.15.3) · 4 MS");
     expect(statusLine({ ...base, status: "ready", source: "precomputed" })).toBe("PRECOMPUTED · PYTHON HiGHS");
-    expect(statusLine({ ...base, status: "loading", pct: 42, source: "precomputed" })).toBe("PRECOMPUTED · PYTHON HiGHS · LIVE SOLVER LOADING · 42%");
-    expect(statusLine({ ...base, status: "error", source: "precomputed" })).toBe("LIVE SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS");
+    expect(statusLine({ ...base, status: "loading", pct: 42, source: "precomputed" })).toBe("PRECOMPUTED · PYTHON HiGHS · IN-BROWSER SOLVER LOADING · 42%");
+    expect(statusLine({ ...base, status: "error", source: "precomputed" })).toBe("IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS");
   });
 });
 
@@ -87,6 +87,16 @@ describe("site source hygiene", () => {
   const banned = new RegExp(`[${String.fromCharCode(0x2014)}${String.fromCharCode(0x2015)}]`);
   it("has no U+2014 or U+2015 dash anywhere", () => {
     for (const f of files) expect(banned.test(readFileSync(f, "utf-8")), f).toBe(false);
+  });
+  it("QA L10: no overclaiming words in any user-facing string (say IN-BROWSER, never LIVE)", () => {
+    const words = /(?<![.-])\blive\b|every one|\brecomputed\b|real[- ]time/i;
+    for (const f of files.filter((x) => /\.(tsx?|html)$/.test(x) && !/\.test\.ts$|\/dev\//.test(x))) {
+      // comments stripped; then every string literal and every JSX text run
+      const src = readFileSync(f, "utf-8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:"'`])\/\/.*$/gm, "$1");
+      const strings = [...src.matchAll(/"([^"\n]*)"|`([^`]*)`|>([^<>{}\n]+)</g)].map((m) => m[1] ?? m[2] ?? m[3] ?? "")
+        .filter((s) => /\s/.test(s) && !/aria-live|is-live|className/.test(s));
+      expect(strings.filter((s) => words.test(s)), f).toEqual([]);
+    }
   });
   it("draws the rose with Canvas2D only (no WebGL, no three.js)", () => {
     for (const f of files) expect(/getContext\(\s*["']webgl|from\s+["']three["']/.test(readFileSync(f, "utf-8")), f).toBe(false);

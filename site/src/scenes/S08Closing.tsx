@@ -1,3 +1,5 @@
+import type { ArtifactSpec } from "../data/loader";
+import { SceneErrors } from "../components/StateUI";
 import { useState, useSyncExternalStore } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
@@ -80,6 +82,7 @@ export function S08Closing({ def, onReplay }: { def: SceneDef; onReplay: () => v
   const d = ms.status === "ready" ? closingDay(ms.data) : null;
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="The day closes">
+      <SceneErrors id={def.id} specs={[MODEL, META] as ArtifactSpec<unknown>[]} />
       <div className="close-scrim" aria-hidden="true" />
       {!motion && ms.status === "ready" && d ? (
         <Still className="close-still" label="The giant rose of the day" deps={[d.date, d.tag]} draw={(cx, w, h) => {

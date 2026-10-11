@@ -1,7 +1,9 @@
+import type { ArtifactSpec } from "../data/loader";
 import { useCallback, useEffect, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus, RetryButton } from "../components/StateUI";
+import { StackKey } from "../components/StackKey";
+import { ArtifactStatus, RetryButton, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { Sheet } from "../components/Sheet";
 import { HourInspector, RoseHit } from "../components/HourInspector";
@@ -17,7 +19,6 @@ import { int } from "../model/format";
 import { binsSpanned, PRICE_BINS } from "../graphics/rose";
 import { BAS, type BAModel, type Control, type Params, type RangeControl } from "../model/types";
 import { useViewport } from "./useViewport";
-import { viewportClass } from "../graphics/canvas";
 import { LiveRose, liveLog } from "./LiveRose";
 import type { SceneDef } from "../app/scenes";
 
@@ -86,7 +87,7 @@ export function Ctrl({ def }: { def: SceneDef }) {
   const st = useSyncExternalStore(ctrl.subscribe, ctrl.get);
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const vp = useViewport();
-  const cls = viewportClass(vp.w);
+  const cls = vp.cls;
   const isM = cls === "M";
   const [layer, setLayer] = useState<"stack" | "price">("stack");
   const [sheet, setSheet] = useState(false);
@@ -127,6 +128,7 @@ export function Ctrl({ def }: { def: SceneDef }) {
 
   return (
     <Track id={def.id} height="auto" landing={0} className={`scene scene-${def.id}`} label="The Control Room">
+      <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
       <div className="ctrl">
         <header className="ctrl-head">
           <p className="scene-kicker">{copyCtrl.kicker}</p>
@@ -149,6 +151,7 @@ export function Ctrl({ def }: { def: SceneDef }) {
                     <RoseHit scene="control" box={{ cx: 0, cy: 0, r: 0 }} getLog={() => liveLog.log}
                       label="Control room rose. Enter or a click opens the hour inspector; arrows step the hour." />
                     <div className="ctrl-chip">
+                      {layer === "stack" && m ? <StackKey keys={m.display_order} /> : null}
                       <HonestyChip tag="SIMULATED" detail={st.source === "browser" ? "YOUR SCENARIO · SOLVED IN BROWSER" : "MODEL · PRECOMPUTED"} />
                     </div>
                   </div>

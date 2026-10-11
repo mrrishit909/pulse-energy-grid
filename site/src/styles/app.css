@@ -12,17 +12,15 @@
   font-family: "Newsreader Variable";
   font-style: normal;
   font-display: swap;
-  font-weight: 200 800;
-  src: url("/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2") format("woff2-variations");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400;
+  src: url("/src/assets/fonts/newsreader-opsz-400-site.woff2") format("woff2-variations");
 }
 @font-face {
   font-family: "JetBrains Mono Variable";
   font-style: normal;
   font-display: swap;
-  font-weight: 100 800;
-  src: url("/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400;
+  src: url("/src/assets/fonts/jetbrains-mono-400-site.woff2") format("woff2");
 }
 /* Fallback metrics from the font files (fontkit): Newsreader asc .735 / desc .265,
    JetBrains Mono asc 1.02 / desc .30. size-adjust measured in Chromium (Newsreader/Georgia 1.008, JetBrains/Menlo 0.997 by width); overrides divided by it. */
@@ -72,7 +70,7 @@ body {
 }
 ::selection { background: var(--accent-light-blue); color: #000; }
 :focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .tnum { font-variant-numeric: tabular-nums; }
 .mono-label { font: 400 var(--label) / 1.2 var(--font-mono); letter-spacing: var(--tracking-label); text-transform: uppercase; }
 .serif { font-family: var(--font-display); font-weight: 400; font-optical-sizing: auto; }
@@ -165,10 +163,12 @@ html[data-motion="off"] .menu-panel { transition: none; }
 }
 @media (max-width: 1023px) {
   .nav-bar.is-fixed { display: none; }
-  .corner-btn { bottom: 16px; }
+  /* QA L8: the corner button always clears the 160px centred pill by 8px */
+  .corner-btn { bottom: 16px; max-width: calc((100vw - 160px) / 2 - 24px); white-space: normal; text-align: right; overflow-wrap: anywhere; }
 }
 @media (max-width: 767px) {
-  .corner-btn { max-width: 96px; white-space: normal; text-align: right; line-height: 1.1; }
+  .corner-btn { line-height: 1.1; }
+  .chip { max-width: calc(100vw - 32px); white-space: normal; line-height: 1.25; }
 }
 
 /* ---------- honesty chips ---------- */
@@ -281,3 +281,7 @@ html[data-motion="off"] .story-card { position: relative; top: auto; transform: 
 .orb canvas { display: block; pointer-events: none; }
 
 
+
+/* QA L4: the active scene's artifact errors, pinned in view above everything (empty when nothing failed) */
+.scene-errors { position: fixed; z-index: calc(var(--z-skip) + 1); left: 50%; top: 12px; translate: -50% 0; width: max-content; max-width: calc(100vw - 32px); display: flex; flex-direction: column; gap: 6px; }
+.scene-errors:not(:empty) { padding: 10px 12px; border-radius: var(--radius-card); background: rgb(22 22 22 / 0.97); box-shadow: 0 0 0 1px var(--line); }

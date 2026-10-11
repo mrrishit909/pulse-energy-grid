@@ -88,3 +88,8 @@
 @media (prefers-reduced-motion: reduce) {
   :root { --motion-fast: 0ms; --motion-standard: 0ms; --motion-panel: 0ms; --motion-card: 0ms; --motion-scene: 0ms; --blur-reveal: 0px; }
 }
+
+/* QA L1: the viewport class as CSS sees it (read by __peg.cls(); must equal currentClass() in JS) */
+:root { --vp-class: M; }
+@media (min-width: 768px) { :root { --vp-class: T; } }
+@media (min-width: 1024px) { :root { --vp-class: D; } }

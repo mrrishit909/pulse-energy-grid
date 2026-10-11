@@ -1,10 +1,11 @@
-import { useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
+import type { ArtifactSpec } from "../data/loader";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip, type Honesty } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { useArtifact } from "../data/useArtifact";
 import { useNear } from "../scroll/useNear";
-import { EVAL, FACTS, MODEL, RECON, RESULTS, TOPOLOGY } from "../data/artifacts";
+import { EVAL, FACTS, MODEL, RECON, RESULTS, TOPOLOGY, QUALITY, META } from "../data/artifacts";
 import { answerCosts, answerIntervals, answerLp, answerRows, answerSolve, answerWeather, answerWires, fmtAssumption, ledgerCopy, MODEL_LABEL, OBJECTIONS, verdict, wiresCaption } from "../data/copy";
 import { getSolver, subscribeSolver } from "../state/solver";
 import { useMotion, useProgress } from "../scroll/hooks";
@@ -18,7 +19,6 @@ import LAYOUT from "../data/ieee14-layout.json";
 import type { ForecastEval, Topology } from "../model/types";
 import { baseView, registerFrame } from "./director";
 import { camera, fitR100 } from "./geometry";
-import { QUALITY, META } from "../data/artifacts";
 import type { SceneDef } from "../app/scenes";
 
 // ------------------------------------------------------------------ behind the stack: the S06 baseline rose, moved to G1 and dimmed to 15%
@@ -56,8 +56,18 @@ export function Wires({ topo, on }: { topo: Topology; on: boolean }) {
   const hop = hops(topo, from);
   const gens = new Set(topo.generators.map((g) => g.bus));
   const P = (id: number) => { const [x, y] = pos[String(id)]!; return [10 + x * 400, 10 + y * 280] as const; };
+  // QA L7: SVG text must be 11 CSS px, so its user-unit size is divided by the rendered scale (--k = viewBox px per CSS px).
+  const ref = useRef<SVGSVGElement>(null);
+  const [k, setK] = useState(1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver !== "function") return;
+    const ro = new ResizeObserver(() => { const w = el.getBoundingClientRect().width; if (w > 0) setK(420 / w); });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   return (
-    <svg className={`wires ${on ? "is-on" : ""}`} viewBox="0 0 420 300" role="img" aria-label="An illustrative 14-bus test network. Lines light up outward from bus 1 to show the idea of a network. Our dispatch model does not use it.">
+    <svg ref={ref} style={{ "--k": k } as CSSProperties} className={`wires ${on ? "is-on" : ""}`} viewBox="0 0 420 300" role="img" aria-label="An illustrative 14-bus test network. Lines light up outward from bus 1 to show the idea of a network. Our dispatch model does not use it.">
       {topo.branches.map((b, i) => {
         const [x1, y1] = P(b.from), [x2, y2] = P(b.to);
         const h = Math.min(hop.get(b.from) ?? 0, hop.get(b.to) ?? 0);
@@ -67,9 +77,9 @@ export function Wires({ topo, on }: { topo: Topology; on: boolean }) {
         const [x, y] = P(b.id);
         return (
           <g key={b.id} className={`wires__bus ${b.pd_mw > 0 ? "is-load" : ""}`} style={{ "--d": `${(hop.get(b.id) ?? 0) * 90}ms` } as CSSProperties}>
-            <rect x={x - 7} y={y - 7} width="14" height="14" />
-            <text x={x} y={y + 3.5} textAnchor="middle">{b.id}</text>
-            {gens.has(b.id) ? <text x={x + 11} y={y - 8} className="wires__g">G</text> : null}
+            <rect x={x - 9 * k} y={y - 8 * k} width={18 * k} height={16 * k} />
+            <text x={x} y={y + 4 * k} textAnchor="middle">{b.id}</text>
+            {gens.has(b.id) ? <text x={x + 12 * k} y={y - 10 * k} className="wires__g">G</text> : null}
           </g>
         );
       })}
@@ -122,6 +132,7 @@ export function S07Evidence({ def }: { def: SceneDef }) {
   ];
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Evidence: how we know">
+      <SceneErrors id={def.id} specs={[EVAL, FACTS, MODEL, RESULTS, TOPOLOGY, RECON, QUALITY, META] as ArtifactSpec<unknown>[]} />
       <div className="ev-head">
         <p className="scene-kicker">EVIDENCE · SEVEN QUESTIONS, SEVEN ANSWERS</p>
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">How we know.</h2>

@@ -4,7 +4,7 @@ import { HonestyChip } from "./HonestyChip";
 import { closeHour, inspector, openHour } from "../state/inspector";
 import { hourAt, type RoseLog } from "../graphics/rose";
 import { debug } from "../scenes/director";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import type { InspectorCopy } from "../data/copy";
 
 /**
@@ -40,7 +40,7 @@ export function HourInspector({ scene, content }: { scene: string; content: (h: 
   const ins = useSyncExternalStore(inspector.subscribe, inspector.get);
   const back = useCallback(() => document.querySelector<HTMLElement>(`[data-rose-hit="${scene}"]`), [scene]);
   const c = ins.scene === scene && ins.hour !== null ? content(ins.hour) : null;
-  const side = typeof innerWidth === "number" && viewportClass(innerWidth) === "D";
+  const side = typeof innerWidth === "number" && currentClass() === "D";
   return (
     <Sheet open={!!c} onClose={closeHour} title={c ? `Hour inspector ${c.title}` : "Hour inspector"} side={side} className="inspector" returnFocus={back}>
       {c ? (

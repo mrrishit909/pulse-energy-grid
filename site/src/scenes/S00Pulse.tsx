@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { ArtifactStatus, SceneErrors } from "../components/StateUI";
+import type { ArtifactSpec } from "../data/loader";
 import { useArtifact } from "../data/useArtifact";
 import { MODEL } from "../data/artifacts";
 import { copyS00, copyS01, s01Cards } from "../data/copy";
@@ -9,7 +10,7 @@ import { NotificationCard } from "../components/NotificationCard";
 import { WordReveal } from "../components/WordReveal";
 import { useState } from "react";
 import { easeSymmetric } from "../motion/ease";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import { useMotion, useProgress } from "../scroll/hooks";
 import { windowed } from "../motion/progress";
 import { drawRose, radius } from "../graphics/rose";
@@ -39,7 +40,7 @@ export function PulseLayer({ introPlaying }: { introPlaying: boolean }) {
     const h = document.querySelector<HTMLElement>("h1[data-hero]");
     if (h) {
       const e = motionOn() ? easeSymmetric(windowed(p, 0, 0.4)) : 0;
-      const cls = viewportClass(innerWidth);
+      const cls = currentClass();
       const top = cls === "D" ? 64 : cls === "T" ? 52 : 74;
       const dy = (top - h.offsetTop) * e;
       h.style.transform = e > 0 ? `translateY(${dy.toFixed(1)}px) scale(${(1 - 0.5 * e).toFixed(4)})` : "";
@@ -51,6 +52,7 @@ export function PulseLayer({ introPlaying }: { introPlaying: boolean }) {
   });
   return (
     <>
+      <SceneErrors id="pulse" specs={[MODEL, FACTS] as ArtifactSpec<unknown>[]} />
       {!motion && day && stillSlot ? createPortal(
         <Still className="pulse-still" label={c!.alt} deps={[day.date]} draw={(ctx, w, h) => {
           const L = layout(w, h);

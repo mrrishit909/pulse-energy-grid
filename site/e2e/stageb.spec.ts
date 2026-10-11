@@ -153,16 +153,16 @@ test("states: a 404 on forecast_eval shows COULD NOT LOAD with RETRY in S04 and 
   await page.route("**/data/fuel_mix.json", (r) => r.fulfill({ status: 404, body: "" }));
   await open(page);
   await P(page).jump("forecast", 0.9);
-  const err = page.locator(".scene-forecast [role=alert]").filter({ hasText: "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 404)" });
+  const err = page.locator(".scene-forecast .state-error").filter({ hasText: "COULD NOT LOAD FORECAST_EVAL.JSON (HTTP 404)" });
   await expect(err).toBeVisible({ timeout: 20_000 });
   await P(page).jump("evidence", 0.05);
-  await expect(page.locator('[data-exchange="1"] [role=alert]')).toContainText("COULD NOT LOAD FORECAST_EVAL.JSON");
+  await expect(page.locator('[data-exchange="1"] .state-error')).toContainText("COULD NOT LOAD FORECAST_EVAL.JSON");
   await P(page).jump("source", 0.36);
   await page.waitForTimeout(600);
-  await expect(page.locator(".scene-source [role=alert]").first()).toContainText("COULD NOT LOAD FUEL_MIX.JSON (HTTP 404)");
+  await expect(page.locator(".scene-source .state-error").first()).toContainText("COULD NOT LOAD FUEL_MIX.JSON (HTTP 404)");
   block = false;
   await P(page).jump("forecast", 0.9);
-  await page.locator(".scene-forecast [role=alert] button").first().click();
+  await page.locator(".scene-forecast .state-error button").first().click();
   await expect(page.locator('.fc-card[data-ba="CISO"]')).toBeVisible({ timeout: 20_000 });
 });
 

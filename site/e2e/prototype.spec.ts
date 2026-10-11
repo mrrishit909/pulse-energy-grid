@@ -159,7 +159,7 @@ test.describe("S05 Fill the Day", () => {
     await page.goto("#dispatch");
     await page.keyboard.press("Escape");
     await page.waitForFunction(() => ["error", "disabled"].includes((window as any).__peg.solver().status), null, { timeout: 30_000 });
-    await expect(page.locator(".fill-status [data-source]")).toHaveText("LIVE SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS");
+    await expect(page.locator(".fill-status [data-source]")).toHaveText("IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS");
     await expect(page.locator(".fill-chip")).toContainText("PRECOMPUTED");
     await expect(page.locator(".fill-status")).not.toContainText("SOLVED IN BROWSER");
     await expect(page.locator(".fill-status").getByRole("button", { name: "RETRY" })).toBeVisible();

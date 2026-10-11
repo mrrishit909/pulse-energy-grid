@@ -1,7 +1,9 @@
+import type { ArtifactSpec } from "../data/loader";
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus, RetryButton } from "../components/StateUI";
+import { StackKey } from "../components/StackKey";
+import { ArtifactStatus, RetryButton, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { MODEL, RESULTS } from "../data/artifacts";
@@ -22,7 +24,7 @@ import { useViewport } from "./useViewport";
 import { Still } from "./Still";
 import { HourInspector, RoseHit } from "../components/HourInspector";
 import { Sheet } from "../components/Sheet";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import type { SceneDef } from "../app/scenes";
 
 const LAB = ["battery_power_mw", "battery_hours", "renewables_scale"] as const;
@@ -41,7 +43,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
   const sv = useSyncExternalStore(subscribeSolver, getSolver);
   const motion = useMotion();
   const vp = useViewport();
-  const isM = viewportClass(vp.w) === "M";
+  const isM = vp.cls === "M";
   const L = layout(vp.w, vp.h);
   const [ph, setPh] = useState({ rows: 0, s2: false, live: false });
   const [draft, setDraft] = useState<Partial<Record<LabId, number>>>({});
@@ -87,6 +89,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
 
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Dispatch: fill the day">
+      <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
       <div className="fill-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement" key={show.s2 ? "s2" : "s1"}>{show.s2 ? copyS05.s2 : copyS05.s1}</h2>
       </div>
@@ -136,6 +139,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
                     <p className={`readout-line tnum ${show.rows >= n ? "is-in" : ""}`}>{co2Line(r)}</p>
                     {unservedLine(r) ? <p className="readout-line readout-line--warn tnum">{unservedLine(r)}</p> : null}
                     {isM ? <p className="readout-line tnum">MODEL BATTERY SHIFTED {int(r.battery.discharge_mw.reduce((a, b) => a + b, 0))} MWH</p> : null}
+                    {isM ? <StackKey keys={ledger.map((row) => row.key)} /> : null}
                     {isM ? (
                       <>
                         <button type="button" className="text-btn fill-ledger-open" onClick={() => setSheet(true)}>FULL LEDGER</button>
@@ -180,7 +184,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
             ) : null}
             {!motion && m && day && r && f.params ? (
               <Still className="fill-still" label="Model dispatch of the day, filled in merit order" deps={[f.resultSeq, f.ba, f.dayId]} draw={(ctx, w, h) => {
-                const LL = layout(w, h, viewportClass(innerWidth));
+                const LL = layout(w, h, currentClass());
                 const D = scenarioDemand(m, day, f.params!);
                 const s = simulatedStack(m.display_order, day, D, r);
                 const peak = Math.max(...D);

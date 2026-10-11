@@ -1,7 +1,8 @@
+import type { ArtifactSpec } from "../data/loader";
 import { useMemo, useState, useSyncExternalStore, type KeyboardEvent, type PointerEvent } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { useNear } from "../scroll/useNear";
@@ -21,7 +22,7 @@ import { baseView, registerFrame } from "./director";
 import { fitR100, layout } from "./geometry";
 import { useViewport } from "./useViewport";
 import { Still } from "./Still";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import { motionEnabled } from "../state/motion";
 import type { SceneDef } from "../app/scenes";
 
@@ -59,11 +60,11 @@ function plotData(fs: ForecastSamples, st: ReturnType<typeof forecast.get>, M: b
 // ------------------------------------------------------------------ the canvas frame
 const ytw = new Tween(1, DUR.panel, easeSymmetric);
 let ykey = "";
-registerFrame("forecast", ({ now, p, L, W }) => {
+registerFrame("forecast", ({ now, p, L }) => {
   const fsS = getStore(SAMPLES).state;
   if (fsS.status !== "ready") return null;
   const st = forecast.get();
-  const M = viewportClass(W) === "M";
+  const M = currentClass() === "M";
   const d = plotData(fsS.data, st, M);
   const key = `${st.ba}|${st.week}|${st.mDay}|${st.interval}`;
   if (key !== ykey) { ykey = key; ytw.retarget(d.ymax, now, ytw.value === 1 || !motionEnabled() ? 0 : DUR.panel); }
@@ -126,7 +127,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   const motion = useMotion();
   const vp = useViewport();
   const L = layout(vp.w, vp.h);
-  const M = viewportClass(vp.w) === "M";
+  const M = vp.cls === "M";
   const [ph, setPh] = useState({ step: 0, verdict: false, live: false });
   useProgress(def.id, (p) => {
     const next = { step: stepState(ph.step, p, STEPS), verdict: p >= 0.86, live: p >= 0.52 };
@@ -152,6 +153,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
   const fmt = (v: number | null | undefined) => (v === null || v === undefined ? "n/a" : `${int(v)} MW`);
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Forecast: tomorrow, unrolled">
+      <SceneErrors id={def.id} specs={[SAMPLES, EVAL, FACTS] as ArtifactSpec<unknown>[]} />
       <div className="fc-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">{copyS04.statement}</h2>
         <p className="scene-kicker">FORECAST · {st.ba} · {d ? `${d.w.label.toUpperCase()} (${d.w.ts_local[0]!.slice(0, 10)})` : ""}</p>
@@ -177,7 +179,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
               </div>
             </div>
             {M ? (
-              <div className="fc-days" role="tablist" aria-label="Day of the week">
+              <div className={`fc-days ${show.verdict ? "is-off" : ""}`} role="tablist" aria-label="Day of the week">
                 {Array.from({ length: 7 }, (_, i) => (
                   <button key={i} type="button" role="tab" aria-selected={st.mDay === i} className={`chip-btn ${st.mDay === i ? "is-on" : ""}`}
                     onClick={() => forecast.set({ mDay: i, hover: null })}>{d ? days(d.w)[i] : i + 1}</button>
@@ -207,7 +209,7 @@ export function S04Forecast({ def }: { def: SceneDef }) {
                     {ws.missing ? <li>{ws.missing} HOURS WITHOUT A CLEAN ACTUAL (EXCLUDED FROM METRICS)</li> : null}
                   </ul>
                 )}
-                <div className="fc-chips"><HonestyChip tag="OBSERVED" detail="ACTUAL, EIA-930" /><HonestyChip tag="PREDICTED" detail="FORECASTS" /></div>
+                <div className="fc-chips"><HonestyChip tag="OBSERVED" detail={M ? "ACTUAL" : "ACTUAL, EIA-930"} /><HonestyChip tag="PREDICTED" detail="FORECASTS" /></div>
               </div>
             ) : null}
             <ArtifactStatus file="forecast_eval.json" state={feS} retry={retryE} empty="NO EVALUATION PUBLISHED">
@@ -249,14 +251,14 @@ export function S04Forecast({ def }: { def: SceneDef }) {
               <div className="fc-still-strip">
                 {[0, 0.5, 1].map((tt) => (
                   <Still key={tt} className="fc-still" label={tt === 0 ? "The first day as a rose" : tt === 1 ? "The week as bars" : "Half unrolled"} deps={[st.ba, st.week, tt]} draw={(c, w, h) => {
-                    const LL = layout(w, h, viewportClass(innerWidth));
+                    const LL = layout(w, h, currentClass());
                     const peak = Math.max(...(d.actual.slice(0, 24).filter((v) => v !== null) as number[]));
                     const plot: Plot = { ...LL.week, hours: d.n, ymax: d.ymax };
                     drawUnroll(c as unknown as CanvasRenderingContext2D, d.actual, { cx: LL.G3.cx, cy: LL.G3.cy, R100: fitR100(LL.G3, peak) }, plot, tt);
                   }} />
                 ))}
                 <Still className="fc-still fc-still--final" label="The test week: actual, EIA, naive, ours with the band" deps={[st.ba, st.week, st.interval, st.mDay, st.hidden.join()]} draw={(c, w, h) => {
-                  const LL = layout(w, h, viewportClass(innerWidth));
+                  const LL = layout(w, h, currentClass());
                   const g = c as unknown as CanvasRenderingContext2D;
                   const plot: Plot = { ...LL.week, hours: d.n, ymax: d.ymax };
                   drawAxis(g, plot, M ? [days(d.w)[st.mDay]!] : days(d.w), LL.label, 1);

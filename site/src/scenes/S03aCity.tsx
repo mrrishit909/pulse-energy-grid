@@ -1,7 +1,9 @@
+import type { ArtifactSpec } from "../data/loader";
 import { useSyncExternalStore, type CSSProperties, type KeyboardEvent } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { StackKey } from "../components/StackKey";
+import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { FACTS, MODEL } from "../data/artifacts";
@@ -18,7 +20,7 @@ import { observedStack, petals } from "../model/stack";
 import { drawHourLabels, drawRose, FUEL, radius, TOKEN, type Ctx } from "../graphics/rose";
 import { BAS, type BA, type DispatchModel } from "../model/types";
 import { fillR100, layout } from "./geometry";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import { Still } from "./Still";
 import { useViewport } from "./useViewport";
 import type { SceneDef } from "../app/scenes";
@@ -31,7 +33,7 @@ const STILL_HOURS = [3, 9, 15, 19];
 
 function paintCity(ctx: Ctx & CanvasRenderingContext2D, w: number, h: number, m: DispatchModel, ba: BA, dayId: string, hour: number) {
   const day = m.bas[ba].days.find((d) => d.id === dayId)!;
-  const L = layout(w, h, viewportClass(innerWidth));
+  const L = layout(w, h, currentClass());
   const s = observedStack(day, false);
   const peak = Math.max(...day.demand_mw);
   const sky = L.G2.sky;
@@ -51,7 +53,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
   const c = useSyncExternalStore(city.subscribe, city.get);
   const motion = useMotion();
   const vp = useViewport();
-  const isM = viewportClass(vp.w) === "M";
+  const isM = vp.cls === "M";
   const L = layout(vp.w, vp.h);
   useProgress(def.id, (p) => { const h = hourAt(p); if (h !== city.get().hour) city.set({ hour: h }); });
   const m = ms.status === "ready" ? ms.data : null;
@@ -73,6 +75,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
   const hasFuel = !!day && Object.keys(day.observed_gen_mw).length > 0;
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Demand: the window city">
+      <SceneErrors id={def.id} specs={[MODEL, FACTS] as ArtifactSpec<unknown>[]} />
       <div className="city-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement">{copyS03a.statement}</h2>
         <p className="scene-kicker">DEMAND · {c.ba}<span className="kicker-long"> · ONE REAL DAY, HOUR BY HOUR</span>{day ? ` · ${day.date}` : ""}</p>
@@ -96,7 +99,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
                 {!isM ? <p className="readout-line tnum">{r.temp}</p> : null}
                 {!isM ? <p className="readout-line readout-line--muted tnum">{r.delta}</p> : null}
                 {!isM && fs.status === "ready" && hour >= 17 && hour <= 21 ? <p className="readout-line readout-line--ramp tnum">{rampNote(fs.data, c.ba)}</p> : null}
-                {isM ? null : hasFuel ? (
+                {isM ? (hasFuel && stack ? <StackKey keys={stack.keys} /> : null) : hasFuel ? (
                   <ul className="stack-legend" aria-label={`Stack at ${r.hour}, centre outward`}>
                     {legend.map(({ k, mw }) => { const f = FUEL[TOKEN[k]!]!; return (
                       <li key={k}><span className="swatch" style={{ "--c0": f.c0, "--c1": f.c1 } as CSSProperties} aria-hidden="true" />{fuelName(k)} <span className="tnum">{int(mw)}</span></li>
@@ -110,8 +113,8 @@ export function S03aCity({ def }: { def: SceneDef }) {
             ) : null}
             <div className="city-chips">
               <HonestyChip tag="OBSERVED" detail="EIA-930" />
-              <HonestyChip tag="DERIVED" detail={copyS03a.windowChip.replace("EIA-930 · DERIVED: ", "")} />
-              <HonestyChip tag="OBSERVED" detail={`TEMPERATURE · ${copyS03a.tempChip}`} />
+              <HonestyChip tag="DERIVED" detail={isM ? "WINDOWS" : copyS03a.windowChip.replace("EIA-930 · DERIVED: ", "")} />
+              <HonestyChip tag="OBSERVED" detail={isM ? "TEMPERATURE" : `TEMPERATURE · ${copyS03a.tempChip}`} />
             </div>
             <p className="city-note">{copyS03a.note}<span className="city-note__scale"> {copyS03a.scale}</span></p>
             {motion ? (

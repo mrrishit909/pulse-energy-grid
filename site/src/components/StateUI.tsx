@@ -1,5 +1,8 @@
 import type { ReactNode } from "react";
-import { percent, type LoadState } from "../data/loader";
+import { createPortal } from "react-dom";
+import { percent, type ArtifactSpec, type LoadState } from "../data/loader";
+import { useArtifact } from "../data/useArtifact";
+import { useActiveScene } from "../scroll/hooks";
 
 const upper = (f: string) => f.toUpperCase();
 
@@ -21,9 +24,10 @@ export function RetryButton({ onClick, busy, children = "RETRY" }: { onClick: ()
   );
 }
 
-export function ErrorLine({ file, reason, attempt, onRetry }: { file: string; reason: string; attempt: number; onRetry: () => void }) {
+/** Inline error lines are not live regions: the scene banner (SceneErrors) is the one alert per failed file (QA L4). */
+export function ErrorLine({ file, reason, attempt, onRetry, live = false }: { file: string; reason: string; attempt: number; onRetry: () => void; live?: boolean }) {
   return (
-    <div className="state-error" role="alert">
+    <div className="state-error" role={live ? "alert" : undefined} data-file={file}>
       <p className="state-line state-line--error">
         COULD NOT LOAD {upper(file)} ({reason}){attempt > 1 ? ` (ATTEMPT ${attempt})` : ""}
       </p>
@@ -63,4 +67,21 @@ export function AllReady({ items, children }: { items: { file: string; state: Lo
   const bad = items.find((i) => i.state.status !== "ready");
   if (!bad) return <>{children()}</>;
   return <ArtifactStatus file={bad.file} state={bad.state} retry={bad.retry} empty="UNAVAILABLE">{() => null}</ArtifactStatus>;
+}
+
+function SceneError({ spec }: { spec: ArtifactSpec<unknown> }) {
+  const [st, retry] = useArtifact(spec, false);
+  if (st.status === "error") return <ErrorLine live file={spec.file} reason={st.reason} attempt={st.attempt} onRetry={retry} />;
+  if (st.status === "loading" && st.retrying) return <p className="state-line" role="status">RETRYING {upper(spec.file)}</p>;
+  return null;
+}
+
+/**
+ * QA L4: every artifact a scene consumes, with its own error + RETRY, pinned in view while that scene owns the viewport.
+ * Only the active scene renders it, so a failed file has exactly one live region at a time.
+ */
+export function SceneErrors({ id, specs }: { id: string; specs: ArtifactSpec<unknown>[] }) {
+  const active = useActiveScene() === id;
+  if (!active || typeof document === "undefined") return null;
+  return createPortal(<div className="scene-errors" data-scene-errors={id}>{specs.map((s) => <SceneError key={s.file} spec={s} />)}</div>, document.body);
 }

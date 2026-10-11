@@ -1,7 +1,9 @@
+import type { ArtifactSpec } from "../data/loader";
 import { useMemo, useSyncExternalStore, type CSSProperties, type KeyboardEvent } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { StackKey } from "../components/StackKey";
+import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { HourInspector, RoseHit } from "../components/HourInspector";
 import { useArtifact } from "../data/useArtifact";
@@ -23,7 +25,7 @@ import { baseView, registerFrame } from "./director";
 import { fitR100, layout } from "./geometry";
 import { useViewport } from "./useViewport";
 import { Still } from "./Still";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import { motionEnabled } from "../state/motion";
 import type { SceneDef } from "../app/scenes";
 
@@ -97,7 +99,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
   const motion = useMotion();
   const vp = useViewport();
   const L = layout(vp.w, vp.h);
-  const isM = viewportClass(vp.w) === "M";
+  const isM = vp.cls === "M";
   useProgress(def.id, (p) => { const k = stepState(stress.get().step, p, THRESH); if (k !== stress.get().step) stress.set({ step: k }); });
   const go = (k: number) => jumpTo(def.id, STRESS_P[k]);
   const key = (e: KeyboardEvent, k: number) => {
@@ -113,6 +115,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
   const rows = ledger(st.step);
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Stress: five scenarios">
+      <SceneErrors id={def.id} specs={[MODEL, RESULTS] as ArtifactSpec<unknown>[]} />
       <div className="stress-text">
         <p className="scene-kicker">{copyS06.kicker}</p>
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="stress-title" key={id}>{meta(id)?.label ?? def.title}</h2>
@@ -146,8 +149,8 @@ export function S06Stress({ def }: { def: SceneDef }) {
                         </button>
                       ))}
                     </div>
-                    {st.layer === "price" ? <div className="stress-legend"><PriceLegend spanned={cur ? binsSpanned(cur.r.price_usd_mwh, model.bas[st.ba].voll_usd_mwh) : undefined} /></div> : null}
-                    <div className="stress-chip"><HonestyChip tag="SIMULATED" detail="MODEL · PRECOMPUTED · PYTHON HiGHS" /></div>
+                    <div className="stress-legend">{st.layer === "price" ? <PriceLegend spanned={cur ? binsSpanned(cur.r.price_usd_mwh, model.bas[st.ba].voll_usd_mwh) : undefined} /> : <StackKey keys={model.bas[st.ba].display_order} />}</div>
+                    <div className="stress-chip"><HonestyChip tag="SIMULATED" detail={isM ? "MODEL · PRECOMPUTED" : "MODEL · PRECOMPUTED · PYTHON HiGHS"} /></div>
                     {cur ? (
                       <>
                         <RoseHit scene="stress" box={{ cx: L.G4.cx, cy: L.G4.cy, r: L.G4.fit + 12 }} label="Scenario rose. Enter or a click opens the hour inspector." />
@@ -166,7 +169,7 @@ export function S06Stress({ def }: { def: SceneDef }) {
                           <p className="stress-desc">{meta(sid)?.description}</p>
                           {s && data?.base ? (
                             <Still className="stress-still" label={`${meta(sid)?.label}: model dispatch over the dashed baseline demand`} deps={[st.ba, st.dayId, sid, st.layer]} draw={(c, w, h) => {
-                              const LL = layout(w, h, viewportClass(innerWidth));
+                              const LL = layout(w, h, currentClass());
                               const R100 = dayR100(model.bas[st.ba], st.dayId, LL.G4);
                               const v = baseView(model.bas[st.ba].display_order, { cx: w * 0.5, cy: h * 0.5, R100: R100 * 0.85, rref: radius(Math.max(...s.D), R100), gap: LL.gap });
                               if (st.layer === "price") drawPriceRose(c, s.petals, v, s.bins, s.r.price_usd_mwh); else drawRose(c, s.petals, v);

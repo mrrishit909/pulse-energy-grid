@@ -1,7 +1,9 @@
+import type { ArtifactSpec } from "../data/loader";
 import { useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import { Track } from "../scroll/Track";
 import { HonestyChip } from "../components/HonestyChip";
-import { ArtifactStatus } from "../components/StateUI";
+import { StackKey } from "../components/StackKey";
+import { ArtifactStatus, SceneErrors } from "../components/StateUI";
 import { Radio } from "../components/Radio";
 import { useArtifact } from "../data/useArtifact";
 import { DEMAND, FACTS, FUEL_MIX } from "../data/artifacts";
@@ -22,7 +24,7 @@ import { baseView, registerFrame } from "./director";
 import { fitR100, layout } from "./geometry";
 import { useViewport } from "./useViewport";
 import { Still } from "./Still";
-import { viewportClass } from "../graphics/canvas";
+import { currentClass } from "../graphics/canvas";
 import { motionEnabled } from "../state/motion";
 import type { SceneDef } from "../app/scenes";
 
@@ -87,7 +89,7 @@ registerFrame("netload", ({ now, p, L }) => {
 function BiteStill({ fm, dp, ba, month, year, label }: { fm: FuelMix; dp: DemandProfile; ba: BA; month: number; year: string | null; label: string }) {
   return (
     <Still className="bite-still" label={label} deps={[ba, month, year]} draw={(c, w, h) => {
-      const LL = layout(w, h, viewportClass(innerWidth));
+      const LL = layout(w, h, currentClass());
       const s = biteStack(fm, dp, ba, month, year, 1);
       const R100 = (Math.min(w, h) * 0.45) / Math.sqrt(bitePeak(dp, ba) / 1e5);
       const v = baseView(s.keys, { cx: w / 2, cy: h / 2, R100, rref: radius(Math.max(...s.demand), R100), gap: LL.gap, glow: LL.glow });
@@ -107,7 +109,7 @@ export function S03bBite({ def }: { def: SceneDef }) {
   const st = useSyncExternalStore(bite.subscribe, bite.get);
   const motion = useMotion();
   const vp = useViewport();
-  const M = viewportClass(vp.w) === "M";
+  const M = vp.cls === "M";
   const biteMonth = factsS.status === "ready" ? (factsS.data.bas[st.ba].deepest_bite_month as number) : 4;
   const [ph, setPh] = useState({ month: 1, net: false, year: null as string | null, ys: 0 });
   useProgress(def.id, (p) => {
@@ -130,6 +132,7 @@ export function S03bBite({ def }: { def: SceneDef }) {
   };
   return (
     <Track id={def.id} height={def.track} landing={def.landing} className={`scene scene-${def.id}`} label="Net load: the bite">
+      <SceneErrors id={def.id} specs={[FUEL_MIX, DEMAND, FACTS] as ArtifactSpec<unknown>[]} />
       <div className="bite-text">
         <h2 id={`${def.id}-title`} tabIndex={-1} data-scene-heading className="scene-statement" key={net ? "net" : "dem"}>{net ? copyS03b.net : copyS03b.demand}</h2>
         <p className="scene-kicker">NET LOAD · {st.ba} · MEAN DAY OF THE MONTH{year ? ` · ${year}` : " · ALL YEARS"}</p>
@@ -156,7 +159,8 @@ export function S03bBite({ def }: { def: SceneDef }) {
                       {year ? <p className="readout-line readout-line--muted tnum" data-year-caption>{yearCaption(year, month, led.minMw, partial)}</p> : null}
                     </>
                   ) : null}
-                  <div className="bite-chips"><HonestyChip tag="DERIVED" detail="MONTH-HOUR MEANS OF EIA-930" /></div>
+                  <div className="bite-chips"><HonestyChip tag="DERIVED" detail={M ? "EIA-930 MONTH-HOUR MEANS" : "MONTH-HOUR MEANS OF EIA-930"} /></div>
+                  {stack ? <StackKey keys={stack.keys} /> : null}
                   {!M ? <p className="city-note bite-note">{copyS03b.mix}</p> : null}
                 </div>
                 {motion ? (

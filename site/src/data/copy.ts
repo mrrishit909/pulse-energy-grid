@@ -68,7 +68,7 @@ export function ledgerRows(m: BAModel, day: Day, r: DispatchResult) {
     return { key: k, label: label(k), mwh: mwh(k), cost };
   });
 }
-export const ledgerLine = (row: { mwh: number; cost: number | null }) => ({ mwh: `${int(row.mwh)} MWH`, cost: row.cost === null ? "OBSERVED INPUT" : `MODEL ${usd(row.cost)}` });
+export const ledgerLine = (row: { mwh: number; cost: number | null }) => ({ mwh: `${int(row.mwh)} MWH`, cost: row.cost === null ? "NOT COSTED" : `MODEL ${usd(row.cost)}` });
 export const totalLine = (r: DispatchResult) => `MODEL COST ${usd(r.objective_usd)} = SOLVER OBJECTIVE`;
 export const co2Line = (r: DispatchResult) => `MODEL CO2 ${int(r.co2_t)} T`;
 export const unservedLine = (r: DispatchResult) => r.unserved_mwh > 0.5 ? `MODEL UNSERVED ${int(r.unserved_mwh)} MWH` : null;
@@ -90,9 +90,9 @@ export function statusLine(s: { status: string; version: string; pct: number | n
   if (s.source === "browser") {
     return `SOLVED IN BROWSER · HiGHS ${s.version} (highs-js 1.15.3) · ${s.ms < 1 ? "<1" : int(s.ms)} MS`;
   }
-  if (s.status === "loading") return `PRECOMPUTED · PYTHON HiGHS · LIVE SOLVER LOADING${s.pct === null ? "" : ` · ${s.pct}%`}`;
-  if (s.status === "error") return "LIVE SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS";
-  if (s.status === "disabled") return "LIVE SOLVER DISABLED FOR THIS SESSION: SHOWING PRECOMPUTED PYTHON RESULTS";
+  if (s.status === "loading") return `PRECOMPUTED · PYTHON HiGHS · IN-BROWSER SOLVER LOADING${s.pct === null ? "" : ` · ${s.pct}%`}`;
+  if (s.status === "error") return "IN-BROWSER SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS";
+  if (s.status === "disabled") return "IN-BROWSER SOLVER DISABLED FOR THIS SESSION: SHOWING PRECOMPUTED PYTHON RESULTS";
   return "PRECOMPUTED · PYTHON HiGHS";
 }
 
@@ -281,7 +281,7 @@ export const copyS01 = { statement: "A grid keeps no stock. Every hour, supply h
 export function s01Cards(f: Facts) {
   const c = f.bas.CISO, e = f.bas.ERCO;
   return [
-    { from: "FROM: EIA-930 / CISO", when: String(c.peak_demand_local), body: `PEAK DEMAND ${int(c.peak_demand_mw)} MW. EVERY MEGAWATT WAS MADE OR IMPORTED IN THAT SAME HOUR.` },
+    { from: "FROM: EIA-930 / CISO", when: String(c.peak_demand_local), body: `PEAK DEMAND ${int(c.peak_demand_mw)} MW. EVERY MEGAWATT HAD TO BE MADE OR IMPORTED IN THAT SAME HOUR.` },
     { from: "FROM: EIA-930 / ERCO", when: String(e.peak_demand_local), body: `ERCOT PEAKED AT ${int(e.peak_demand_mw)} MW, WITH NET INTERCHANGE AVERAGING ${fixed(e.interchange_abs_mean_pct_of_demand as number, 2)}% OF DEMAND.` },
   ];
 }
@@ -294,7 +294,7 @@ export const copyS02 = {
     fields: ["BA", "HOUR (UTC)", "DEMAND", "DAY-AHEAD FORECAST", "NET GENERATION", "INTERCHANGE", "GENERATION BY FUEL ×8"] },
   c2: { title: "Two grids, two weathers.", body: "CALIFORNIA RUNS ON SUN AND IMPORTS. TEXAS RUNS ON GAS AND WIND AND BARELY TRADES WITH ITS NEIGHBOURS." },
   c3: { title: "Heat leans on the load." },
-  c4: { title: "Every row is counted.", body: "RAW ROWS = KEPT + EXCLUDED, FOR EVERY SERIES. NOTHING IS SILENTLY DROPPED." },
+  c4: { title: "Rows in, rows kept.", body: "RAW ROWS = KEPT + EXCLUDED, CHECKED FOR EVERY SERIES BELOW." },
 };
 export const sharesLine = (f: Facts, ba: "CISO" | "ERCO") => `SOLAR ${fixed(f.bas[ba].solar_share_pct as number, 1)}% · WIND ${fixed(f.bas[ba].wind_share_pct as number, 1)}% · GAS ${fixed(f.bas[ba].gas_share_pct as number, 1)}%`;
 export function heatCopy(w: WeatherRelation, ba: "CISO" | "ERCO") {
@@ -342,7 +342,7 @@ export const wiresCaption = "IEEE 14-BUS TEST SYSTEM · pglib-opf v23.07 · CC B
 export const answerCosts = "NO. THEY ARE STATED ASSUMPTIONS. CHANGE THEM AND THE ANSWER CHANGES.";
 export const answerSolve = (p: ParityReport | null) => (p ? `YES. SAME LP, SAME SOLVER. ${p.passed} OF ${p.n} TEST VECTORS MATCH THE PYTHON RESULT ON THIS BUILD.` : "SAME LP, SAME SOLVER. THE PARITY CHECK RUNS WHEN THE SOLVER LOADS (FROM THE FORECAST CHAPTER ON).");
 export const answerLp = (refObj: number, cost: number) => `REFERENCE LP (CISO SUMMER, BASELINE): SOLVER OBJECTIVE ${usd(refObj)} = PUBLISHED MODEL COST ${usd(cost)} ${Math.abs(refObj - cost) <= 1e-6 * Math.abs(cost) ? "✓" : "✗"}`;
-export const answerRows = (f: Facts) => { const g = f.global as Record<string, number>; return `${int(g.raw_rows_total!)} ROWS IN, ${int(g.kept_rows_total!)} KEPT, ${int(g.flagged_rows_total!)} FLAGGED. EVERY ONE COUNTED.`; };
+export const answerRows = (f: Facts) => { const g = f.global as Record<string, number>; return `${int(g.raw_rows_total!)} ROWS IN, ${int(g.kept_rows_total!)} KEPT, ${int(g.flagged_rows_total!)} FLAGGED. RAW = KEPT + EXCLUDED IS CHECKED PER SERIES IN THE LEDGER.`; };
 export const fmtAssumption = (v: unknown) => (typeof v === "number" ? fixed(v, Number.isInteger(v) ? 0 : 2) : typeof v === "string" ? v.toUpperCase() : Object.entries(v as Record<string, number>).map(([k, x]) => `${k.toUpperCase()} ${x}`).join(" · "));
 
 // ---------------------------------------------------------------- S08
