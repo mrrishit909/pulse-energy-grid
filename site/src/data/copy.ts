@@ -250,3 +250,26 @@ export function calendarCaption(fs: ForecastSamples, ba: "CISO" | "ERCO") {
   d.mape_gbm.forEach((g, i) => { const e = d.mape_eia[i]; if (g === null || e === null || e === undefined) return; n++; if (g < e) k++; });
   return { k, n, text: `OURS LOWER ON ${k} OF ${n} TEST DAYS` };
 }
+
+// ---------------------------------------------------------------- S03b The Bite
+export const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+export const copyS03b = {
+  demand: "Every month draws a different day.",
+  net: "The sun takes a bite out of noon.",
+  mix: "IMPORTS AND BALANCE = MEAN DEMAND − MEAN GENERATION (DERIVED). IN YEAR STEPS THE OTHER SOURCES KEEP THEIR ALL-YEARS MIX, SCALED TO THAT YEAR'S NET LOAD.",
+  noYears: "PER-YEAR PROFILES NOT PUBLISHED",
+};
+/** The bite ledger from a mean day's net load (24 values): midday (10-15h) minimum, evening (16-23h) maximum, the ramp between. */
+export function biteLedger(net: number[]) {
+  let mi = 10, ma = 16;
+  for (let h = 10; h <= 15; h++) if (net[h]! < net[mi]!) mi = h;
+  for (let h = 16; h <= 23; h++) if (net[h]! > net[ma]!) ma = h;
+  return {
+    min: `MIDDAY NET LOAD MIN ${int(net[mi]!)} MW AT ${hh(mi)}`,
+    max: `EVENING NET LOAD MAX ${int(net[ma]!)} MW AT ${hh(ma)}`,
+    ramp: `RAMP ${int(net[ma]! - net[mi]!)} MW IN ${ma - mi} H`,
+    minMw: net[mi]!, minH: mi,
+  };
+}
+export const yearCaption = (year: string, mon: number, mw: number, partial: boolean) =>
+  `${year}: MIDDAY NET LOAD FELL TO ${int(mw)} MW IN ${MONTHS[mon - 1]} (MEAN DAY).${partial ? " PARTIAL YEAR." : ""}`;

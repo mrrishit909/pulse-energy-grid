@@ -42,4 +42,14 @@ export const s04Section = {
     await page.evaluate(() => window.__peg.setForecast({ ba: "ERCO", week: 2, interval: "raw", hover: null, mDay: 3 })); await wait(page, 1500); await shot("s04-5-erco-raw");
   },
 };
-export default { ...base, ...ctrlSection, ...s04Section };
+export const s03bSection = {
+  async s03b(page, shot, { jump, wait }) {
+    await page.waitForFunction(() => window.__peg && true);
+    await jump(page, "netload", 0.2); await page.waitForFunction(() => window.__peg.debug().scene === "netload"); await wait(page, 1500); await shot("s03b-1-demand-apr");
+    await jump(page, "netload", 0.6); await wait(page, 1200); await shot("s03b-2-netload-bite-month-all-years");
+    await jump(page, "netload", 0.64); await wait(page, 1200); await shot("s03b-3-netload-2021");
+    await jump(page, "netload", 0.95); await wait(page, 1200); await shot("s03b-4-netload-2025");
+    await page.evaluate(() => window.__peg.setBite({ ba: "ERCO" })); await wait(page, 1200); await shot("s03b-5-erco-2025");
+  },
+};
+export default { ...base, ...ctrlSection, ...s04Section, ...s03bSection };
