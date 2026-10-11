@@ -113,7 +113,7 @@ export function S03aCity({ def }: { def: SceneDef }) {
               <HonestyChip tag="DERIVED" detail={copyS03a.windowChip.replace("EIA-930 · DERIVED: ", "")} />
               <HonestyChip tag="OBSERVED" detail={`TEMPERATURE · ${copyS03a.tempChip}`} />
             </div>
-            <p className="city-note">{copyS03a.note} {copyS03a.scale}</p>
+            <p className="city-note">{copyS03a.note}<span className="city-note__scale"> {copyS03a.scale}</span></p>
             {motion ? (
               <>
                 <RoseHit scene="demand" box={{ cx: L.G2.cx, cy: L.G2.cy, r: L.G2.fit + 12 }} onHour={(h) => jumpTo(def.id, hourP(h))}

@@ -553,3 +553,8 @@ html[data-motion="off"] .scene-closing .stage { height: 100dvh; min-height: 0; o
 .story-card--blue .chip, .note--blue .chip { --tag: #ffffff; } /* tag colours fail AA on #192CE4: the chip keeps its tag-shape mark, text goes white */
 html[data-motion="off"] .ev-x.is-old, html[data-motion="off"] .ev-x.is-old .ev-ans { display: flex !important; }
 @media (min-width: 768px) { .stress-list { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; } }
+@media (max-width: 767px) {
+  .city-note__scale { display: none; }
+  .fill-ledger-open { min-height: 0; padding: 4px 0; margin-top: 2px; font-size: 11px; }
+  .fill-ledger { top: 540px; }
+}

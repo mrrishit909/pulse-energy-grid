@@ -215,3 +215,23 @@
 390x844/rm-7-ctrl.png
 390x844/rm-8-s08.png
 390x844 reduced external requests: none
+390x844/fix1-s00-t2600.png
+390x844/fix1-s00-t3500.png
+390x844/fix2-s03a-h12.png
+390x844/fix2-s03a-h19.png
+390x844/fix2-s03a-h19-erco-summer.png
+390x844/fix4-s05-default.png
+390x844 labels at S05: [[0,168,517],[6,49,345],[12,209,206],[18,356,385]]
+390x844 fixes external requests: none
+390x844/fix1-s00-t2600.png
+390x844/fix1-s00-t3500.png
+390x844/fix2-s03a-h12.png
+390x844/fix2-s03a-h19.png
+390x844/fix2-s03a-h19-erco-summer.png
+390x844/fix4-s05-default.png
+390x844 labels at S05: [[0,168,517],[6,49,345],[12,209,206],[18,356,385]]
+390x844 fixes external requests: none
+390x844/s01-1-p20-rose-to-g1.png
+390x844/s01-2-p55-statement.png
+390x844/s01-3-p90-cards.png
+390x844 s01 external requests: none

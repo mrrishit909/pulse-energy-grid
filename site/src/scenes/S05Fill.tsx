@@ -138,7 +138,7 @@ export function S05Fill({ def }: { def: SceneDef }) {
                     {isM ? <p className="readout-line tnum">MODEL BATTERY SHIFTED {int(r.battery.discharge_mw.reduce((a, b) => a + b, 0))} MWH</p> : null}
                     {isM ? (
                       <>
-                        <button type="button" className="btn-square fill-ledger-open" onClick={() => setSheet(true)}>FULL LEDGER</button>
+                        <button type="button" className="text-btn fill-ledger-open" onClick={() => setSheet(true)}>FULL LEDGER</button>
                         <Sheet open={sheet} onClose={() => setSheet(false)} title="Dispatch ledger" returnFocus={() => document.querySelector<HTMLElement>(".fill-ledger-open")}>
                           <ul className="ledger ledger--sheet" aria-label="Dispatch ledger, centre outward">
                             {ledger.map((row) => { const l = ledgerLine(row); return <li key={row.key} className="is-in"><span className="ledger__label">{row.label}</span><span className="tnum">{l.mwh}</span><span className="tnum">{l.cost}</span></li>; })}
