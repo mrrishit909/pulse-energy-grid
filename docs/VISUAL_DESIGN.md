@@ -35,6 +35,7 @@ These are inputs to the design. The design does not choose them.
 - **Contracts.** `docs/DATA_CONTRACTS.md` plus 13 schemas in `data/contracts/` (commit `17897cc`, "Contracts: ..."). Section 6 binds every placeholder to those field names. Anything missing is a numbered data request (DR-n).
 - **Sketches** (original, rendered from three OBSERVED EIA-930 days): `design/sketches/rose-s00-d.svg/.png` (S00 end state), `design/sketches/city-s03a-d.svg/.png` (S03a), and `design/sketches/distinctness-sheet.png` (P01 real frame, P02 S00 sketch, and two P04 sketches side by side). The generator is `design/sketches/render_rose_sketch.py`.
   - The first sketch stacked nuclear and hydro at the centre and read as **concentric rings**. That was rejected and fixed by the true merit order (zero-cost solar and wind at the centre), which makes every band boundary swing with the sun.
+  - **Amendment CD-002 (orchestrator, 2026-10-10).** The approved sketches still read as a flat polar-area chart on a wheel: drawn-looking spokes, flat saturated fills, hard band edges. They were re-rendered with luminous gradient bands from the shared orb families, a soft rim glow, a screen-blended silhouette bloom, dim ember and grey fossil bands, and petal gaps that taper to zero toward the core (no spokes, no hub). The current sketches and `distinctness-sheet.png` reflect the amendment.
 - **What we take from the reference** (principles only, never assets or copy):
   - black stages lit by one luminous form
   - oversized serif statements revealed word by word through blur
@@ -58,56 +59,71 @@ The giant circular element is **the Day Rose**: one day of a real grid as 24 fil
 | **Sky orientation** | **Noon at the top**, dawn on the left, dusk on the right and midnight at the bottom. This is the sun's path as seen facing south, so the solar lobe always sits in the upper half. It is not a clock face: there is no "12 o'clock means midnight" ambiguity, and no hand |
 | **Area is energy** | The cumulative radius is `r(c) = R100 × sqrt(c / 100,000 MW)`, where `R100` is the radius of a 100,000 MW hour in the active geometry state. Band area is therefore proportional to MW, as in Nightingale's polar area diagram. **Radius is never linear in MW.** Data tweens interpolate `r²` (area), never `r` |
 | Band order (centre outward) | **Merit order.** OBSERVED roses: `SUN, WND, NUC, WAT, IMPORTS (−TI where TI < 0), OTH (positive part), NG, COL, OIL`. SIMULATED roses: `dispatch_model.bas[ba].display_order` (DR-5): renewables used, fixed inflows, hydro, nuclear, battery discharge, then dispatchable classes by `marginal_cost_usd_mwh`. The order is fixed per BA, never per hour, so every band is keyed by class across hours |
-| Demand line | A 1px white arc at `r(demand)` across each petal, over a 2px black underlay |
-| **Sink cap** (S > D) | Supply that did not serve load goes **beyond** the demand line, hatched (45°, 1.5px lines at a 6px pitch): `#9B5CFF` for battery charging and negative OTH ("storage charging and station use, as reported"), `#9A9A9A` for exports (TI > 0). The order outward is charging, then exports |
-| **Residual** (OBSERVED, D > S) | The gap `r(S)..r(D)` is a 1px dotted white outline with no fill. The inspector calls it `BALANCE RESIDUAL (AS REPORTED)`, and its size comes from `reconciliation.json` |
+| **Band light** (amendment CD-002) | Every band is a **luminous radial gradient**, never a flat swatch. It runs from its family's darker stop at the band's inner edge to its brighter stop at the outer edge, so each band brightens outward and every band boundary is a dark-to-bright luminance step. Stops: section "Colour semantics" |
+| **Rim glow** | The outermost band of each petal carries a soft inner glow: white from 0% at 22px (D; 14px T, 10px M) inside the tip to 32% at the tip. This is the "light at the edge of the day" and the target of the rim beat. **There is no stroke** |
+| Demand line | Drawn **only where it separates something**: a 1px white arc at `r(demand)` in petals with a sink cap or a residual. Elsewhere the petal tip *is* demand, and no line is drawn |
+| **Sink cap** (S > D) | Supply that did not serve load goes **beyond** the demand line, hatched (45°, 1.5px lines at a 6px pitch, 80%): `#9B5CFF` for battery charging and negative OTH ("storage charging and station use, as reported"), `#9A9A9A` for exports (TI > 0). The order outward is charging, then exports |
+| **Residual** (OBSERVED, D > S) | The gap `r(S)..r(D)` is a 1px dotted white outline at 50% (1/3 dash) with no fill. The inspector calls it `BALANCE RESIDUAL (AS REPORTED)`, and its size comes from `reconciliation.json` |
 | **Unserved** (SIMULATED) | `r(served)..r(demand)` gets a white 45° hatch on black with a 1px `#FF6A4D` (`--state-error`) outline |
 | **Curtailment** (SIMULATED) | A 1px dotted `#8FD9FF` outline from the petal tip out to `r(tip + curtailed)`, with no fill: energy that was available and thrown away |
-| Spokes | Constant-width black gaps, built from parallel edges rather than radial ones: D 3px at G0 and 2px elsewhere, T 3/2px, M 2/1.5px |
-| Seams | A 1px black seam at every band boundary (0.5px on M). Adjacent hues are always separated, so colour is never the only cue |
-| Selected hour | The petal translates outward by `0.025 × R100` along its bisector and gets a 1px white outline. Nothing else moves |
+| **Petal separation** (no spokes) | A black **gap**, never a drawn line, whose half-width **tapers with radius**: 0 inside 45% of the day's peak-tip radius, rising (smoothstep) to full width at 80%. Full width is 1.5px at G0 and 1px elsewhere (M 1px and 0.75px). Where the gap is 0, neighbouring petals overlap by 0.2px so no anti-aliasing seam appears. The core is therefore one continuous luminous form, and petals separate only toward their tips, where their radii already differ. **No line converges on the centre and there is no hub** |
+| Band boundaries | No seams. Boundaries read through the luminance step of the gradients (dark inner stop against the bright outer stop of the band inside it) |
+| Selected hour | The petal translates outward by `0.025 × R100` along its bisector, brightens by 12%, and gets a 1px white 70% outline. Nothing else moves |
 | Hour labels | Only `00 06 12 18`, in mono 11px (M) to 13px (D), placed 16px beyond **that petal's own tip**. They follow the data and never sit on a fixed circle |
 | Scale key | A free-standing wedge glyph beside the readout, drawn at the active `R100`: `THIS WEDGE = 10,000 MW FOR ONE HOUR` |
-| **Never** | Never an outer circle, concentric gridlines, a tick ring, nodes or markers on any circumference, chords, rotation, a stepped angle, a sweep hand or any angular (clockwise) fill. **Fills are radial: band by band, all 24 petals at once** |
+| **Never** | Never spoke lines or a hub, an outer circle, concentric gridlines or axis rings, a tick ring, nodes or markers on any circumference, chords, rotation, a stepped angle, a sweep hand, flat swatch fills, or any angular (clockwise) fill. **Fills are radial: band by band, all 24 petals at once** |
 
 ### Colour semantics (project 04 rule set)
 
-Roles. **Deep blue `#192CE4` is the control system:** operator surfaces, filled only. **Orange-red `#FF4C25` is energy being burned at the margin.** This differs from P02, where blue *is* the data mass (a gradient of liquidity) and orange falls as droplets. In P04, blue never appears as a gradient, never as a data area and never as a moving mark, and orange never falls.
+Roles (amended CD-002). **The rose is the one luminous form**, and its light comes from the shared orb gradient families:
+- **Solar** carries solar warmth, and its deep end (darkened) carries thermal fuels as dim embers.
+- **Electric** carries wind, hydro, nuclear and imports. Battery uses Electric's violet end.
+- **Spectral** is reserved for price.
+- **Deep blue `#192CE4`** remains the control system: operator surfaces, filled only. It appears inside the rose only as the *dark inner stop* of hydro and imports, never as a flat area or line.
+- **Orange-red `#FF4C25`** is energy in motion: the re-solve pulse glow, the argument answer cards and the SIMULATED chip.
 
-| Role | Value | Contrast on `#000` | Rule |
+This differs from P02, where blue *is* the data mass and orange falls as droplets. In P04 the bright core is solar and white-blue, the fossil rim is dim, and orange never falls.
+
+**Fuel tokens** (P04 data tokens, each derived from a shared orb stop; no other hues). The **outer stop of every band is at least 3:1 on black** (WCAG 1.4.11). Inner stops are falloff toward the core and carry no meaning on their own.
+
+| Band | Token | Inner stop → outer stop (source) | Outer contrast on `#000` | Notes |
+|---|---|---|---|---|
+| Solar | `--fuel-solar` | `#FFC23D` → `#FFF3A6` (`--orb-solar` stops 2 and 1) | 18.6 | The brightest band. Windows lit use `#FFF3A6` too |
+| Wind | `--fuel-wind` | `#58B8E1` → `#8FD9FF` (`--orb-electric` 2 → 1) | 13.5 | |
+| Nuclear | `--fuel-nuclear` | `#8FD9FF` → `#F2FBFF` (`--orb-electric` stop 1 → its luminous centre, white-shifted) | 20.0 | |
+| Hydro | `--fuel-hydro` | `#192CE4` → `#58B8E1` (`--orb-electric` 3 → 2) | 9.4 | |
+| Imports (fixed inflow) | `--fuel-imports` | `#192CE4` → `#5B6BFF` (`--orb-electric` 3 → 3 lightened; equals `--grid-line`) | 5.0 | Not generated in the BA |
+| Battery discharge | `--fuel-battery` | `#3A0AA8` → `#9B5CFF` (`--orb-electric` 4 → `--accent-purple` lightened) | 5.4 | The charging hatch uses `#9B5CFF`. It is not the SYNTHETIC tag colour (`#B48CFF`) |
+| Other (OTH, fixed other) | `--fuel-other` | `#2E2E2E` → `#9A9A9A` (neutral) | 7.5 | Grey, mid luminance |
+| Gas (observed NG; SIMULATED combined-cycle) | `--fuel-gas` | `#3A0F06` → `#B8361A` (`--orb-solar` stop 4 `#FF4C25`, darkened) | 3.6 | **Dim ember**: low luminance, so the clean core reads first |
+| Gas peaker (SIMULATED) | `--fuel-peaker` | `#3A0F06` → `#D9481F` (`#FF4C25` darkened 15%) | 4.9 | The hottest ember, still dimmer than every clean band |
+| Coal | `--fuel-coal` | `#1E1E1E` → `#5A5A5A` (neutral) | 3.0 | Dim grey |
+| Oil | `--fuel-oil` | as coal, plus a 2px black 45° hatch | 3.0 | |
+
+| Other role | Value | Contrast on `#000` | Rule |
 |---|---|---|---|
-| Solar | `#FFC23D` | 13.0 | Band and window colour family |
-| Wind | `#8FD9FF` | 13.5 | |
-| Nuclear | `#F2F2F2` | 18.8 | |
-| Hydro | `#58B8E1` | 9.4 | |
-| Imports (fixed inflow) | `#9A9A9A` | 7.5 | Not generated in the BA |
-| Other (OTH, fixed other) | `#5A5A5A` | 3.0 | Passes 3:1 for graphics; the seam separates it |
-| Battery discharge / charging hatch | `#9B5CFF` | 5.4 | It is not the SYNTHETIC tag colour (`#B48CFF`), and is never used for text |
-| Gas, observed (NG) and gas peaker class | `#FF4C25` | 6.3 | The "energy" colour |
-| Gas combined-cycle class | `#FF7A1F` | 8.1 | SIMULATED classes only |
-| Coal | `#B8361A` | 3.6 | |
-| Oil | `#B8361A` plus a 2px black 45° hatch | 3.6 | |
-| **Deep blue (fill only)** | `#192CE4` | 2.5 | Active parameter blocks (white text, 8.3:1), notification card 2, the blue story card, and bus squares in S07. **Never** a line, text, gradient or data band |
-| Network lines (P04 token `--grid-line`) | `#5B6BFF` | 5.0 | The only blue line colour. It is used solely for the illustrative 14-bus branches (S07) |
+| **Deep blue (fill only)** | `#192CE4` | 2.5 | Active parameter blocks (white text, 8.3:1), notification card 2, the blue story card, bus squares in S07, and the dark inner stop of hydro and imports. **Never** a line, text or flat data area |
+| Network lines (`--grid-line`) | `#5B6BFF` | 5.0 | The only blue line colour, used solely for the illustrative 14-bus branches (S07) |
+| Energy pulse | `#FF4C25` | 6.3 | The re-solve pulse glow and the Wires branch flash only. Never a band |
 | Window lit / unlit | `#FFF3A6` / `#1A1A1A` | 18.6 / n/a | S03a only |
 | PREDICTED | `#8FA2FF` (`--tag-predicted`, 8.8) | | See the uncertainty grammar |
 | Text | `#fff`, and `rgba(255,255,255,.5)` at 13px and up | | Data colours are never used for body text |
 
-**PRICE layer** (S06, CTRL): petals switch from the class stack to one fill per petal, binned by the SIMULATED shadow price `price_usd_mwh`. Luminance rises with price ("the day burns brighter where power is dear"). The bins (USD/MWh) are:
+**PRICE layer** (S06, CTRL, the **Spectral** family only): petals switch from the class stack to one fill per petal, binned by the SIMULATED shadow price `price_usd_mwh`. Each fill is a gradient from the bin colour at 35% brightness (inner) to the bin colour (outer), with the same rim glow. Luminance rises with price ("the day burns brighter where power is dear"). The bins (USD/MWh) are:
 
-| Bin | Range | Colour |
-|---|---|---|
-| P0 | 0 or below (surplus, curtailing) | `#8FD9FF` |
-| P1 | above 0 to 25 | `#5A5A5A` |
-| P2 | 25 to 50 | `#B8361A` |
-| P3 | 50 to 100 | `#FF4C25` |
-| P4 | 100 to 500 | `#FF7A1F` |
-| P5 | 500 to below VOLL | `#FFC23D` |
-| P6 | VOLL (`voll_usd_mwh`, unserved) | `#FFF3A6` plus the unserved hatch |
+| Bin | Range | Outer stop (source) | Contrast |
+|---|---|---|---|
+| P0 | 0 or below (surplus, curtailing) | no fill; 1px dotted `#FFB26B` tip outline | 11.8 |
+| P1 | above 0 to 25 | `#C21FD6` (`--orb-spectral` stop 4) | 4.5 |
+| P2 | 25 to 50 | `#FF2F7A` (stop 3) | 5.9 |
+| P3 | 50 to 100 | `#FF6A2B` (stop 2) | 7.4 |
+| P4 | 100 to 500 | `#FFB26B` (stop 1) | 11.8 |
+| P5 | 500 to below VOLL | `#FFD9B5` (stop 1 white-shifted) | 15 or more |
+| P6 | VOLL (`voll_usd_mwh`, unserved) | `#FFFFFF` plus the unserved hatch | 21 |
 
 The legend is a direct 7-swatch mono strip with its edges written under it.
 
-**Colour vision.** Bands are separated by black seams and spokes. The stack order is fixed, so position also encodes class, and the direct legend lists the stack centre-first beside the rose with MW values. Blue versus yellow (wind versus solar) survives protan and deutan vision. Tritan risk (wind versus nuclear) is covered by the seam and the order.
+**Colour vision.** Bands are separated by luminance steps (each band starts dark at its inner edge). The stack order is fixed, so position also encodes class, and the direct legend lists the stack centre-first beside the rose with MW values. Blue versus yellow (wind versus solar) survives protan and deutan vision. Tritan risk (wind versus nuclear) is covered by the luminance step and the order.
 
 ### Uncertainty and honesty grammar
 
@@ -168,7 +184,7 @@ Excluded after checking (not cited):
 | 14 | Data Viz Catalogue, "Nightingale Rose Chart", https://datavizcatalogue.com/methods/nightingale_rose_chart.html | C ("Nightingale Rose Chart - Learn about this chart and tools") | Polar area chart: equal angles, radius by value | n/a | Names the form and its known pitfall: area must be proportional, so the radius goes as the square root | `r = R100 × sqrt(MW / 100,000)` everywhere, and tweens in `r²` | Ours is stacked in merit order, sky-oriented, giant and cropped, and fills radially as the LP solves |
 | 15 | Wikipedia, "Florence Nightingale", https://en.wikipedia.org/wiki/Florence_Nightingale | C ("Florence Nightingale - Wikipedia") | Origin of the polar area diagram (1858) | n/a | A 19th-century persuasive radial form: a precedent for an argued, not decorative, rose | The rose argues one thing per scene (the bite, the rim thinning, the stress) | A day, not a year of months |
 | 16 | D3, "Radial areas", https://d3js.org/d3-shape/radial-area | C ("Radial areas \| D3 by Observable") | Radial area generator (angle, inner and outer radius) | n/a | The geometry API family for annular bands | We use our own Canvas2D annular-sector path with constant-width spokes (3.2). `d3-shape` is not needed for the rose | n/a |
-| 17 | D3, "Arcs", https://d3js.org/d3-shape/arc | C ("Arcs \| D3 by Observable") | Annular sectors with `padAngle` and `padRadius` | n/a | `padRadius` gives constant-width gaps, which is the spoke rule | Our spoke rule mirrors `padRadius` semantics, with a Vitest geometry check | n/a |
+| 17 | D3, "Arcs", https://d3js.org/d3-shape/arc | C ("Arcs \| D3 by Observable") | Annular sectors with `padAngle` and `padRadius` | n/a | `padRadius` gives constant-width gaps | **Not adopted as-is:** constant gaps read as spokes converging on a hub (CD-002). Our gap tapers to zero toward the core | n/a |
 | 18 | Chart.js, "Polar Area Chart", https://www.chartjs.org/docs/latest/charts/polar.html | C ("Polar Area Chart \| Chart.js") | A library polar area chart with gridline circles and a legend box | Default grow-in | **Anti-reference.** It is exactly what the rose must never look like: concentric gridlines, angle lines, a floating legend, a radius-linear scale | Rejection criteria 1 to 3 | No gridlines, no legend box, area-true, giant and cropped |
 | 19 | NASA Earth Observatory, "Night Lights", https://earthobservatory.nasa.gov/features/NightLights | C ("Earth Observatory - NASA Science") | Cities read as light at night | Static imagery | The emotional image behind "a dark city lighting up" | The S03a window city: warm windows on black | **No geography.** Our city is a unit chart of real MW, and buildings are groups of windows, not places |
 | 20 | Wikipedia, "Merit order", https://en.wikipedia.org/wiki/Merit_order | C ("Merit order - Wikipedia") | Dispatch in ascending marginal cost | n/a | The economic rule behind the stack order | The band order (centre = cheapest), and the rim = the price-setting unit | The merit order becomes geometry: the rim is where cost lives |
@@ -217,12 +233,12 @@ What differs is the metaphor, the giant circular composition, the scene composit
   - the **window city**, a unit chart where 1 window = 100 MW of observed demand
   - the **unrolled week**, the forecast lab, where the rose opens at midnight into a line
 - **Accent use.**
-  - The rose's light is the fuels themselves: solar yellow, wind and hydro blues, nuclear white, gas orange-red.
+  - The rose's light is the fuels themselves, as luminous gradients from the shared families: a Solar core by day, Electric blues and white for wind, nuclear and hydro, and dim embers and greys for fossil fuels at the rim.
   - Deep blue `#192CE4` is the control system, used as filled operator surfaces.
-  - Orange-red is energy at the margin: gas, the rim pulse after each solve, and the high price bins.
+  - Orange-red is energy in motion: the re-solve pulse glow and the argument cards. Price uses the Spectral family.
 - **Layout.** Asymmetric editorial: statements on a left measure, the rose centre-right. In S00 and S08 the rose is giant, centred and cropped. In S03a it sits over a skyline across the bottom of the frame. In CTRL, a control rail runs on the right.
 - **3D/2D strategy.** **Canvas2D only**: about 24 x 12 annular sectors, 960 windows and one 168-point line. There is no WebGL and no three.js. The illustrative 14-bus card is SVG. HiGHS-wasm runs in a worker.
-- **Hero concept.** Black. A giant rose outline (one real CISO spring day, OBSERVED) appears at full, cropped size, and its bands **fill radially in merit order**: sun, wind, nuclear, hydro, imports, other, gas. The top half becomes a solar fan, and the night side burns at the rim. "The invisible machine that powers everything."
+- **Hero concept.** Black. A faint giant silhouette of the rose (one real CISO spring day, OBSERVED) appears at full, cropped size, and its bands **fill radially in merit order**: sun, wind, nuclear, hydro, imports, other, gas. The top half becomes a luminous solar fan, and the night side glows as dim embers at the rim. "The invisible machine that powers everything."
 - **Nav labels.** PULSE · SOURCE · DEMAND · NET LOAD · FORECAST · DISPATCH · STRESS · EVIDENCE · CONTROL ROOM
 - **Motion character.**
   - Radial filling: never sweeping, never rotating.
@@ -271,10 +287,10 @@ What differs is the metaphor, the giant circular composition, the scene composit
 
 **Why A gets 5 for distinctness.** Here is A checked against every owner, and against the evidence sheet `design/sketches/distinctness-sheet.png`:
 
-1. **Not P01.** P01 is hairline strokes at constant radius with nodes and chords. The rose is hard-edged *filled* wedges whose outline changes radius every 15 degrees with the data. It has no circumference marks, no chords and no rotation. The time cursor is a lifted petal, not a dial step. P01's pulses travel along lines; ours is a radial rim beat inside wedges, plus (S07 only) whole branch segments energizing, never moving dots.
+1. **Not P01.** P01 is hairline strokes at constant radius with nodes and chords. The rose is a filled, luminous form whose silhouette changes radius every 15 degrees with the data, with no drawn lines at all. It has no circumference marks, no chords and no rotation. The time cursor is a lifted petal, not a dial step. P01's pulses travel along lines; ours is a radial rim beat inside wedges, plus (S07 only) whole branch segments energizing, never moving dots.
 2. **Not P02.** P02 is a smooth blue-violet gradient glow that shrinks to a point. The rose is never smooth, never a gradient, never blue-dominant and never smaller than its giant crop in S00 or S08 (it never contracts to or grows from a point). Our blue is flat control surfaces, not data mass, and our orange never falls.
 3. **Not P03.** P03 is a sphere of square cells with a limb. The rose is flat and radial with no sphere, cells, limb or camera push. The window city is a rectilinear facade elevation, not a globe or a map.
-4. **Planned owners.** No concentric rings (P08, P09): band boundaries swing with solar every hour, and seams and spokes break any annulus. No sweep (P06): fills are radial, all petals at once. No dot field (P05), no limb arc (P07), no central branching orb (P10).
+4. **Planned owners.** No concentric rings (P08, P09): band boundaries swing with solar every hour, so no annulus forms. No sweep (P06): fills are radial, all petals at once. No dot field (P05), no limb arc (P07), no central branching orb (P10).
 
 **Why A gets 4, not 5, for mobile.** The giant rose at M (r_peak 530px) is cropped on all four sides, so the solar fan and the night rim are both visible but the hour labels are not. The M S00 relies on the scrim headline and the corner label. That is solvable (3.3), but it is the main M risk.
 
@@ -319,8 +335,8 @@ The total is about 2,300vh. If the QA scroll recording shows fatigue, cut S04 to
 - **Nav:** a bottom bar 12px from the bottom on D. On T/M, a 160x32 MENU pill at the bottom centre, plus SKIP INTRO / REPLAY at the bottom right.
 - **Safe zone:** nothing interactive within 64px of the bottom on D, or 72px on T/M.
 - **One Canvas2D layer** (fixed, viewport-sized, DPR-capped) draws the rose, the skyline and the unrolled week from parameters (centre, `R100`, unroll t, skyline rect). The DOM holds all text and controls. The S07 network is SVG inside its card.
-- **Rose path.** Each band of each petal is one annular-sector path. Spokes are constant-width gaps: the edges are offset in parallel, as in d3's `padRadius` semantics. A Vitest check measures the gap at r = 40 and at r = 600 within 0.25px.
-- **Bloom** (S00 and S08 only): an offscreen copy of the rose at quarter resolution, blurred 36px, drawn at 18% under the rose. It follows the petal silhouette, so it never reads as a disc.
+- **Rose path.** Each band of each petal is one annular-sector path filled with a radial gradient (`createRadialGradient` at the rose centre, stops at `r_in/r_out` and 1, cached per state). Petal gaps taper with radius (section 0). A Vitest check asserts gap 0 at 0.4 × the peak-tip radius and the full width at 0.9 ×, within 0.1px, and that the renderer never strokes a radial segment.
+- **Bloom:** an offscreen copy of the rose at quarter resolution, blurred 36px, composited with `screen` over the rose: 35% in S00 and S08, 15% in other scenes, 0 in S07. It follows the petal silhouette, so it never reads as a disc, and it makes the rose the frame's light source.
 
 ### 3.3 Geometry states (exact)
 
@@ -345,7 +361,7 @@ Each scene lists: track, compositions (D/T/M), data, insight, honesty tags, inte
 
 **Shared state UI** (every data-backed scene):
 
-- **Initial:** the rose's demand outline (OBSERVED, white 1px, at 50%) if `demand_profile` or `dispatch_model` is loaded; otherwise nothing but the headline. Headings are sharp.
+- **Initial:** the rose's demand **silhouette** (OBSERVED, white 6% fill, tapered gaps, no lines) if `demand_profile` or `dispatch_model` is loaded; otherwise nothing but the headline. Headings are sharp.
 - **Loading:** the mono line `LOADING DISPATCH_MODEL · 42%`. The percentage is real (bytes read / Content-Length). With no length it reads `LOADING DISPATCH_MODEL` with no %.
 - **Error:** `COULD NOT LOAD DISPATCH_RESULTS (HTTP 404)` plus a `RETRY` square button that re-runs the same fetch. Schema-guard failure reads `DISPATCH_RESULTS FAILED ITS CHECKS`, also with RETRY.
 - **Empty:** scene-specific copy (below), never a blank canvas.
@@ -359,7 +375,7 @@ There are no spinners and no artificial delays.
 
 - **Composition.** Pure black. Timeline in MOTION_SYSTEM 5.1:
   1. The corner labels appear.
-  2. The giant rose **outline** fades in at full G0 size.
+  2. The giant rose **silhouette** (white 6% fill, no lines) fades in at full G0 size.
   3. Bands fill radially in merit order, all 24 petals at once.
   4. The rim beats once.
   5. The headline sharpens, and the nav enters.
@@ -478,7 +494,7 @@ There are no spinners and no artificial delays.
 - **Stepped note** (p 0.80, at about 19:00): a 13px line, `TYPICAL EVENING RAMP IN {{ba}}: {{fuel_mix.bas[ba].evening_ramp.mean_mw_per_h}} MW PER HOUR ({{evening_ramp.definition}}).` Tagged DERIVED.
 - **Transition to S03b.** p 0.94-1: the skyline sinks below the frame, and the rose moves G2 to G3 while morphing from this day to the month-hour mean day of the same month (a 600ms data transition when crossing 0.95).
 - **States.**
-  - **Empty:** if DR-1 is missing, the petals are demand outlines only, with the note `FUEL BREAKDOWN NOT PUBLISHED FOR THIS DAY` (the city still works).
+  - **Empty:** if DR-1 is missing, the petals are demand silhouettes only (white 12% fill plus the rim glow), with the note `FUEL BREAKDOWN NOT PUBLISHED FOR THIS DAY` (the city still works).
   - **Reset:** a `RESET` text button when GRID or DAY differ from the defaults (CISO, first day).
 
 #### S03b Mechanism II: the sun bites the day (250vh)
@@ -501,7 +517,7 @@ There are no spinners and no artificial delays.
 | p | What happens |
 |---|---|
 | 0.05-0.55 | Scrubbed **integer month**, January to December, of the month-hour mean day (all years). Petals change shape by 200ms crossfades between real months |
-| 0.55 | Stepped: LAYER switches to **NET LOAD**. Each petal's solar and wind bands slide out of the stack (600ms). The petal shrinks to `demand − solar − wind`, and the removed area stays as a dotted `#FFC23D` / `#8FD9FF` outline. **The rose is visibly bitten at the top** (noon) in spring months |
+| 0.55 | Stepped: LAYER switches to **NET LOAD**. Each petal's solar and wind bands slide out of the stack (600ms). The petal shrinks to `demand − solar − wind`, and the removed area stays as a dotted `#FFF3A6` / `#8FD9FF` outline. **The rose is visibly bitten at the top** (noon) in spring months |
 | 0.62-0.92 | Stepped **years**, 2021 to 2025 (5 states, hysteresis ±0.02), at the month of the deepest bite (`facts` DR-9, else April). The bite deepens. The ledger tweens |
 | 0.92-1 | Holds the latest year |
 
@@ -509,7 +525,7 @@ There are no spinners and no artificial delays.
 - **Insight.** Solar has eaten the middle of California's day. The evening ramp that follows is the problem storage exists to solve.
 - **Tags.** DERIVED (month-hour means of OBSERVED data). Net load is DERIVED.
 - **Interactions** (interaction 3): LAYER, GRID, YEAR (chips), MONTH (scroll, or Arrow Up/Down on the focused rose). All are visitor-set.
-- **Transition to S04.** p 0.96-1: the rose switches to the first day of the default test week (`forecast_samples.bas[ba].weeks[0]`, OBSERVED actual) as **hollow white petal outlines**, ready to unroll.
+- **Transition to S04.** p 0.96-1: the rose switches to the first day of the default test week (`forecast_samples.bas[ba].weeks[0]`, OBSERVED actual) as **white silhouettes** (12% fill plus the rim glow, no lines), ready to unroll.
 - **States.**
   - If DR-3 is missing, the YEAR row is `aria-disabled` with the tooltip `PER-YEAR PROFILES NOT PUBLISHED`, and the stepped-year phase holds the all-years mean (the copy changes to the all-years version).
   - **Reset:** returns to DEMAND, CISO, latest year.
@@ -561,7 +577,7 @@ There are no spinners and no artificial delays.
 
 | p | What happens |
 |---|---|
-| 0-0.08 | Hollow demand outline of the reference day (OBSERVED), chip OBSERVED |
+| 0-0.08 | The demand silhouette of the reference day (white 8% fill plus the rim glow, OBSERVED), chip OBSERVED |
 | 0.08-0.60 | **The fill** (scrubbed, symmetric). Classes enter **radially, in display order, all 24 petals at once**, each over an equal share of p. Each band grows from its inner radius to its outer radius in `r²`. Its ledger row fades in with its MWh tweening. The chip switches to SIMULATED when the first dispatched class appears. Charging caps and curtailment outlines appear with their class |
 | 0.60 | Stepped: **the rim beat.** Each petal's outermost dispatched band (the price-setting class, DR-4 `marginal_class`) brightens and settles once (600ms) |
 | 0.62-0.70 | Scrubbed: the SoC trace draws. Statement 2 replaces statement 1 |
@@ -573,9 +589,9 @@ There are no spinners and no artificial delays.
   - `dispatch_test_vectors` (the parity badge)
   - the worker solver (MOTION_SYSTEM 9.1)
 - **Insight.** The cheapest power goes in first, and the rim is what is left to burn. A battery moves midday sun into the evening and visibly **thins the rim**.
-- **Tags.** The outline is OBSERVED. Everything filled is SIMULATED (`MODEL` prefixes, the attached chip). Live results show `SOLVED IN BROWSER · HiGHS`, and presets show `PRECOMPUTED · PYTHON HiGHS`.
+- **Tags.** The silhouette is OBSERVED. Everything filled is SIMULATED (`MODEL` prefixes, the attached chip). Live results show `SOLVED IN BROWSER · HiGHS`, and presets show `PRECOMPUTED · PYTHON HiGHS`.
 - **Interactions** (interaction 6): the three sliders, DAY, GRID, and a petal click (the Hour Inspector).
-- **Transition to S06.** None in geometry (G4 = G5). The sliders reset to baseline (600ms data transition), and the baseline demand outline becomes the dashed ghost.
+- **Transition to S06.** None in geometry (G4 = G5). The sliders reset to baseline (600ms data transition), and the baseline demand tips become the dashed ghost.
 - **States.**
   - **Solver loading:** sliders are enabled but snap to **preset values only** (`baseline`, `battery_big`) using `dispatch_results`, with the line `LIVE SOLVER LOADING · {{pct}}%`.
   - **Solver error:** `LIVE SOLVER UNAVAILABLE: SHOWING PRECOMPUTED PYTHON RESULTS` plus RETRY.
@@ -733,7 +749,7 @@ There are eleven interactions. Six are driven by visitor-set analytical paramete
 - **State:** `intro: 'playing' | 'done'`, `t` in ms.
 - **Permitted values:** t 0..4600.
 - **Data:** DR-1 and DR-2 (the intro day), `facts`.
-- **Visual output:** the giant outline, then 6-9 bands filling radially, then the rim beat, scrim and headline.
+- **Visual output:** the giant silhouette, then 6-9 luminous bands filling radially, then the rim beat, scrim and headline.
 - **Keyboard:** Esc, or Enter on SKIP, finishes. Focus starts on SKIP INTRO.
 - **Mobile:** a tap on SKIP, or any touch-scroll, completes it in 350ms.
 - **Reduced motion:** the end state at once.
@@ -741,7 +757,7 @@ There are eleven interactions. Six are driven by visitor-set analytical paramete
 - **Test:**
   - SKIP is visible at 100ms, and the nav appears within 400ms of the click.
   - The LCP element is `h1[data-hero]`.
-  - A debug hook reports the peak petal radius at or above the G0 value from the first outline frame on, and never decreasing during S00.
+  - A debug hook reports the peak petal radius at or above the G0 value from the first silhouette frame on, and never decreasing during S00.
 
 ### 2. Window City (S03a) [P]
 
@@ -1008,3 +1024,5 @@ I fail the build on review if any of these is true:
 18. **A U+2014 or U+2015 dash appears** in the site copy.
 19. **The giant circular composition is missing or undersized:** a peak petal diameter under 1.2 x the frame height at the S00 end state or at S08 p 0.75 on any viewport, or the rose fully inside the frame on D.
 20. **The window city implies geography** (a map, street or district names, landmarks), or a window is not exactly 100 MW of OBSERVED demand.
+21. **Chart-library look (amendment CD-002).** If any rose frame could be mistaken for a charting-library polar area or radar chart (spokes, flat fills, axis rings), it fails. Specifically: any drawn radial line or a hub where lines converge, any band filled with a flat swatch instead of its gradient, any concentric axis or guide ring, or fossil bands brighter than the clean core.
+22. **Off-palette colour.** Any band, bin or glow colour that is not one of the fuel or price tokens in section 0 (each derived from a shared orb stop) fails.

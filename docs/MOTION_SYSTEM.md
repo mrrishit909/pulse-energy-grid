@@ -40,7 +40,7 @@ Every value here is binding for the frontend engineer. A deviation needs a writt
 4. **Data is shown only at integer states.** The displayed hour (S03a), month and year (S03b), week, day and scenario are always real values. A change is a crossfade or keyed tween between two real states. No fractional hour or month is held on screen.
 5. **Area is the tweened quantity.** Band edges interpolate in `r²` (energy), never `r`. A tween halfway between 20 GW and 40 GW shows 30 GW of area.
 6. **One luminous form at a time:**
-   - In S00 and S08 it is the giant rose (plus its silhouette bloom at 18%).
+   - In S00 and S08 it is the giant rose, lit by its own luminous gradient bands and a screen-blended silhouette bloom at 35%.
    - From S01 to CTRL it is the rose at its scene size. In S07 it dims to 15% behind the cards.
    - The window city is lit only in S03a, and the rose there is at full brightness: they are one composition, the day and its city.
 7. **Slow structure, quick data.** Camera moves (G-states) take 800-1200ms or are scrubbed. Data changes (re-solves, scenario steps, month crossfades) take 200-600ms.
@@ -59,7 +59,7 @@ Every value here is binding for the frontend engineer. A deviation needs a writt
 
 | Layer | Where it lives | Spec |
 |---|---|---|
-| 1. Intro | S00 The Bloom: the giant outline, radial merit-order fill, the rim beat, scrim, headline and nav | 5.1 |
+| 1. Intro | S00 The Bloom: the giant silhouette, radial merit-order fill of luminous bands, the rim beat, scrim, headline and nav | 5.1 |
 | 2. Navigation transitions | Bottom bar active block, MENU pill, chapter jumps with a stage fade, focus moves | 6 |
 | 3. Scroll storytelling | G-state moves, hour scrub and city lighting, month scrub and bite, the unroll, the fill, scenario steps, the echo | 4, 5.3-5.9, 5.13 |
 | 4. Component interaction | Sliders, segmented controls, the week crosshair, the inspector, bottom sheets, the CTRL rail | 5.12, 5.14 |
@@ -81,6 +81,7 @@ Each rule is checked in QA.
 | **One `requestAnimationFrame` loop** owns everything: Lenis, progress, tweens and the canvas draw | Grep finds one `requestAnimationFrame` call site (`src/motion/loop.ts`) |
 | **Integer display.** `mix` between two real states is non-zero only during a crossfade of 200ms or less | Vitest on the state controller: after 250ms with no input, `mix` is 0 or 1 |
 | No artificial delays, no fake progress, no fake "solving" spinner. The status shows the real solve time | Code review: no `setTimeout` gates any data display |
+| **Luminous, never a chart (CD-002).** The rose renderer never strokes a radial segment, fills every band with its gradient (no flat fills), and draws no guide or axis ring. Petal gaps taper to 0 inside 45% of the peak-tip radius | Vitest on `rose.ts`: the path log has no `lineTo` along a radius outside a sector fill, every band fill is a `CanvasGradient`, and the gap is 0 at 0.4 x the peak-tip radius. QA contact sheet: an independent reviewer confirms no frame reads as a library polar-area or radar chart (VISUAL_DESIGN criterion 21) |
 | No drawing on hidden stages. The canvas redraws only when dirty (progress changed, a tween is active, the bloom is active) | Playwright: with S07 centred, the canvas frame counter is flat for 2s once the Wires card has settled |
 
 ## 3. Token mapping
@@ -92,7 +93,7 @@ Each rule is checked in QA.
 | `--motion-panel` | 600ms | **The re-solve pulse**, scenario ledger tweens, numeral tweens, NET LOAD slide-out, the rim beat, PRICE/STACK swap, inspector enter |
 | `--motion-card` | 800ms | Story-card settle, G-state moves on a jump or a non-scrubbed change, the S04 re-roll |
 | `--motion-scene` | 1200ms | **Scenario steps** (reference `transform 1.2s cubic-bezier(.33,1,.68,1)`), intro headline span |
-| `--ease-premium` `cubic-bezier(.5,0,0,1)` | | Entrances and departures: cards, nav enter, inspector, S00 outline |
+| `--ease-premium` `cubic-bezier(.5,0,0,1)` | | Entrances and departures: cards, nav enter, inspector, S00 silhouette |
 | `--ease-symmetric` `cubic-bezier(.5,0,.5,1)` | | Every scrubbed interpolation (G-state camera, the fill, the unroll), so reverse scroll feels identical |
 | `--ease-smooth` `cubic-bezier(.33,1,.68,1)` | | Stepped settles: scenario steps, the re-solve pulse, numeral tweens, word sharpening, S00 band fills |
 | `linear` | | Story progress segments, SoC trace draw, the window lighting sweep |
@@ -139,10 +140,10 @@ Format for each entry:
 |---|---|---|
 | 0 | Black. Layer order is **canvas, then scrim, then h1**. The bottom scrim (VISUAL_DESIGN 3.3 G0 gradient) is present at full strength from frame 0; it is black on black, so it is invisible until bands reach it. `h1[data-hero]` sits **above** the scrim and is visible from first paint as ghost text (0.55, blur 12px, AA per ENGINEERING_DECISIONS #10). SKIP INTRO is visible (bottom right) | n/a |
 | 200-500 | Corner labels fade in: `PULSE ENERGY GRID` top-left, `{{ba}} · {{date}} · PEAK {{peak}} MW` top-right | 300ms premium |
-| 400-900 | **The giant outline:** all 24 petals' demand arcs and spokes, white 1px at 50%, fade in **at full G0 size** (opacity only; no growth from the centre). From this frame on, the rose's visible extent is already giant | 500ms premium |
+| 400-900 | **The giant silhouette:** all 24 petals' demand areas as a white 6% fill with tapered gaps and **no lines**, fade in **at full G0 size** (opacity only; no growth from the centre). From this frame on, the rose's visible extent is already giant | 500ms premium |
 | 900-3300 | **Radial fill in merit order.** For each band k in the OBSERVED order (SUN, WND, NUC, WAT, IMPORTS, OTH, NG, COL, OIL; empty bands skipped, and their time is redistributed), all 24 petals' band k grows from its inner edge to its outer edge **in `r²`** over 300ms (smooth), with the next band starting 0ms after. The top-right second line steps to the band's name at each start (`linear`, 200ms crossfade). Sink caps and residual outlines appear with the band that creates them | n × 300ms, n ≤ 8 |
 | 3300-3800 | **The rim beat:** the outermost band of every petal brightens to +18% lightness and returns | 500ms (250 up smooth, 250 down smooth) |
-| 3300-3700 | The bloom layer (blurred silhouette copy) fades from 0 to 18% | 400ms smooth |
+| 3300-3700 | The bloom layer (blurred silhouette copy, `screen` blend) fades from 0 to 35%. The rim glow of every petal rises with the beat | 400ms smooth |
 | 3600-4300 | The headline sharpens word by word (5.2, time-based, 80ms stagger). The scrim does not animate: it has been there since frame 0 | 700ms premium |
 | 4200-4600 | Nav enters (translateY 16px to 0, opacity). The chip appears bottom-right | 400ms premium |
 
@@ -217,7 +218,7 @@ Identical to P03 5.4 (the shared deck): the first card rises from below the fold
   1. Find the first band (in display order) whose values changed in any petal: k0.
   2. Bands below k0 hold still.
   3. Bands from k0 outward **re-fill radially**: each tweens from its old to its new inner and outer `r²` over 600ms smooth, with a **40ms stagger per band** outward (never per petal).
-  4. The outermost band's leading edge carries a 2px `#FF4C25` line for the duration, then it fades (the "energy pulse").
+  4. The outermost band's leading edge carries a soft `#FF4C25` glow (8px falloff inward, 60%, `screen` blend; never a stroke) for the duration, then it fades (the "energy pulse").
   5. Ledger numerals tween 600ms. Δ lines crossfade 200ms. The SoC trace morphs (25 points, 600ms).
 - **Interruption.** A newer result retargets every band from its current `r²`, restarting the pulse. With rapid sliding, the pulse is visible only once the input settles (pulses retarget, they never queue).
 - **Preset snap** (solver not ready): the same pulse between `dispatch_results` states.
@@ -246,7 +247,7 @@ Identical to P03 5.4 (the shared deck): the first card rises from below the fold
 | SoC trace | point index 0-24 | Point-wise morph, 600ms |
 | Forecast series | series id | 200ms crossfade on week change, 600ms y-scale tween |
 | Windows | building, slot | 80ms per window in lighting order |
-| Empty data | n/a | Bands drain to the demand outline (600ms). The copy fades in (350ms). Scales keep their last domain |
+| Empty data | n/a | Bands drain to the demand silhouette (600ms). The copy fades in (350ms). Scales keep their last domain |
 
 ### 5.11 Argument stack (S07) and The Wires
 
@@ -353,10 +354,10 @@ We jump instantly (the reference reached its target within 190ms). Smooth-scroll
 
 | State | Motion |
 |---|---|
-| **Initial** | The rose's demand outline (white 1px at 50%) if data is ready, otherwise nothing. No shimmer. |
+| **Initial** | The rose's demand silhouette (white 6% fill, no lines) if data is ready, otherwise nothing. No shimmer. |
 | **Loading** | The mono line `LOADING {ARTIFACT} · {n}%` with real byte progress (jumps, no tween). It fades in (200ms) only if loading lasts 150ms or longer. Solver: `LOADING SOLVER · {n}%` from the streamed wasm bytes. |
-| **Ready** | Bands fill radially from the outline (5.8, 600ms, 40ms per band). |
-| **Empty** | Bands drain to the outline (600ms). The copy fades in (350ms). Controls stay live. |
+| **Ready** | Bands fill radially from the silhouette (5.8, 600ms, 40ms per band). |
+| **Empty** | Bands drain to the silhouette (600ms). The copy fades in (350ms). Controls stay live. |
 | **Error** | The loading line crossfades (200ms) to `COULD NOT LOAD {ARTIFACT} ({reason})` in `--state-error`, plus `RETRY`. No shake. A solver validation failure reads `SOLVER RESULT FAILED A CHECK: {which}` and keeps the last good result. |
 | **Retry** | The same fetch or solve re-runs. The button shows `RETRYING`. A second failure adds `(ATTEMPT 2)`. |
 | **Disabled** | 50% white plus hatch, `aria-disabled`, and a tooltip with the reason. No hover motion. |
@@ -429,8 +430,8 @@ It is triggered by `prefers-reduced-motion: reduce` **or** the MOTION OFF toggle
 |---|---|---|---|
 | Frame budget | 16.7ms (60fps); JS 6ms or less | 33ms (30fps); JS 10ms or less | same targets |
 | Canvas DPR cap | 2 | 1.5 | 1 |
-| Paths per rose frame | about 24 x 9 sectors (plus sink, residual and outline) | same | same |
-| Bloom | Pre-rendered once per S00/S08 entry at 1/4 resolution, 36px blur, composited at 18% | same, 1/4 resolution | off |
+| Paths per rose frame | about 24 x 9 gradient-filled sectors plus 24 rim-glow sectors (plus sink and residual). Gradients are cached per state and rebuilt only when radii change | same | same |
+| Bloom | Pre-rendered at 1/4 resolution, 36px blur, `screen` composited: 35% in S00/S08, 15% elsewhere. Re-rendered only when the rose settles (not per tween frame) | same, 1/4 resolution | S00/S08 only |
 | Windows | 960 rects, redrawn on hour change only. Unlit layer cached | same | no sweep (hard step) |
 | Unroll | 168 sectors x 13 sampled points | same (M: 24) | 3-frame snap (t = 0, 0.5, 1) |
 | Re-solve | Worker; expected a few ms per LP. **Measured on the build, never claimed here** | same | same |
@@ -458,11 +459,11 @@ It is triggered by `prefers-reduced-motion: reduce` **or** the MOTION OFF toggle
 | Layer | Choice | Reason |
 |---|---|---|
 | App | React 18 + TypeScript strict + Vite, using the shared shell (`site/src/motion`, `scroll`, loader, nav, primitives) | Program standard. No rebuild |
-| Styles | `tokens.css` + CSS Modules. Project overrides: `--accent-primary: #192CE4` (fill only), `--accent-secondary: #FF4C25`, `--grid-line: #5B6BFF`, plus the fuel and price-bin variables of VISUAL_DESIGN section 0 | Tokens own the language |
+| Styles | `tokens.css` + CSS Modules. Project overrides: `--accent-primary: #192CE4` (fill only), `--accent-secondary: #FF4C25`, `--grid-line: #5B6BFF`, plus the `--fuel-*` and Spectral price-bin variables of VISUAL_DESIGN section 0 | Tokens own the language |
 | Scroll | Lenis plus the one rAF loop | Same as P01-P03 |
 | GSAP | Not used | The intro is a keyframe table run by the shared tween (P01 decision 6) |
 | Component motion | Motion (`motion/react`, `LazyMotion` + `domAnimation`) | `layoutId` active blocks, inspector, sheets |
-| Rose, skyline, unroll | **Canvas2D** in `src/canvas/` (`rose.ts` with sector paths and constant-width spokes, `city.ts`, `unroll.ts`) | 9.1 |
+| Rose, skyline, unroll | **Canvas2D** in `src/canvas/` (`rose.ts` with gradient sector paths, tapered petal gaps, rim glow and bloom; `city.ts`; `unroll.ts`) | 9.1 |
 | Charts | `d3-scale`, `d3-shape` (lines only), `d3-array`, drawn by our components (week plot, SoC trace, card mini-visuals) | Stays in the visual language, with no chart-library defaults |
 | Network card | SVG from `grid_topology.json` + `design/ieee14-layout.json` | 34 static elements |
 | Models | `src/model/lp.ts` (CPLEX LP text builder), `result.ts` (mapping and validation), `stack.ts` (display order, sinks, residuals), `city.ts` (window lighting), `netload.ts` | Pure functions, each with Vitest parity against artifact fixtures |
