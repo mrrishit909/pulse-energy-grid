@@ -1,0 +1,209 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "artifact_bytes": {
+   "type": "object"
+  },
+  "artifact_tags": {
+   "type": "object"
+  },
+  "attribution": {
+   "items": {
+    "type": "string"
+   },
+   "minItems": 3,
+   "type": "array"
+  },
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "fuels": {
+       "items": {
+        "type": "string"
+       },
+       "minItems": 7,
+       "type": "array"
+      },
+      "name": {
+       "type": "string"
+      },
+      "stations": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "id": {
+          "type": "string"
+         },
+         "name": {
+          "type": "string"
+         },
+         "weight": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "id",
+         "name",
+         "weight"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      },
+      "tz": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "name",
+      "tz",
+      "fuels",
+      "stations"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "fuels": {
+       "items": {
+        "type": "string"
+       },
+       "minItems": 7,
+       "type": "array"
+      },
+      "name": {
+       "type": "string"
+      },
+      "stations": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "id": {
+          "type": "string"
+         },
+         "name": {
+          "type": "string"
+         },
+         "weight": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "id",
+         "name",
+         "weight"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      },
+      "tz": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "name",
+      "tz",
+      "fuels",
+      "stations"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "generated_at": {
+   "type": "string"
+  },
+  "hours_in_window": {
+   "type": "integer"
+  },
+  "pipeline_version": {
+   "type": "string"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "sources": {
+   "type": "object"
+  },
+  "split": {
+   "additionalProperties": true,
+   "properties": {
+    "test": {
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 2,
+     "minItems": 2,
+     "type": "array"
+    },
+    "train": {
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 2,
+     "minItems": 2,
+     "type": "array"
+    },
+    "val": {
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 2,
+     "minItems": 2,
+     "type": "array"
+    }
+   },
+   "required": [
+    "train",
+    "val",
+    "test"
+   ],
+   "type": "object"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  },
+  "window_utc": {
+   "items": {
+    "type": "string"
+   },
+   "maxItems": 2,
+   "minItems": 2,
+   "type": "array"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "pipeline_version",
+  "generated_at",
+  "window_utc",
+  "hours_in_window",
+  "split",
+  "bas",
+  "sources",
+  "attribution",
+  "artifact_tags",
+  "artifact_bytes"
+ ],
+ "title": "meta",
+ "type": "object"
+}

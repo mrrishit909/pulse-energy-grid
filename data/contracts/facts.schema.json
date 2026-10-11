@@ -1,0 +1,163 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "beats_eia": {},
+      "best_model": {},
+      "clean_share_pct": {},
+      "demand_coverage_pct": {},
+      "demand_hours_kept": {},
+      "demand_temp_slope_pct_per_c": {},
+      "dispatch_baseline_cost_usd": {},
+      "dispatch_reference_days": {},
+      "evening_ramp_mw_per_h": {},
+      "gas_share_pct": {},
+      "hours_expected": {},
+      "interval_coverage_cqr_pct": {},
+      "interval_nominal_pct": {},
+      "mean_demand_mw": {},
+      "min_demand_mw": {},
+      "peak_demand_local": {},
+      "peak_demand_mw": {},
+      "skill_vs_eia_pct": {},
+      "solar_share_pct": {},
+      "test_hours": {},
+      "test_mae_mw": {},
+      "test_mape": {},
+      "wind_share_pct": {}
+     },
+     "required": [
+      "hours_expected",
+      "demand_hours_kept",
+      "demand_coverage_pct",
+      "peak_demand_mw",
+      "peak_demand_local",
+      "mean_demand_mw",
+      "min_demand_mw",
+      "solar_share_pct",
+      "wind_share_pct",
+      "gas_share_pct",
+      "clean_share_pct",
+      "evening_ramp_mw_per_h",
+      "demand_temp_slope_pct_per_c",
+      "test_hours",
+      "test_mape",
+      "test_mae_mw",
+      "interval_coverage_cqr_pct",
+      "interval_nominal_pct",
+      "beats_eia",
+      "best_model",
+      "skill_vs_eia_pct",
+      "dispatch_baseline_cost_usd",
+      "dispatch_reference_days"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "beats_eia": {},
+      "best_model": {},
+      "clean_share_pct": {},
+      "demand_coverage_pct": {},
+      "demand_hours_kept": {},
+      "demand_temp_slope_pct_per_c": {},
+      "dispatch_baseline_cost_usd": {},
+      "dispatch_reference_days": {},
+      "evening_ramp_mw_per_h": {},
+      "gas_share_pct": {},
+      "hours_expected": {},
+      "interval_coverage_cqr_pct": {},
+      "interval_nominal_pct": {},
+      "mean_demand_mw": {},
+      "min_demand_mw": {},
+      "peak_demand_local": {},
+      "peak_demand_mw": {},
+      "skill_vs_eia_pct": {},
+      "solar_share_pct": {},
+      "test_hours": {},
+      "test_mae_mw": {},
+      "test_mape": {},
+      "wind_share_pct": {}
+     },
+     "required": [
+      "hours_expected",
+      "demand_hours_kept",
+      "demand_coverage_pct",
+      "peak_demand_mw",
+      "peak_demand_local",
+      "mean_demand_mw",
+      "min_demand_mw",
+      "solar_share_pct",
+      "wind_share_pct",
+      "gas_share_pct",
+      "clean_share_pct",
+      "evening_ramp_mw_per_h",
+      "demand_temp_slope_pct_per_c",
+      "test_hours",
+      "test_mape",
+      "test_mae_mw",
+      "interval_coverage_cqr_pct",
+      "interval_nominal_pct",
+      "beats_eia",
+      "best_model",
+      "skill_vs_eia_pct",
+      "dispatch_baseline_cost_usd",
+      "dispatch_reference_days"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "global": {
+   "additionalProperties": true,
+   "properties": {
+    "bas": {},
+    "flagged_rows_total": {},
+    "kept_rows_total": {},
+    "raw_rows_total": {},
+    "topology_buses": {},
+    "window_days": {}
+   },
+   "required": [
+    "raw_rows_total",
+    "kept_rows_total",
+    "flagged_rows_total",
+    "bas",
+    "window_days",
+    "topology_buses"
+   ],
+   "type": "object"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "bas",
+  "global"
+ ],
+ "title": "facts",
+ "type": "object"
+}

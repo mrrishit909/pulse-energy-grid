@@ -1,0 +1,1600 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "days": {
+       "additionalProperties": {
+        "additionalProperties": true,
+        "properties": {
+         "baseline": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "battery_big": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "demand_growth": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "heat_wave": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "outage": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "renewables_up": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         }
+        },
+        "required": [
+         "baseline",
+         "renewables_up",
+         "demand_growth",
+         "battery_big",
+         "heat_wave",
+         "outage"
+        ],
+        "type": "object"
+       },
+       "minProperties": 4,
+       "type": "object"
+      }
+     },
+     "required": [
+      "days"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "days": {
+       "additionalProperties": {
+        "additionalProperties": true,
+        "properties": {
+         "baseline": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "battery_big": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "demand_growth": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "heat_wave": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "outage": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         },
+         "renewables_up": {
+          "additionalProperties": true,
+          "properties": {
+           "battery": {
+            "additionalProperties": true,
+            "properties": {
+             "charge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "discharge_mw": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "soc_mwh": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 25,
+              "minItems": 25,
+              "type": "array"
+             }
+            },
+            "required": [
+             "charge_mw",
+             "discharge_mw",
+             "soc_mwh"
+            ],
+            "type": "object"
+           },
+           "co2_t": {
+            "type": "number"
+           },
+           "cost_breakdown_usd": {
+            "type": "object"
+           },
+           "curtailed_mwh": {
+            "type": "number"
+           },
+           "curtailment_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "dispatch_mw": {
+            "type": "object"
+           },
+           "objective_usd": {
+            "type": "number"
+           },
+           "price_usd_mwh": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "renewable_share_pct": {
+            "type": "number"
+           },
+           "renewable_used_mw": {
+            "additionalProperties": true,
+            "properties": {
+             "solar": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             },
+             "wind": {
+              "items": {
+               "type": "number"
+              },
+              "maxItems": 24,
+              "minItems": 24,
+              "type": "array"
+             }
+            },
+            "required": [
+             "solar",
+             "wind"
+            ],
+            "type": "object"
+           },
+           "unserved_mw": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "unserved_mwh": {
+            "type": "number"
+           }
+          },
+          "required": [
+           "objective_usd",
+           "cost_breakdown_usd",
+           "dispatch_mw",
+           "renewable_used_mw",
+           "curtailment_mw",
+           "unserved_mw",
+           "battery",
+           "price_usd_mwh",
+           "co2_t",
+           "renewable_share_pct",
+           "unserved_mwh",
+           "curtailed_mwh"
+          ],
+          "type": "object"
+         }
+        },
+        "required": [
+         "baseline",
+         "renewables_up",
+         "demand_growth",
+         "battery_big",
+         "heat_wave",
+         "outage"
+        ],
+        "type": "object"
+       },
+       "minProperties": 4,
+       "type": "object"
+      }
+     },
+     "required": [
+      "days"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "bas"
+ ],
+ "title": "dispatch_results",
+ "type": "object"
+}

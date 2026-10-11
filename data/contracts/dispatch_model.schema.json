@@ -1,0 +1,611 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "assumptions": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "basis": {
+      "type": "string"
+     },
+     "id": {
+      "type": "string"
+     },
+     "unit": {
+      "type": "string"
+     },
+     "value": {}
+    },
+    "required": [
+     "id",
+     "value",
+     "unit",
+     "basis"
+    ],
+    "type": "object"
+   },
+   "minItems": 5,
+   "type": "array"
+  },
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "battery": {
+       "additionalProperties": true,
+       "properties": {
+        "energy_mwh": {
+         "type": "number"
+        },
+        "power_mw": {
+         "type": "number"
+        },
+        "round_trip_eff": {
+         "type": "number"
+        },
+        "soc0_frac": {
+         "type": "number"
+        },
+        "soc_min_frac": {
+         "type": "number"
+        },
+        "wear_cost_usd_mwh": {
+         "type": "number"
+        }
+       },
+       "required": [
+        "power_mw",
+        "energy_mwh",
+        "round_trip_eff",
+        "soc0_frac",
+        "soc_min_frac",
+        "wear_cost_usd_mwh"
+       ],
+       "type": "object"
+      },
+      "classes": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "capacity_basis": {
+          "type": "string"
+         },
+         "capacity_mw": {
+          "type": "number"
+         },
+         "co2_kg_mmbtu": {
+          "type": "number"
+         },
+         "heat_rate_mmbtu_mwh": {
+          "type": "number"
+         },
+         "id": {
+          "type": "string"
+         },
+         "kind": {
+          "enum": [
+           "dispatchable",
+           "renewable"
+          ]
+         },
+         "label": {
+          "type": "string"
+         },
+         "marginal_cost_usd_mwh": {
+          "type": "number"
+         },
+         "pmin_frac": {
+          "type": "number"
+         },
+         "ramp_frac_per_h": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "id",
+         "label",
+         "kind",
+         "capacity_mw",
+         "marginal_cost_usd_mwh",
+         "ramp_frac_per_h",
+         "pmin_frac",
+         "heat_rate_mmbtu_mwh",
+         "co2_kg_mmbtu",
+         "capacity_basis"
+        ],
+        "type": "object"
+       },
+       "minItems": 5,
+       "type": "array"
+      },
+      "days": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "avail_mw": {
+          "additionalProperties": true,
+          "properties": {
+           "solar": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "wind": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           }
+          },
+          "required": [
+           "solar",
+           "wind"
+          ],
+          "type": "object"
+         },
+         "date": {
+          "type": "string"
+         },
+         "demand_mw": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         },
+         "fixed_other_mw": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         },
+         "hydro_energy_mwh": {
+          "type": "number"
+         },
+         "id": {
+          "type": "string"
+         },
+         "label": {
+          "type": "string"
+         },
+         "net_imports_mw": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         },
+         "season": {
+          "type": "string"
+         },
+         "temp_c": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         }
+        },
+        "required": [
+         "id",
+         "label",
+         "date",
+         "season",
+         "demand_mw",
+         "net_imports_mw",
+         "fixed_other_mw",
+         "avail_mw",
+         "hydro_energy_mwh",
+         "temp_c"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
+      "heat_wave": {
+       "additionalProperties": true,
+       "properties": {
+        "b_cool_mw_per_c_by_hour": {
+         "items": {
+          "type": "number"
+         },
+         "maxItems": 24,
+         "minItems": 24,
+         "type": "array"
+        },
+        "cool_base_c": {
+         "type": "number"
+        }
+       },
+       "required": [
+        "cool_base_c",
+        "b_cool_mw_per_c_by_hour"
+       ],
+       "type": "object"
+      },
+      "voll_usd_mwh": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "classes",
+      "battery",
+      "voll_usd_mwh",
+      "days",
+      "heat_wave"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "battery": {
+       "additionalProperties": true,
+       "properties": {
+        "energy_mwh": {
+         "type": "number"
+        },
+        "power_mw": {
+         "type": "number"
+        },
+        "round_trip_eff": {
+         "type": "number"
+        },
+        "soc0_frac": {
+         "type": "number"
+        },
+        "soc_min_frac": {
+         "type": "number"
+        },
+        "wear_cost_usd_mwh": {
+         "type": "number"
+        }
+       },
+       "required": [
+        "power_mw",
+        "energy_mwh",
+        "round_trip_eff",
+        "soc0_frac",
+        "soc_min_frac",
+        "wear_cost_usd_mwh"
+       ],
+       "type": "object"
+      },
+      "classes": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "capacity_basis": {
+          "type": "string"
+         },
+         "capacity_mw": {
+          "type": "number"
+         },
+         "co2_kg_mmbtu": {
+          "type": "number"
+         },
+         "heat_rate_mmbtu_mwh": {
+          "type": "number"
+         },
+         "id": {
+          "type": "string"
+         },
+         "kind": {
+          "enum": [
+           "dispatchable",
+           "renewable"
+          ]
+         },
+         "label": {
+          "type": "string"
+         },
+         "marginal_cost_usd_mwh": {
+          "type": "number"
+         },
+         "pmin_frac": {
+          "type": "number"
+         },
+         "ramp_frac_per_h": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "id",
+         "label",
+         "kind",
+         "capacity_mw",
+         "marginal_cost_usd_mwh",
+         "ramp_frac_per_h",
+         "pmin_frac",
+         "heat_rate_mmbtu_mwh",
+         "co2_kg_mmbtu",
+         "capacity_basis"
+        ],
+        "type": "object"
+       },
+       "minItems": 5,
+       "type": "array"
+      },
+      "days": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "avail_mw": {
+          "additionalProperties": true,
+          "properties": {
+           "solar": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           },
+           "wind": {
+            "items": {
+             "type": "number"
+            },
+            "maxItems": 24,
+            "minItems": 24,
+            "type": "array"
+           }
+          },
+          "required": [
+           "solar",
+           "wind"
+          ],
+          "type": "object"
+         },
+         "date": {
+          "type": "string"
+         },
+         "demand_mw": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         },
+         "fixed_other_mw": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         },
+         "hydro_energy_mwh": {
+          "type": "number"
+         },
+         "id": {
+          "type": "string"
+         },
+         "label": {
+          "type": "string"
+         },
+         "net_imports_mw": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         },
+         "season": {
+          "type": "string"
+         },
+         "temp_c": {
+          "items": {
+           "type": "number"
+          },
+          "maxItems": 24,
+          "minItems": 24,
+          "type": "array"
+         }
+        },
+        "required": [
+         "id",
+         "label",
+         "date",
+         "season",
+         "demand_mw",
+         "net_imports_mw",
+         "fixed_other_mw",
+         "avail_mw",
+         "hydro_energy_mwh",
+         "temp_c"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
+      "heat_wave": {
+       "additionalProperties": true,
+       "properties": {
+        "b_cool_mw_per_c_by_hour": {
+         "items": {
+          "type": "number"
+         },
+         "maxItems": 24,
+         "minItems": 24,
+         "type": "array"
+        },
+        "cool_base_c": {
+         "type": "number"
+        }
+       },
+       "required": [
+        "cool_base_c",
+        "b_cool_mw_per_c_by_hour"
+       ],
+       "type": "object"
+      },
+      "voll_usd_mwh": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "classes",
+      "battery",
+      "voll_usd_mwh",
+      "days",
+      "heat_wave"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "formulation": {
+   "additionalProperties": true,
+   "properties": {
+    "constraints": {
+     "items": {
+      "type": "string"
+     },
+     "minItems": 5,
+     "type": "array"
+    },
+    "objective": {
+     "type": "string"
+    },
+    "row_order": {
+     "items": {
+      "type": "string"
+     },
+     "minItems": 5,
+     "type": "array"
+    },
+    "solver": {
+     "type": "string"
+    },
+    "summary": {
+     "type": "string"
+    },
+    "variable_order": {
+     "items": {
+      "type": "string"
+     },
+     "minItems": 5,
+     "type": "array"
+    },
+    "variables": {
+     "items": {
+      "type": "string"
+     },
+     "minItems": 5,
+     "type": "array"
+    }
+   },
+   "required": [
+    "summary",
+    "variables",
+    "constraints",
+    "objective",
+    "variable_order",
+    "row_order",
+    "solver"
+   ],
+   "type": "object"
+  },
+  "reference_lp": {
+   "additionalProperties": true,
+   "properties": {
+    "ba": {
+     "type": "string"
+    },
+    "cplex_lp": {
+     "type": "string"
+    },
+    "day": {
+     "type": "string"
+    },
+    "objective_usd": {
+     "type": "number"
+    },
+    "scenario": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "ba",
+    "day",
+    "scenario",
+    "objective_usd",
+    "cplex_lp"
+   ],
+   "type": "object"
+  },
+  "scenarios": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "description": {
+      "type": "string"
+     },
+     "id": {
+      "type": "string"
+     },
+     "label": {
+      "type": "string"
+     },
+     "params": {
+      "type": "object"
+     }
+    },
+    "required": [
+     "id",
+     "label",
+     "params",
+     "description"
+    ],
+    "type": "object"
+   },
+   "maxItems": 6,
+   "minItems": 6,
+   "type": "array"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "formulation",
+  "scenarios",
+  "assumptions",
+  "bas",
+  "reference_lp"
+ ],
+ "title": "dispatch_model",
+ "type": "object"
+}

@@ -1,0 +1,300 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "annual": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "mean_mw": {
+          "type": "number"
+         },
+         "peak_mw": {
+          "type": "number"
+         },
+         "valid_hours": {
+          "type": "integer"
+         },
+         "year": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "year",
+         "mean_mw",
+         "peak_mw",
+         "valid_hours"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
+      "daily": {
+       "additionalProperties": true,
+       "properties": {
+        "date": {
+         "items": {
+          "type": "string"
+         },
+         "minItems": 1000,
+         "type": "array"
+        },
+        "mean_mw": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "min_mw": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "peak_mw": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "temp_mean_c": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "valid_hours": {
+         "items": {
+          "type": "integer"
+         },
+         "type": "array"
+        }
+       },
+       "required": [
+        "date",
+        "mean_mw",
+        "peak_mw",
+        "min_mw",
+        "temp_mean_c",
+        "valid_hours"
+       ],
+       "type": "object"
+      },
+      "how_mean_mw": {
+       "items": {
+        "type": [
+         "number",
+         "null"
+        ]
+       },
+       "maxItems": 168,
+       "minItems": 168,
+       "type": "array"
+      },
+      "index_note": {
+       "type": "string"
+      },
+      "month_hour_mean_mw": {
+       "items": {
+        "type": [
+         "number",
+         "null"
+        ]
+       },
+       "maxItems": 288,
+       "minItems": 288,
+       "type": "array"
+      },
+      "tz": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "daily",
+      "month_hour_mean_mw",
+      "how_mean_mw",
+      "annual",
+      "tz",
+      "index_note"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "annual": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "mean_mw": {
+          "type": "number"
+         },
+         "peak_mw": {
+          "type": "number"
+         },
+         "valid_hours": {
+          "type": "integer"
+         },
+         "year": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "year",
+         "mean_mw",
+         "peak_mw",
+         "valid_hours"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
+      "daily": {
+       "additionalProperties": true,
+       "properties": {
+        "date": {
+         "items": {
+          "type": "string"
+         },
+         "minItems": 1000,
+         "type": "array"
+        },
+        "mean_mw": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "min_mw": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "peak_mw": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "temp_mean_c": {
+         "items": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "type": "array"
+        },
+        "valid_hours": {
+         "items": {
+          "type": "integer"
+         },
+         "type": "array"
+        }
+       },
+       "required": [
+        "date",
+        "mean_mw",
+        "peak_mw",
+        "min_mw",
+        "temp_mean_c",
+        "valid_hours"
+       ],
+       "type": "object"
+      },
+      "how_mean_mw": {
+       "items": {
+        "type": [
+         "number",
+         "null"
+        ]
+       },
+       "maxItems": 168,
+       "minItems": 168,
+       "type": "array"
+      },
+      "index_note": {
+       "type": "string"
+      },
+      "month_hour_mean_mw": {
+       "items": {
+        "type": [
+         "number",
+         "null"
+        ]
+       },
+       "maxItems": 288,
+       "minItems": 288,
+       "type": "array"
+      },
+      "tz": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "daily",
+      "month_hour_mean_mw",
+      "how_mean_mw",
+      "annual",
+      "tz",
+      "index_note"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "bas"
+ ],
+ "title": "demand_profile",
+ "type": "object"
+}

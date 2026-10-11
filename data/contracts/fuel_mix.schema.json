@@ -1,0 +1,182 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "annual_share_by_year": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "share_pct": {
+          "type": "object"
+         },
+         "year": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "year",
+         "share_pct"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
+      "annual_share_pct": {
+       "type": "object"
+      },
+      "capacity_proxy_mw": {
+       "type": "object"
+      },
+      "capacity_proxy_rule": {
+       "type": "string"
+      },
+      "evening_ramp": {
+       "additionalProperties": true,
+       "properties": {
+        "definition": {
+         "type": "string"
+        },
+        "mean_mw_per_h": {
+         "type": "number"
+        },
+        "p95_mw_per_h": {
+         "type": "number"
+        }
+       },
+       "required": [
+        "definition",
+        "mean_mw_per_h",
+        "p95_mw_per_h"
+       ],
+       "type": "object"
+      },
+      "fuels": {
+       "items": {
+        "type": "string"
+       },
+       "minItems": 7,
+       "type": "array"
+      },
+      "month_hour_mean_mw": {
+       "type": "object"
+      }
+     },
+     "required": [
+      "fuels",
+      "annual_share_pct",
+      "annual_share_by_year",
+      "month_hour_mean_mw",
+      "capacity_proxy_mw",
+      "capacity_proxy_rule",
+      "evening_ramp"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "annual_share_by_year": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "share_pct": {
+          "type": "object"
+         },
+         "year": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "year",
+         "share_pct"
+        ],
+        "type": "object"
+       },
+       "minItems": 4,
+       "type": "array"
+      },
+      "annual_share_pct": {
+       "type": "object"
+      },
+      "capacity_proxy_mw": {
+       "type": "object"
+      },
+      "capacity_proxy_rule": {
+       "type": "string"
+      },
+      "evening_ramp": {
+       "additionalProperties": true,
+       "properties": {
+        "definition": {
+         "type": "string"
+        },
+        "mean_mw_per_h": {
+         "type": "number"
+        },
+        "p95_mw_per_h": {
+         "type": "number"
+        }
+       },
+       "required": [
+        "definition",
+        "mean_mw_per_h",
+        "p95_mw_per_h"
+       ],
+       "type": "object"
+      },
+      "fuels": {
+       "items": {
+        "type": "string"
+       },
+       "minItems": 7,
+       "type": "array"
+      },
+      "month_hour_mean_mw": {
+       "type": "object"
+      }
+     },
+     "required": [
+      "fuels",
+      "annual_share_pct",
+      "annual_share_by_year",
+      "month_hour_mean_mw",
+      "capacity_proxy_mw",
+      "capacity_proxy_rule",
+      "evening_ramp"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "bas"
+ ],
+ "title": "fuel_mix",
+ "type": "object"
+}

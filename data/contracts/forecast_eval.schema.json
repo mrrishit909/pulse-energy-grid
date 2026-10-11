@@ -1,0 +1,1172 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "common_test_hours": {
+       "type": "integer"
+      },
+      "comparison_vs_eia": {
+       "additionalProperties": true,
+       "properties": {
+        "beats_eia": {
+         "type": "boolean"
+        },
+        "best_model": {
+         "type": "string"
+        },
+        "ci_method": {
+         "type": "string"
+        },
+        "mape_diff_ci95": {
+         "items": {
+          "type": "number"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        },
+        "mape_diff_pp": {
+         "type": "number"
+        },
+        "statement": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "best_model",
+        "beats_eia",
+        "mape_diff_pp",
+        "mape_diff_ci95",
+        "ci_method",
+        "statement"
+       ],
+       "type": "object"
+      },
+      "features": {
+       "additionalProperties": true,
+       "properties": {
+        "gbm": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        "gbm_perfect_weather": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        "gbm_stacked": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        }
+       },
+       "required": [
+        "gbm",
+        "gbm_stacked",
+        "gbm_perfect_weather"
+       ],
+       "type": "object"
+      },
+      "hyperparameters": {
+       "type": "object"
+      },
+      "importance": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "feature": {
+          "type": "string"
+         },
+         "mape_increase_pp": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "feature",
+         "mape_increase_pp"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      },
+      "intervals": {
+       "additionalProperties": true,
+       "properties": {
+        "gbm": {
+         "additionalProperties": true,
+         "properties": {
+          "cqr_coverage_pct": {
+           "type": "number"
+          },
+          "cqr_mean_width_mw": {
+           "type": "number"
+          },
+          "cqr_offset_mw": {
+           "type": "number"
+          },
+          "mean_width_mw": {
+           "type": "number"
+          },
+          "nominal_pct": {
+           "type": "number"
+          },
+          "raw_coverage_pct": {
+           "type": "number"
+          }
+         },
+         "required": [
+          "nominal_pct",
+          "raw_coverage_pct",
+          "cqr_coverage_pct",
+          "mean_width_mw",
+          "cqr_mean_width_mw",
+          "cqr_offset_mw"
+         ],
+         "type": "object"
+        },
+        "gbm_perfect_weather": {
+         "additionalProperties": true,
+         "properties": {
+          "cqr_coverage_pct": {
+           "type": "number"
+          },
+          "cqr_mean_width_mw": {
+           "type": "number"
+          },
+          "cqr_offset_mw": {
+           "type": "number"
+          },
+          "mean_width_mw": {
+           "type": "number"
+          },
+          "nominal_pct": {
+           "type": "number"
+          },
+          "raw_coverage_pct": {
+           "type": "number"
+          }
+         },
+         "required": [
+          "nominal_pct",
+          "raw_coverage_pct",
+          "cqr_coverage_pct",
+          "mean_width_mw",
+          "cqr_mean_width_mw",
+          "cqr_offset_mw"
+         ],
+         "type": "object"
+        },
+        "gbm_stacked": {
+         "additionalProperties": true,
+         "properties": {
+          "cqr_coverage_pct": {
+           "type": "number"
+          },
+          "cqr_mean_width_mw": {
+           "type": "number"
+          },
+          "cqr_offset_mw": {
+           "type": "number"
+          },
+          "mean_width_mw": {
+           "type": "number"
+          },
+          "nominal_pct": {
+           "type": "number"
+          },
+          "raw_coverage_pct": {
+           "type": "number"
+          }
+         },
+         "required": [
+          "nominal_pct",
+          "raw_coverage_pct",
+          "cqr_coverage_pct",
+          "mean_width_mw",
+          "cqr_mean_width_mw",
+          "cqr_offset_mw"
+         ],
+         "type": "object"
+        }
+       },
+       "required": [
+        "gbm",
+        "gbm_stacked",
+        "gbm_perfect_weather"
+       ],
+       "type": "object"
+      },
+      "models": {
+       "additionalProperties": true,
+       "properties": {
+        "eia_day_ahead": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "gbm": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "gbm_perfect_weather": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "gbm_stacked": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "seasonal_naive": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        }
+       },
+       "required": [
+        "seasonal_naive",
+        "eia_day_ahead",
+        "gbm",
+        "gbm_stacked",
+        "gbm_perfect_weather"
+       ],
+       "type": "object"
+      },
+      "n_test": {
+       "type": "integer"
+      },
+      "n_train": {
+       "type": "integer"
+      },
+      "n_val": {
+       "type": "integer"
+      },
+      "origin_rule": {
+       "type": "string"
+      },
+      "split": {
+       "additionalProperties": true,
+       "properties": {
+        "test": {
+         "items": {
+          "type": "string"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        },
+        "train": {
+         "items": {
+          "type": "string"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        },
+        "val": {
+         "items": {
+          "type": "string"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        }
+       },
+       "required": [
+        "train",
+        "val",
+        "test"
+       ],
+       "type": "object"
+      }
+     },
+     "required": [
+      "split",
+      "n_train",
+      "n_val",
+      "n_test",
+      "common_test_hours",
+      "origin_rule",
+      "features",
+      "hyperparameters",
+      "models",
+      "intervals",
+      "comparison_vs_eia",
+      "importance"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "common_test_hours": {
+       "type": "integer"
+      },
+      "comparison_vs_eia": {
+       "additionalProperties": true,
+       "properties": {
+        "beats_eia": {
+         "type": "boolean"
+        },
+        "best_model": {
+         "type": "string"
+        },
+        "ci_method": {
+         "type": "string"
+        },
+        "mape_diff_ci95": {
+         "items": {
+          "type": "number"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        },
+        "mape_diff_pp": {
+         "type": "number"
+        },
+        "statement": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "best_model",
+        "beats_eia",
+        "mape_diff_pp",
+        "mape_diff_ci95",
+        "ci_method",
+        "statement"
+       ],
+       "type": "object"
+      },
+      "features": {
+       "additionalProperties": true,
+       "properties": {
+        "gbm": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        "gbm_perfect_weather": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        "gbm_stacked": {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        }
+       },
+       "required": [
+        "gbm",
+        "gbm_stacked",
+        "gbm_perfect_weather"
+       ],
+       "type": "object"
+      },
+      "hyperparameters": {
+       "type": "object"
+      },
+      "importance": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "feature": {
+          "type": "string"
+         },
+         "mape_increase_pp": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "feature",
+         "mape_increase_pp"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      },
+      "intervals": {
+       "additionalProperties": true,
+       "properties": {
+        "gbm": {
+         "additionalProperties": true,
+         "properties": {
+          "cqr_coverage_pct": {
+           "type": "number"
+          },
+          "cqr_mean_width_mw": {
+           "type": "number"
+          },
+          "cqr_offset_mw": {
+           "type": "number"
+          },
+          "mean_width_mw": {
+           "type": "number"
+          },
+          "nominal_pct": {
+           "type": "number"
+          },
+          "raw_coverage_pct": {
+           "type": "number"
+          }
+         },
+         "required": [
+          "nominal_pct",
+          "raw_coverage_pct",
+          "cqr_coverage_pct",
+          "mean_width_mw",
+          "cqr_mean_width_mw",
+          "cqr_offset_mw"
+         ],
+         "type": "object"
+        },
+        "gbm_perfect_weather": {
+         "additionalProperties": true,
+         "properties": {
+          "cqr_coverage_pct": {
+           "type": "number"
+          },
+          "cqr_mean_width_mw": {
+           "type": "number"
+          },
+          "cqr_offset_mw": {
+           "type": "number"
+          },
+          "mean_width_mw": {
+           "type": "number"
+          },
+          "nominal_pct": {
+           "type": "number"
+          },
+          "raw_coverage_pct": {
+           "type": "number"
+          }
+         },
+         "required": [
+          "nominal_pct",
+          "raw_coverage_pct",
+          "cqr_coverage_pct",
+          "mean_width_mw",
+          "cqr_mean_width_mw",
+          "cqr_offset_mw"
+         ],
+         "type": "object"
+        },
+        "gbm_stacked": {
+         "additionalProperties": true,
+         "properties": {
+          "cqr_coverage_pct": {
+           "type": "number"
+          },
+          "cqr_mean_width_mw": {
+           "type": "number"
+          },
+          "cqr_offset_mw": {
+           "type": "number"
+          },
+          "mean_width_mw": {
+           "type": "number"
+          },
+          "nominal_pct": {
+           "type": "number"
+          },
+          "raw_coverage_pct": {
+           "type": "number"
+          }
+         },
+         "required": [
+          "nominal_pct",
+          "raw_coverage_pct",
+          "cqr_coverage_pct",
+          "mean_width_mw",
+          "cqr_mean_width_mw",
+          "cqr_offset_mw"
+         ],
+         "type": "object"
+        }
+       },
+       "required": [
+        "gbm",
+        "gbm_stacked",
+        "gbm_perfect_weather"
+       ],
+       "type": "object"
+      },
+      "models": {
+       "additionalProperties": true,
+       "properties": {
+        "eia_day_ahead": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "gbm": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "gbm_perfect_weather": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "gbm_stacked": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        },
+        "seasonal_naive": {
+         "additionalProperties": true,
+         "properties": {
+          "available_at_forecast_time": {
+           "type": "boolean"
+          },
+          "bias_mw": {
+           "type": "number"
+          },
+          "label": {
+           "type": "string"
+          },
+          "mae_mw": {
+           "type": "number"
+          },
+          "mape_by_hour": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 24,
+           "minItems": 24,
+           "type": "array"
+          },
+          "mape_by_month": {
+           "items": {
+            "type": "number"
+           },
+           "maxItems": 12,
+           "minItems": 12,
+           "type": "array"
+          },
+          "mape_pct": {
+           "type": "number"
+          },
+          "mape_peak5_pct": {
+           "type": "number"
+          },
+          "rmse_mw": {
+           "type": "number"
+          },
+          "tag": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "label",
+          "tag",
+          "available_at_forecast_time",
+          "mae_mw",
+          "mape_pct",
+          "rmse_mw",
+          "bias_mw",
+          "mape_peak5_pct",
+          "mape_by_hour",
+          "mape_by_month"
+         ],
+         "type": "object"
+        }
+       },
+       "required": [
+        "seasonal_naive",
+        "eia_day_ahead",
+        "gbm",
+        "gbm_stacked",
+        "gbm_perfect_weather"
+       ],
+       "type": "object"
+      },
+      "n_test": {
+       "type": "integer"
+      },
+      "n_train": {
+       "type": "integer"
+      },
+      "n_val": {
+       "type": "integer"
+      },
+      "origin_rule": {
+       "type": "string"
+      },
+      "split": {
+       "additionalProperties": true,
+       "properties": {
+        "test": {
+         "items": {
+          "type": "string"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        },
+        "train": {
+         "items": {
+          "type": "string"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        },
+        "val": {
+         "items": {
+          "type": "string"
+         },
+         "maxItems": 2,
+         "minItems": 2,
+         "type": "array"
+        }
+       },
+       "required": [
+        "train",
+        "val",
+        "test"
+       ],
+       "type": "object"
+      }
+     },
+     "required": [
+      "split",
+      "n_train",
+      "n_val",
+      "n_test",
+      "common_test_hours",
+      "origin_rule",
+      "features",
+      "hyperparameters",
+      "models",
+      "intervals",
+      "comparison_vs_eia",
+      "importance"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "bas"
+ ],
+ "title": "forecast_eval",
+ "type": "object"
+}

@@ -1,0 +1,161 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "base_mva": {
+   "type": "number"
+  },
+  "branches": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "b_pu": {
+      "type": "number"
+     },
+     "from": {
+      "type": "integer"
+     },
+     "r_pu": {
+      "type": "number"
+     },
+     "rate_a_mva": {
+      "type": "number"
+     },
+     "to": {
+      "type": "integer"
+     },
+     "x_pu": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "from",
+     "to",
+     "r_pu",
+     "x_pu",
+     "b_pu",
+     "rate_a_mva"
+    ],
+    "type": "object"
+   },
+   "maxItems": 20,
+   "minItems": 20,
+   "type": "array"
+  },
+  "buses": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "base_kv": {
+      "type": "number"
+     },
+     "bs_mvar": {
+      "type": "number"
+     },
+     "gs_mw": {
+      "type": "number"
+     },
+     "id": {
+      "type": "integer"
+     },
+     "pd_mw": {
+      "type": "number"
+     },
+     "qd_mvar": {
+      "type": "number"
+     },
+     "type": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "type",
+     "pd_mw",
+     "qd_mvar",
+     "gs_mw",
+     "bs_mvar",
+     "base_kv"
+    ],
+    "type": "object"
+   },
+   "maxItems": 14,
+   "minItems": 14,
+   "type": "array"
+  },
+  "generators": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "bus": {
+      "type": "integer"
+     },
+     "cost_usd_mwh": {
+      "type": "number"
+     },
+     "pglib_note": {
+      "type": "string"
+     },
+     "pmax_mw": {
+      "type": "number"
+     },
+     "pmin_mw": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "bus",
+     "pmax_mw",
+     "pmin_mw",
+     "cost_usd_mwh",
+     "pglib_note"
+    ],
+    "type": "object"
+   },
+   "maxItems": 5,
+   "minItems": 5,
+   "type": "array"
+  },
+  "illustrative": {
+   "const": true
+  },
+  "label": {
+   "type": "string"
+  },
+  "license": {
+   "type": "string"
+  },
+  "notes": {
+   "type": "string"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "source": {
+   "type": "string"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "label",
+  "illustrative",
+  "source",
+  "license",
+  "notes",
+  "base_mva",
+  "buses",
+  "branches",
+  "generators"
+ ],
+ "title": "grid_topology",
+ "type": "object"
+}

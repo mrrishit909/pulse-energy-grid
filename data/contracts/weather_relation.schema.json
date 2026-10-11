@@ -1,0 +1,268 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "bas": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "b_cool_mw_per_c_by_hour": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 24,
+       "minItems": 24,
+       "type": "array"
+      },
+      "b_heat_mw_per_c_by_hour": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 24,
+       "minItems": 24,
+       "type": "array"
+      },
+      "binned": {
+       "additionalProperties": true,
+       "properties": {
+        "mean_mw": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "n": {
+         "items": {
+          "type": "integer"
+         },
+         "type": "array"
+        },
+        "p10_mw": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "p90_mw": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "temp_c": {
+         "items": {
+          "type": "number"
+         },
+         "minItems": 10,
+         "type": "array"
+        }
+       },
+       "required": [
+        "temp_c",
+        "mean_mw",
+        "p10_mw",
+        "p90_mw",
+        "n"
+       ],
+       "type": "object"
+      },
+      "cool_base_c": {
+       "type": "number"
+      },
+      "heat_base_c": {
+       "type": "number"
+      },
+      "intercept_mw_by_hour": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 24,
+       "minItems": 24,
+       "type": "array"
+      },
+      "model": {
+       "type": "string"
+      },
+      "n": {
+       "type": "integer"
+      },
+      "note": {
+       "type": "string"
+      },
+      "pct_ci": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 2,
+       "minItems": 2,
+       "type": "array"
+      },
+      "pct_demand_per_c_above_base": {
+       "type": "number"
+      },
+      "r2": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "model",
+      "cool_base_c",
+      "heat_base_c",
+      "r2",
+      "n",
+      "b_cool_mw_per_c_by_hour",
+      "b_heat_mw_per_c_by_hour",
+      "intercept_mw_by_hour",
+      "binned",
+      "pct_demand_per_c_above_base",
+      "pct_ci",
+      "note"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "b_cool_mw_per_c_by_hour": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 24,
+       "minItems": 24,
+       "type": "array"
+      },
+      "b_heat_mw_per_c_by_hour": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 24,
+       "minItems": 24,
+       "type": "array"
+      },
+      "binned": {
+       "additionalProperties": true,
+       "properties": {
+        "mean_mw": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "n": {
+         "items": {
+          "type": "integer"
+         },
+         "type": "array"
+        },
+        "p10_mw": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "p90_mw": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "temp_c": {
+         "items": {
+          "type": "number"
+         },
+         "minItems": 10,
+         "type": "array"
+        }
+       },
+       "required": [
+        "temp_c",
+        "mean_mw",
+        "p10_mw",
+        "p90_mw",
+        "n"
+       ],
+       "type": "object"
+      },
+      "cool_base_c": {
+       "type": "number"
+      },
+      "heat_base_c": {
+       "type": "number"
+      },
+      "intercept_mw_by_hour": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 24,
+       "minItems": 24,
+       "type": "array"
+      },
+      "model": {
+       "type": "string"
+      },
+      "n": {
+       "type": "integer"
+      },
+      "note": {
+       "type": "string"
+      },
+      "pct_ci": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 2,
+       "minItems": 2,
+       "type": "array"
+      },
+      "pct_demand_per_c_above_base": {
+       "type": "number"
+      },
+      "r2": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "model",
+      "cool_base_c",
+      "heat_base_c",
+      "r2",
+      "n",
+      "b_cool_mw_per_c_by_hour",
+      "b_heat_mw_per_c_by_hour",
+      "intercept_mw_by_hour",
+      "binned",
+      "pct_demand_per_c_above_base",
+      "pct_ci",
+      "note"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "bas"
+ ],
+ "title": "weather_relation",
+ "type": "object"
+}

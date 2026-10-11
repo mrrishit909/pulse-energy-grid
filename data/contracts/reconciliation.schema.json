@@ -1,0 +1,271 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "balance": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "definition": {
+       "type": "string"
+      },
+      "mean_abs_resid_mw": {
+       "type": "number"
+      },
+      "mean_resid_mw": {
+       "type": "number"
+      },
+      "n_hours": {
+       "type": "integer"
+      },
+      "p99_abs_resid_mw": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "n_hours",
+      "mean_resid_mw",
+      "mean_abs_resid_mw",
+      "p99_abs_resid_mw",
+      "definition"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "definition": {
+       "type": "string"
+      },
+      "mean_abs_resid_mw": {
+       "type": "number"
+      },
+      "mean_resid_mw": {
+       "type": "number"
+      },
+      "n_hours": {
+       "type": "integer"
+      },
+      "p99_abs_resid_mw": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "n_hours",
+      "mean_resid_mw",
+      "mean_abs_resid_mw",
+      "p99_abs_resid_mw",
+      "definition"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "generation_vs_total": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "definition": {
+       "type": "string"
+      },
+      "hours_gt_2pct": {
+       "type": "integer"
+      },
+      "mean_abs_resid_pct": {
+       "type": "number"
+      },
+      "mean_signed_resid_pct": {
+       "type": "number"
+      },
+      "n_hours": {
+       "type": "integer"
+      },
+      "p99_abs_resid_pct": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "n_hours",
+      "mean_signed_resid_pct",
+      "mean_abs_resid_pct",
+      "p99_abs_resid_pct",
+      "hours_gt_2pct",
+      "definition"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "definition": {
+       "type": "string"
+      },
+      "hours_gt_2pct": {
+       "type": "integer"
+      },
+      "mean_abs_resid_pct": {
+       "type": "number"
+      },
+      "mean_signed_resid_pct": {
+       "type": "number"
+      },
+      "n_hours": {
+       "type": "integer"
+      },
+      "p99_abs_resid_pct": {
+       "type": "number"
+      }
+     },
+     "required": [
+      "n_hours",
+      "mean_signed_resid_pct",
+      "mean_abs_resid_pct",
+      "p99_abs_resid_pct",
+      "hours_gt_2pct",
+      "definition"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "invariants": {
+   "items": {
+    "type": "string"
+   },
+   "minItems": 2,
+   "type": "array"
+  },
+  "ledger": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "ba": {
+      "type": "string"
+     },
+     "flagged_outlier": {
+      "type": "integer"
+     },
+     "fuel": {
+      "type": "string"
+     },
+     "grid_slots": {
+      "type": "integer"
+     },
+     "imputed_short_gap": {
+      "type": "integer"
+     },
+     "kept": {
+      "type": "integer"
+     },
+     "kind": {
+      "type": "string"
+     },
+     "missing_slots": {
+      "type": "integer"
+     },
+     "null_value": {
+      "type": "integer"
+     },
+     "raw_rows": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "ba",
+     "kind",
+     "fuel",
+     "grid_slots",
+     "raw_rows",
+     "missing_slots",
+     "null_value",
+     "flagged_outlier",
+     "kept",
+     "imputed_short_gap"
+    ],
+    "type": "object"
+   },
+   "minItems": 20,
+   "type": "array"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  },
+  "weather": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "ba": {
+      "type": "string"
+     },
+     "hours_expected": {
+      "type": "integer"
+     },
+     "hours_interpolated": {
+      "type": "integer"
+     },
+     "hours_missing": {
+      "type": "integer"
+     },
+     "hours_observed": {
+      "type": "integer"
+     },
+     "name": {
+      "type": "string"
+     },
+     "station_id": {
+      "type": "string"
+     },
+     "weight": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "ba",
+     "station_id",
+     "name",
+     "weight",
+     "hours_expected",
+     "hours_observed",
+     "hours_interpolated",
+     "hours_missing"
+    ],
+    "type": "object"
+   },
+   "minItems": 8,
+   "type": "array"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "invariants",
+  "ledger",
+  "generation_vs_total",
+  "balance",
+  "weather"
+ ],
+ "title": "reconciliation",
+ "type": "object"
+}

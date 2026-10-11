@@ -1,0 +1,378 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "dst": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "days_23h": {
+       "type": "integer"
+      },
+      "days_25h": {
+       "type": "integer"
+      },
+      "local_days": {
+       "type": "integer"
+      },
+      "transitions": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "date": {
+          "type": "string"
+         },
+         "hours": {
+          "type": "integer"
+         },
+         "type": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "date",
+         "type",
+         "hours"
+        ],
+        "type": "object"
+       },
+       "type": "array"
+      },
+      "tz": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "tz",
+      "local_days",
+      "days_23h",
+      "days_25h",
+      "transitions"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "days_23h": {
+       "type": "integer"
+      },
+      "days_25h": {
+       "type": "integer"
+      },
+      "local_days": {
+       "type": "integer"
+      },
+      "transitions": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "date": {
+          "type": "string"
+         },
+         "hours": {
+          "type": "integer"
+         },
+         "type": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "date",
+         "type",
+         "hours"
+        ],
+        "type": "object"
+       },
+       "type": "array"
+      },
+      "tz": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "tz",
+      "local_days",
+      "days_23h",
+      "days_25h",
+      "transitions"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "gaps": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "additionalProperties": true,
+     "properties": {
+      "series": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "longest_gap_h": {
+          "type": "integer"
+         },
+         "missing_hours": {
+          "type": "integer"
+         },
+         "n_gaps": {
+          "type": "integer"
+         },
+         "series": {
+          "type": "string"
+         },
+         "top_runs": {
+          "items": {
+           "additionalProperties": true,
+           "properties": {
+            "hours": {
+             "type": "integer"
+            },
+            "start_utc": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "start_utc",
+            "hours"
+           ],
+           "type": "object"
+          },
+          "type": "array"
+         }
+        },
+        "required": [
+         "series",
+         "n_gaps",
+         "missing_hours",
+         "longest_gap_h",
+         "top_runs"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      }
+     },
+     "required": [
+      "series"
+     ],
+     "type": "object"
+    },
+    "ERCO": {
+     "additionalProperties": true,
+     "properties": {
+      "series": {
+       "items": {
+        "additionalProperties": true,
+        "properties": {
+         "longest_gap_h": {
+          "type": "integer"
+         },
+         "missing_hours": {
+          "type": "integer"
+         },
+         "n_gaps": {
+          "type": "integer"
+         },
+         "series": {
+          "type": "string"
+         },
+         "top_runs": {
+          "items": {
+           "additionalProperties": true,
+           "properties": {
+            "hours": {
+             "type": "integer"
+            },
+            "start_utc": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "start_utc",
+            "hours"
+           ],
+           "type": "object"
+          },
+          "type": "array"
+         }
+        },
+        "required": [
+         "series",
+         "n_gaps",
+         "missing_hours",
+         "longest_gap_h",
+         "top_runs"
+        ],
+        "type": "object"
+       },
+       "minItems": 1,
+       "type": "array"
+      }
+     },
+     "required": [
+      "series"
+     ],
+     "type": "object"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "outlier_rules": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "applies_to": {
+      "type": "string"
+     },
+     "flagged": {
+      "additionalProperties": true,
+      "properties": {
+       "CISO": {
+        "type": "integer"
+       },
+       "ERCO": {
+        "type": "integer"
+       }
+      },
+      "required": [
+       "CISO",
+       "ERCO"
+      ],
+      "type": "object"
+     },
+     "id": {
+      "type": "string"
+     },
+     "rule": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "applies_to",
+     "rule",
+     "flagged"
+    ],
+    "type": "object"
+   },
+   "minItems": 3,
+   "type": "array"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "spike_examples": {
+   "additionalProperties": true,
+   "properties": {
+    "CISO": {
+     "items": {
+      "additionalProperties": true,
+      "properties": {
+       "ratio": {
+        "type": "number"
+       },
+       "reference": {
+        "type": "number"
+       },
+       "rule": {
+        "type": "string"
+       },
+       "series": {
+        "type": "string"
+       },
+       "ts_utc": {
+        "type": "string"
+       },
+       "value": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "series",
+       "ts_utc",
+       "value",
+       "reference",
+       "ratio",
+       "rule"
+      ],
+      "type": "object"
+     },
+     "type": "array"
+    },
+    "ERCO": {
+     "items": {
+      "additionalProperties": true,
+      "properties": {
+       "ratio": {
+        "type": "number"
+       },
+       "reference": {
+        "type": "number"
+       },
+       "rule": {
+        "type": "string"
+       },
+       "series": {
+        "type": "string"
+       },
+       "ts_utc": {
+        "type": "string"
+       },
+       "value": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "series",
+       "ts_utc",
+       "value",
+       "reference",
+       "ratio",
+       "rule"
+      ],
+      "type": "object"
+     },
+     "type": "array"
+    }
+   },
+   "required": [
+    "CISO",
+    "ERCO"
+   ],
+   "type": "object"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "gaps",
+  "dst",
+  "outlier_rules",
+  "spike_examples"
+ ],
+ "title": "quality",
+ "type": "object"
+}

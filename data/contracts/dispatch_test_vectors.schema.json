@@ -1,0 +1,110 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "additionalProperties": true,
+ "properties": {
+  "note": {
+   "type": "string"
+  },
+  "schema_version": {
+   "const": "v1"
+  },
+  "tags": {
+   "additionalProperties": {
+    "pattern": "^(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC)(/(OBSERVED|DERIVED|PREDICTED|SIMULATED|SYNTHETIC))*$",
+    "type": "string"
+   },
+   "minProperties": 1,
+   "type": "object"
+  },
+  "tolerance_abs": {
+   "type": "number"
+  },
+  "tolerance_rel": {
+   "type": "number"
+  },
+  "vectors": {
+   "items": {
+    "additionalProperties": true,
+    "properties": {
+     "ba": {
+      "type": "string"
+     },
+     "day": {
+      "type": "string"
+     },
+     "expected": {
+      "additionalProperties": true,
+      "properties": {
+       "class_energy_mwh": {
+        "type": "object"
+       },
+       "co2_t": {
+        "type": "number"
+       },
+       "cost_breakdown_usd": {
+        "type": "object"
+       },
+       "curtailed_mwh": {
+        "type": "number"
+       },
+       "max_price_usd_mwh": {
+        "type": "number"
+       },
+       "objective_usd": {
+        "type": "number"
+       },
+       "soc_mwh": {
+        "items": {
+         "type": "number"
+        },
+        "maxItems": 25,
+        "minItems": 25,
+        "type": "array"
+       },
+       "unserved_mwh": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "objective_usd",
+       "cost_breakdown_usd",
+       "class_energy_mwh",
+       "unserved_mwh",
+       "curtailed_mwh",
+       "soc_mwh",
+       "max_price_usd_mwh",
+       "co2_t"
+      ],
+      "type": "object"
+     },
+     "params": {
+      "type": "object"
+     },
+     "scenario": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "ba",
+     "day",
+     "scenario",
+     "params",
+     "expected"
+    ],
+    "type": "object"
+   },
+   "minItems": 24,
+   "type": "array"
+  }
+ },
+ "required": [
+  "schema_version",
+  "tags",
+  "tolerance_rel",
+  "tolerance_abs",
+  "note",
+  "vectors"
+ ],
+ "title": "dispatch_test_vectors",
+ "type": "object"
+}
