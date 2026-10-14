@@ -1,6 +1,6 @@
 # Deployment
 
-Target: GitHub Pages at https://mrrishit909.github.io/pulse-energy-grid/ (placeholder until the first deploy). The GitHub repo does not exist yet; creating it, pushing and deploying are separate, authorized steps.
+Target: GitHub Pages at https://mrrishit909.github.io/pulse-energy-grid/ (live). Originally the repo did not exist yet; creating it, pushing and deploying were separate, authorized steps.
 
 ## How
 
@@ -28,7 +28,7 @@ Artifacts under `/data/*.json` are plain JSON (no pre-gzipped binaries in this p
 4. Deploy, then verify: `curl -sI https://mrrishit909.github.io/pulse-energy-grid/` returns 200; `curl -sI` on `.../data/facts.json` and the hashed `highs-*.wasm` returns 200; take a real screenshot of the live URL.
 5. Add the case study to the projects site (`~/data-frontier/portfolio/04-pulse-energy-grid/project.json` is the draft; schema `contracts/portfolio.schema.json`) and verify every link.
 
-Results of steps 2 to 5: TBD (pending QA / deploy).
+Results (2026-10-14): published at https://mrrishit909.github.io/pulse-energy-grid/ (repo https://github.com/mrrishit909/pulse-energy-grid, Pages source gh-pages root). Live checks at 1440 and 390: 20 requests, 0 failed, 0 console errors, 0 external hosts; `data/facts.json` 200. Lighthouse x3 on the live URL (`artifacts/evidence/live/lighthouse/`): mobile performance 0.97 to 0.99, LCP 1,719 to 1,941 ms, CLS 0, accessibility 1.0; desktop performance 1.0, LCP 366 to 425 ms. Case study: https://mrrishit909.github.io/projects/pulse-energy-grid/.
 
 ## CI
 
