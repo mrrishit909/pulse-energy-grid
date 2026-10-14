@@ -380,13 +380,13 @@ export function drawEdgeGlow(ctx: Ctx, petals: PetalIn[], v: RoseView, color: st
 // ---------------------------------------------------------------- PRICE layer (S06, CTRL): the Spectral bins only
 /** VISUAL_DESIGN "PRICE layer": bin edges in USD/MWh and their outer stops (the Spectral orb family). */
 export const PRICE_BINS = [
-  { id: "P0", label: "0 OR BELOW (SURPLUS)", color: "#7B4DFF", lo: -Infinity, hi: 0, test: (p: number) => p <= 0 },
+  { id: "P0", label: "SURPLUS", color: "#7B4DFF", lo: -Infinity, hi: 0, test: (p: number) => p <= 0 },
   { id: "P1", label: "0-25", color: "#C21FD6", lo: 0, hi: 25, test: (p: number) => p <= 25 },
   { id: "P2", label: "25-50", color: "#FF2F7A", lo: 25, hi: 50, test: (p: number) => p <= 50 },
   { id: "P3", label: "50-100", color: "#FF6A2B", lo: 50, hi: 100, test: (p: number) => p <= 100 },
   { id: "P4", label: "100-500", color: "#FFB26B", lo: 100, hi: 500, test: (p: number) => p <= 500 },
-  { id: "P5", label: "500 TO VOLL", color: "#FFD9B5", lo: 500, hi: Infinity, test: (p: number, voll: number) => p < voll - 1e-6 },
-  { id: "P6", label: "VOLL (UNSERVED)", color: "#FFFFFF", lo: Infinity, hi: Infinity, test: () => true },
+  { id: "P5", label: "500-VOLL", color: "#FFD9B5", lo: 500, hi: Infinity, test: (p: number, voll: number) => p < voll - 1e-6 },
+  { id: "P6", label: "VOLL", color: "#FFFFFF", lo: Infinity, hi: Infinity, test: () => true },
 ] as const;
 export const priceBin = (p: number, voll: number) => PRICE_BINS.findIndex((b) => b.test(p, voll));
 /** Distinct bins a day's prices span (the "nearly flat" note when it is 1 or 2). */

@@ -99,10 +99,11 @@ registerFrame("forecast", ({ now, p, L, W, H }) => {
   const dayLabels = M ? [days(d.w)[st.mDay]!] : days(d.w);
   const shown = seriesAt(step, d.b.best_model).filter((id) => !st.hidden.includes(id));
   const anim = shown.some((id) => now - (fstate.revealAt[id] ?? -1e9) < 800);
-  const fade = motion ? 1 - windowed(p, 0.94, 1) : 1;
+  // QA D-033: the week plot stays until the last 2% so the S04 to S05 hand-off has no blank run
+  const fade = motion ? 1 - windowed(p, 0.98, 1) : 1;
   return {
     // before the unroll: the S03b rose itself, so the scene change is seamless (1px seam test)
-    petals: p < 0.08 && motion && bt ? bt.petals : null, view, labels: p < 0.08 && bt ? 0.7 : 0, bloom: 0, glow: null, sky: null, opacity: fade,
+    petals: p < 0.08 && motion && bt ? bt.petals : null, view, labels: p < 0.08 && bt && ee >= 1 ? 0.7 : 0, /* QA D-036: no hour labels while a phone eases between slots */ bloom: 0, glow: null, sky: null, opacity: fade,
     extra: (c) => {
       if (p < 0.08 && motion) return;
       if (t < 1) {

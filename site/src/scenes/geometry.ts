@@ -26,12 +26,12 @@ export interface Layout {
 const REF: Record<ViewportClass, [number, number]> = { D: [1440, 900], T: [768, 1024], M: [390, 844] };
 const TABLE = {
   D: { G0: [720, 400, 620], G1: [1030, 450, 380], G2: [1040, 300, 300, 270], sky: [96, 812, 9, 12, 24], G4: [980, 450, 470, 380], G3: [980, 450, 520, 380], week: [96, 1344, 312, 586], gap0: 0.75, gap: 0.5, glow: 22, label: 13 },
-  T: { G0: [384, 430, 620], G1: [384, 740, 330], G2: [384, 452, 220, 152], sky: [52, 900, 4, 5, 10], G4: [384, 466, 360, 208], G3: [384, 488, 380, 200], week: [48, 720, 420, 620], gap0: 0.75, gap: 0.5, glow: 14, label: 12 },
+  T: { G0: [384, 430, 620], G1: [384, 740, 330], G2: [384, 452, 220, 152], sky: [52, 900, 4, 5, 10], G4: [384, 452, 360, 196], G3: [384, 488, 380, 200], week: [48, 720, 420, 620], gap0: 0.75, gap: 0.5, glow: 14, label: 12 },
   M: { G0: [195, 360, 530], G1: [195, 650, 230], G2: [195, 278, 175, 115], sky: [21, 700, 3, 4, 4], G4: [195, 356, 240, 140], G3: [195, 360, 250, 150], week: [16, 374, 368, 582], gap0: 0.5, gap: 0.375, glow: 10, label: 11 },
 } as const;
 
 /** The compact desktop composition: a 1024x768 reference, the text column 48-400, the rose right-anchored. */
-const COMPACT = { G1: [790, 420, 300], G2: [770, 250, 240, 205], sky: [48, 664, 4, 6, 12], G4: [716, 356, 400, 240], G3: [730, 400, 400, 280], week: [48, 976, 284, 428] } as const;
+const COMPACT = { G1: [790, 420, 300], G2: [770, 250, 240, 205], sky: [48, 664, 4, 6, 12], G4: [716, 356, 400, 240], G3: [730, 400, 400, 280], week: [48, 976, 292, 430] } as const;
 export const COMPACT_QUERY = "(min-width: 1024px) and (max-width: 1279px), (min-width: 1024px) and (max-height: 820px)";
 export const isCompact = () => typeof matchMedia === "function" && matchMedia(COMPACT_QUERY).matches;
 

@@ -245,7 +245,7 @@ html[data-motion="off"] .sheet { animation: none; }
 .price-legend__swatches { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; height: 10px; }
 .price-legend__swatches span { background: var(--c); }
 .price-legend__swatches .is-p6 { background: repeating-linear-gradient(45deg, #fff 0 1px, #000 1px 5px); outline: 1px solid var(--state-error); outline-offset: -1px; }
-.price-legend__edges { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); overflow-wrap: anywhere; gap: 2px; font: 400 11px / 1.1 var(--font-mono); letter-spacing: var(--tracking-label); }
+.price-legend__edges { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); overflow-wrap: normal; word-break: normal; hyphens: none; gap: 2px; font: 400 11px / 1.1 var(--font-mono); letter-spacing: var(--tracking-label); }
 .price-legend__unit { margin: 0; font: 400 11px / 1.2 var(--font-mono); letter-spacing: var(--tracking-label); color: var(--text-muted); }
 .stress-list { position: relative !important; list-style: none; margin: 0; padding: 260px var(--margin) 96px; display: flex; flex-direction: column; gap: 40px; }
 .stress-item { display: flex; flex-direction: column; gap: 10px; }
@@ -258,7 +258,8 @@ html[data-motion="off"] .scene-stress .stage-content > .stress-list { position: 
   .stress-controls { top: 196px; right: auto; left: var(--margin); flex-direction: row; flex-wrap: wrap; align-items: center; background: none; padding: 0; gap: 8px 16px; }
   .stress-ledger { top: auto; bottom: calc(var(--nav-clear) + 72px); left: var(--margin); right: var(--margin); width: auto; }
   .ledger--stress { font-size: 12px; gap: 3px; }
-  .stress-legend { bottom: calc(var(--nav-clear) + 250px); }
+  /* QA D-037: between the rose (and its 00 label) and the ledger, for the taller price key too */
+  .stress-legend { top: 684px; bottom: auto; }
 }
 @media (max-width: 767px) {
   .stress-title { font-size: 28px; }
@@ -289,7 +290,7 @@ html[data-motion="off"] .scene-stress .stage-content > .stress-list { position: 
 .ctrl-title:focus { outline: none; }
 .ctrl-status { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
 .ctrl-status .state-line { font-size: 12px; }
-.ctrl-stage { grid-area: stage; position: sticky; top: 0; height: max(480px, calc(100dvh - 220px)); align-self: start; }
+.ctrl-stage { grid-area: stage; position: sticky; top: 0; height: max(440px, calc(100dvh - 290px)); align-self: start; } /* QA D-036: its tag clears the nav at landing */
 .live-rose { display: block; width: 100%; height: 100%; }
 .ctrl-chip { position: absolute; right: 0; bottom: 24px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
 .ctrl-chip .stack-key { justify-content: flex-end; max-width: min(360px, calc(100vw - 32px)); }
@@ -433,7 +434,7 @@ html[data-motion="off"] .scene-pulse .stage-content { min-height: 100dvh; }
 html[data-motion="off"] #pulse-portal { position: relative; inset: auto; }
 html[data-motion="off"] #pulse-still, html[data-motion="off"] .hero-scrim { bottom: auto; height: 100dvh; }
 html[data-motion="off"] #pulse-portal > .s01 { position: relative; display: flex; flex-direction: column; gap: 24px; padding: calc(100dvh + 24px) var(--margin) 64px; }
-html[data-motion="off"] .s01 > * { position: relative; left: auto; top: auto; right: auto; }
+html[data-motion="off"] .s01 > * { position: relative; left: auto; top: auto; right: auto; bottom: auto; }
 html[data-motion="off"] .pulse-foot { top: calc(100dvh - 140px); bottom: auto; }
 @media (max-width: 1023px) {
   .s01-statement { top: 140px; width: auto; right: var(--margin); font-size: 48px; }
@@ -547,7 +548,7 @@ html[data-motion="off"] .ev-x.is-old .ev-ans > * { display: flex; }
 .close-links.is-in { opacity: 1; }
 .close-links a { color: #fff; }
 /* QA D-029: the data-source credit in full, wrapped, >= 13px, 72% white */
-.close-credit { margin: 0; max-width: 900px; font: 400 13px / 1.35 var(--font-mono); letter-spacing: var(--tracking-label); color: rgb(255 255 255 / 0.72); overflow-wrap: anywhere; }
+.close-credit { margin: 0; max-width: 900px; font: 400 13px / 1.35 var(--font-mono); letter-spacing: var(--tracking-label); color: rgb(255 255 255 / 0.8); overflow-wrap: anywhere; }
 .close-still { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0 !important; }
 html[data-motion="off"] .scene-closing .stage { height: 100dvh; min-height: 0; overflow: hidden; }
 @media (max-width: 1023px) { .close-scrim { background: linear-gradient(to bottom, transparent 540px, rgb(0 0 0 / 0.75) 660px, rgb(0 0 0 / 0.96) 720px); } .close-para { top: 640px; font-size: 30px; } }
@@ -571,6 +572,13 @@ html[data-motion="off"] .ev-x.is-old .ev-ans { background: var(--accent-secondar
 .ev-ans > * { max-width: 100%; min-width: 0; box-sizing: border-box; }
 .ev-ans .chip { max-width: 100%; white-space: normal; line-height: 1.25; }
 .ev-bars li { grid-template-columns: minmax(0, 110px) minmax(0, 1fr) auto; }
+/* QA D-038: on phones each bar row is two lines (label, then bar and value), so a wrapped label never prints over a
+   value; a chip in an answer reads as one block in order (mark, tag, detail) */
+@media (max-width: 767px) {
+  .ev-bars li { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label label" "bar value"; row-gap: 2px; }
+  .ev-bars li > span { grid-area: label; } .ev-bars li > i { grid-area: bar; } .ev-bars li > b { grid-area: value; }
+  .ev-ans .chip { display: block; } .ev-ans .chip .chip__mark { display: inline-block; margin-right: 8px; }
+}
 @media (min-width: 768px) { .stress-list { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 24px; } }
 @media (max-width: 767px) {
   .city-note__scale { display: none; }
@@ -616,7 +624,7 @@ html[data-motion="off"] .ev-x.is-old .ev-ans { background: var(--accent-secondar
   .fc-text { top: 40px; width: 400px; }
   .fc-controls .chip-btn { font-size: 11px; padding: 7px; }
   .fc-readout { top: 132px; max-width: 520px; }
-  .fc-legend { top: 238px; left: auto; right: var(--gutter); font-size: 11px; }
+  .fc-legend { top: 246px; left: auto; right: var(--gutter); font-size: 11px; }
   .fc-card__serif { font-size: 18px; }
   .fc-table { top: 206px; bottom: auto; }
   /* S05 */
@@ -634,7 +642,8 @@ html[data-motion="off"] .ev-x.is-old .ev-ans { background: var(--accent-secondar
   .stress-title { font-size: 36px; }
   .stress-desc { font-size: 13px; }
   .stress-ledger { top: 250px; width: 400px; }
-  .stress-chip { left: var(--margin); right: auto; bottom: calc(var(--nav-clear) + 128px); }
+  /* QA D-037: the tag sits under the ledger, so the price key (taller than the stack key) can never reach it */
+  .stress-chip { left: var(--margin); right: auto; top: 404px; bottom: auto; }
   .ledger--stress { font-size: 11px; gap: 3px; }
   .ledger--stress li { grid-template-columns: 120px 1fr; }
   .stress-controls { max-width: 420px; }
@@ -734,3 +743,15 @@ html:not([data-motion="off"]) .track--pinned > .stage > .stage-content { opacity
    so the paragraph keeps >= 4.5:1 however tall the wrapped credit makes the stack (L16) */
 .close-text::before { content: ""; position: absolute; z-index: -1; left: calc(-1 * var(--margin)); right: calc(-1 * var(--margin)); top: -120px; bottom: calc(-1 * (var(--nav-clear) + 8px)); background: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / 0.82) 80px, rgb(0 0 0 / 0.97) 120px); pointer-events: none; }
 @media (max-width: 767px) { .close-text::before { left: -16px; right: -16px; } }
+/* QA D-034: the phone credit, opened on demand: full text, 13px, 80% white, on an opaque card above the nav */
+.close-credit-d summary { cursor: pointer; font-size: 11px; padding: 4px 0; list-style: none; }
+.close-credit-d summary::-webkit-details-marker { display: none; }
+.close-credit-d[open] .close-credit { margin-top: 6px; padding: 8px 10px; background: rgb(10 10 10 / 0.97); color: rgb(255 255 255 / 0.8); border-radius: var(--radius-card); }
+/* reduced motion: the headline belongs to the first 100dvh frame at every size (bottom-anchoring it would pin it to
+   the end of the flowing S01 content) */
+html[data-motion="off"] .hero-title { bottom: auto; }
+@media (min-width: 768px) { html[data-motion="off"] .hero-title { top: calc(100dvh - 330px); } }
+/* QA L19 at 360: "SURPLUS" outgrew its 1/7 column and printed over "0-25"; the first bin gets a wider column, swatches and labels together */
+@media (max-width: 400px) {
+  .price-legend__swatches, .price-legend__edges { grid-template-columns: minmax(0, 1.4fr) repeat(6, minmax(0, 1fr)); }
+}

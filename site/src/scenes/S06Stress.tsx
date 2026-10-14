@@ -87,7 +87,7 @@ function PriceLegend({ spanned }: { spanned?: number }) {
       {spanned !== undefined && spanned <= 2 ? <p className="price-legend__flat" data-flat>{flatNote(spanned)}</p> : null}
       <div className="price-legend__swatches">{PRICE_BINS.map((b, i) => <span key={b.id} style={{ "--c": b.color } as CSSProperties} className={i === 0 ? "is-p0" : i === 6 ? "is-p6" : ""} />)}</div>
       <div className="price-legend__edges">{PRICE_BINS.map((b) => <span key={b.id}>{b.label}</span>)}</div>
-      <p className="price-legend__unit">MODEL SHADOW PRICE · USD/MWH · BRIGHTER = DEARER</p>
+      <p className="price-legend__unit">MODEL SHADOW PRICE · USD/MWH · SURPLUS = 0 OR BELOW · VOLL = UNSERVED · BRIGHTER = DEARER</p>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { chromium, expect, test, type Browser, type Page } from "@playwright/tes
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { WALK, collisions, contrastFails, goScene, openSite } from "./qa";
+import { QA_WALK, WALK, collideAll, collisions, contrastFails, goScene, openSite } from "./qa";
 
 test.skip(({ isMobile }) => isMobile, "viewports are set per test");
 test.describe.configure({ timeout: 300_000 });
@@ -466,3 +466,54 @@ test("L5/D-028: no sideways scroll at 1024, 1280, 1440 and 1920 in every scene, 
   }
   expect(bad).toEqual([]);
 });
+
+// ------------------------------------------------------------------ P04-FIXG-001
+test("D-034: on phones the S08 echo keeps its band structure: DOM covers < 15% of the rose's blue-band pixels", async ({ browser }) => {
+  for (const vp of [VP(390, 844), VP(375, 812), VP(360, 800)]) {
+    const { ctx, page } = await at(browser, vp);
+    await openSite(page);
+    await goScene(page, "closing", 0.76);
+    await page.waitForTimeout(900);
+    const png = (await page.screenshot()).toString("base64");
+    const r = await page.evaluate(async (b64) => {
+      const blue = (d: Uint8ClampedArray, i: number) => d[i + 2]! > 130 && d[i + 2]! > d[i]! + 50;
+      const cv = document.querySelector<HTMLCanvasElement>("canvas.rose-layer")!;
+      const cd = cv.getContext("2d")!.getImageData(0, 0, cv.width, cv.height).data;
+      let canvasBlue = 0; for (let i = 0; i < cd.length; i += 16) if (blue(cd, i)) canvasBlue++;
+      const img = new Image(); img.src = `data:image/png;base64,${b64}`; await img.decode();
+      const c2 = document.createElement("canvas"); c2.width = img.width; c2.height = img.height;
+      const g = c2.getContext("2d")!; g.drawImage(img, 0, 0);
+      const sd = g.getImageData(0, 0, img.width, img.height).data;
+      let shotBlue = 0; for (let i = 0; i < sd.length; i += 16) if (blue(sd, i)) shotBlue++;
+      // both counts per 4 pixels, normalised to their own pixel totals
+      return { canvas: canvasBlue / (cd.length / 16), shot: shotBlue / (sd.length / 16) };
+    }, png);
+    expect(r.canvas, `${vp.width} the rose draws blue bands`).toBeGreaterThan(0.03);
+    expect(r.shot, `${vp.width} share of the frame is rose blue band (QA pass 2 had 9.2%, the failure 0.0%)`).toBeGreaterThan(0.015);
+    await ctx.close();
+  }
+});
+
+for (const mode of ["default", "price", "reduced"] as const) for (const vp of [VP(1280, 720), VP(1024, 768), VP(768, 1024), VP(390, 844), VP(375, 812), VP(360, 800)]) {
+  test(`L19/QA-3: DOM-generated collisions (fixed nav, pill, corner buttons, canvas marks), ${mode} at ${vp.width}x${vp.height}`, async ({ browser }) => {
+    test.setTimeout(900_000);
+    const bad: string[] = [];
+    const { ctx, page } = await at(browser, vp, { reduced: mode === "reduced" });
+    await openSite(page);
+    if (mode === "price") await page.evaluate(() => (window as any).__peg.setStress({ layer: "price" }));
+    for (const [id, p] of QA_WALK) {
+      await page.evaluate(([i, q]) => (window as any).__peg.jumpTo(i, q), [id, p] as const);
+      await page.waitForTimeout(mode === "reduced" ? 800 : 1100);
+      if (mode === "price" && id === "control") {
+        for (const t of ["HEAT WAVE", "PRICE"]) {
+          const bx = await page.locator("#control button, #control [role=radio]", { hasText: new RegExp(`^${t}`) }).first().boundingBox({ timeout: 1000 }).catch(() => null); // 1 s: the toggles are not matched on phones, the default 30 s made this walk exceed 15 minutes
+          if (bx) { await page.mouse.click(bx.x + bx.width / 2, bx.y + bx.height / 2); await page.waitForTimeout(1200); }
+        }
+        await page.evaluate(() => (window as any).__peg.jumpTo("control", 0)); await page.waitForTimeout(800);
+      }
+      for (const x of await collideAll(page)) bad.push(`${id}@${p}: ${x}`);
+    }
+    await ctx.close();
+    expect(bad).toEqual([]);
+  });
+}

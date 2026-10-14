@@ -184,6 +184,7 @@ export function Ctrl({ def }: { def: SceneDef }) {
                             {m && binsSpanned(r.price_usd_mwh, m.voll_usd_mwh) <= 2 ? <p className="price-legend__flat" data-flat>{flatNote(binsSpanned(r.price_usd_mwh, m.voll_usd_mwh))}</p> : null}
                             <div className="price-legend__swatches">{PRICE_BINS.map((b, i) => <span key={b.id} style={{ "--c": b.color } as CSSProperties} className={i === 0 ? "is-p0" : i === 6 ? "is-p6" : ""} />)}</div>
                             <div className="price-legend__edges">{PRICE_BINS.map((b) => <span key={b.id}>{b.label}</span>)}</div>
+                            <p className="price-legend__unit">USD/MWH · SURPLUS = 0 OR BELOW · VOLL = UNSERVED</p>
                           </div>
                         ) : null}
                         <p className="fill-footer">{copyCtrl.note}</p>

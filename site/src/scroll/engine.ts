@@ -68,7 +68,7 @@ function tick() {
     // caption backing never drags across the fixed rose; the canvas is not inside the stage and is unaffected
     if (t.height > vh + 1) {
       const d = y < t.top ? t.top - y : Math.max(0, y - (t.top + t.height - vh));
-      const hand = Math.round(clamp(1 - d / (0.22 * vh)) * 100) / 100;
+      const hand = Math.round(clamp(1 - d / (0.12 * vh)) * 100) / 100;
       if (hand !== t.hand) { t.hand = hand; t.el.style.setProperty("--hand", String(hand)); }
     }
   }

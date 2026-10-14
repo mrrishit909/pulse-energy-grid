@@ -291,3 +291,8 @@ html[data-motion="off"] .corner-btn { background: rgb(0 0 0 / 0.92); }
 html[data-motion="off"] .corner-btn:hover { background: #fff; }
 /* QA D-030: the corner wordmark and date sit on a backing wherever they appear over the rose */
 .wordmark, .intro-corner { background: rgb(0 0 0 / 0.82); padding: 3px 6px; }
+
+/* QA pass 3 (L19): the fixed nav and corner buttons carry an opaque backing in every mode, so content scrolling under
+   them (CTRL is normal flow) is never read through the glass */
+.nav-bar__track, .nav-bar__utils, .menu-panel { background: rgb(14 14 14 / 0.94); }
+.corner-btn { background: rgb(0 0 0 / 0.9); }

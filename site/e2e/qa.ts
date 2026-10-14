@@ -167,3 +167,65 @@ export async function contrastFails(page: Page) {
     return bad;
   }, [png, items] as const);
 }
+
+/** P04-FIXG-001: the independent QA walk (pass 3), more progress points than WALK. */
+export const QA_WALK: [string, number][] = [["pulse", 0.02], ["pulse", 0.3], ["pulse", 0.78], ["source", 0.14], ["source", 0.36], ["source", 0.58], ["source", 0.8], ["demand", 0.2], ["demand", 0.74], ["demand", 0.9],
+  ["netload", 0.15], ["netload", 0.3], ["netload", 0.6], ["netload", 0.8], ["forecast", 0.0], ["forecast", 0.12], ["forecast", 0.5], ["forecast", 0.9], ["dispatch", 0.04], ["dispatch", 0.4], ["dispatch", 0.8],
+  ["stress", 0.1], ["stress", 0.64], ["stress", 0.82], ["evidence", 0.05], ["evidence", 0.35], ["evidence", 0.5], ["evidence", 0.8], ["evidence", 0.95], ["control", 0], ["closing", 0.5], ["closing", 0.76], ["closing", 0.97]];
+
+/**
+ * L19 (ported from the QA pass-3 probe artifacts/evidence/qa-3/probes/collide.mjs): one box list built from the whole
+ * DOM (every visible text run, every interactive element or chip, fixed nav / pill / corner buttons included as they
+ * are) plus the canvas marks. Pairs overlapping > 4 px^2 are defects unless they are flowing content scrolling under a
+ * fixed element that has an opaque backing (normal page scrolling). Returns readable defect strings.
+ */
+export function collideAll(page: Page) {
+  return page.evaluate(() => {
+    const vw = innerWidth, vh = innerHeight;
+    const effOp = (e: Element) => { let o = 1; for (let n: Element | null = e; n; n = n.parentElement) { const cs = getComputedStyle(n); if (cs.display === "none" || cs.visibility === "hidden") return 0; o *= +cs.opacity; } return o; };
+    const fixedAnc = (e: Element) => { for (let n: Element | null = e; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).position === "fixed") return n; return null; };
+    const pinned = (e: Element) => { for (let n: Element | null = e; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).position === "sticky") return true; return false; };
+    const backed = (e: Element) => { for (let n: Element | null = e; n && n !== document.body; n = n.parentElement) { const m = /rgba?\(([^)]+)\)/.exec(getComputedStyle(n).backgroundColor); if (m) { const a = m[1]!.split(",").map(Number); if ((a[3] ?? 1) >= 0.85) return true; } if (getComputedStyle(n).position === "fixed") break; } return false; };
+    type Owner = Element | { mark: true };
+    const isMark = (o: Owner): o is { mark: true } => "mark" in o;
+    const boxes: { owner: Owner; r: { l: number; t: number; r: number; b: number }; name: string }[] = [];
+    const add = (owner: Owner, r: DOMRect, name: string) => { if (r.width > 1 && r.height > 1 && r.bottom > 0 && r.top < vh && r.right > 0 && r.left < vw) boxes.push({ owner, r: { l: r.left, t: r.top, r: r.right, b: r.bottom }, name }); };
+    const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+      const el = n.parentElement; if (!el || !n.textContent?.trim() || el.closest(".sr-only, [aria-hidden=true], details:not([open]) table, title, script, style")) continue;
+      if (effOp(el) < 0.3) continue;
+      const card = el.closest(".story-card"); if (card) { const cr = card.getBoundingClientRect(); if (!(cr.left < vw / 2 && cr.right > vw / 2)) continue; }
+      const ctl = el.closest("button, a, label, select, summary, [role=button], [role=radio], [role=tab], [class*=chip]");
+      if (ctl) { add(ctl, ctl.getBoundingClientRect(), (ctl.textContent || "").trim().slice(0, 28)); continue; }
+      const rg = document.createRange(); rg.selectNodeContents(n);
+      if (getComputedStyle(el).overflow === "hidden") { add(el, el.getBoundingClientRect(), n.textContent.trim().slice(0, 28)); continue; }
+      for (const q of rg.getClientRects()) add(el, new DOMRect(q.left, q.top + q.height * 0.2, q.width, q.height * 0.6), n.textContent.trim().slice(0, 28));
+    }
+    for (const c of document.querySelectorAll("button, a[href], input, select, summary, [role=button], [role=radio], [role=tab], [role=switch], [role=slider], [tabindex]:not([tabindex='-1']), [class*=chip]")) {
+      if (effOp(c) < 0.3 || c.closest("[aria-hidden=true]")) continue;
+      const q = c.getBoundingClientRect();
+      if (!(c.textContent || "").trim() && q.width * q.height > 20000) continue; // figure hit areas: L9 checks them
+      add(c, q, c.getAttribute("aria-label") || (c.textContent || "").trim().slice(0, 28) || c.tagName);
+    }
+    const markOwner = { mark: true as const };
+    for (const m of (window as any).__peg?.marks?.() ?? []) add(markOwner, new DOMRect(m.x, m.y, m.w, m.h), "canvas " + m.name);
+    const out: string[] = [];
+    const seen = new Set<string>();
+    for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+      const a = boxes[i]!, b = boxes[j]!;
+      if (a.owner === b.owner || (isMark(a.owner) && isMark(b.owner))) continue;
+      if (!isMark(a.owner) && !isMark(b.owner) && (a.owner.contains(b.owner) || b.owner.contains(a.owner))) continue;
+      const w = Math.min(a.r.r, b.r.r) - Math.max(a.r.l, b.r.l), h = Math.min(a.r.b, b.r.b) - Math.max(a.r.t, b.r.t);
+      if (w <= 0 || h <= 0 || w * h <= 4) continue;
+      const fa = isMark(a.owner) ? null : fixedAnc(a.owner), fb = isMark(b.owner) ? null : fixedAnc(b.owner);
+      let cls: string;
+      if (fa && fb) cls = fa === fb ? "fixed-internal" : "fixed-vs-fixed";
+      else if (fa || fb) { const f = fa ? a : b, o = fa ? b : a; cls = !isMark(o.owner) && pinned(o.owner) ? "fixed-over-pinned" : backed(f.owner as Element) ? "flow-under-fixed" : "flow-under-fixed-unbacked"; }
+      else cls = (!isMark(a.owner) && pinned(a.owner)) || (!isMark(b.owner) && pinned(b.owner)) ? "pinned" : "flow";
+      if (cls === "flow-under-fixed" || cls === "fixed-internal") continue;
+      const key = `${cls}|${a.name}|${b.name}`; if (seen.has(key)) continue; seen.add(key);
+      out.push(`${cls}: "${a.name}" x "${b.name}"`);
+    }
+    return out;
+  });
+}

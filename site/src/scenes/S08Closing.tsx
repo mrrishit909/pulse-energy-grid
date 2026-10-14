@@ -17,6 +17,7 @@ import { clamp } from "../lib/math";
 import { fullParams, scenarioDemand } from "../model/lp";
 import { observedStack, petals, simulatedStack, type DayStack } from "../model/stack";
 import { drawRose, radius } from "../graphics/rose";
+import { useViewport } from "./useViewport";
 import type { DispatchModel } from "../model/types";
 import { baseView, registerFrame } from "./director";
 import { camera, layout } from "./geometry";
@@ -72,6 +73,8 @@ export function S08Closing({ def, onReplay }: { def: SceneDef; onReplay: () => v
   const [ms] = useArtifact(MODEL);
   const [mt] = useArtifact(META, false);
   const motion = useMotion();
+  const isM = useViewport().cls === "M";
+  const [creditOpen, setCreditOpen] = useState(false);
   useSyncExternalStore(ctrl.subscribe, ctrl.get); // re-render when the visitor's CTRL result changes the closing day
   const [ph, setPh] = useState({ caption: false, links: false, corners: false });
   useProgress(def.id, (p) => {
@@ -108,7 +111,12 @@ export function S08Closing({ def, onReplay }: { def: SceneDef; onReplay: () => v
           <li><a className="text-btn" href={copyS08.methodology} target="_blank" rel="noopener">→ READ THE METHODOLOGY</a></li>
           <li><a className="text-btn" href={copyS08.source} target="_blank" rel="noopener">→ SOURCE CODE</a></li>
         </ul>
-        {mt.status === "ready" ? <p className="close-credit">{mt.data.attribution.join(" · ")} · RETRIEVED {mt.data.generated_at}</p> : null}
+        {mt.status === "ready" ? (
+          isM ? (
+            // QA D-034: on phones the full credit sits behind a disclosure, so the echo rose keeps the frame
+            <details className="close-credit-d" onToggle={(e) => setCreditOpen(e.currentTarget.open)}><summary className="text-btn">DATA SOURCES AND ATTRIBUTION</summary>{creditOpen ? <p className="close-credit">{mt.data.attribution.join(" · ")} · RETRIEVED {mt.data.generated_at}</p> : null}</details>
+          ) : <p className="close-credit">{mt.data.attribution.join(" · ")} · RETRIEVED {mt.data.generated_at}</p>
+        ) : null}
       </div>
       </div>
     </Track>
